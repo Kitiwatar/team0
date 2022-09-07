@@ -1,0 +1,26 @@
+.current {
+    background-color: #03A9F3 !important;
+    border-color: #03A9F3 !important;
+}
+.paginate_button:hover {
+    background-color: #81d4f9 !important;
+    border-color: #81d4f9 !important;
+}
+.dataTables_filter input {   
+    background-image: linear-gradient(#81d4f9,#81d4f9),linear-gradient(#e9ecef,#e9ecef) !important;
+}
+.dataTables_length select {
+    background-image: linear-gradient(#81d4f9,#81d4f9),linear-gradient(#e9ecef,#e9ecef) !important;
+}
+th,td {
+    font-size: 16px;
+}
+.goto {
+    color: black !important;
+}
+.goto:hover {
+    color: #03A9F3 !important;
+}
+.dropdown-item:active {
+    background-color: #81d4f9 !important;
+}
