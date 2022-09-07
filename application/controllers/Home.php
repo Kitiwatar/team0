@@ -5,6 +5,10 @@ class Home extends CI_Controller {
 
   	public function __construct(){
 		parent::__construct();
+		if(isset($_SESSION['u_id'])) {
+			$data = $this->genmod->getOne('pms_user', '*', array('u_id'=>$_SESSION['u_id']));
+			$this->genlib->updateSession($data);
+		}
 	}
 
 	public function index() {

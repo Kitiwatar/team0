@@ -139,6 +139,26 @@
     });
   }
 
+  function view(u_id) {
+    $.ajax({
+      method: "post",
+      url: 'users/getDetailForm',
+      data: {
+        u_id: u_id
+      }
+    }).done(function(returnData) {
+      $('#detailModalTitle').html(returnData.title);
+      $('#detailModalBody').html(returnData.body);
+      $('#detailModalFooter').html(returnData.footer);
+      $("#u_firstname").attr("disabled",'TRUE');
+      $("#u_lastname").attr("disabled",'TRUE');
+      $("#u_email").attr("disabled",'TRUE');
+      $("#u_tel").attr("disabled",'TRUE');
+      $("#u_role").attr("disabled",'TRUE');
+      $('#detailModal').modal();  
+    });
+  }
+
   function edit(u_id) {
     $.ajax({
       method: "post",
@@ -151,6 +171,7 @@
       $('#mainModalBody').html(returnData.body);
       $('#mainModalFooter').html(returnData.footer);
       $('#mainModal').modal();
+     
     });
   }
 

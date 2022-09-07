@@ -32,12 +32,12 @@
                       }?>
                     </td>
                     <td class="text-center">
+                    <button type="button" class="btn btn-info" name="view" id="view"  onclick="view(<?= $value->u_id ?>)" title="ดูข้อมูลพนักงาน"><i class="mdi mdi-account-search"></i></button>
                       <button type="button" class="btn btn-warning" name="edit" id="edit"  onclick="edit(<?= $value->u_id ?>)" title="แก้ไขข้อมูลพนักงาน"><i class="mdi mdi-pencil"></i></button>
-                      <?php if ($value->u_status == 1) : ?>
+                      
                         <button type="button" class="btn btn-danger" name="del" id="del" title="ลบข้อมูล" onclick="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)"><i class="mdi mdi-delete"></i></button>
-                      <?php else : ?>
-                        <button type="button" class="btn btn-dark" name="del" id="del" title="กู้คืนข้อมูล" onclick="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)"><i class="mdi mdi-delete-empty"></i></button>
-                      <?php endif; ?>
+                      
+                        
                     </td>
                   </tr>
                 <?php endforeach; ?>

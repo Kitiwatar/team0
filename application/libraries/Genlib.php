@@ -20,6 +20,16 @@ class Genlib {
         }
     }
 
+    public function updateSession($data) {
+        $_SESSION['u_fullname'] = $data->u_firstname . " " . $data->u_lastname;
+		$_SESSION['u_role'] = $data->u_role;
+		$_SESSION['u_status'] = $data->u_status;
+        if($_SESSION['u_status'] != 1) {
+            session_destroy();
+            redirect(base_url());
+        } 
+    }
+
     public function ajaxOnly(){
        //display uri error if request is not from AJAX
        if(!$this->CI->input->is_ajax_request()){

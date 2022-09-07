@@ -269,6 +269,22 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade"  id="detailModal" tabindex="-1" aria-labelledby="modalCenterTitle" aria-hidden="true" data-keyboard="false">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document" id='modalSize'>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailModalTitle">Modal title</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body" id="detailModalBody">
+                    ...
+                </div>
+                <div class="modal-footer" id="detailModalFooter">
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- end modal -->
 
 </body>

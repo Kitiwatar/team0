@@ -502,7 +502,7 @@
 </style>
 <script>
     $('.table').DataTable({
-        dom: 'lftipB',
+        dom: 'lftBp',
         buttons: ['excel'],
         "language": {
             "oPaginate": {

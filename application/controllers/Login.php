@@ -36,6 +36,7 @@ class Login extends CI_Controller {
 				$_SESSION['u_id'] = $data->u_id;
 				$_SESSION['u_fullname'] = $data->u_firstname . " " . $data->u_lastname;
 				$_SESSION['u_role'] = $data->u_role;
+				$_SESSION['u_status'] = $data->u_status;
 				$json = ['status'=> 1];
 			} else {
 				$json = ['status'=> 2];
