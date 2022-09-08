@@ -12,6 +12,7 @@
                 <th>อีเมล</th>
                 <th>เบอร์โทรศัพท์</th>
                 <th>สิทธิ์ในการใช้งานระบบ</th>
+                <th>สถานะ</th>
                 <th class="text-center">ปุ่มดำเนินการ</th>
               </tr>
             </thead>
@@ -19,7 +20,7 @@
               <?php if (is_array($getData)) : ?>
                 <?php foreach ($getData as $key => $value) : ?>
                   <tr>
-                    <td><?= $value->u_firstname ?> <?= $value->u_lastname ?></td>
+                    <td onclick="view(<?= $value->u_id ?>)" style="cursor:pointer;"><?= $value->u_firstname ?> <?= $value->u_lastname ?></td>
                     <td><?= $value->u_email ?></td>
                     <td><?= $value->u_tel ?></td>
                     <td><?php
@@ -31,13 +32,16 @@
                         echo "พนักงาน"; 
                       }?>
                     </td>
+                    <td><?= ($value->u_status == 1) ? "กำลังทำงาน" : "ระงับการทำงาน" ?></td>
                     <td class="text-center">
-                    <button type="button" class="btn btn-info" name="view" id="view"  onclick="view(<?= $value->u_id ?>)" title="ดูข้อมูลพนักงาน"><i class="mdi mdi-account-search"></i></button>
+                      <button type="button" class="btn btn-info" name="view" id="view"  onclick="view(<?= $value->u_id ?>)" title="ดูข้อมูลพนักงาน"><i class="mdi mdi-file-find"></i></button>
+                      <button type="button" class="btn btn-primary" name="view" id="view"  onclick="view(<?= $value->u_id ?>)" title="เปลี่ยนรหัสผ่าน"><i class="mdi mdi-key-variant"></i></button>
                       <button type="button" class="btn btn-warning" name="edit" id="edit"  onclick="edit(<?= $value->u_id ?>)" title="แก้ไขข้อมูลพนักงาน"><i class="mdi mdi-pencil"></i></button>
-                      
+                      <?php if ($value->u_status == 1) : ?>
                         <button type="button" class="btn btn-danger" name="del" id="del" title="ลบข้อมูล" onclick="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)"><i class="mdi mdi-delete"></i></button>
-                      
-                        
+                      <?php else : ?>
+                        <button type="button" class="btn btn-dark" name="del" id="del" title="กู้คืนข้อมูล" onclick="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)"><i class="mdi mdi-backup-restore"></i></button>
+                      <?php endif; ?>
                     </td>
                   </tr>
                 <?php endforeach; ?>

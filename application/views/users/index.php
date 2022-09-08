@@ -2,7 +2,7 @@
 
 <script>
   loadList();
-
+  const digits_only = string => [...string].every(c => '0123456789'.includes(c));
   // new button on click and then show modal
   $('#addBtn').click(function(e) {
     e.preventDefault();
@@ -70,7 +70,7 @@
       } else {
         $('#emailMsg').text(' ');
       }
-      if(!Number.isInteger(parseInt(formData.u_tel)) || (formData.u_tel).length != 10) {
+      if(!digits_only(formData.u_tel) || (formData.u_tel).length != 10) {
         $('#telMsg').text(' กรอกได้เพียงตัวเลข 10 หลักเท่านั้น');
         $('#u_tel').focus();
         count++
@@ -192,7 +192,8 @@
       showCancelButton: true,
       showConfirmButton: true,
       confirmButtonText: "ยืนยัน",
-      cancelButtonText: "ยกเลิก",
+      cancelButtonColor: "#E4E4E4",
+      cancelButtonText: "<font style='color:black'>" + "ยกเลิก" + "</font>",
     }).then(function(isConfirm) {
       if (isConfirm.value) {
         $.ajax({

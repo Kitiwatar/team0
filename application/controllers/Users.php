@@ -22,8 +22,7 @@ class Users extends CI_Controller {
 	}
 
 	public function get(){
-		$arrayWhere = array("u_status"=>1);
-		$data['getData'] = $this->genmod->getAll('pms_user', '*',$arrayWhere,'u_createdate desc','','');
+		$data['getData'] = $this->genmod->getAll('pms_user', '*','','u_createdate desc','','');
 		$json['html'] = $this->load->view('users/list', $data, TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
@@ -86,6 +85,7 @@ class Users extends CI_Controller {
 
 	public function getDetailForm(){
 		$json['title'] = 'ข้อมูลพนักงาน';
+		$data['detail'] = "yes";
 		$data['arrayRole'] = array(1=>"ผู้ดูแลระบบ", 2=>"หัวหน้าโครงการ", 3=>"พนักงาน");
 		$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
 		$json['body'] = $this->load->view('users/formadd', $data ,true);
@@ -93,7 +93,17 @@ class Users extends CI_Controller {
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
-  public function updateStatus(){
+	public function getPasswordForm(){
+		
+		$data['arrayRole'] = array(1=>"ผู้ดูแลระบบ", 2=>"หัวหน้าโครงการ", 3=>"พนักงาน");
+		$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
+		
+		$json['body'] = $this->load->view('users/formadd', $data ,true);
+		$json['footer'] = '';
+		$this->output->set_content_type('application/json')->set_output(json_encode($json));
+	}
+
+  	public function updateStatus(){
 		$this->genlib->ajaxOnly();
 		$updateData = $this->input->post();
 		if($this->genmod->update('pms_user', array('u_status'=> ($updateData['u_status'] == 0? '1':'0')), array('u_id'=>$updateData['u_id']))){
