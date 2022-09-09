@@ -147,15 +147,10 @@
         u_id: u_id
       }
     }).done(function(returnData) {
-      $('#detailModalTitle').html(returnData.title);
-      $('#detailModalBody').html(returnData.body);
-      $('#detailModalFooter').html(returnData.footer);
-      $("#u_firstname").attr("disabled",'TRUE');
-      $("#u_lastname").attr("disabled",'TRUE');
-      $("#u_email").attr("disabled",'TRUE');
-      $("#u_tel").attr("disabled",'TRUE');
-      $("#u_role").attr("disabled",'TRUE');
-      $('#detailModal').modal();  
+      $('#mainModalTitle').html(returnData.title);
+      $('#mainModalBody').html(returnData.body);
+      $('#mainModalFooter').html(returnData.footer);
+      $('#mainModal').modal();  
     });
   }
 
@@ -171,7 +166,91 @@
       $('#mainModalBody').html(returnData.body);
       $('#mainModalFooter').html(returnData.footer);
       $('#mainModal').modal();
-     
+    });
+  }
+
+  function submitPwdForm(u_id) {
+    // $('#fMsg').addClass('text-warning');
+    // $('#fMsg').text('กำลังดำเนินการ ...');
+    var formData = {};
+    formData['u_id'] = u_id;
+    $('[name^="inputValue"]').each(function() {
+      formData[this.id] = this.value;
+    });
+
+    console.log(formData);
+    if (!formData.pwd || !formData.cfPwd) {
+      $('#errMsg').addClass('text-danger');
+      $('#errMsg').text('กรุณาระบุข้อมูลให้ครบถ้วน');
+      !formData.pwd ? $('#cfPwd').focus() : '';
+      !formData.cfPwd ? $('#pwd').focus() : '';
+      return false;
+    } else if (formData.pwd != formData.cfPwd) {
+      $('#errMsg').addClass('text-danger');
+      $('#errMsg').text('รหัสผ่านไม่ตรงกัน');
+      return false;
+    }
+    swal({
+      title: "ยืนยันการเปลี่ยนรหัสผ่าน",
+      text: "คุณต้องการเปลี่ยนรหัสผ่านใช่หรือไม่",
+      type: "warning",
+      showCancelButton: true,
+      showConfirmButton: true,
+      confirmButtonText: "ยืนยัน",
+      cancelButtonText: "ยกเลิก",
+    }).then(function(isConfirm) {
+      if (isConfirm.value) {
+        $.ajax({
+          method: "post",
+          url: 'users/updatePassword',
+          data: formData
+        }).done(function(returnData) {
+          if (returnData.status == 1) {
+            swal({
+              title: "สำเร็จ",
+              text: returnData.msg,
+              type: "success",
+              showCancelButton: false,
+              showConfirmButton: false,
+              timer: 1000,
+            });
+            $('#fMsg').addClass('text-success');
+            $('#fMsg').text(returnData.msg);
+            $('#pwdForm')[0].reset();
+            $('#mainModal').modal('hide');
+            loadList();
+          } else {
+            swal({
+              title: "ล้มเหลว",
+              text: returnData.msg,
+              type: "error",
+              showCancelButton: false,
+              showConfirmButton: false,
+              timer: 1000,
+            });
+            $('#fMsg').addClass('text-success');
+            $('#fMsg').text(returnData.msg);
+            $('#pwdForm')[0].reset();
+            $('#mainModal').modal('hide');
+            loadList();
+          }
+        });
+      }
+    });
+  }
+
+  function changePassword(u_id) {
+    $.ajax({
+      method: "post",
+      url: 'users/getPasswordForm',
+      data: {
+        u_id: u_id
+      }
+    }).done(function(returnData) {
+      $('#mainModalTitle').html(returnData.title);
+      $('#mainModalBody').html(returnData.body);
+      $('#mainModalFooter').html(returnData.footer);
+      $('#mainModal').modal();  
     });
   }
 

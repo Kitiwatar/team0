@@ -31,18 +31,22 @@ class Login extends CI_Controller {
 
 		$data = $this->genmod->getOne('pms_user', '*', array('u_email' => $formData['u_email']));
 
-		if(isset($data->u_id) && $data->u_status != 0) {
+		if(isset($data->u_id)) {
 			if($data->u_password == $passwordHash) {
-				$_SESSION['u_id'] = $data->u_id;
-				$_SESSION['u_fullname'] = $data->u_firstname . " " . $data->u_lastname;
-				$_SESSION['u_role'] = $data->u_role;
-				$_SESSION['u_status'] = $data->u_status;
-				$json = ['status'=> 1];
+				if($data->u_status != 0) {
+					$_SESSION['u_id'] = $data->u_id;
+					$_SESSION['u_fullname'] = $data->u_firstname . " " . $data->u_lastname;
+					$_SESSION['u_role'] = $data->u_role;
+					$_SESSION['u_status'] = $data->u_status;
+					$json = ['status'=> 1];
+				} else {
+					$json = ['status'=> 0, 'msg'=>'บัญชีผู้ใช้ถูกระงับ กรุณาติดต่อผู้ดูแลระบบ'];
+				}
 			} else {
-				$json = ['status'=> 2];
-			}
+				$json = ['status'=> 0, 'msg'=>'รหัสผ่านไม่ถูกต้อง'];
+			} 
 		} else {
-			$json = ['status'=> 0];			
+			$json = ['status'=> 0, 'msg'=>'ไม่พบบัญชีผู้ใช้นี้ระบบ'];			
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
     }

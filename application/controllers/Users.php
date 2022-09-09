@@ -48,23 +48,29 @@ class Users extends CI_Controller {
 		$this->form_validation->set_rules('u_firstname', 'ชื่อ', 'required', $arrayErr);
 		$this->form_validation->set_rules('u_lastname', 'นามสกุล', 'required', $arrayErr);
 		$this->form_validation->set_rules('u_email', 'อีเมล', 'required|valid_email', $arrayErr);
-		$this->form_validation->set_rules('u_tel', 'เบอร์โทรศัพท์', 'required|numeric|min_length[10]|max_length[10]', $arrayErr);
+		$this->form_validation->set_rules('u_tel', 'เบอร์โทรศัพท์', 'required|min_length[10]|max_length[10]', $arrayErr);
 		$this->form_validation->set_rules('u_role', 'สิทธิ์การใช้งาน', 'required|numeric', $arrayErr);
 
 		if($this->form_validation->run() !== FALSE && $formData['u_role'] < 4 && $formData['u_role'] > 0){
-			$checkSame = $this->genmod->getOne('pms_user', 'u_id',array('u_email'=>$formData['u_email']));
 			$formData['u_email'] = strtolower($formData['u_email']);
-			if($formData['u_id'] == 'new' && !$checkSame){
-				$formData['u_password'] = hash('sha256', $formData['u_tel']);
-				$this->genmod->add('pms_user',$formData);
-				$json = ['status'=> 1, 'msg'=>'บันทึกข้อมูลสำเร็จ'];
-			}else if($checkSame->u_id == $formData['u_id']){
-				$u_id = $formData['u_id'];
-				unset($formData['u_id']);
-				$this->genmod->update('pms_user', $formData, array('u_id'=>$u_id));
-				$json = ['status'=> 1, 'msg'=>'แก้ไขข้อมูลสำเร็จ'];
+			$checkSame = $this->genmod->getOne('pms_user', 'u_id',array('u_email'=>$formData['u_email']));
+			if($formData['u_id'] == 'new') {
+				if(!$checkSame) {
+					$formData['u_password'] = hash('sha256', $formData['u_tel']);
+					$this->genmod->add('pms_user',$formData);
+					$json = ['status'=> 1, 'msg'=>'บันทึกข้อมูลสำเร็จ'];
+				} else {
+					$json = ['status'=> 0, 'msg'=>'เกิดข้อผิดพลาด อีเมลนี้มีผู้ใช้งานแล้ว', 'sql'=> $this->db->last_query()];
+				}
 			} else {
-				$json = ['status'=> 0, 'msg'=>'เกิดข้อผิดพลาด อีเมลนี้มีผู้ใช้งานแล้ว', 'sql'=> $this->db->last_query()];
+				if(!$checkSame || $checkSame->u_id == $formData['u_id']) {
+					$u_id = $formData['u_id'];
+					unset($formData['u_id']);
+					$this->genmod->update('pms_user', $formData, array('u_id'=>$u_id));
+					$json = ['status'=> 1, 'msg'=>'แก้ไขข้อมูลสำเร็จ'];
+				} else {
+					$json = ['status'=> 0, 'msg'=>'เกิดข้อผิดพลาด อีเมลนี้มีผู้ใช้งานแล้ว', 'sql'=> $this->db->last_query()];
+				}
 			}
 		}else{
 			$json = ['status'=> 0, 'msg'=>"พบปัญหา ข้อมูลมีความผิดพลาด เพิ่มข้อมูลไม่สำเร็จ ",'error'=>$this->form_validation->error_array()];
@@ -94,12 +100,24 @@ class Users extends CI_Controller {
 	}
 
 	public function getPasswordForm(){
-		
-		$data['arrayRole'] = array(1=>"ผู้ดูแลระบบ", 2=>"หัวหน้าโครงการ", 3=>"พนักงาน");
 		$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
-		
-		$json['body'] = $this->load->view('users/formadd', $data ,true);
-		$json['footer'] = '';
+		$json['title'] = 'เปลี่ยนรหัสผ่านของ: ' . $data['getData']->u_firstname . " " . $data['getData']->u_lastname;
+		$json['body'] = $this->load->view('users/formpassword', $data ,true);
+		$json['footer'] = '<span id="errMsg"></span><button type="button" class="btn btn-success" onclick="submitPwdForm('.$this->input->post('u_id').');">บันทึก</button>
+		<button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>';
+		$this->output->set_content_type('application/json')->set_output(json_encode($json));
+	}
+
+	public function updatePassword(){
+		$this->genlib->ajaxOnly();
+		$updateData = $this->input->post();
+		if($updateData['pwd'] == $updateData['cfPwd']){
+			$updateData['pwd'] = hash('sha256', $updateData['pwd']);
+			$this->genmod->update('pms_user', array('u_password'=> $updateData['pwd']), array('u_id'=>$updateData['u_id']));
+			$json = ['status'=> 1, 'msg'=>"เปลี่ยนรหัสผ่านสำเร็จ"];
+		}else{
+			$json = ['status'=> 0, 'msg'=>"เกิดข้อผิดพลาด"];
+		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 

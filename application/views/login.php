@@ -29,12 +29,10 @@
                 u_password: $('#u_password').val()
             },
         }).done(function(returnData) {
-            if (returnData.status == 0) {
-                $('#alert').html('ไม่พบอีเมลนี้ในระบบ');
-            } else if(returnData.status == 1) {
-                location.replace("home")
+            if (returnData.status == 1) {
+                location.replace("home");
             } else {
-                $('#alert').html('รหัสผ่านไม่ถูกต้อง');
+                $('#alert').html(returnData.msg);
             }
         });
     });
