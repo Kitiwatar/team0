@@ -9,12 +9,13 @@ class Users extends CI_Controller {
 		$data = $this->genmod->getOne('pms_user', '*', array('u_id'=>$_SESSION['u_id']));
 		$this->genlib->updateSession($data);
 
-		if($_SESSION['u_role'] != 1) {
-			redirect(base_url());
-		}
+		
 	}
 
 	public function index()	{
+		if($_SESSION['u_role'] != 1) {
+			redirect(base_url());
+		}
 		$values['pageTitle'] = 'รายชื่อพนักงานในระบบ';
 		$values['breadcrumb'] = 'รายชื่อพนักงานในระบบ';
 		$values['pageContent'] = $this->load->view('users/index', $values, TRUE);
@@ -22,12 +23,30 @@ class Users extends CI_Controller {
 	}
 
 	public function get(){
+		if($_SESSION['u_role'] != 1) {
+			redirect(base_url());
+		}
 		$data['getData'] = $this->genmod->getAll('pms_user', '*','','u_createdate desc','','');
 		$json['html'] = $this->load->view('users/list', $data, TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
+public function getDataPerson(){
+	$values['pageTitle'] = 'ข้อมูลพนักงาน';
+	$values['breadcrumb'] = 'ข้อมูลพนักงาน';
+	$values['arrayRole'] = array("1"=>"ผู้ดูแลระบบ", "2"=>"หัวหน้าโครงการ", "3"=>"พนักงาน");
+	$values['getData'] = $this->genmod->getOne('pms_user', '*',array('u_id'=>$_SESSION['u_id']),'u_createdate desc','','');
+	$values['pageContent'] = $this->load->view('users/persondetail', $values, TRUE);
+	$this->load->view('main', $values);	
+
+}
+
+
+
   public function getAddForm(){
+	if($_SESSION['u_role'] != 1) {
+		redirect(base_url());
+	}
 		$json['title'] = 'เพิ่มพนักงานในระบบ';
 		$data['arrayRole'] = array("1"=>"ผู้ดูแลระบบ", "2"=>"หัวหน้าโครงการ", "3"=>"พนักงาน");
 		$json['body'] = $this->load->view('users/formadd', $data ,true);
@@ -37,6 +56,9 @@ class Users extends CI_Controller {
 	}
 
 	public function add(){
+		if($_SESSION['u_role'] != 1) {
+			redirect(base_url());
+		}
 		$this->genlib->ajaxOnly();
 		$formData = $this->input->post();
 		$arrayErr = array(
@@ -80,6 +102,9 @@ class Users extends CI_Controller {
 	}
 
 	public function getEditForm(){
+		if($_SESSION['u_role'] != 1) {
+			redirect(base_url());
+		}
 		$json['title'] = 'แก้ไขข้อมูลพนักงาน';
 		$data['arrayRole'] = array(1=>"ผู้ดูแลระบบ", 2=>"หัวหน้าโครงการ", 3=>"พนักงาน");
 		$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
@@ -90,6 +115,9 @@ class Users extends CI_Controller {
 	}
 
 	public function getDetailForm(){
+		if($_SESSION['u_role'] != 1) {
+			redirect(base_url());
+		}
 		$json['title'] = 'ข้อมูลพนักงาน';
 		$data['detail'] = "yes";
 		$data['arrayRole'] = array(1=>"ผู้ดูแลระบบ", 2=>"หัวหน้าโครงการ", 3=>"พนักงาน");
@@ -100,6 +128,9 @@ class Users extends CI_Controller {
 	}
 
 	public function getPasswordForm(){
+		if($_SESSION['u_role'] != 1) {
+			redirect(base_url());
+		}
 		$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
 		$json['title'] = 'เปลี่ยนรหัสผ่านของ: ' . $data['getData']->u_firstname . " " . $data['getData']->u_lastname;
 		$json['body'] = $this->load->view('users/formpassword', $data ,true);
@@ -122,6 +153,9 @@ class Users extends CI_Controller {
 	}
 
   	public function updateStatus(){
+		if($_SESSION['u_role'] != 1) {
+			redirect(base_url());
+		}
 		$this->genlib->ajaxOnly();
 		$updateData = $this->input->post();
 		if($this->genmod->update('pms_user', array('u_status'=> ($updateData['u_status'] == 0? '1':'0')), array('u_id'=>$updateData['u_id']))){

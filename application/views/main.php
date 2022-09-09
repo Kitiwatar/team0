@@ -137,7 +137,7 @@
                             <?php echo $_SESSION['u_fullname'];?>
                             <img src="<?=base_url()?>assets/images/users/1.jpg" alt="user" class=""></span> </a>
                             <div class="dropdown-menu animated flipInY" style="right: 0;">
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-account"></i> ข้อมูลส่วนตัว</a>
+                                <a href="<?=base_url()?>users/getDataPerson" class="dropdown-item"><i class="mdi mdi-account"></i> ข้อมูลส่วนตัว</a>
                                 <div class="dropdown-divider"></div>
                                 <a href="<?=base_url()?>login/logout" class="dropdown-item"><i class="mdi mdi-logout"></i> ออกจากระบบ</a>
                             </div>
