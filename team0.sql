@@ -196,19 +196,19 @@ ALTER TABLE `pms_user`
 -- AUTO_INCREMENT for table `pms_file`
 --
 ALTER TABLE `pms_file`
-  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีไฟล์', AUTO_INCREMENT=3;
+  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีไฟล์';
 
 --
 -- AUTO_INCREMENT for table `pms_log`
 --
 ALTER TABLE `pms_log`
-  MODIFY `l_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีบันทึก', AUTO_INCREMENT=8;
+  MODIFY `l_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีบันทึก';
 
 --
 -- AUTO_INCREMENT for table `pms_project`
 --
 ALTER TABLE `pms_project`
-  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีโครงการ', AUTO_INCREMENT=3;
+  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีโครงการ';
 
 --
 -- AUTO_INCREMENT for table `pms_tasklist`
@@ -220,7 +220,7 @@ ALTER TABLE `pms_tasklist`
 -- AUTO_INCREMENT for table `pms_user`
 --
 ALTER TABLE `pms_user`
-  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีผู้ใช้', AUTO_INCREMENT=39;
+  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีผู้ใช้';
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
