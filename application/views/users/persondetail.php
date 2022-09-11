@@ -21,7 +21,7 @@
                         <input type="text" class="form-control"  id="tel" value="<?= isset($getData) ? $getData->u_tel : '' ?>" disabled>
                     </div>
                     <div class="form-group">
-                        <label for="position" class="form-label">ตำแหน่ง</label>
+                        <label for="position" class="form-label">สิทธิ์การใช้งานระบบ</label>
                         <input type = "text" class="form-control"  disabled name="inputValue[]" id="u_role"
                             <?php if(isset($getData->u_role)) {
                                foreach($arrayRole as $key=>$value) { 

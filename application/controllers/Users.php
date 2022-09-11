@@ -8,12 +8,23 @@ class Users extends CI_Controller {
 		$this->genlib->checkLogin();
 		$data = $this->genmod->getOne('pms_user', '*', array('u_id'=>$_SESSION['u_id']));
 		$this->genlib->updateSession($data);
-
-		
+		if($_SESSION['u_role'] > 1) {
+			redirect(base_url());
+		}
 	}
 
+	public function getAllRole($dataType = "php") {
+		if($dataType == "php") {
+			$arrayRole = array(1=>"ผู้ดูแลระบบ", 2=>"หัวหน้าโครงการ", 3=>"พนักงาน");
+			return $arrayRole;
+		} else {
+			$json = ['arrayRole'=> ["ผู้ดูแลระบบ", "หัวหน้าโครงการ", "พนักงาน"]];
+			$this->output->set_content_type('application/json')->set_output(json_encode($json));
+		}
+    }
+
 	public function index()	{
-		if($_SESSION['u_role'] != 1) {
+		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
 		$values['pageTitle'] = 'รายชื่อพนักงานในระบบ';
@@ -23,32 +34,30 @@ class Users extends CI_Controller {
 	}
 
 	public function get(){
-		if($_SESSION['u_role'] != 1) {
+		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
+		$data['arrayRole'] = $this->getAllRole();
 		$data['getData'] = $this->genmod->getAll('pms_user', '*','','u_createdate desc','','');
 		$json['html'] = $this->load->view('users/list', $data, TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
-public function getDataPerson(){
-	$values['pageTitle'] = 'ข้อมูลพนักงาน';
-	$values['breadcrumb'] = 'ข้อมูลพนักงาน';
-	$values['arrayRole'] = array("1"=>"ผู้ดูแลระบบ", "2"=>"หัวหน้าโครงการ", "3"=>"พนักงาน");
-	$values['getData'] = $this->genmod->getOne('pms_user', '*',array('u_id'=>$_SESSION['u_id']),'u_createdate desc','','');
-	$values['pageContent'] = $this->load->view('users/persondetail', $values, TRUE);
-	$this->load->view('main', $values);	
-
-}
-
-
-
-  public function getAddForm(){
-	if($_SESSION['u_role'] != 1) {
-		redirect(base_url());
+	public function getDataPerson(){
+		$values['pageTitle'] = 'ข้อมูลพนักงาน';
+		$values['breadcrumb'] = 'ข้อมูลพนักงาน';
+		$data['arrayRole'] = $this->getAllRole();
+		$data['getData'] = $this->genmod->getOne('pms_user', '*',array('u_id'=>$_SESSION['u_id']),'u_createdate desc','','');
+		$values['pageContent'] = $this->load->view('users/persondetail', $data, TRUE);
+		$this->load->view('main', $values);	
 	}
+
+ 	public function getAddForm(){
+		if($_SESSION['u_role'] > 1) {
+			redirect(base_url());
+		}
 		$json['title'] = 'เพิ่มพนักงานในระบบ';
-		$data['arrayRole'] = array("1"=>"ผู้ดูแลระบบ", "2"=>"หัวหน้าโครงการ", "3"=>"พนักงาน");
+		$data['arrayRole'] = $this->getAllRole();
 		$json['body'] = $this->load->view('users/formadd', $data ,true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit(\'new\');">บันทึก</button>
 		<button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>';
@@ -56,7 +65,7 @@ public function getDataPerson(){
 	}
 
 	public function add(){
-		if($_SESSION['u_role'] != 1) {
+		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
 		$this->genlib->ajaxOnly();
@@ -75,17 +84,20 @@ public function getDataPerson(){
 
 		if($this->form_validation->run() !== FALSE && $formData['u_role'] < 4 && $formData['u_role'] > 0){
 			$formData['u_email'] = strtolower($formData['u_email']);
-			$checkSame = $this->genmod->getOne('pms_user', 'u_id',array('u_email'=>$formData['u_email']));
+			$validCheck = $this->genmod->getOne('pms_user', '*',array('u_email'=>$formData['u_email']));
 			if($formData['u_id'] == 'new') {
-				if(!$checkSame) {
+				if(!$validCheck) {
 					$formData['u_password'] = hash('sha256', $formData['u_tel']);
+					$formData['u_creator'] = $_SESSION['u_id'];
 					$this->genmod->add('pms_user',$formData);
 					$json = ['status'=> 1, 'msg'=>'บันทึกข้อมูลสำเร็จ'];
 				} else {
 					$json = ['status'=> 0, 'msg'=>'เกิดข้อผิดพลาด อีเมลนี้มีผู้ใช้งานแล้ว', 'sql'=> $this->db->last_query()];
 				}
 			} else {
-				if(!$checkSame || $checkSame->u_id == $formData['u_id']) {
+				if(isset($validCheck->u_role) && $validCheck->u_role <= 1) {
+					$json = ['status'=> 0, 'msg'=>'เกิดข้อผิดพลาด ไม่มีสิทธิ์ในการแก้ไขข้อมูล', 'sql'=> $this->db->last_query()];
+				} else if(!$validCheck || $validCheck->u_id == $formData['u_id']) {
 					$u_id = $formData['u_id'];
 					unset($formData['u_id']);
 					$this->genmod->update('pms_user', $formData, array('u_id'=>$u_id));
@@ -102,11 +114,11 @@ public function getDataPerson(){
 	}
 
 	public function getEditForm(){
-		if($_SESSION['u_role'] != 1) {
+		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
 		$json['title'] = 'แก้ไขข้อมูลพนักงาน';
-		$data['arrayRole'] = array(1=>"ผู้ดูแลระบบ", 2=>"หัวหน้าโครงการ", 3=>"พนักงาน");
+		$data['arrayRole'] = $this->getAllRole();
 		$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
 		$json['body'] = $this->load->view('users/formadd', $data ,true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit('.$this->input->post('u_id').');">บันทึก</button>
@@ -115,12 +127,12 @@ public function getDataPerson(){
 	}
 
 	public function getDetailForm(){
-		if($_SESSION['u_role'] != 1) {
+		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
 		$json['title'] = 'ข้อมูลพนักงาน';
 		$data['detail'] = "yes";
-		$data['arrayRole'] = array(1=>"ผู้ดูแลระบบ", 2=>"หัวหน้าโครงการ", 3=>"พนักงาน");
+		$data['arrayRole'] = $this->getAllRole();
 		$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
 		$json['body'] = $this->load->view('users/formadd', $data ,true);
 		$json['footer'] = '';
@@ -128,11 +140,11 @@ public function getDataPerson(){
 	}
 
 	public function getPasswordForm(){
-		if($_SESSION['u_role'] != 1) {
+		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
 		$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
-		$json['title'] = 'เปลี่ยนรหัสผ่านของ: ' . $data['getData']->u_firstname . " " . $data['getData']->u_lastname;
+		$json['title'] = 'เปลี่ยนรหัสผ่านของ : ' . $data['getData']->u_firstname . " " . $data['getData']->u_lastname;
 		$json['body'] = $this->load->view('users/formpassword', $data ,true);
 		$json['footer'] = '<span id="errMsg"></span><button type="button" class="btn btn-success" onclick="submitPwdForm('.$this->input->post('u_id').');">บันทึก</button>
 		<button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>';
@@ -142,29 +154,50 @@ public function getDataPerson(){
 	public function updatePassword(){
 		$this->genlib->ajaxOnly();
 		$updateData = $this->input->post();
-		if($updateData['pwd'] == $updateData['cfPwd']){
-			$updateData['pwd'] = hash('sha256', $updateData['pwd']);
-			$this->genmod->update('pms_user', array('u_password'=> $updateData['pwd']), array('u_id'=>$updateData['u_id']));
-			$json = ['status'=> 1, 'msg'=>"เปลี่ยนรหัสผ่านสำเร็จ"];
-		}else{
+		$validCheck = $this->genmod->getOne('pms_user', '*', array('u_id' => $updateData['u_id']));
+		if(isset($validCheck) && $_SESSION['u_role'] <= $validCheck->u_role) {
+			if($updateData['pwd'] == $updateData['cfPwd']) {
+				$updateData['pwd'] = hash('sha256', $updateData['pwd']);
+				$this->genmod->update('pms_user', array('u_password'=> $updateData['pwd']), array('u_id' => $updateData['u_id']));
+				$json = ['status'=> 1, 'msg'=>"เปลี่ยนรหัสผ่านสำเร็จ"];
+			}
+		} else {
+			$json = ['status'=> 0, 'msg'=>"เกิดข้อผิดพลาด"];
+		}
+		$this->output->set_content_type('application/json')->set_output(json_encode($json));
+	}
+
+	public function updateRole(){
+		$this->genlib->ajaxOnly();
+		$updateData = $this->input->post();
+		$validCheck = $this->genmod->getOne('pms_user', '*', array('u_id' => $updateData['u_id']));
+		if(isset($validCheck) && $_SESSION['u_role'] <= $validCheck->u_role) {
+			if($updateData['u_role'] < 4 && $updateData['u_role'] > 0) {
+				$this->genmod->update('pms_user', array('u_role'=> $updateData['u_role']), array('u_id' => $updateData['u_id']));
+				$json = ['status'=> 1, 'msg'=>"เปลี่ยนสิทธิ์การใช้งานสำเร็จ"];
+			}
+		} else {
 			$json = ['status'=> 0, 'msg'=>"เกิดข้อผิดพลาด"];
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
   	public function updateStatus(){
-		if($_SESSION['u_role'] != 1) {
+		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
 		$this->genlib->ajaxOnly();
 		$updateData = $this->input->post();
-		if($this->genmod->update('pms_user', array('u_status'=> ($updateData['u_status'] == 0? '1':'0')), array('u_id'=>$updateData['u_id']))){
-			if($updateData['u_status'] == 1) {
-				$msg = "ลบพนักงานออกจากระบบสำเร็จ";
-			} else {
-				$msg = "กู้คืนข้อมูลพนักงานสำเร็จ";
+		$validCheck = $this->genmod->getOne('pms_user', '*', array('u_id' => $updateData['u_id']));
+		if(isset($validCheck) && $_SESSION['u_role'] <= $validCheck->u_role) {
+			if($this->genmod->update('pms_user', array('u_status'=> ($updateData['u_status'] == 0? '1':'0')), array('u_id'=>$updateData['u_id']))){
+				if($updateData['u_status'] == 1) {
+					$msg = "ลบพนักงานออกจากระบบสำเร็จ";
+				} else {
+					$msg = "กู้คืนข้อมูลพนักงานสำเร็จ";
+				}
+				$json = ['status'=> 1, 'msg'=>$msg];
 			}
-			$json = ['status'=> 1, 'msg'=>$msg];
 		}else{
 			$json = ['status'=> 0, 'msg'=>"เกิดข้อผิดพลาด"];
 		}

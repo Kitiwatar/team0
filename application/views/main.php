@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="<?=base_url()?>assets/images/favicon.png">
-    <title>Project Monitoring System By IV soft</title>
+    <title><?= $pageTitle ?></title>
     <!-- This page CSS -->
     <!-- chartist CSS -->
     <link href="<?=base_url()?>assets/node_modules/morrisjs/morris.css" rel="stylesheet">
@@ -61,6 +61,16 @@
     <!-- Sweet-Alert  -->
     <script src="<?=base_url()?>assets/node_modules/sweetalert/sweetalert.min.js"></script>
     <!-- <script src="<?=base_url()?>assets/node_modules/sweetalert2/sweet-alert.init.js"></script> -->
+    <!-- start - This is for export functionality only -->
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script src="https://www.ninenik.com/js/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
+    <!-- end - This is for export functionality only -->
   </head>
 
 <body class="skin-blue fixed-layout">
@@ -135,9 +145,11 @@
                         <?php if(isset($_SESSION['u_fullname'])) { ?>
                             <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown" data-bs-display="static" aria-expanded="false"><span class="hidden-md-down">
                             <?php echo $_SESSION['u_fullname'];?>
-                            <img src="<?=base_url()?>assets/images/users/1.jpg" alt="user" class=""></span> </a>
+                            <img src="<?=base_url()?>assets/images/users/user.png" alt="user" class=""></span> </a>
                             <div class="dropdown-menu animated flipInY" style="right: 0;">
                                 <a href="<?=base_url()?>users/getDataPerson" class="dropdown-item"><i class="mdi mdi-account"></i> ข้อมูลส่วนตัว</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="" class="dropdown-item"><i class="mdi mdi-key-variant"></i> เปลี่ยนรหัสผ่าน</a>
                                 <div class="dropdown-divider"></div>
                                 <a href="<?=base_url()?>login/logout" class="dropdown-item"><i class="mdi mdi-logout"></i> ออกจากระบบ</a>
                             </div>
@@ -171,10 +183,17 @@
                             </a>
                         </li>
                         <?php if (isset($_SESSION['u_id'])) : ?>
-                            <?php if ($_SESSION['u_role'] == 1) : ?>
+                            <?php if ($_SESSION['u_role'] <= 1) : ?>
                                 <li>
                                     <a class="waves-effect waves-dark" href="<?= base_url() ?>Users" aria-expanded="false">
                                         <i class="mdi mdi-account-card-details"></i><span class="hide-menu">พนักงานในระบบ</span>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                            <?php if ($_SESSION['u_role'] < 1) : ?>
+                                <li>
+                                    <a class="waves-effect waves-dark" href="" aria-expanded="false">
+                                        <i class="mdi mdi-database"></i><span class="hide-menu">ฐานข้อมูล</span>
                                     </a>
                                 </li>
                             <?php endif; ?>

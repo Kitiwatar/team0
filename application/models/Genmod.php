@@ -83,7 +83,7 @@ class Genmod extends CI_Model{
     $this->db->insert($table,$arrayData);
     if($this->db->affected_rows() > 0){
       $insert_id = $this->db->insert_id();
-      // $this->addlog('add', $table, $arrayData);
+      $this->addlog('add', $table, $arrayData);
       return $insert_id;
     }else{
       return FALSE;
@@ -95,12 +95,8 @@ class Genmod extends CI_Model{
       $this->db->where($arrayWhere);
     }
     $this->db->update($table, $arrayData);
-    // $this->addlog('update', $table, $arrayData);
+    $this->addlog('update', $table, $arrayData);
     return TRUE;
-  }
-
-  public function delete($table, $arrayWhere = '') {
-    $this->db->delete($table, $arrayWhere);
   }
 
   public function countAll($table, $arrayWhere = '', $arrayJoinTable = ''){
@@ -128,7 +124,7 @@ class Genmod extends CI_Model{
   }
 
   function addlog($action, $table, $jsonData){
-    $this->db->insert('system_log',array('action'=>$action,'table_name'=>$table,'related_data'=>json_encode($jsonData,JSON_UNESCAPED_UNICODE), 'command'=>$this->db->last_query(), 'user'=>$_SESSION['user_id'] ));
+    $this->db->insert('pms_log',array('l_action'=>$action,'l_table'=>$table,'l_data'=>json_encode($jsonData,JSON_UNESCAPED_UNICODE), 'l_command'=>$this->db->last_query(), 'l_u_id'=>$_SESSION['u_id'] ));
   }
 
   function getCategoryOptions($arrayWhere=''){
