@@ -163,7 +163,22 @@ class Users extends CI_Controller {
 		$this->genlib->ajaxOnly();
 		$updateData = $this->input->post();
 		if(isset($updateData['curPwd'])) {
+			$validCheck = $this->genmod->getOne('pms_user', '*', array('u_id' => $_SESSION['u_id']));
+			$passwordHash = hash('sha256', $updateData['curPwd']);
+			if(isset($validCheck) && $validCheck->u_password == $passwordHash) {
+				if($updateData['pwd'] == $updateData['cfPwd']) {
+					if(hash('sha256', $updateData['pwd']) != $validCheck->u_password) {
+						$updateData['pwd'] = hash('sha256', $updateData['pwd']);
+						$this->genmod->update('pms_user', array('u_password'=> $updateData['pwd']), array('u_id' => $_SESSION['u_id']));
+						$json = ['status'=> 1, 'msg'=>"เปลี่ยนรหัสผ่านสำเร็จ"];
+					}else{
+						$json = ['status'=> 0, 'msg'=>"รหัสผ่านตรงใหม่ต้องไม่ตรงกับรหัสผ่านปัจุบัน"];
+					}
+				}
 
+			} else {
+				$json = ['status'=> 0, 'msg'=>"รหัสผ่านปัจุบันไม่ถูกต้อง"];
+			}     
 		} else {
 			$validCheck = $this->genmod->getOne('pms_user', '*', array('u_id' => $updateData['u_id']));
 			if(isset($validCheck) && $_SESSION['u_role'] <= $validCheck->u_role) {
