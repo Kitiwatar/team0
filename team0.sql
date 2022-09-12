@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 11, 2022 at 03:52 PM
+-- Generation Time: Sep 12, 2022 at 04:45 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -46,9 +46,13 @@ CREATE TABLE `pms_log` (
   `l_table` varchar(100) NOT NULL COMMENT 'ชื่อตาราง',
   `l_data` varchar(1000) NOT NULL COMMENT 'ข้อมูล',
   `l_command` varchar(1000) NOT NULL COMMENT 'คำสั่ง',
+  `l_createdate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `l_u_id` int(11) NOT NULL COMMENT 'ไอดีผู้กระทำ'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ตารางบันทึกประวัติของระบบ';
 
+--
+-- Dumping data for table `pms_log`
+--
 -- --------------------------------------------------------
 
 --
@@ -147,12 +151,13 @@ INSERT INTO `pms_user` (`u_id`, `u_email`, `u_password`, `u_firstname`, `u_lastn
 (17, 'yodsaphat2907@gmail.com', 'f9194e73f9e9459e3450ea10a179cdf77aafa695beecd3b9344a98d111622243', 'ยศพัฒน์', 'พิชิตชัย', '0617610871', '2022-08-01 03:00:00', 1, 1, 3),
 (18, 'bawornwit.ko@gmail.com', 'f9194e73f9e9459e3450ea10a179cdf77aafa695beecd3b9344a98d111622243', 'บวรวิทย์', 'คมปราชญ์', '0839386762', '2022-08-01 03:00:00', 1, 1, 3),
 (19, 'piyarom.sri@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'ปิยรมย์', 'ศรีวรรณวิไล', '0651338630', '2022-08-01 03:00:00', 1, 1, 3),
-(20, 'apple.kulanan@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'กุลนันท์', 'พงษ์ธนาพัฒน์', '0637237718', '2022-08-01 03:00:00', 1, 1, 3),
+(20, 'apple.kulanan@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'กุลนันท์', 'พงษ์ธนาพัฒน์', '0637237718', '2022-08-01 03:00:00', 1, 1, 2),
 (21, 'pongsit1010@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'พงษ์สิทธิ์', 'อุดมเสก', '0937237799', '2022-08-01 03:00:00', 1, 1, 3),
 (22, 'thanaphat0901@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'ธนภัทร', 'จรัสธรรม', '0836949645', '2022-08-01 03:00:00', 1, 1, 2),
 (23, 'napassorn.jan@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'นภัสสร', 'จันทรพร', '0906219227', '2022-08-01 03:00:00', 1, 1, 3),
 (24, 'sopol2406@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'โสพล', 'จันทรทรัพย์', '0816804298', '2022-08-01 03:00:00', 1, 1, 3),
-(25, 'suchada1512@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'สุชาดา', 'พินิจนันท์', '0652864431', '2022-08-01 03:00:00', 1, 1, 3);
+(25, 'suchada1512@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'สุชาดา', 'พินิจนันท์', '0652864431', '2022-08-01 03:00:00', 1, 1, 3),
+(26, 'sommat@gmail.com', 'c7efcbe959b502b170891067d656bddb254b62fb087038075f39bf3da444c3c5', 'สมมาตร', 'รักดี', '0612412412', '2022-09-11 14:07:28', 1, 11, 3);
 
 --
 -- Indexes for dumped tables
