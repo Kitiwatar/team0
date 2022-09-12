@@ -71,6 +71,14 @@
     <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
     <!-- end - This is for export functionality only -->
+
+    <!-- Flot Charts JavaScript -->
+    <script src="<?=base_url()?>assets/node_modules/Chart.js/Chart.min.js"></script>
+    <script src="<?=base_url()?>assets/node_modules/peity/jquery.peity.min.js"></script>
+    <script src="<?=base_url()?>assets/node_modules/peity/jquery.peity.init.js"></script>
+    <script src="<?=base_url()?>/assets/node_modules/echarts/echarts-all.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.3.1/dist/echarts.min.js"></script>
+    <!-- end Flot Charts JavaScript -->
   </head>
 
 <body class="skin-blue fixed-layout">
