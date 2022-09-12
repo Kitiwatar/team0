@@ -152,12 +152,9 @@ class Users extends CI_Controller {
 	}
 
 	public function getPassword(){
-		if($_SESSION['u_role'] > 1) {
-			redirect(base_url());
-		}
+		$data['personPassword'] = "yes";
 		$values['pageTitle'] = 'เปลียนรหัสผ่าน';
 		$values['breadcrumb'] = 'เปลียนรหัสผ่าน';
-		$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
 		$values['pageContent'] = $this->load->view('users/formpassword', $data, TRUE);
 		$this->load->view('main', $values);	
 	}
@@ -165,15 +162,19 @@ class Users extends CI_Controller {
 	public function updatePassword(){
 		$this->genlib->ajaxOnly();
 		$updateData = $this->input->post();
-		$validCheck = $this->genmod->getOne('pms_user', '*', array('u_id' => $updateData['u_id']));
-		if(isset($validCheck) && $_SESSION['u_role'] <= $validCheck->u_role) {
-			if($updateData['pwd'] == $updateData['cfPwd']) {
-				$updateData['pwd'] = hash('sha256', $updateData['pwd']);
-				$this->genmod->update('pms_user', array('u_password'=> $updateData['pwd']), array('u_id' => $updateData['u_id']));
-				$json = ['status'=> 1, 'msg'=>"เปลี่ยนรหัสผ่านสำเร็จ"];
-			}
+		if(isset($updateData['curPwd'])) {
+
 		} else {
-			$json = ['status'=> 0, 'msg'=>"เกิดข้อผิดพลาด"];
+			$validCheck = $this->genmod->getOne('pms_user', '*', array('u_id' => $updateData['u_id']));
+			if(isset($validCheck) && $_SESSION['u_role'] <= $validCheck->u_role) {
+				if($updateData['pwd'] == $updateData['cfPwd']) {
+					$updateData['pwd'] = hash('sha256', $updateData['pwd']);
+					$this->genmod->update('pms_user', array('u_password'=> $updateData['pwd']), array('u_id' => $updateData['u_id']));
+					$json = ['status'=> 1, 'msg'=>"เปลี่ยนรหัสผ่านสำเร็จ"];
+				}
+			} else {
+				$json = ['status'=> 0, 'msg'=>"เกิดข้อผิดพลาด"];
+			}
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
