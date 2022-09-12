@@ -138,24 +138,27 @@ class Users extends CI_Controller {
 	}
 
 	public function getPasswordForm(){
-		if($_SESSION['u_role'] > 1) {
-			redirect(base_url());
-		}
-		$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
-		$json['title'] = 'เปลี่ยนรหัสผ่านของ : ' . $data['getData']->u_firstname . " " . $data['getData']->u_lastname;
-		$json['body'] = $this->load->view('users/formpassword', $data ,true);
-		$json['footer'] = '<span id="errMsg"></span><button type="button" class="btn btn-success" onclick="submitPwdForm('.$this->input->post('u_id').');">บันทึก</button>
+		if($this->input->post('person')!=null){
+			$data['personPassword'] = "yes";
+			$json['title'] = 'เปลี่ยนรหัสผ่าน';
+			$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>($_SESSION['u_id'])));
+			$json['footer'] = '<span id="errMsg"></span><button type="button" class="btn btn-success" onclick="submitPersonPassword()">บันทึก</button>
 		<button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>';
+		}
+		else{
+			if($_SESSION['u_role'] > 1) {
+				redirect(base_url());
+			}
+			$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
+			$json['title'] = 'เปลี่ยนรหัสผ่านของ : ' . $data['getData']->u_firstname . " " . $data['getData']->u_lastname;
+			$json['footer'] = '<span id="errMsg"></span><button type="button" class="btn btn-success" onclick="submitPwdForm('.$this->input->post('u_id').');">บันทึก</button>
+		<button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>';
+		}
+		
+		$json['body'] = $this->load->view('users/formpassword', $data ,true);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
-	public function getPassword(){
-		$data['personPassword'] = "yes";
-		$values['pageTitle'] = 'เปลียนรหัสผ่าน';
-		$values['breadcrumb'] = 'เปลียนรหัสผ่าน';
-		$values['pageContent'] = $this->load->view('users/formpassword', $data, TRUE);
-		$this->load->view('main', $values);	
-	}
 
 	public function updatePassword(){
 		$this->genlib->ajaxOnly();

@@ -157,7 +157,7 @@
                             <div class="dropdown-menu animated flipInY" style="right: 0;">
                                 <a onclick="viewPersonDetail()" class="dropdown-item" style="cursor: pointer;"><i class="mdi mdi-account"></i> ข้อมูลส่วนตัว</a>
                                 <div class="dropdown-divider"></div>
-                                <a href="<?=base_url()?>users/getPassword" class="dropdown-item"><i class="mdi mdi-key-variant"></i> เปลี่ยนรหัสผ่าน</a>
+                                <a onclick="changePersonPassword()" class="dropdown-item" style="cursor: pointer;"><i class="mdi mdi-key-variant"></i> เปลี่ยนรหัสผ่าน</a>
                                 <div class="dropdown-divider"></div>
                                 <a href="<?=base_url()?>login/logout" class="dropdown-item"><i class="mdi mdi-logout"></i> ออกจากระบบ</a>
                             </div>
@@ -332,4 +332,19 @@
       $('#mainModal').modal();
     });
   }
+  function changePersonPassword() {
+    $.ajax({
+      method: "post",
+      url: 'users/getPasswordForm',
+      data: {
+        person: 'yes'
+      }
+    }).done(function(returnData) {
+      $('#mainModalTitle').html(returnData.title);
+      $('#mainModalBody').html(returnData.body);
+      $('#mainModalFooter').html(returnData.footer);
+      $('#mainModal').modal();
+    });
+  }
+
 </script>
