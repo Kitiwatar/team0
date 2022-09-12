@@ -43,14 +43,7 @@ class Users extends CI_Controller {
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
-	public function getDataPerson(){
-		$values['pageTitle'] = 'ข้อมูลพนักงาน';
-		$values['breadcrumb'] = 'ข้อมูลพนักงาน';
-		$data['arrayRole'] = $this->getAllRole();
-		$data['getData'] = $this->genmod->getOne('pms_user', '*',array('u_id'=>$_SESSION['u_id']),'u_createdate desc','','');
-		$values['pageContent'] = $this->load->view('users/persondetail', $data, TRUE);
-		$this->load->view('main', $values);	
-	}
+	
 
  	public function getAddForm(){
 		if($_SESSION['u_role'] > 1) {
@@ -127,13 +120,18 @@ class Users extends CI_Controller {
 	}
 
 	public function getDetailForm(){
-		if($_SESSION['u_role'] > 1) {
-			redirect(base_url());
+		if($this->input->post('person')!=null){
+			$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>($_SESSION['u_id'])));
+		}
+		else{
+			if($_SESSION['u_role'] > 1) {
+				redirect(base_url());
+			}
+			$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
 		}
 		$json['title'] = 'ข้อมูลพนักงาน';
 		$data['detail'] = "yes";
 		$data['arrayRole'] = $this->getAllRole();
-		$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
 		$json['body'] = $this->load->view('users/formadd', $data ,true);
 		$json['footer'] = '';
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
