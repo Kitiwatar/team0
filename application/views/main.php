@@ -185,14 +185,14 @@
                         <?php if (isset($_SESSION['u_id'])) : ?>
                             <?php if ($_SESSION['u_role'] <= 1) : ?>
                                 <li>
-                                    <a class="waves-effect waves-dark" href="<?= base_url() ?>Users" aria-expanded="false">
+                                    <a class="waves-effect waves-dark" href="<?= base_url() ?>users" aria-expanded="false">
                                         <i class="mdi mdi-account-card-details"></i><span class="hide-menu">พนักงานในระบบ</span>
                                     </a>
                                 </li>
                             <?php endif; ?>
-                            <?php if ($_SESSION['u_role'] < 1) : ?>
+                            <?php if ($_SESSION['u_role'] <= 1) : ?>
                                 <li>
-                                    <a class="waves-effect waves-dark" href="" aria-expanded="false">
+                                    <a class="waves-effect waves-dark" href="<?= base_url() ?>logs" aria-expanded="false">
                                         <i class="mdi mdi-database"></i><span class="hide-menu">ฐานข้อมูล</span>
                                     </a>
                                 </li>
@@ -257,7 +257,7 @@
         <!-- footer -->
         <!-- ============================================================== -->
         <footer class="footer">
-            © 2022 Project Monitoring System by Team Zero & IV Soft Co., Ltd.
+            © 2022 Project Monitoring System by Team Zero & <a href="http://www.ivsoft.co.th/" class="link-info">IV Soft Co., Ltd.</a>
         </footer>
         <!-- ============================================================== -->
         <!-- End footer -->

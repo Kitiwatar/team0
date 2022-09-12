@@ -118,19 +118,22 @@ $(function () {
     // Color variation
     // ==============================================================
 
+    // var mySkins = [
+    //     "skin-default",
+    //     "skin-green",
+    //     "skin-red",
+    //     "skin-blue",
+    //     "skin-purple",
+    //     "skin-megna",
+    //     "skin-default-dark",
+    //     "skin-green-dark",
+    //     "skin-red-dark",
+    //     "skin-blue-dark",
+    //     "skin-purple-dark",
+    //     "skin-megna-dark"
+    // ]
     var mySkins = [
-        "skin-default",
-        "skin-green",
-        "skin-red",
-        "skin-blue",
-        "skin-purple",
-        "skin-megna",
-        "skin-default-dark",
-        "skin-green-dark",
-        "skin-red-dark",
-        "skin-blue-dark",
-        "skin-purple-dark",
-        "skin-megna-dark"
+        "skin-megna"
     ]
         /**
          * Get a prestored setting
