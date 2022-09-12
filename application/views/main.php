@@ -149,7 +149,7 @@
                             <div class="dropdown-menu animated flipInY" style="right: 0;">
                                 <a href="<?=base_url()?>users/getDataPerson" class="dropdown-item"><i class="mdi mdi-account"></i> ข้อมูลส่วนตัว</a>
                                 <div class="dropdown-divider"></div>
-                                <a href="" class="dropdown-item"><i class="mdi mdi-key-variant"></i> เปลี่ยนรหัสผ่าน</a>
+                                <a href="<?=base_url()?>users/getPassword" class="dropdown-item"><i class="mdi mdi-key-variant"></i> เปลี่ยนรหัสผ่าน</a>
                                 <div class="dropdown-divider"></div>
                                 <a href="<?=base_url()?>login/logout" class="dropdown-item"><i class="mdi mdi-logout"></i> ออกจากระบบ</a>
                             </div>

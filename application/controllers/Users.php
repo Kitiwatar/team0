@@ -151,6 +151,17 @@ class Users extends CI_Controller {
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
+	public function getPassword(){
+		if($_SESSION['u_role'] > 1) {
+			redirect(base_url());
+		}
+		$values['pageTitle'] = 'เปลียนรหัสผ่าน';
+		$values['breadcrumb'] = 'เปลียนรหัสผ่าน';
+		$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
+		$values['pageContent'] = $this->load->view('users/formpassword', $data, TRUE);
+		$this->load->view('main', $values);	
+	}
+
 	public function updatePassword(){
 		$this->genlib->ajaxOnly();
 		$updateData = $this->input->post();
