@@ -4,7 +4,7 @@
       <div class="card-body">
         <h4 class='card-title'>ตารางรายชื่อพนักงานในระบบ</h4>
         <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มพนักงานในระบบ</button>
-        <div class="table-responsive">
+        <div class="table-responsive my-2">
           <table class="display table table-striped table-bordered dt-responsive nowrap">
             <thead>
               <tr>

@@ -155,9 +155,9 @@
                             <?php echo $_SESSION['u_fullname'];?>
                             <img src="<?=base_url()?>assets/images/users/user.png" alt="user" class=""></span> </a>
                             <div class="dropdown-menu animated flipInY" style="right: 0;">
-                                <a onclick="viewPersonDetail()" class="dropdown-item" style="cursor: pointer;"><i class="mdi mdi-account"></i> ข้อมูลส่วนตัว</a>
+                                <a onclick="viewPersonDetail('<?=base_url()?>users/getDetailForm')" class="dropdown-item" style="cursor: pointer;"><i class="mdi mdi-account"></i> ข้อมูลส่วนตัว</a>
                                 <div class="dropdown-divider"></div>
-                                <a onclick="changePersonPassword()" class="dropdown-item" style="cursor: pointer;"><i class="mdi mdi-key-variant"></i> เปลี่ยนรหัสผ่าน</a>
+                                <a onclick="changePersonPassword('<?=base_url()?>users/getPasswordForm')" class="dropdown-item" style="cursor: pointer;"><i class="mdi mdi-key-variant"></i> เปลี่ยนรหัสผ่าน</a>
                                 <div class="dropdown-divider"></div>
                                 <a href="<?=base_url()?>login/logout" class="dropdown-item"><i class="mdi mdi-logout"></i> ออกจากระบบ</a>
                             </div>
@@ -318,10 +318,10 @@
 
 </html>
 <script>
-    function viewPersonDetail() {
+    function viewPersonDetail(url) {
     $.ajax({
       method: "post",
-      url: 'users/getDetailForm',
+      url: url,
       data: {
         person: 'yes'
       }
@@ -332,10 +332,10 @@
       $('#mainModal').modal();
     });
   }
-  function changePersonPassword() {
+  function changePersonPassword(url) {
     $.ajax({
       method: "post",
-      url: 'users/getPasswordForm',
+      url: url,
       data: {
         person: 'yes'
       }

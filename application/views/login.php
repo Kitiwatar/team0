@@ -11,7 +11,7 @@
                     <div class="form-group">
                         <input type="password" id="u_password" name="u_password" class="form-control" id="exampleInputPassword1" placeholder="รหัสผ่าน" required>
                     </div>
-                    <button type="submit" id="loginBtn" class="btn btn-primary text-white">เข้าสู่ระบบ</button>
+                    <button type="submit" id="loginBtn" class="btn btn-info text-white">เข้าสู่ระบบ</button>
                 </form>
             </div>
         </div>
