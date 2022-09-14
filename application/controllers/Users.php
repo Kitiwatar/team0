@@ -11,6 +11,10 @@ class Users extends CI_Controller {
 	}
 
 	public function getAllRole($dataType = "php") {
+		/*
+			Name: Patiphan Pansanga
+			Create: 2022-09-13
+		*/
 		if($dataType == "php") {
 			$arrayRole = array(1=>"ผู้ดูแลระบบ", 2=>"หัวหน้าโครงการ", 3=>"พนักงาน");
 			return $arrayRole;
@@ -193,6 +197,9 @@ class Users extends CI_Controller {
 	}
 
 	public function updateRole(){
+		if($_SESSION['u_role'] > 1) {
+			redirect(base_url());
+		}
 		$this->genlib->ajaxOnly();
 		$updateData = $this->input->post();
 		$validCheck = $this->genmod->getOne('pms_user', '*', array('u_id' => $updateData['u_id']));
