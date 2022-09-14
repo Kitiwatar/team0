@@ -1,4 +1,8 @@
 <?php
+/*
+    Author: Patiphan Pansanga 
+    Create: 2022-09-07
+*/
 defined('BASEPATH') OR exit('Access Denied');
 
 class Genlib {
@@ -7,13 +11,9 @@ class Genlib {
     public function __construct() {
         $this->CI = &get_instance();
     }
-    /**
-     *
-     * @return string
-     */
+
     public function checkLogin() {
         if (empty($_SESSION['u_id']) || session_status() !== PHP_SESSION_ACTIVE ) {
-            //redirect to log in page
             redirect(base_url('login')); //redirects to login page
         }else {
             return "";

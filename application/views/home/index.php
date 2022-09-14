@@ -1,6 +1,6 @@
 <!-- 
-    Name: Kitiwat Arunwong
-    Create: 2022-09-15 
+    Author: Kitiwat Arunwong
+    Update: 2022-09-15 Kitiwat Arunwong
 -->
 
 <div class="row">

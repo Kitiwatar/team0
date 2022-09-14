@@ -1,9 +1,17 @@
 <?php
+/*
+	Author: Patiphan Pansanga
+	Create: 2022-09-14
+*/
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Logs extends CI_Controller {
 
-  	public function __construct(){
+  	public function __construct() {
+		/*
+			Author: Patiphan Pansanga
+			Create: 2022-09-14
+		*/
 		parent::__construct();
 		$this->genlib->checkLogin();
 		$data = $this->genmod->getOne('pms_user', '*', array('u_id'=>$_SESSION['u_id']));
@@ -14,20 +22,32 @@ class Logs extends CI_Controller {
 	}
 
 	public function index() {
+		/*
+			Author: Patiphan Pansanga
+			Create: 2022-09-14
+		*/
 		$values['pageTitle'] = 'หน้าหลัก';
 		$values['breadcrumb'] = 'ฐานข้อมูล';
 		$values['pageContent'] = $this->load->view('logs/index', '', TRUE);
 		$this->load->view('main', $values);
 	}
 
-	public function get(){
+	public function get() {
+		/*
+			Author: Patiphan Pansanga
+			Create: 2022-09-14
+		*/
 		$arrayJoin = array('pms_user' => 'pms_user.u_id=pms_log.l_u_id');
 		$data['getData'] = $this->genmod->getAll('pms_log', '*', '', 'l_createdate desc', $arrayJoin, '');
 		$json['html'] = $this->load->view('logs/list', $data, TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
-	public function getDetailForm(){
+	public function getDetailForm() {
+		/*
+			Author: Patiphan Pansanga
+			Create: 2022-09-14
+		*/
 		$json['title'] = 'ข้อมูลประวัติ';
 		$data['detail'] = "yes";
 		$arrayJoin = array('pms_user' => 'pms_user.u_id=pms_log.l_u_id');

@@ -1,9 +1,13 @@
 <?php
+/*
+	Author: Patiphan Pansanga, Kitiwat Arunwong
+	Create: 2022-09-07
+*/
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
 
-  	public function __construct(){
+  	public function __construct() {
 		parent::__construct();
 		if(isset($_SESSION['u_id'])) {
 			$data = $this->genmod->getOne('pms_user', '*', array('u_id'=>$_SESSION['u_id']));
@@ -24,7 +28,12 @@ class Home extends CI_Controller {
 		$values['pageContent'] = $this->load->view('home/list', '', TRUE);
 		$this->load->view('main', $values);
 	}
-	public function getProjectSum(){
+
+	public function getProjectSum() {
+		/*
+			Author: Kitiwat Arunwong
+			Create: 2022-09-14
+		*/
 		$data = $this->genmod->countAll('pms_project', '','');
 		$json = ['projectSum'=> $data];
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));

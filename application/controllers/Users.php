@@ -1,9 +1,17 @@
 <?php
+/*
+	Author: Patiphan Pansanga, Jiradat Pomyai, Natakorn Phongsarikit
+	Create: 2022-09-07
+*/
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Users extends CI_Controller {
 
-	public function __construct(){
+	public function __construct() {
+		/*
+			Author: Patiphan Pansanga
+			Create: 2022-09-07
+		*/
 		parent::__construct();
 		$this->genlib->checkLogin();
 		$data = $this->genmod->getOne('pms_user', '*', array('u_id'=>$_SESSION['u_id']));
@@ -12,7 +20,7 @@ class Users extends CI_Controller {
 
 	public function getAllRole($dataType = "php") {
 		/*
-			Name: Patiphan Pansanga
+			Author: Patiphan Pansanga
 			Create: 2022-09-13
 		*/
 		if($dataType == "php") {
@@ -25,6 +33,10 @@ class Users extends CI_Controller {
     }
 
 	public function index()	{
+		/*
+			Author: Patiphan Pansanga
+			Create: 2022-09-07
+		*/
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
@@ -34,7 +46,11 @@ class Users extends CI_Controller {
 		$this->load->view('main', $values);
 	}
 
-	public function get(){
+	public function get() {
+		/*
+			Author: Patiphan Pansanga
+			Create: 2022-09-07
+		*/
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
@@ -44,9 +60,11 @@ class Users extends CI_Controller {
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
-	
-
- 	public function getAddForm(){
+ 	public function getAddForm() {
+		/*
+			Author: Patiphan Pansanga
+			Create: 2022-09-08
+		*/
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
@@ -58,7 +76,11 @@ class Users extends CI_Controller {
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
-	public function add(){
+	public function add() {
+		/*
+			Author: Patiphan Pansanga
+			Create: 2022-09-08
+		*/
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
@@ -107,7 +129,11 @@ class Users extends CI_Controller {
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
-	public function getEditForm(){
+	public function getEditForm() {
+		/*
+			Author: Patiphan Pansanga
+			Create: 2022-09-08
+		*/
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
@@ -120,7 +146,11 @@ class Users extends CI_Controller {
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
-	public function getDetailForm(){
+	public function getDetailForm() {
+		/*
+			Author: Jiradat Pomyai
+			Create: 2022-09-08
+		*/
 		if($this->input->post('person')!=null){
 			$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>($_SESSION['u_id'])));
 		}
@@ -138,22 +168,25 @@ class Users extends CI_Controller {
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
-	public function getPasswordForm(){
-		if($this->input->post('person')!=null){
+	public function getPasswordForm() {
+		/*
+			Author: Natakorn Phongsarikit
+			Create: 2022-09-14
+		*/
+		if($this->input->post('person')!=null) { 
 			$data['personPassword'] = "yes";
 			$json['title'] = 'เปลี่ยนรหัสผ่าน';
 			$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>($_SESSION['u_id'])));
 			$json['footer'] = '<span id="errMsg"></span><button type="button" class="btn btn-success" onclick="submitPersonPassword()">บันทึก</button>
-		<button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>';
-		}
-		else{
+			<button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>';
+		} else {
 			if($_SESSION['u_role'] > 1) {
 				redirect(base_url());
 			}
 			$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
 			$json['title'] = 'เปลี่ยนรหัสผ่านของ : ' . $data['getData']->u_firstname . " " . $data['getData']->u_lastname;
 			$json['footer'] = '<span id="errMsg"></span><button type="button" class="btn btn-success" onclick="submitPwdForm('.$this->input->post('u_id').');">บันทึก</button>
-		<button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>';
+			<button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>';
 		}
 		
 		$json['body'] = $this->load->view('users/formpassword', $data ,true);
@@ -161,7 +194,11 @@ class Users extends CI_Controller {
 	}
 
 
-	public function updatePassword(){
+	public function updatePassword() {
+		/*
+			Author: Patiphan Pansanga, Natakorn Phongsarikit
+			Create: 2022-09-07
+		*/
 		$this->genlib->ajaxOnly();
 		$updateData = $this->input->post();
 		if(isset($updateData['curPwd'])) {
@@ -196,7 +233,11 @@ class Users extends CI_Controller {
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
-	public function updateRole(){
+	public function updateRole() {
+		/*
+			Author: Patiphan Pansanga
+			Create: 2022-09-07
+		*/
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
@@ -214,7 +255,11 @@ class Users extends CI_Controller {
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
-  	public function updateStatus(){
+  	public function updateStatus() {
+		/*
+			Author: Patiphan Pansanga
+			Create: 2022-09-07
+		*/
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}

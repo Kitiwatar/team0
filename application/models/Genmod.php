@@ -9,7 +9,7 @@ class Genmod extends CI_Model{
       parent::__construct();
   }
 
-  public function getTableCol($tableName, $selColName, $whereColName, $colValue){
+  public function getTableCol($tableName, $selColName, $whereColName, $colValue) {
       $q = "SELECT $selColName FROM $tableName WHERE $whereColName = ?";
 
       $run_q = $this->db->query($q, [$colValue]);
@@ -19,15 +19,15 @@ class Genmod extends CI_Model{
               return $get->$selColName;
           }
       }
-
       else{
           return FALSE;
       }
   }
+
   // array table is array('table'=>'condition')
-  public function getAll($tableName, $getColName = '*', $arrayWhere = '', $order = '', $arrayJoinTable = '', $groupby = ''){
-    if($getColName){
-      $this->db->select($getColName);
+  public function getAll($tableName, $colName = '*', $arrayWhere = '', $order = '', $arrayJoin = '', $group = '') {
+    if($colName){
+      $this->db->select($colName);
     }
     if($arrayWhere){
       $this->db->where($arrayWhere);
@@ -35,11 +35,11 @@ class Genmod extends CI_Model{
     if($order){
       $this->db->order_by($order);
     }
-    if($groupby){
-      $this->db->group_by($groupby);
+    if($group){
+      $this->db->group_by($group);
     }
-    if($arrayJoinTable){
-      foreach ($arrayJoinTable as $key => $value) {
+    if($arrayJoin){
+      foreach ($arrayJoin as $key => $value) {
         $this->db->join($key, $value, 'LEFT');
       }
     }
@@ -52,58 +52,58 @@ class Genmod extends CI_Model{
     }
   }
 
-  public function getOne($tableName, $getColName = '*', $arrayWhere = '', $order = '', $arrayJoinTable = '', $groupby = ''){
-    if($getColName){
-      $this->db->select($getColName);
+  public function getOne($tableName, $colName = '*', $arrayWhere = '', $order = '', $arrayJoin = '', $group = '') {
+    if($colName) {
+      $this->db->select($colName);
     }
-    if($arrayWhere){
+    if($arrayWhere) {
       $this->db->where($arrayWhere);
     }
-    if($order){
+    if($order) {
       $this->db->order_by($order);
     }
-    if($arrayJoinTable){
-      foreach ($arrayJoinTable as $key => $value) {
+    if($arrayJoin) {
+      foreach ($arrayJoin as $key => $value) {
         $this->db->join($key, $value, 'LEFT');
       }
     }
-    if($groupby){
-      $this->db->group_by($groupby);
+    if($group) {
+      $this->db->group_by($group);
     }
     $run_q = $this->db->get($tableName);
 
-    if($run_q->num_rows() > 0){
+    if($run_q->num_rows() > 0) {
       return $run_q->row(0);
-    }else{
+    }else {
       return FALSE;
     }
   }
 
-  public function add($table, $arrayData){
-    $this->db->insert($table,$arrayData);
-    if($this->db->affected_rows() > 0){
+  public function add($tableName, $arrayData) {
+    $this->db->insert($tableName, $arrayData);
+    if($this->db->affected_rows() > 0) {
       $insert_id = $this->db->insert_id();
-      $this->addlog('add', $table, $arrayData);
+      $this->addlog('add', $tableName, $arrayData);
       return $insert_id;
-    }else{
+    }else {
       return FALSE;
     }
   }
 
-  public function update($table,$arrayData,$arrayWhere = ''){
-    if($arrayWhere){
+  public function update($tableName, $arrayData, $arrayWhere = '') {
+    if($arrayWhere) {
       $this->db->where($arrayWhere);
     }
-    $this->db->update($table, $arrayData);
-    $this->addlog('update', $table, $arrayData);
+    $this->db->update($tableName, $arrayData);
+    $this->addlog('update', $tableName, $arrayData);
     return TRUE;
   }
 
-  public function countAll($table, $arrayWhere = '', $arrayJoinTable = ''){
+  public function countAll($table, $arrayWhere = '', $arrayJoin = '') {
     if ($arrayWhere)
       $this->db->where($arrayWhere);
-    if($arrayJoinTable){
-      foreach ($arrayJoinTable as $key => $value) {
+    if($arrayJoin) {
+      foreach ($arrayJoin as $key => $value) {
         $this->db->join($key, $value, 'LEFT');
       }
     }
@@ -111,39 +111,22 @@ class Genmod extends CI_Model{
     return $count;
   }
 
-  public function sumAll($tableName, $column, $arrayWhere= ''){
+  public function sumAll($tableName, $colName, $arrayWhere= '') {
     if ($arrayWhere)
       $this->db->where($arrayWhere);
-    $this->db->select_sum($column,'sum');
+    $this->db->select_sum($colName,'sum');
     $run_q =  $this->db->get($tableName);
-    if($run_q->num_rows() > 0){
+    if($run_q->num_rows() > 0) {
       return $run_q->row(0)->sum;
-    }else{
+    }else {
       return FALSE;
     }
   }
 
-  function addlog($action, $table, $jsonData){
+  function addlog($action, $table, $jsonData) {
     $this->db->insert('pms_log',array('l_action'=>$action,'l_table'=>$table,'l_data'=>json_encode($jsonData,JSON_UNESCAPED_UNICODE), 'l_command'=>$this->db->last_query(), 'l_u_id'=>$_SESSION['u_id'] ));
-  }
-
-  function getCategoryOptions($arrayWhere=''){
-    $this->db->select('pc_id as value, pc_title as text');
-    if ($arrayWhere)
-      $this->db->where($arrayWhere);
-    $this->db->where_in('inv_status', array('print','pay'));
-    $this->db->join('invoice_list','invl_inv_id = inv_id');
-    $this->db->join('products', 'p_id = invl_p_id');
-    $this->db->join('product_category', 'pc_id = p_category');
-    $this->db->group_by(array('pc_id', 'pc_title'));
-    $run_q = $this->db->get('invoice');
-    if($run_q->num_rows() > 0){
-      return $run_q->result();
-    }else{
-      return FALSE;
-    }
   }
 
 }
 
- ?>
+?>

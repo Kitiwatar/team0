@@ -1,10 +1,13 @@
+<!-- 
+  Author: Jiradat Pomyai, Patiphan Pansanga 
+  Create: 2022-09-07
+ -->
 <div class="row">
     <div class="col-12">
         <div class="card">
             <form class="" id="pwdForm" autocomplete="off">
                 <div class="card-body">
                     <?php if (isset($personPassword)) { ?>
-
                         <div class="form-group">
                             <label for="pwd" class="form-label">โปรดกรอกรหัสผ่านบัจุบัน</label>
                             <input type="password" class="form-control" name="inputValue[]" id="curPwd" placeholder="รหัสผ่านปัจจุบัน">
@@ -18,9 +21,6 @@
                         <label for="cfPwd" class="form-label">โปรดกรอกรหัสผ่านใหม่อีกครั่ง</label>
                         <input type="password" class="form-control" name="inputValue[]" id="cfPwd" placeholder="ยืนยันรหัสผ่าน">
                     </div>
-
-
-
                 </div>
         </div>
     </div>
