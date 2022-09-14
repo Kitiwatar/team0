@@ -87,7 +87,6 @@
 <script src="<?=base_url()?>assets/dist/js/pages/flot-data.js"></script>
 <script>
     var pieChart = echarts.init(document.getElementById("pie-project"));
-
     // specify chart configuration item and data
     option = {
 
@@ -158,17 +157,7 @@
         }
         $(window).on("resize", resize), $(".sidebartoggler").on("click", resize)
     });
-    pieChart.setOption(option, true), $(function() {
-        function resize() {
-            setTimeout(function() {
-                pieChart.resize()
-            }, 100)
-        }
-        $(window).on("resize", resize), $(".sidebartoggler").on("click", resize)
-    });
-</script>
-
-<script>
+    
     //Flot Pie Chart
     $(function() {
         var data = [{
@@ -209,6 +198,14 @@
                 defaultTheme: false
             }
         });
+    });
+    plotObj.setOption(option, true), $(function() {
+        function resize() {
+            setTimeout(function() {
+                plotObj.resize()
+            }, 100)
+        }
+        $(window).on("resize", resize), $(".sidebartoggler").on("click", resize)
     });
 </script>
 
