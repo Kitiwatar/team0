@@ -24,5 +24,11 @@ class Home extends CI_Controller {
 		$values['pageContent'] = $this->load->view('home/list', '', TRUE);
 		$this->load->view('main', $values);
 	}
+	public function getProjectSum(){
+		$data = $this->genmod->countAll('pms_project', '','');
+		$json = ['projectSum'=> $data];
+		$this->output->set_content_type('application/json')->set_output(json_encode($json));
+		
+	}
 
 }

@@ -1,8 +1,3 @@
-<!-- 
-    Name: Kitiwat Arunwong
-    Create: 2022-09-15 
--->
-
 <div class="row">
     <div class="col-lg-4 col-md-4">
         <div class="card border">
@@ -10,8 +5,8 @@
                 <a href="<?= base_url() ?>home/all">
                     <div class="row">
                         <div class="col-md-12">
-                            <h3><i class="mdi mdi-view-headline"></i></h3>
-                            <h2 class="counter text-primary text-end" id="all"></h2>
+                            <h3><i class="icon-screen-desktop"></i></h3>
+                            <h2 class="counter text-primary text-end" id="all">23</h2>
                             <p class="text-muted">โครงการทั้งหมด</p>
                             <div class="progress">
                                 <div class="progress-bar bg-primary" role="progressbar" style="width: 100%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -28,11 +23,11 @@
                 <a href="<?= base_url() ?>home/all">
                     <div class="row">
                         <div class="col-md-12">
-                            <h3><i class="mdi mdi-library-books" style="color: #FEC107;"></i></h3>
-                            <h2 class="counter text-end" style="color: #FEC107;">23</h2>
-                            <p class="text-muted">รอดำเนินการ</p>
+                            <h3><i class="icon-screen-desktop"></i></h3>
+                            <h2 class="counter text-primary text-end">23</h2>
+                            <p class="text-muted">โครงการทั้งหมด</p>
                             <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 85%; height: 6px; background-color: #FEC107;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
                     </div>
@@ -46,11 +41,11 @@
                 <a href="<?= base_url() ?>home/all">
                     <div class="row">
                         <div class="col-md-12">
-                            <h3><i class="ti-pencil-alt" style="color: #03A9F3;"></i></h3>
-                            <h2 class="counter text-end" style="color: #03A9F3;">23</h2>
-                            <p class="text-muted">กำลังดำเนินการ</p>
+                            <h3><i class="icon-screen-desktop"></i></h3>
+                            <h2 class="counter text-primary text-end">23</h2>
+                            <p class="text-muted">โครงการทั้งหมด</p>
                             <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 85%; height: 6px; background-color: #03A9F3;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
                     </div>
@@ -60,16 +55,17 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-8 col-sm-12">
+    <div class="col-8">
         <div class="card">
             <div class="card-body">
+                <h4 class="card-title">Pie Chart</h4>
                 <div class="flot-chart">
-                    <div class="flot-chart-content" id="flot-pie-chart" style="width:100%; height: 454px;"></div>
+                    <div class="flot-chart-content" id="flot-pie-chart" style="width:100%; height: 400px;"></div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-sm-12">
+    <div class="col-4">
         <div class="row">
             <div class="card" style="background-color:#56BDC6;">
                 <div class="card-body">
@@ -121,25 +117,27 @@
 <script src="<?= base_url() ?>assets/node_modules/flot/jquery.flot.crosshair.js"></script>
 <script src="<?= base_url() ?>assets/node_modules/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
 <script src="<?= base_url() ?>assets/dist/js/pages/flot-data.js"></script>
+
+
 <script>
     //Flot Pie Chart
     $(function() {
         var data = [{
-            label: "เสร็จสิ้น",
+            label: "รอการดำเนินงาน",
             data: 10,
-            color: "#57BF95",
+            color: "#56BDC6",
         }, {
             label: "ยกเลิก",
             data: 1,
-            color: "#FF6666",
+            color: "#E46A76",
         }, {
             label: "รอดำเนินการ",
             data: 3,
-            color: "#FEC107",
+            color: "#4BA6ED",
         }, {
             label: "กำลังดำเนินการ",
             data: 1,
-            color: "#03A9F3",
+            color: "#A68DDE",
         }];
         var plotObj = $.plot($("#flot-pie-chart"), data, {
             series: {
@@ -183,8 +181,9 @@
         let s = today.getSeconds();
         m = checkTime(m);
         s = checkTime(s);
-        if (s % 10 == 0) {
-            getCountProject();
+        if (s % 5 == 0) {
+            var data = parseInt(document.getElementById('all').innerHTML);
+            document.getElementById('all').innerHTML = data + 5;
         }
 
         setTimeout(startTime, 1000);
@@ -196,15 +195,4 @@
         }; // add zero in front of numbers < 10
         return i;
     }
-    //Start Get Project SUM
-    function getCountProject() {
-        $.ajax({
-            url: 'Home/getProjectSum',
-            method: 'post'
-        }).done(function(returnData) {
-            $('#all').html(returnData.projectSum)
-        })
-    }
-    getCountProject();
-    //End Get Project SUM
 </script>

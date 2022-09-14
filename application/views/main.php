@@ -22,6 +22,7 @@
     <link href="<?=base_url()?>assets/dist/css/pages/dashboard1.css" rel="stylesheet">
     <!-- Data Table  -->
     <link href="<?=base_url()?>assets/node_modules/datatables/media/css/dataTables.bootstrap4.css" rel="stylesheet">
+    <link href="<?=base_url()?>assets/dist/css/pages/icon-page.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
