@@ -167,7 +167,7 @@
                             </div>
                             <?php } else { ?>
                                 <a class="nav-link waves-effect waves-dark profile-pic" href="<?=base_url()?>login">
-                                    <span class="hidden-md-down">เข้าสู่ระบบ&nbsp;</span> </a>
+                                    <span class="hidden-md-down">ระบบสำหรับเจ้าหน้าที่ภายใน&nbsp;</span> </a>
                             <?php } ?>
                         </li>
                         <!-- ============================================================== -->

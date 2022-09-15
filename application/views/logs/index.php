@@ -11,6 +11,8 @@
             url: 'logs/get',
             method: 'post'
         }).done(function(returnData) {
+            console.log('aaaaaaaaaaa');
+            console.log(returnData)
             $('#listDiv').html(returnData.html)
         })
     }

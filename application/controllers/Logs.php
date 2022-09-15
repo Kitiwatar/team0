@@ -39,6 +39,8 @@ class Logs extends CI_Controller {
 		*/
 		$arrayJoin = array('pms_user' => 'pms_user.u_id=pms_log.l_u_id');
 		$data['getData'] = $this->genmod->getAll('pms_log', '*', '', 'l_createdate desc', $arrayJoin, '');
+		$json['sql'] = $this->db->last_query();
+		// $json['html'] = $data['getData'];
 		$json['html'] = $this->load->view('logs/list', $data, TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}

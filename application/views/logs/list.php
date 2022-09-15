@@ -32,12 +32,12 @@
                           echo substr($value->l_data, 0, 47) . "...";
                         } ?>
                       </td>
-                      <td><?php if(strlen($value->l_command) <= 50){
+                      <!-- <td><?php if(strlen($value->l_command) <= 50){
                           echo $value->l_command;
                         } else {
                           echo substr($value->l_command, 0, 47) . "...";
                         } ?>
-                      </td>
+                      </td> -->
                       <td><?= $value->l_createdate ?></td>
                       <td><?= $value->u_firstname . " " . $value->u_lastname ?></td>
                       <td class="text-center">
