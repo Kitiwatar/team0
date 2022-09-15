@@ -195,14 +195,24 @@
                             </a>
                         </li>
                         <?php if (isset($_SESSION['u_id'])) : ?>
+                            <li>
+                                <a class="waves-effect waves-dark" href="<?= base_url() ?>projects" aria-expanded="false">
+                                    <i class="mdi mdi-library-books" style="font-size: 18px;"></i><span class="hide-menu">โครงการที่รับผิดชอบ</span>
+                                </a>
+                            </li>
                             <?php if ($_SESSION['u_role'] <= 1) : ?>
                                 <li>
                                     <a class="waves-effect waves-dark" href="<?= base_url() ?>users" aria-expanded="false">
-                                        <i class="mdi mdi-account-card-details"></i><span class="hide-menu">พนักงานในระบบ</span>
+                                        <i class="mdi mdi-account-card-details" style="font-size: 16px;"></i><span class="hide-menu">รายชื่อพนักงาน</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="waves-effect waves-dark" href="<?= base_url() ?>tasks" aria-expanded="false">
+                                        <i class="mdi mdi-table-edit" style="font-size: 20px;"></i><span class="hide-menu">รายชื่อกิจกรรม</span>
                                     </a>
                                 </li>
                             <?php endif; ?>
-                            <?php if ($_SESSION['u_role'] <= 1) : ?>
+                            <?php if ($_SESSION['u_role'] < 1) : ?>
                                 <li>
                                     <a class="waves-effect waves-dark" href="<?= base_url() ?>logs" aria-expanded="false">
                                         <i class="mdi mdi-database"></i><span class="hide-menu">ฐานข้อมูล</span>
