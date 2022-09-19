@@ -126,7 +126,10 @@ class Genmod extends CI_Model{
   function addlog($action, $table, $jsonData) {
     $this->db->insert('pms_log',array('l_action'=>$action,'l_table'=>$table,'l_data'=>json_encode($jsonData,JSON_UNESCAPED_UNICODE), 'l_command'=>$this->db->last_query(), 'l_u_id'=>$_SESSION['u_id'] ));
   }
-
+  public function getLastTask($id){  
+    $sql = "SELECT tl_name FROM `pms_task` LEFT JOIN `pms_tasklist` ON pms_task.t_tl_id = pms_tasklist.tl_id WHERE t_p_id = ? ORDER BY pms_task.t_createdate DESC LIMIT 1"; 
+    return $this->db->query($sql, array($id))->row();            
+  }
 }
 
 ?>
