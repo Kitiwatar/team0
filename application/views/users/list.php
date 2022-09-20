@@ -3,25 +3,28 @@
     <div class="card">
       <div class="card-body">
         <h4 class='card-title'>ตารางรายชื่อพนักงานในระบบ</h4>
-        <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มพนักงานในระบบ</button>
+        <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มพนักงานในระบบ</button>   
         <div class="table-responsive my-2">
           <table class="display table table-striped table-bordered dt-responsive nowrap">
             <thead>
               <tr>
+                <th>ลำดับ</th>
                 <th>ชื่อ-นามสกุล</th>
                 <th>อีเมล</th>
                 <th>เบอร์โทรศัพท์</th>
                 <th>สิทธิ์ในการใช้งานระบบ</th>
+                <th>วันที่เพิ่ม</th>
                 <th>สถานะ</th>
                 <th class="text-center">ปุ่มดำเนินการ</th>
               </tr>
             </thead>
             <tbody>
-              <?php if (is_array($getData)) : ?>
+              <?php if (is_array($getData)) : $count = 1;?>
                 <?php foreach ($getData as $key => $value) : ?>
                   <?php if ($value->u_role > 0) : ?>
                     <tr>
-                      <td onclick="view(<?= $value->u_id ?>)" style="cursor:pointer;"><?= $value->u_firstname ?> <?= $value->u_lastname ?></td>
+                      <td class="text-center"><?= $count++ ?></td>
+                      <td onclick="view(<?= $value->u_id ?>)" style="cursor:pointer;" class="name"><u><?= $value->u_firstname ?> <?= $value->u_lastname ?></u></td>
                       <td><?= $value->u_email ?></td>
                       <td><?= $value->u_tel ?></td>
                       <td><select class="form-control form-select" id="roleInput<?= $value->u_id ?>" onfocus="showRole(<?= $value->u_id ?>,<?= $value->u_role ?>)" onchange="changeRole(<?= $value->u_id ?>)">
@@ -36,13 +39,14 @@
                           ?>
                         </select>
                       </td>
+                      <td><?= $value->u_createdate ?></td>
                       <td><?= ($value->u_status == 1) ? "กำลังทำงาน" : "ระงับการทำงาน" ?></td>
                       <td class="text-center">
                         <button type="button" class="btn btn-info" name="view" id="view" onclick="view(<?= $value->u_id ?>)" title="ดูข้อมูลพนักงาน"><i class="mdi mdi-file-find"></i></button>
                         <button type="button" class="btn btn-primary" name="view" id="view" onclick="changePassword(<?= $value->u_id ?>)" title="เปลี่ยนรหัสผ่าน"><i class="mdi mdi-key-variant"></i></button>
                         <button type="button" class="btn btn-warning" name="edit" id="edit" onclick="edit(<?= $value->u_id ?>)" title="แก้ไขข้อมูลพนักงาน"><i class="mdi mdi-pencil"></i></button>
                         <?php if ($value->u_status == 1) : ?>
-                          <button type="button" class="btn btn-danger" name="del" id="del" title="ลบข้อมูล" onclick="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)"><i class="mdi mdi-lock-open-outline"></i></button>
+                          <button type="button" class="btn btn-danger" name="del" id="del" title="ระงับการทำงาน" onclick="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)"><i class="mdi mdi-lock-open-outline"></i></button>
                         <?php else : ?>
                           <button type="button" class="btn btn-dark" name="del" id="del" title="กู้คืนข้อมูล" onclick="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)"><i class="mdi mdi-lock-outline"></i></button>
                         <?php endif; ?>
@@ -54,10 +58,20 @@
             </tbody>
           </table>
         </div>
+        <a type="button" class="btn waves-effect waves-light btn-dark" href="<?= base_url() ?>"><i class="mdi mdi-arrow-left"></i> ย้อนกลับ</a>
       </div>
     </div>
   </div>
 </div>
+
+<style>
+  .name{
+    color: #0d6efd;
+  }
+  .name:hover {
+    color: #03a9f3;
+  }
+</style>
 
 <script>
   function showRole(id, role) {
@@ -131,8 +145,8 @@
 
   $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn waves-effect waves-light btn-info mx-1');
   $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').removeClass("dt-button");
-  // $('.buttons-excel').text("ดาวน์โหลดไฟล์ Excel");
-  // $('.buttons-pdf').text("ดาวน์โหลดไฟล์ PDF");
+  $('.buttons-excel').html('<i class="mdi mdi-file-excel"></i> Excel');
+  $('.buttons-pdf').html('<i class="mdi mdi-file-pdf"></i> PDF');
 
   $('#addBtn').click(function(e) {
     e.preventDefault();
@@ -146,4 +160,5 @@
       $('#mainModal').modal();
     });
   });
+
 </script>

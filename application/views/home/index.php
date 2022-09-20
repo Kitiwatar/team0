@@ -72,14 +72,14 @@
     <div class="col-md-8 col-sm-12">
         <div class="card p-2">
             <div class="card-body">
-                <div id="pie-edu" style="width:100%; height:280px;"></div>
+                <div id="projectChart" style="width:100%; height:280px;"></div>
             </div>
         </div>
     </div>
     <div class="col-md-4 col-sm-12">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="card" style="background-color:#56BDC6;">
+                <div class="card" style="background-color:#57BF95;">
                     <div class="card-body">
                         <div>
                             <div class="mdi mdi-bookmark-check" style="font-size: 30px; color:white;" align="right"></div>
@@ -223,7 +223,7 @@
             // });
             // //End Flot Pie Chart
 
-            var pieChart = echarts.init(document.getElementById("pie-edu"));
+            var pieChart = echarts.init(document.getElementById("projectChart"));
 
             // specify chart configuration item and data
             option = {
