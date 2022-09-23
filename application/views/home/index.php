@@ -172,57 +172,8 @@
             $('#p_progress').html(returnData.projectProgress)
             $('#p_success').html(returnData.projectSuccess)
             $('#p_fail').html(returnData.projectFail)
-            //Flot Pie Chart
-            // $(function() {
-            //     var data = [{
-            //         label: "เสร็จสิ้น",
-            //         data: returnData.projectSuccess,
-            //         color: "#57BF95",
-            //     }, {
-            //         label: "ยกเลิก",
-            //         data: returnData.projectFail,
-            //         color: "#FF6666",
-            //     }, {
-            //         label: "รอดำเนินการ",
-            //         data: returnData.projectPending,
-            //         color: "#FEC107",
-            //     }, {
-            //         label: "กำลังดำเนินการ",
-            //         data: returnData.projectProgress,
-            //         color: "#03A9F3",
-            //     }];
-            //     var plotObj = $.plot($("#flot-pie-chart"), data, {
-            //         series: {
-            //             pie: {
-            //                 innerRadius: 0.5,
-            //                 show: true
-            //             }
-            //         },
-            //         grid: {
-            //             hoverable: true
-            //         },
-            //         color: null,
-            //         tooltip: true,
-            //         tooltipOpts: {
-            //             content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
-            //             shifts: {
-            //                 x: 20,
-            //                 y: 0,
-            //             },
-            //             defaultTheme: false
-            //         }
-            //     });
-            // });
-            // plotObj.setOption(option, true), $(function() {
-            //     function resize() {
-            //         setTimeout(function() {
-            //             plotObj.resize()
-            //         }, 100)
-            //     }
-            //     $(window).on("resize", resize), $(".sidebartoggler").on("click", resize)
-            // });
-            // //End Flot Pie Chart
 
+            //Flot Pie Chart
             var pieChart = echarts.init(document.getElementById("pie-edu"));
 
             // specify chart configuration item and data
@@ -300,5 +251,6 @@
         })
     }
     getProjectSummary();
+    const realTimeData = setTimeout(getProjectSummary, 5000);
     //End Get Project Summary
 </script>
