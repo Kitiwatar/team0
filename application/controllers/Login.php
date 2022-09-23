@@ -1,13 +1,16 @@
 <?php
+// Create by: Patiphan Pansanga 07-09-2565
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller {
 
   	public function __construct() {
+		// Create by: Patiphan Pansanga 07-09-2565
 		parent::__construct();
 	}
 
 	public function index() {
+		// Create by: Patiphan Pansanga 07-09-2565
 		if(isset($_SESSION['u_id'])) {
 			redirect(base_url());
 		}
@@ -19,14 +22,15 @@ class Login extends CI_Controller {
 	}
 
 	public function checkLogin() {
+		// Create by: Patiphan Pansanga 07-09-2565
 		$formData = $this->input->post();
 
 		if(!isset($formData['u_email']) || !isset($formData['u_password'])) {
-			$json = ['status'=> 0];	
+			$json = ['status'=> 0, 'msg'=>'กรุณากรอกข้อมูลให้ครบถ้วน'];	
 			$this->output->set_content_type('application/json')->set_output(json_encode($json));
 			return;
 		}
-
+	
 		$passwordHash = hash('sha256', $formData['u_password']);
 
 		$data = $this->genmod->getOne('pms_user', '*', array('u_email' => $formData['u_email']));
@@ -46,13 +50,13 @@ class Login extends CI_Controller {
 				$json = ['status'=> 0, 'msg'=>'รหัสผ่านไม่ถูกต้อง'];
 			} 
 		} else {
-			$json = ['status'=> 0, 'msg'=>'ไม่พบบัญชีผู้ใช้นี้ระบบ'];			
+			$json = ['status'=> 0, 'msg'=>'ไม่พบบัญชีผู้ใช้นี้ในระบบ'];			
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
     }
 
-
 	public function logout() {
+		// Create by: Patiphan Pansanga 07-09-2565
 		session_destroy();
 		redirect(base_url());
 	}
