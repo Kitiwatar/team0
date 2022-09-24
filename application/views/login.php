@@ -21,22 +21,10 @@
             <div class="card" style="border-radius: 25px;">
                 <div class="row g-0">
                     <div class="col-md-6 col-lg-6 d-none d-md-block text-center bgLogin" style="border-top-left-radius: 25px; border-bottom-left-radius: 25px;">
-                        <!-- <div class="row">
-                            <div class="col-2">
-                                <div class="rectangle mx-4"></div>
-                            </div>
-                            <div class="col">
-                                <div style="margin-top: 150px; margin-bottom: 100px; font-size: 100px;">PMS</div>
-                            </div>
-                        </div> -->
                         <div class="text-start text-secondary fw-bold m-5">
                             <div style="font-size: 60px;">Project</div>
-                            <!-- <div style="height: 5px; width: 100%; background-color:white;"></div> -->
                             <div style="font-size: 60px;">Monitoring</div>
-                            <!-- <div style="height: 5px; width: 100%; background-color:white;"></div> -->
                             <div style="font-size: 60px;">System</div>
-                            <!-- <div style="height: 5px; width: 100%; background-color:white;"></div> -->
-                            <!-- <img src="http://www.ivsoft.co.th/img/team/seksan2.jpg" alt="user"> -->
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-6 d-flex align-items-center" style="border-top-right-radius: 25px; border-bottom-right-radius: 25px;">

@@ -36,17 +36,26 @@ class Projects extends CI_Controller{
 		*/
 		$data['pageTitle'] =  'โครงการที่เกี่ยวข้อง';
 		$data['breadcrumb'] = 'โครงการที่เกี่ยวข้อง';
-		$arrayJoin = array('pms_project' => 'pms_project.p_id=pms_permission.per_p_id','pms_user'=>'pms_user.u_id=pms_project.p_u_id');
-		$data['getData'] = $this->genmod->getAll('pms_permission', '*',array('per_u_id'=>$_SESSION['u_id']),'',$arrayJoin,'');
+		$arrayJoin = array('pms_project' => 'pms_project.p_id=pms_permission.per_p_id','pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
+		if($_SESSION['u_role'] > 1) {
+			$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('per_u_id'=>$_SESSION['u_id']), '', $arrayJoin, '');
+		} else {
+			$data['getData'] = $this->genmod->getAll('pms_permission', '*', '', '', $arrayJoin, '');
+		}
+
 		$data['arrayStatus'] = $this->getStatus();
-		$lasttask = array();
+		$lastTask = array();
+		$leader = array();
+		$arrayJoin = array('pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
 		if(is_array($data['getData'])){
 			foreach ($data['getData'] as $key => $value){
-				$lasttask[$key] = $this->genmod->getLastTask($value->per_p_id);
+				$leader[$key] = $this->genmod->getOne('pms_permission', '*',array('per_p_id'=>$value->per_p_id, 'per_level'=>1),'',$arrayJoin,'');
+				$lastTask[$key] = $this->genmod->getLastTask($value->per_p_id);
 			}
 		}
-		
-		$data['lasttask'] = $lasttask;
+	
+		$data['lastTask'] = $lastTask;
+		$data['leader'] = $leader;
 		$json['html'] = $this->load->view('projects/list', $data, TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
