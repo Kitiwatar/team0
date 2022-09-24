@@ -1,7 +1,4 @@
-<!-- 
-    Author: Kitiwat Arunwong
-    Update: 2022-09-19
--->
+ <!-- Create by : Kitiwat Arunwong 24/09/2565 -->
 <style>
     tr {
 
@@ -12,55 +9,53 @@
         color: #676767;
     }
 </style>
-
-<div class="row">
-    <div class="col-lg-4 col-md-4">
-        <div class="card border">
-            <div class="card-body">
-                <a href="<?= base_url() ?>home/all">
-                    <div class="row">
+<div class="">
+    <div class="row g-0">
+        <div class="col-lg-4 col-md-4">
+            <div class="card border" id="allProject">
+                <div class="card-body">
+                    <a href="<?= base_url() ?>home/getAllProject">
                         <h3><i class="mdi mdi-view-headline"></i></h3>
                         <h2 class="counter text-primary text-end" id="all"></h2>
                         <p class="text-muted">โครงการทั้งหมด</p>
                         <div class="progress">
                             <div class="progress-bar bg-primary" role="progressbar" style="width: 100%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <div class="card border">
+                <div class="card-body">
+                    <a href="<?= base_url() ?>home/all">
+                        <h3><i class="mdi mdi-library-books" style="color: #FEC107;"></i></h3>
+                        <h2 class="counter text-end" style="color: #FEC107;" id="p_pending"></h2>
+                        <p class="text-muted">รอดำเนินการ</p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 85%; height: 6px; background-color: #FEC107;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <div class="card border">
+                <div class="card-body">
+                    <a href="<?= base_url() ?>home/all">
+                        <h3><i class="ti-pencil-alt" style="color: #03A9F3;"></i></h3>
+                        <h2 class="counter text-end" style="color: #03A9F3;" id="p_progress"></h2>
+                        <p class="text-muted">กำลังดำเนินการ</p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 85%; height: 6px; background-color: #03A9F3;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-4 col-md-4">
-        <div class="card border">
-            <div class="card-body">
-                <a href="<?= base_url() ?>home/all">
-                    <h3><i class="mdi mdi-library-books" style="color: #FEC107;"></i></h3>
-                    <h2 class="counter text-end" style="color: #FEC107;" id="p_pending"></h2>
-                    <p class="text-muted">รอดำเนินการ</p>
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: 85%; height: 6px; background-color: #FEC107;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-4">
-        <div class="card border">
-            <div class="card-body">
-                <a href="<?= base_url() ?>home/all">
-                    <h3><i class="ti-pencil-alt" style="color: #03A9F3;"></i></h3>
-                    <h2 class="counter text-end" style="color: #03A9F3;" id="p_progress"></h2>
-                    <p class="text-muted">กำลังดำเนินการ</p>
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: 85%; height: 6px; background-color: #03A9F3;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <!-- <div class="col-md-8 col-sm-12">
+    <div class="row">
+        <!-- <div class="col-md-8 col-sm-12">
         <div class="card">
             <div class="card-body col-md-8 col-sm-12">
                 <div class="flot-chart">
@@ -69,46 +64,47 @@
             </div>
         </div>
     </div> -->
-    <div class="col-md-8 col-sm-12">
-        <div class="card p-2">
-            <div class="card-body">
-                <div id="projectChart" style="width:100%; height:280px;"></div>
+        <div class="col-md-8 col-sm-12">
+            <div class="card p-2">
+                <div class="card-body">
+                    <div id="projectChart" style="width:100%; height:343px;"></div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-4 col-sm-12">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="card" style="background-color:#57BF95;">
-                    <div class="card-body">
-                        <div>
-                            <div class="mdi mdi-bookmark-check" style="font-size: 30px; color:white;" align="right"></div>
+        <div class="col-md-4 col-sm-12">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="card" style="background-color:#57BF95;">
+                        <div class="card-body">
+                            <div>
+                                <div class="mdi mdi-bookmark-check" style="font-size: 40px; color:white;" align="right"></div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 0%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="row" style="color:white;">
+                                <div class="col">
+                                    <div style="font-size: 30px;" id="p_success"></div>
+                                    <div style="font-size: 20px;">เสร็จสิ้น</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="card border" style="background-color:#E46A76;">
+                        <div class="card-body">
+                            <div class="mdi mdi-emoticon-sad" style="font-size: 40px; color: white;" align="right"></div>
                             <div class="progress">
                                 <div class="progress-bar bg-primary" role="progressbar" style="width: 0%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
-                        </div>
-                        <div class="row" style="color:white;">
-                            <div class="col">
-                                <div style="font-size: 25px;" id="p_success"></div>
-                                <div>เสร็จสิ้น</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="card border" style="background-color:#E46A76;">
-                    <div class="card-body">
-                        <div class="mdi mdi-emoticon-sad" style="font-size: 30px; color: white;" align="right"></div>
-                        <div class="progress">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 0%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <div class="row" style="color:white;">
-                            <div class="col">
-                                <div class="my-2" style="font-size: 25px;" id="p_fail"></div>
-                                <div>ยกเลิก</div>
-                            </div>
-                            <div class="col">
+                            <div class="row" style="color:white;">
+                                <div class="col">
+                                    <div class="my-2" style="font-size: 30px;" id="p_fail"></div>
+                                    <div style="font-size: 20px;">ยกเลิก</div>
+                                </div>
+                                <div class="col">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -116,34 +112,10 @@
             </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12"></div>
-    <div class="card">
-        <table>
-            <tr style="text-align: center;">
-                <th class="">อันดับ</th>
-                <th>รายชื่อพนักงาน</th>
-                <th>จำนวนงานที่รับผิดชอบ</th>
-                <th>วันที่อัปเดตล่าสุด</th>
-            </tr>
-            <tr style="text-align: center;">
-                <td>1</td>
-                <td>Kitiwat</td>
-            </tr>
-            <tr style="text-align: center;">
-                <td>2</td>
-            </tr>
-            <tr style="text-align: center;">
-                <td>3</td>
-            </tr>
-            <tr style="text-align: center;">
-                <td>4</td>
-            </tr>
-            <tr style="text-align: center;">
-                <td>5</td>
-            </tr>
-        </table>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div id="listDiv"></div>
+        </div>
     </div>
 </div>
 <!-- Flot Charts JavaScript -->
@@ -172,59 +144,8 @@
             $('#p_progress').html(returnData.projectProgress)
             $('#p_success').html(returnData.projectSuccess)
             $('#p_fail').html(returnData.projectFail)
-            //Flot Pie Chart
-            // $(function() {
-            //     var data = [{
-            //         label: "เสร็จสิ้น",
-            //         data: returnData.projectSuccess,
-            //         color: "#57BF95",
-            //     }, {
-            //         label: "ยกเลิก",
-            //         data: returnData.projectFail,
-            //         color: "#FF6666",
-            //     }, {
-            //         label: "รอดำเนินการ",
-            //         data: returnData.projectPending,
-            //         color: "#FEC107",
-            //     }, {
-            //         label: "กำลังดำเนินการ",
-            //         data: returnData.projectProgress,
-            //         color: "#03A9F3",
-            //     }];
-            //     var plotObj = $.plot($("#flot-pie-chart"), data, {
-            //         series: {
-            //             pie: {
-            //                 innerRadius: 0.5,
-            //                 show: true
-            //             }
-            //         },
-            //         grid: {
-            //             hoverable: true
-            //         },
-            //         color: null,
-            //         tooltip: true,
-            //         tooltipOpts: {
-            //             content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
-            //             shifts: {
-            //                 x: 20,
-            //                 y: 0,
-            //             },
-            //             defaultTheme: false
-            //         }
-            //     });
-            // });
-            // plotObj.setOption(option, true), $(function() {
-            //     function resize() {
-            //         setTimeout(function() {
-            //             plotObj.resize()
-            //         }, 100)
-            //     }
-            //     $(window).on("resize", resize), $(".sidebartoggler").on("click", resize)
-            // });
-            // //End Flot Pie Chart
 
             var pieChart = echarts.init(document.getElementById("projectChart"));
-
             // specify chart configuration item and data
             option = {
 
@@ -299,6 +220,35 @@
 
         })
     }
+    // Function LoadList for Rank
+    loadList();
+
+    function loadList() {
+        $.ajax({
+            url: 'Home/getRank',
+            method: 'post'
+        }).done(function(returnData) {
+            // console.log(returnData)
+            $('#listDiv').html(returnData.html)
+        })
+    }
+    // End Function LoadList for Rank
+
     getProjectSummary();
+    var realTimeData = setInterval(getProjectSummary, 1800000);
+    var realTimeRank = setInterval(loadList, 1800000);
     //End Get Project Summary
+
+    $('#addProject').click(function(e) {
+        e.preventDefault();
+        $.ajax({
+            method: "post",
+            url: 'home/getA'
+        }).done(function(returnData) {
+            $('#mainModalTitle').html(returnData.title);
+            $('#mainModalBody').html(returnData.body);
+            $('#mainModalFooter').html(returnData.footer);
+            $('#mainModal').modal();
+        });
+    });
 </script>
