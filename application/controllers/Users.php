@@ -46,7 +46,6 @@ class Users extends CI_Controller {
 	}
 
  	public function getAddForm() {
-		// Create by: Patiphan Pansanga 08-09-2565 get form add user
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}

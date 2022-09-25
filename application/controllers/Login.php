@@ -9,8 +9,7 @@ class Login extends CI_Controller {
 		parent::__construct();
 	}
 
-	public function index() {
-		// Create by: Patiphan Pansanga 07-09-2565 index page
+	public function index() {		// Create by: Patiphan Pansanga 07-09-2565 index page
 		if(isset($_SESSION['u_id'])) {
 			redirect(base_url());
 		}

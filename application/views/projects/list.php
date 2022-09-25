@@ -16,7 +16,9 @@
                  <th>ผู้รับผิดชอบหลัก</th>
                  <th>กิจกรรม</th>
                  <th>สถานะ</th>
-                 <th class="text-center">ปุ่มดำเนินการ</th>
+                 <?php if ($_SESSION['u_role'] <= 2) : ?>
+                   <th class="text-center">ปุ่มดำเนินการ</th>
+                 <?php endif; ?>
                </tr>
              </thead>
              <tbody>
@@ -99,13 +101,13 @@
    });
 
    pdfMake.fonts = {
-    THSarabun: {
-      normal: 'THSarabun.ttf',
-      bold: 'THSarabun-Bold.ttf',
-      italics: 'THSarabun-Italic.ttf',
-      bolditalics: 'THSarabun-BoldItalic.ttf'
-    }
-  }
+     THSarabun: {
+       normal: 'THSarabun.ttf',
+       bold: 'THSarabun-Bold.ttf',
+       italics: 'THSarabun-Italic.ttf',
+       bolditalics: 'THSarabun-BoldItalic.ttf'
+     }
+   }
    $('.table').DataTable({
      "dom": 'Bftlp',
      "buttons": [{
@@ -126,7 +128,7 @@
              font: 'THSarabun',
              fontSize: 16
            };
-          //  console.log(doc);
+           //  console.log(doc);
          }
        },
      ],

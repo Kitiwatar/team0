@@ -56,6 +56,7 @@
     } else {
       $('#telMsg').text(' ');
     }
+
     if (!formData.u_email || !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/).test(formData.u_email)) {
       $('#emailMsg').text(' กรุณากรอกอีเมลให้ถูกต้อง');
       $('#u_email').focus();
@@ -77,7 +78,7 @@
     } else {
       $('#fnameMsg').text(' ');
     }
-    
+
     if (count > 0) {
       return false;
     }
