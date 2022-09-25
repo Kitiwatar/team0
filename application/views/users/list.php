@@ -1,9 +1,10 @@
+<!-- Create by: Patiphan Pansanga 07-09-2565-->
 <div class="row">
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h4 class='card-title'>ตารางรายชื่อพนักงานในระบบ</h4>
-        <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มพนักงานในระบบ</button>   
+        <h4 class='card-title'>ตารางรายชื่อพนักงาน</h4>
+        <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มพนักงาน</button>   
         <div class="table-responsive my-2">
           <table class="display table table-striped table-bordered dt-responsive nowrap">
             <thead>
@@ -110,13 +111,13 @@
       {
         "extend": "excel",
         exportOptions: {
-          columns: [0, 1, 2, 3, 4]
+          columns: [0, 1, 2, 3, 4, 5, 6]
         },
       },
       { 
       "extend" : 'pdf', 
       "exportOptions": {
-          columns: [0, 1, 2, 3, 4]
+          columns: [0, 1, 2, 3, 4, 5, 6]
         },
         "text": 'PDF',
         "pageSize": 'A4',
@@ -125,7 +126,7 @@
             font: 'THSarabun',
             fontSize: 16
           };
-          console.log(doc);
+          // console.log(doc);
         }
       },
     ],
@@ -145,8 +146,8 @@
 
   $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn waves-effect waves-light btn-info mx-1');
   $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').removeClass("dt-button");
-  $('.buttons-excel').html('<i class="mdi mdi-file-excel"></i> Excel');
-  $('.buttons-pdf').html('<i class="mdi mdi-file-pdf"></i> PDF');
+  $('.buttons-excel').html('<i class="mdi mdi-file-excel-box"></i> Excel');
+  $('.buttons-pdf').html('<i class="mdi mdi-file-pdf-box"></i> PDF');
 
   $('#addBtn').click(function(e) {
     e.preventDefault();

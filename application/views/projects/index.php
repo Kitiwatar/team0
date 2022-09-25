@@ -1,7 +1,4 @@
-<!-- 
-  Author: Patiphan Pansanga, Jiradat Pomyai 
-  Create: 2022-09-19
- -->
+<!-- Create by: Patiphan Pansanga, Jiradat Pomyai 19-09-2565 -->
  <div id="listDiv"></div>
 
 <script>
@@ -10,18 +7,7 @@
   const strThai = string => [...string].every(c => 'กิ่ขี้ฃึ๊คื๋ฅัฆ็ง์จฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรลวศษสหฬอฮะาเแำไใฤฦๅ'.includes(c));
   const strEmail = string => [...string].every(c => 'abcdefgijklmnopqrstuvwxyz@.-1234567890'.includes(c));
   // new button on click and then show modal
-  $('#addBtn').click(function(e) {
-    e.preventDefault();
-    $.ajax({
-      method: "post",
-      url: 'users/getAddForm'
-    }).done(function(returnData) {
-      $('#mainModalTitle').html(returnData.title);
-      $('#mainModalBody').html(returnData.body);
-      $('#mainModalFooter').html(returnData.footer);
-      $('#mainModal').modal();
-    });
-  });
+  
 
   function loadList() {
     $.ajax({

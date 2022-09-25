@@ -1,8 +1,5 @@
-<!-- 
-    Author: Patiphan Pansanga, Jiradat Pomyai, Natakorn Phongsarikit, Kitiwat Arunwong
-    Create: 2022-09-07
- -->
- <!DOCTYPE html>
+<!-- Create by: Patiphan Pansanga, Jiradat Pomyai, Natakorn Phongsarikit, Kitiwat Arunwong 07-09-2565 -->
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -401,7 +398,7 @@
         })
     }
 
-    var timeLeft = 3000;
+    var timeLeft = 3600;
 
     function countDown() {
         var downloadTimer = setInterval(function() {
@@ -418,7 +415,7 @@
                     cancelButtonText: "ยกเลิก",
                     allowOutsideClick: false,
                     allowEscapeKey: false,
-                    timer: 30000,
+                    timer: 15000,
                     onBeforeOpen: () => {
                         timerInterval = setInterval(() => {
                             Swal.getContent().querySelector('strong').textContent = (Swal.getTimerLeft() / 1000).toFixed(0)
@@ -441,6 +438,6 @@
     }
 
     function resetTimeLeft() {
-        timeLeft = 3000;
+        timeLeft = 3600;
     }
 </script>

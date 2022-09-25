@@ -1,7 +1,4 @@
-<!-- 
-  Author: Patiphan Pansanga 
-  Create: 2022-09-14
- -->
+<!-- Create by: Patiphan Pansanga 14-09-2022-->
 <div class="row">
   <div class="col-12">
     <div class="card">

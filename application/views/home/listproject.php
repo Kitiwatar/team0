@@ -3,7 +3,7 @@
    <div class="col-12">
      <div class="card">
        <div class="card-body">
-         <h4 class='card-title'>ตารางรายชื่อโครงการที่รับผิดชอบ</h4>
+         <h4 class='card-title'>ตารางรายชื่อ<?=$pageTitle?></h4>
          <div class="table-responsive my-2">
            <table class="display table table-striped table-bordered dt-responsive nowrap">
              <thead>
@@ -16,16 +16,15 @@
                </tr>
              </thead>
              <tbody>
-
                <?php if (is_array($getData)) : $count = 1; ?>
                  <?php foreach ($getData as $key => $value) : ?>
                    <tr>
                      <td class="text-center"><?= $count++ ?></td>
                      <td onclick="view(<?= $value->u_id ?>)" style="cursor:pointer;"><?= $value->p_name ?> </td>
-                     <td><?= $value->u_firstname . ' ' . $value->u_lastname ?></td>
+                     <td><?= $leader[$key]->u_firstname . ' ' . $leader[$key]->u_lastname  ?></td>
                      <td>
-                       <?php if (isset($lasttask[$key]->tl_name)) : ?>
-                         <?= $lasttask[$key]->tl_name ?>
+                       <?php if (isset($lastTask[$key]->tl_name)) : ?>
+                         <?= $lastTask[$key]->tl_name ?>
                        <?php else : ?>
                          <?= '-' ?>
                        <?php endif; ?>
@@ -34,7 +33,7 @@
                        <?php
                         foreach ($arrayStatus as $key => $status) {
                           if ($value->p_status == $key) {
-                            echo "<font class = 'status" . $key . "'>" . $status . "</font>";
+                            echo "<font class = 'status" . $key . " rounded'>" . $status . "</font>";
                           }
                         }
                         ?>
@@ -47,6 +46,7 @@
              </tbody>
            </table>
          </div>
+         <a type="button" class="btn waves-effect waves-light btn-dark" href="<?= base_url() ?>"><i class="mdi mdi-arrow-left"></i> ย้อนกลับ</a>
        </div>
      </div>
    </div>
@@ -79,6 +79,14 @@
  </style>
 
  <script>
+    pdfMake.fonts = {
+    THSarabun: {
+      normal: 'THSarabun.ttf',
+      bold: 'THSarabun-Bold.ttf',
+      italics: 'THSarabun-Italic.ttf',
+      bolditalics: 'THSarabun-BoldItalic.ttf'
+    }
+  }
    $('.table').DataTable({
      "dom": 'Bftlp',
      "buttons": [{
@@ -90,7 +98,7 @@
        {
          "extend": 'pdf',
          "exportOptions": {
-           columns: [0, 1, 2, 3, 4]
+           columns: [0]
          },
          "text": 'PDF',
          "pageSize": 'A4',
@@ -99,7 +107,7 @@
              font: 'THSarabun',
              fontSize: 16
            };
-           console.log(doc);
+          //  console.log(doc);
          }
        },
      ],
@@ -118,4 +126,6 @@
    });
    $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn waves-effect waves-light btn-info mx-1');
    $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').removeClass("dt-button");
+   $('.buttons-excel').html('<i class="mdi mdi-file-excel-box"></i> Excel');
+   $('.buttons-pdf').html('<i class="mdi mdi-file-pdf-box"></i> PDF');
  </script>

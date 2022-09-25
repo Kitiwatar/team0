@@ -1,69 +1,55 @@
- <!-- Create by : Kitiwat Arunwong 24/09/2565 -->
+<!-- Create by: Kitiwat Arunwong 24-09-2565 -->
 <style>
-    tr {
-
-        border-bottom: 1px solid #ddd;
-    }
-
-    table {
-        color: #676767;
+    .cardProject:hover {
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     }
 </style>
 <div class="">
     <div class="row g-0">
         <div class="col-lg-4 col-md-4">
-            <div class="card border" id="allProject">
-                <div class="card-body">
-                    <a href="<?= base_url() ?>home/getAllProject">
-                        <h3><i class="mdi mdi-view-headline"></i></h3>
+            <div class="card border cardProject">
+                <a href="<?= base_url() ?>home/viewProjects/all">
+                    <div class="card-body">
+                        <h3><i class="mdi mdi-view-headline" style="color: #fb9678;"></i></h3>
                         <h2 class="counter text-primary text-end" id="all"></h2>
                         <p class="text-muted">โครงการทั้งหมด</p>
                         <div class="progress">
                             <div class="progress-bar bg-primary" role="progressbar" style="width: 100%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                    </a>
-                </div>
+                    </div>
+                </a>
             </div>
         </div>
         <div class="col-lg-4 col-md-4">
-            <div class="card border">
-                <div class="card-body">
-                    <a href="<?= base_url() ?>home/all">
+            <div class="card border cardProject">
+                <a href="<?= base_url() ?>home/viewProjects/pending">
+                    <div class="card-body">
                         <h3><i class="mdi mdi-library-books" style="color: #FEC107;"></i></h3>
                         <h2 class="counter text-end" style="color: #FEC107;" id="p_pending"></h2>
                         <p class="text-muted">รอดำเนินการ</p>
                         <div class="progress">
                             <div class="progress-bar" role="progressbar" style="width: 85%; height: 6px; background-color: #FEC107;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                    </a>
-                </div>
+                    </div>
+                </a>
             </div>
         </div>
         <div class="col-lg-4 col-md-4">
-            <div class="card border">
-                <div class="card-body">
-                    <a href="<?= base_url() ?>home/all">
+            <div class="card border cardProject">
+                <a href="<?= base_url() ?>home/viewProjects/progress">
+                    <div class="card-body">
                         <h3><i class="ti-pencil-alt" style="color: #03A9F3;"></i></h3>
                         <h2 class="counter text-end" style="color: #03A9F3;" id="p_progress"></h2>
                         <p class="text-muted">กำลังดำเนินการ</p>
                         <div class="progress">
                             <div class="progress-bar" role="progressbar" style="width: 85%; height: 6px; background-color: #03A9F3;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                    </a>
-                </div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
     <div class="row">
-        <!-- <div class="col-md-8 col-sm-12">
-        <div class="card">
-            <div class="card-body col-md-8 col-sm-12">
-                <div class="flot-chart">
-                    <div class="flot-chart-content" id="flot-pie-chart" style="width:100%; height: 300px;"></div>
-                </div>
-            </div>
-        </div>
-    </div> -->
         <div class="col-md-8 col-sm-12">
             <div class="card p-2">
                 <div class="card-body">
@@ -74,39 +60,43 @@
         <div class="col-md-4 col-sm-12">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                    <div class="card" style="background-color:#57BF95;">
-                        <div class="card-body">
-                            <div>
-                                <div class="mdi mdi-bookmark-check" style="font-size: 40px; color:white;" align="right"></div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 0%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="card cardProject" style="background-color:#57BF95;">
+                        <a href="<?= base_url() ?>home/viewProjects/success">
+                            <div class="card-body">
+                                <div>
+                                    <div class="mdi mdi-bookmark-check" style="font-size: 40px; color:white;" align="right"></div>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 0%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                <div class="row" style="color:white;">
+                                    <div class="col">
+                                        <div style="font-size: 30px;" id="p_success"></div>
+                                        <div style="font-size: 20px;">เสร็จสิ้น</div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row" style="color:white;">
-                                <div class="col">
-                                    <div style="font-size: 30px;" id="p_success"></div>
-                                    <div style="font-size: 20px;">เสร็จสิ้น</div>
-                                </div>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                    <div class="card border" style="background-color:#E46A76;">
-                        <div class="card-body">
-                            <div class="mdi mdi-emoticon-sad" style="font-size: 40px; color: white;" align="right"></div>
-                            <div class="progress">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 0%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div class="row" style="color:white;">
-                                <div class="col">
-                                    <div class="my-2" style="font-size: 30px;" id="p_fail"></div>
-                                    <div style="font-size: 20px;">ยกเลิก</div>
+                    <div class="card cardProject" style="background-color:#E46A76;">
+                        <a href="<?= base_url() ?>home/viewProjects/fail">
+                            <div class="card-body">
+                                <div class="mdi mdi-emoticon-sad" style="font-size: 40px; color: white;" align="right"></div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 0%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                                <div class="col">
+                                <div class="row" style="color:white;">
+                                    <div class="col">
+                                        <div class="my-2" style="font-size: 30px;" id="p_fail"></div>
+                                        <div style="font-size: 20px;">ยกเลิก</div>
+                                    </div>
+                                    <div class="col">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -163,7 +153,7 @@
                     show: true,
                     feature: {
                         dataView: {
-                            show: true,
+                            show: false,
                             readOnly: true
                         },
                         magicType: {
@@ -173,7 +163,7 @@
                         //     show: true
                         // },
                         saveAsImage: {
-                            show: true
+                            show: false
                         }
                     }
                 },
@@ -238,17 +228,4 @@
     var realTimeData = setInterval(getProjectSummary, 1800000);
     var realTimeRank = setInterval(loadList, 1800000);
     //End Get Project Summary
-
-    $('#addProject').click(function(e) {
-        e.preventDefault();
-        $.ajax({
-            method: "post",
-            url: 'home/getA'
-        }).done(function(returnData) {
-            $('#mainModalTitle').html(returnData.title);
-            $('#mainModalBody').html(returnData.body);
-            $('#mainModalFooter').html(returnData.footer);
-            $('#mainModal').modal();
-        });
-    });
 </script>

@@ -1,19 +1,30 @@
 <?php
-// Create by: Patiphan Pansanga 07-09-2565
+// Create by: Patiphan Pansanga 07-09-2565 Users management
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Users extends CI_Controller {
 
 	public function __construct() {
-		// Create by: Patiphan Pansanga 07-09-2565
+		// Create by: Patiphan Pansanga 07-09-2565 construct
 		parent::__construct();
 		$this->genlib->checkLogin();
 		$data = $this->genmod->getOne('pms_user', '*', array('u_id'=>$_SESSION['u_id']));
 		$this->genlib->updateSession($data);
 	}
 
+	public function index()	{
+		// Create by: Patiphan Pansanga 07-09-2565 index page
+		if($_SESSION['u_role'] > 1) {
+			redirect(base_url());
+		}
+		$values['pageTitle'] = 'รายชื่อพนักงาน';
+		$values['breadcrumb'] = 'รายชื่อพนักงาน';
+		$values['pageContent'] = $this->load->view('users/index', $values, TRUE);
+		$this->load->view('main', $values);
+	}
+
 	public function getAllRole($dataType = "php") {
-		// Create by: Patiphan Pansanga 13-09-2565
+		// Create by: Patiphan Pansanga 13-09-2565 return all user role
 		if($dataType == "php") {
 			$arrayRole = array(1=>"ผู้ดูแลระบบ", 2=>"หัวหน้าโครงการ", 3=>"พนักงาน");
 			return $arrayRole;
@@ -23,19 +34,8 @@ class Users extends CI_Controller {
 		}
     }
 
-	public function index()	{
-		// Create by: Patiphan Pansanga 07-09-2565
-		if($_SESSION['u_role'] > 1) {
-			redirect(base_url());
-		}
-		$values['pageTitle'] = 'รายชื่อพนักงานในระบบ';
-		$values['breadcrumb'] = 'รายชื่อพนักงานในระบบ';
-		$values['pageContent'] = $this->load->view('users/index', $values, TRUE);
-		$this->load->view('main', $values);
-	}
-
 	public function get() {
-		// Create by: Patiphan Pansanga 08-09-2565
+		// Create by: Patiphan Pansanga 08-09-2565 return table user
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
@@ -46,11 +46,11 @@ class Users extends CI_Controller {
 	}
 
  	public function getAddForm() {
-		// Create by: Patiphan Pansanga 08-09-2565
+		// Create by: Patiphan Pansanga 08-09-2565 get form add user
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
-		$json['title'] = 'เพิ่มพนักงานในระบบ(<font class="text-danger">*</font>จำเป็นต้องกรอกข้อมูล)';
+		$json['title'] = 'เพิ่มพนักงานในระบบ (<font class="text-danger">*</font>จำเป็นต้องกรอกข้อมูล)';
 		$data['arrayRole'] = $this->getAllRole();
 		$json['body'] = $this->load->view('users/formadd', $data ,true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit(\'new\');">บันทึก</button>
@@ -59,7 +59,7 @@ class Users extends CI_Controller {
 	}
 
 	public function add() {
-		// Create by: Patiphan Pansanga 08-09-2565
+		// Create by: Patiphan Pansanga 08-09-2565 add user in database
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
@@ -109,7 +109,7 @@ class Users extends CI_Controller {
 	}
 
 	public function getEditForm() {
-		// Create by: Patiphan Pansanga 08-09-2565
+		// Create by: Patiphan Pansanga 08-09-2565 get form edit user
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
@@ -123,7 +123,7 @@ class Users extends CI_Controller {
 	}
 
 	public function getDetailForm() {
-		// Create by: Jiradat Pomyai 14-09-2565
+		// Create by: Jiradat Pomyai 14-09-2565 get form detail user
 		if($this->input->post('person')!=null){
 			$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>($_SESSION['u_id'])));
 		}
@@ -142,7 +142,7 @@ class Users extends CI_Controller {
 	}
 
 	public function getPasswordForm() {
-		// Create by: Natakorn Phongsarikit 14-09-2565
+		// Create by: Natakorn Phongsarikit 14-09-2565 get form password
 		if($this->input->post('person')!=null) { 
 			$data['personPassword'] = "yes";
 			$json['title'] = 'เปลี่ยนรหัสผ่าน';
@@ -165,7 +165,7 @@ class Users extends CI_Controller {
 
 
 	public function updatePassword() {
-		// Create by: Patiphan Pansanga, Natakorn Phongsarikit 07-09-2565
+		// Create by: Patiphan Pansanga, Natakorn Phongsarikit 07-09-2565 update password in database
 		$this->genlib->ajaxOnly();
 		$updateData = $this->input->post();
 		if(isset($updateData['curPwd'])) {
@@ -201,7 +201,7 @@ class Users extends CI_Controller {
 	}
 
 	public function updateRole() {
-		// Create by: Patiphan Pansanga 07-09-2565
+		// Create by: Patiphan Pansanga 07-09-2565 update role user in database
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
@@ -220,7 +220,7 @@ class Users extends CI_Controller {
 	}
 
   	public function updateStatus() {
-		// Create by: Patiphan Pansanga 07-09-2565
+		// Create by: Patiphan Pansanga 07-09-2565 update status user in database
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
@@ -243,7 +243,7 @@ class Users extends CI_Controller {
 	}
 
 	public function checkCurrentPassword() {
-		// Create by: Patiphan Pansanga 15-09-2565
+		// Create by: Patiphan Pansanga 15-09-2565 check current password
 		$data = $this->input->post();
 		$validCheck = $this->genmod->getOne('pms_user', '*', array('u_id' => $_SESSION['u_id']));
 		if($validCheck->u_password == hash('sha256', $data['pwd'])) {

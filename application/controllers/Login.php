@@ -1,16 +1,16 @@
 <?php
-// Create by: Patiphan Pansanga 07-09-2565
+// Create by: Patiphan Pansanga 07-09-2565 Login management
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller {
 
   	public function __construct() {
-		// Create by: Patiphan Pansanga 07-09-2565
+		// Create by: Patiphan Pansanga 07-09-2565 construct
 		parent::__construct();
 	}
 
 	public function index() {
-		// Create by: Patiphan Pansanga 07-09-2565
+		// Create by: Patiphan Pansanga 07-09-2565 index page
 		if(isset($_SESSION['u_id'])) {
 			redirect(base_url());
 		}
@@ -22,7 +22,7 @@ class Login extends CI_Controller {
 	}
 
 	public function checkLogin() {
-		// Create by: Patiphan Pansanga 07-09-2565
+		// Create by: Patiphan Pansanga 07-09-2565 checking for correct login
 		$formData = $this->input->post();
 
 		if(!isset($formData['u_email']) || !isset($formData['u_password'])) {
@@ -56,7 +56,7 @@ class Login extends CI_Controller {
     }
 
 	public function logout() {
-		// Create by: Patiphan Pansanga 07-09-2565
+		// Create by: Patiphan Pansanga 07-09-2565 logout
 		session_destroy();
 		redirect(base_url());
 	}

@@ -1,7 +1,4 @@
-<!-- 
-  Author: Natakorn Phongsarikit, Patiphan Pansanga 
-  Create: 2022-09-07
- -->
+<!-- Create by: Natakorn Phongsarikit, Patiphan Pansanga 07-09-2565-->
  <div class="row">
     <div class="col-12">
         <div class="card">

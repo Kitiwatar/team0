@@ -1,7 +1,4 @@
-<!-- 
-  Author: Patiphan Pansanga, Jiradat Pomyai 
-  Create: 2022-09-07
- -->
+<!-- Create by: Patiphan Pansanga, Jiradat Pomyai  07-09-2565-->
  <div id="listDiv"></div>
 
 <script>
@@ -81,13 +78,10 @@
       $('#fnameMsg').text(' ');
     }
     
-    
-
     if (count > 0) {
       return false;
     }
     
-
     var mainMsg;
     var detailMsg;
     if (u_id == "new") {

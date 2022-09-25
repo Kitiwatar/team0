@@ -1,7 +1,4 @@
-<!-- 
-  Author: Jiradat Pomyai, Patiphan Pansanga 
-  Create: 2022-09-07
- -->
+<!-- Createby: Jiradat Pomyai, Patiphan Pansanga 07-09-2565 -->
  <?php $required = '<span class="text-danger">*</span>'; ?>
 <div class="row">
   <div class="col-12">
