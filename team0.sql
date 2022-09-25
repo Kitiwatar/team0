@@ -33,7 +33,7 @@ CREATE TABLE `pms_file` (
   `f_id` int(11) NOT NULL COMMENT 'ไอดีไฟล์ (ตัวอย่าง 1)',
   `f_name` varchar(100) NOT NULL COMMENT 'ชื่อไฟล์ (ตัวอย่าง ใบเสนอราคา.pdf)',
   `f_createdate` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'วันที่อัปโหลด (ตัวอย่าง 2022-09-12 12:14:08)',
-  `f_status` int(11) NOT NULL DEFAULT 1 COMMENT 'สถานะไฟล์ (1 ปกติ, 2 ถูกลบ)',
+  `f_status` int(11) NOT NULL DEFAULT 1 COMMENT 'สถานะไฟล์ (0 ถูกลบ, 1 ปกติ)',
   `f_t_id` int(11) NOT NULL COMMENT 'ไอดีกิจกรรม (ตัวอย่าง 1)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ตารางไฟล์';
 
