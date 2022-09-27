@@ -268,15 +268,15 @@
 
   }
 
-  function changeStatus(u_id, u_status) {
+  function changeStatus(tl_id, tl_status) {
     var mainMsg;
     var detailMsg;
-    if (u_status == 1) {
+    if (tl_status == 1) {
       mainMsg = "ยืนยันการลบรายการกิจกรรม";
       detailMsg = "คุณต้องการลบรายกิจกรรมใช่หรือไม่";
     } else {
-      mainMsg = "ยืนยันการกู้คืนพนักงาน";
-      detailMsg = "คุณต้องการกู้คืนข้อมูลพนักงานใช่หรือไม่";
+      mainMsg = "ยืนยันการกู้คืนรายการกิจกรรม";
+      detailMsg = "คุณต้องการกู้คืนรายการกิจกรรมใช่หรือไม่";
     }
     swal({
       title: mainMsg,
@@ -291,10 +291,10 @@
       if (isConfirm.value) {
         $.ajax({
           method: "POST",
-          url: 'users/updateStatus',
+          url: 'tasks/updateStatus',
           data: {
-            u_id: u_id,
-            u_status: u_status
+            tl_id: tl_id,
+            tl_status: tl_status
           }
         }).done(function(returnData) {
           if (returnData.status == 1) {

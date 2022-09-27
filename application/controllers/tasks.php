@@ -1,7 +1,7 @@
 <?php
 /*
-	Author: Patiphan Pansanga, Jiradat Pomyai, Natakorn Phongsarikit
-	Create: 2022-09-07
+	Author: Natakorn Phongsarikit
+	Create: 2022-09-15
 */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -9,8 +9,8 @@ class tasks extends CI_Controller {
 
 	public function index()	{
 		/*
-			Author: Patiphan Pansanga
-			Create: 2022-09-07
+			Author: Natakorn Phongsarikit
+	        Create: 2022-09-15
 		*/
 		
 		$values['pageTitle'] = 'เพิ่มรายการกิจกรรมใหม่';
@@ -22,8 +22,8 @@ class tasks extends CI_Controller {
 
 	public function get() {
 		/*
-			Author: Patiphan Pansanga
-			Create: 2022-09-07
+			Author: Natakorn Phongsarikit
+	        Create: 2022-09-15
 		*/
 
 		$arrayJoin = array('pms_user'=>'pms_tasklist.tl_u_id=pms_user.u_id');
@@ -34,8 +34,8 @@ class tasks extends CI_Controller {
 
  	public function getAddForm() {
 		/*
-			Author: Patiphan Pansanga
-			Create: 2022-09-08
+			Author: Natakorn Phongsarikit
+			Create: 2022-09-15
 		*/
 		$data =array(); 
 		$json['title'] = 'เพิ่มรายการกิจกรรมใหม่';
@@ -47,8 +47,8 @@ class tasks extends CI_Controller {
 
 	public function add() {
 		/*
-			Author: Patiphan Pansanga
-			Create: 2022-09-08
+			Author: Natakorn Phongsarikit
+			Create: 2022-09-15
 		*/
 		
 	
@@ -82,8 +82,8 @@ class tasks extends CI_Controller {
 
 	public function getEditForm() {
 		/*
-			Author: Patiphan Pansanga
-			Create: 2022-09-08
+			Author: Natakorn Phongsarikit
+			Create: 2022-09-15
 		*/
 		$json['title'] = 'แก้ไขข้อมูลรายการกิจกรรม';
 		$data['getData'] = $this->genmod->getOne('pms_tasklist', '*', array('tl_id'=>$this->input->post('tl_id')));
@@ -95,8 +95,8 @@ class tasks extends CI_Controller {
 
 	public function getDetailForm() {
 		/*
-			Author: Jiradat Pomyai
-			Create: 2022-09-08
+			Author: Natakorn Phongsarikit
+			Create: 2022-09-15
 		*/
 		if($this->input->post('person')!=null){
 			$data['getData'] = $this->genmod->getOne('pms_user', '*', array('tl_id'=>($_SESSION['tl_id'])));
@@ -143,8 +143,8 @@ class tasks extends CI_Controller {
 
 	public function updatePassword() {
 		/*
-			Author: Patiphan Pansanga, Natakorn Phongsarikit
-			Create: 2022-09-07
+			Author: Natakorn Phongsarikit
+			Create: 2022-09-15
 		*/
 		$this->genlib->ajaxOnly();
 		$updateData = $this->input->post();
@@ -182,8 +182,8 @@ class tasks extends CI_Controller {
 
 	public function updateRole() {
 		/*
-			Author: Patiphan Pansanga
-			Create: 2022-09-07
+			Author: Natakorn Phongsarikit
+			Create: 2022-09-15
 		*/
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
@@ -204,27 +204,24 @@ class tasks extends CI_Controller {
 
   	public function updateStatus() {
 		/*
-			Author: Patiphan Pansanga
-			Create: 2022-09-07
+			Author: Natakorn Phongsarikit
+			Create: 2022-09-15
 		*/
-		if($_SESSION['u_role'] > 1) {
-			redirect(base_url());
-		}
 		$this->genlib->ajaxOnly();
 		$updateData = $this->input->post();
-		$validCheck = $this->genmod->getOne('pms_user', '*', array('u_id' => $updateData['u_id']));
-		if(isset($validCheck) && $_SESSION['u_role'] <= $validCheck->u_role) {
-			if($this->genmod->update('pms_user', array('u_status'=> ($updateData['u_status'] == 0? '1':'0')), array('u_id'=>$updateData['u_id']))){
-				if($updateData['u_status'] == 1) {
-					$msg = "ลบพนักงานออกจากระบบสำเร็จ";
+			if($this->genmod->update('pms_tasklist', array('tl_status'=> ($updateData['tl_status'] == 0? '1':'0')), array('tl_id'=>$updateData['tl_id']))){
+				if($updateData['tl_status'] == 1) {
+					$msg = "ลบรายการออกจากระบบสำเร็จ";
 				} else {
-					$msg = "กู้คืนข้อมูลพนักงานสำเร็จ";
+					$msg = "กู้คืนรายการสำเร็จ";
 				}
 				$json = ['status'=> 1, 'msg'=>$msg];
-			}
+			
 		}else{
 			$json = ['status'=> 0, 'msg'=>"เกิดข้อผิดพลาด"];
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
+
+	
 }

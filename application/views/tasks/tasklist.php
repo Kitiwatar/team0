@@ -15,20 +15,24 @@
               </tr>
             </thead>
             <tbody>
-            <?php if (is_array($getData)) : ?>
+              <?php if (is_array($getData)) : ?>
                 <?php foreach ($getData as $key => $value) : ?>
-                    <tr>
-                      <td><?= $value->tl_name ?></td>
-                      <td><?= $value->tl_createdate?></td>
-                      <td><?= $value->u_firstname ?> <?= $value->u_lastname ?></td>
+                  <tr>
+                    <td><?= $value->tl_name ?></td>
+                    <td><?= $value->tl_createdate ?></td>
+                    <td><?= $value->u_firstname ?> <?= $value->u_lastname ?></td>
                     <td class="text-center">
-                    <button type="button" class="btn btn-warning" name="edit" id="edit" onclick="edit(<?= $value->tl_id ?>)" title="แก้ไขข้อมูลพนักงาน"><i class="mdi mdi-pencil"></i></button>
-                    <button type="button" class="btn btn-danger" name="del" id="del" title="ลบข้อมูล" onclick="changeStatus(<?= $value->tl_id ?>,<?= $value->tl_status ?>)"><i class="mdi mdi-delete"></i></button>
-                    </php>     
-                  </td>
-                     </tr>
-                    <?php endforeach;?>
-               <?php endif; ?>
+                      <button type="button" class="btn btn-warning" name="edit" id="edit" onclick="edit(<?= $value->tl_id ?>)" title="แก้ไขรายการกิจกรรม"><i class="mdi mdi-pencil"></i></button>
+                      <?php if ($value->tl_status == 1) : ?>
+                        <button type="button" class="btn btn-danger" name="del" id="del" title="ระงับการทำงาน" onclick="changeStatus(<?= $value->tl_id ?>,<?= $value->tl_status ?>)"><i class="mdi mdi-delete"></i></button>
+                      <?php else : ?>
+                        <button type="button" class="btn btn-dark" name="del" id="del" title="กู้คืนข้อมูล" onclick="changeStatus(<?= $value->tl_id ?>,<?= $value->tl_status ?>)"><i class="mdi mdi-delete"></i></button>
+                      <?php endif; ?>
+
+                    </td>
+                  </tr>
+                <?php endforeach; ?>
+              <?php endif; ?>
             </tbody>
           </table>
         </div>
@@ -36,6 +40,16 @@
     </div>
   </div>
 </div>
+
+<style>
+  .name {
+    color: #0d6efd;
+  }
+
+  .name:hover {
+    color: #03a9f3;
+  }
+</style>
 
 <script>
   pdfMake.fonts = {
@@ -48,26 +62,25 @@
   }
   $('.table').DataTable({
     "dom": 'Bftlp',
-    "buttons": [
-      {
+    "buttons": [{
         "extend": "excel",
         exportOptions: {
-          columns: [0, 1, 2, 3, 4]
+          columns: [0, 1, 2]
         },
       },
-      { 
-      "extend" : 'pdf', 
-      "exportOptions": {
-          columns: [0, 1, 2, 3, 4]
+      {
+        "extend": 'pdf',
+        "exportOptions": {
+          columns: [0, 1, 2]
         },
         "text": 'PDF',
         "pageSize": 'A4',
-        "customize": function(doc) { 
+        "customize": function(doc) {
           doc.defaultStyle = {
             font: 'THSarabun',
             fontSize: 16
           };
-          console.log(doc);
+          // console.log(doc);
         }
       },
     ],
@@ -87,8 +100,8 @@
 
   $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn waves-effect waves-light btn-info mx-1');
   $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').removeClass("dt-button");
-  // $('.buttons-excel').text("ดาวน์โหลดไฟล์ Excel");
-  // $('.buttons-pdf').text("ดาวน์โหลดไฟล์ PDF");
+  $('.buttons-excel').html('<i class="mdi mdi-file-excel-box"></i> Excel');
+  $('.buttons-pdf').html('<i class="mdi mdi-file-pdf-box"></i> PDF');
 
   $('#addBtn').click(function(e) {
     e.preventDefault();

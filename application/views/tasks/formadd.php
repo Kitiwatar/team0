@@ -14,8 +14,7 @@
               <font id="fnameMsg" class="small text-danger"></font>
             </div>
 </div>
-
-<script>
+   <script>
   function checkOnlyText(id) {
     var dom = document.getElementById(id);
     if(strNumber(String.fromCharCode(event.which)) || dom.value.length > 99){
@@ -37,4 +36,4 @@
       event.preventDefault();
     }
   }
-</script>
+  </script>
