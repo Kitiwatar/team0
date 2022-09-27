@@ -25,8 +25,8 @@
                <?php if (is_array($getData)) : $count = 1 ?>
                  <?php foreach ($getData as $key => $value) : ?>
                    <tr>
-                     <td class="text-center"><?= $count++ ?></td> 
-                     <td  style="cursor:pointer;"> <a href="<?= base_url() ?>projects/viewProjectTasks"> <?= $value->p_name ?> </a> </td>
+                     <td class="text-center"><?= $count++ ?></td>
+                     <td onclick="viewProjectTasks()" style="cursor:pointer;"><?= $value->p_name ?> </td>
                      <td><?= $leader[$key]->u_firstname . ' ' . $leader[$key]->u_lastname ?></td>
                      <td>
                        <?php if (isset($lastTask[$key]->tl_name)) : ?>
@@ -87,6 +87,7 @@
  </style>
 
  <script>
+
    $('#addBtn').click(function(e) {
      e.preventDefault();
      $.ajax({

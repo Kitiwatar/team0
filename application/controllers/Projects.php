@@ -60,5 +60,14 @@ class Projects extends CI_Controller{
 		<button type="button" class="btn btn-danger" onclick="closeModal(\'เพิ่มโครงการ\')">ยกเลิก</button>';
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
+	public function viewProjectTasks()	{
+		// Create by: Jiradat 25-09-2565 index page
+		
+		$values['pageTitle'] = 'ตารางแสดงกิจกรรมโครงการ';
+		echo $Data;
+		$values['breadcrumb'] = 'ตารางแสดงกิจกรรมโครงการ';
+		$values['pageContent'] = $this->load->view('projects/projectdetail', $values, TRUE);
+		$this->load->view('main', $values);
+	}
 }
 ?>

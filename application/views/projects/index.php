@@ -146,6 +146,9 @@
     });
   }
 
+  
+  
+  
   function edit(u_id) {
     $.ajax({
       method: "post",
