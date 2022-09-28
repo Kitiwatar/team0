@@ -18,69 +18,25 @@
     })
   }
 
-  function saveFormSubmit(u_id) {
+  function saveFormSubmit(p_id) {
     // $('#fMsg').addClass('text-warning');
     // $('#fMsg').text('กำลังดำเนินการ ...');
     var formData = {};
-    formData['u_id'] = u_id;
+    formData['p_id'] = p_id;
     $('[name^="inputValue"]').each(function() {
       formData[this.id] = this.value;
     });
 
     console.log(formData);
-    if (!formData.u_firstname || !formData.u_lastname || !formData.u_email || !formData.u_tel || !formData.u_role) {
-      $('#fMsg').addClass('text-danger');
-      $('#fMsg').text('กรุณาระบุข้อมูลให้ครบถ้วน');
-      !formData.u_role ? $('#u_role').focus() : '';
-      !formData.u_tel ? $('#u_tel').focus() : '';
-      !formData.u_email ? $('#u_email').focus() : '';
-      !formData.u_lastname ? $('#u_lastname').focus() : '';
-      !formData.u_firstname ? $('#u_firstname').focus() : '';
-      return false;
-    } else {
-      var count = 0;
-      var regex = /\d+/g;
-      $('#fMsg').text(' ');
-      if ((formData.u_firstname).match(regex)) {
-        $('#fnameMsg').text(' กรอกได้เพียงตัวอักษรเท่านั้น');
-        $('#u_firstname').focus();
-        count++
-      } else {
-        $('#fnameMsg').text(' ');
-      }
-      if ((formData.u_lastname).match(regex)) {
-        $('#lnameMsg').text(' กรอกได้เพียงตัวอักษรเท่านั้น');
-        $('#u_lastname').focus();
-        count++
-      } else {
-        $('#lnameMsg').text(' ');
-      }
-      if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/).test(formData.u_email)) {
-        $('#emailMsg').text(' รูปแบบของอีเมลไม่ถูกต้อง');
-        $('#u_email').focus();
-        count++
-      } else {
-        $('#emailMsg').text(' ');
-      }
-      if (!strNumber(formData.u_tel) || (formData.u_tel).length != 10) {
-        $('#telMsg').text(' กรอกได้เพียงตัวเลข 10 หลักเท่านั้น');
-        $('#u_tel').focus();
-        count++
-      } else {
-        $('#telMsg').text(' ');
-      }
-      if (count > 0) {
-        return false;
-      }
-    }
+    
     var mainMsg;
     var detailMsg;
-    if (u_id == "new") {
-      mainMsg = "ยืนยันการเพิ่มพนักงาน";
-      detailMsg = "คุณต้องการเพิ่มข้อมูลพนักงานในระบบใช่หรือไม่";
+    if (p_id == "new") {
+      mainMsg = "ยืนยันการเพิ่มโครงการ";
+      detailMsg = "คุณต้องการเพิ่มโครงการในระบบใช่หรือไม่";
     } else {
-      mainMsg = "ยืนยันการแก้ไขพนักงาน";
-      detailMsg = "คุณต้องการแก้ไขข้อมูลพนักงานในระบบใช่หรือไม่";
+      mainMsg = "ยืนยันการแก้ไขโครงการ";
+      detailMsg = "คุณต้องการแก้ไขโครงการในระบบใช่หรือไม่";
     }
     swal({
       title: mainMsg,
@@ -94,7 +50,7 @@
       if (isConfirm.value) {
         $.ajax({
           method: "post",
-          url: 'users/add',
+          url: 'projects/add',
           data: formData
         }).done(function(returnData) {
           if (returnData.status == 1) {
@@ -145,6 +101,21 @@
       $('#mainModal').modal();
     });
   }
+  function view2(p_id) {
+    $.ajax({
+      method: "post",
+      url: 'projects/viewProjectTasks',
+      data: {
+        p_id: p_id
+      }
+    }).done(function(returnData) {
+      
+      window.location='projects/viewProjectTasks'
+    });
+    
+  }
+
+
 
   
   

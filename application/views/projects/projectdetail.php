@@ -14,39 +14,22 @@
                  <th class="text-center">ลำดับ</th>
                  <th>ชื่อโครงการ</th>
                  <th>ผู้รับผิดชอบหลัก</th>
-                 <th>กิจกรรม</th>
-                 <th>สถานะ</th>
-                 <?php if ($_SESSION['u_role'] <= 2) : ?>
-                   <th class="text-center">ปุ่มดำเนินการ</th>
-                 <?php endif; ?>
+                 <th>ผู้เพิ่มกิจกรรม</th>
+                   <th class="text-center">ปุ่มดำเนินการ</th>             
                </tr>
              </thead>
              <tbody>
                <?php if (is_array($getData)) : $count = 1 ?>
                  <?php foreach ($getData as $key => $value) : ?>
                    <tr>
-                     <td class="text-center"><?= $count++ ?></td>
-                     <td onclick="viewProjectTasks()" style="cursor:pointer;"><?= $value->p_name ?> </td>
-                     <td><?= $leader[$key]->u_firstname . ' ' . $leader[$key]->u_lastname ?></td>
-                     <td>
-                       <?php if (isset($lastTask[$key]->tl_name)) : ?>
-                         <?= $lastTask[$key]->tl_name ?>
-                       <?php else : ?>
-                         <?= '-' ?>
-                       <?php endif; ?>
-                     </td>
-                     <td>
-                       <?php
-                        foreach ($arrayStatus as $key => $status) {
-                          if ($value->p_status == $key) {
-                            echo "<font class = 'status" . $key . " rounded'>" . $status . "</font>";
-                          }
-                        }
-                        ?>
-                     </td>
-                     <?php if ($_SESSION['u_role'] <= 2) : ?>
+                     <td class="text-center"><?= $count++ ?></td> 
+                     <td style="cursor:pointer;">  <?= $value->tl_name ?>  </td>
+                     <td><?= $value->t_createdate ?></td>
+                     <td> <?= $value->u_firstname.' '.$value->u_lastname ?>  </td>  
+                     <?php if ($_SESSION['u_id'] == $value->t_u_id) : ?>
                        <td class="text-center">
-                         <button type="button" class="btn btn-danger" name="del" id="del" title="ลบโครงการ" onclick=""><i class="mdi mdi-delete"></i></button>
+                       <button type="button" class="btn btn-warning" name="edit" id="edit" onclick="edit(<?= $value->tl_id ?>)" title="แก้ไขรายการกิจกรรม"><i class="mdi mdi-pencil"></i></button>
+                       <button type="button" class="btn btn-danger" name="del" id="del" title="ลบโครงการ" onclick=""><i class="mdi mdi-delete"></i></button>
                        </td>
                      <?php endif; ?>
                    </tr>
@@ -87,7 +70,6 @@
  </style>
 
  <script>
-
    $('#addBtn').click(function(e) {
      e.preventDefault();
      $.ajax({

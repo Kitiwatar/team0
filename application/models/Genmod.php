@@ -140,7 +140,10 @@ class Genmod extends CI_Model{
       return FALSE;
     }
   }
-
+  public function getLastProject(){  
+    $sql = "SELECT MAX(p_id) AS p_id FROM `pms_project`"; 
+    return $this->db->query($sql, '')->row();            
+  }
 }
 
 ?>
