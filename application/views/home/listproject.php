@@ -98,7 +98,7 @@
        {
          "extend": 'pdf',
          "exportOptions": {
-           columns: [0]
+           columns: [0, 1, 2, 3, 4]
          },
          "text": 'PDF',
          "pageSize": 'A4',

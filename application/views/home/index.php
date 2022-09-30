@@ -28,7 +28,7 @@
                         <h2 class="counter text-end" style="color: #FEC107;" id="p_pending"></h2>
                         <p class="text-muted">รอดำเนินการ</p>
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: 85%; height: 6px; background-color: #FEC107;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar" role="progressbar" style="width: 100%; height: 6px; background-color: #FEC107;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                 </a>
@@ -42,7 +42,7 @@
                         <h2 class="counter text-end" style="color: #03A9F3;" id="p_progress"></h2>
                         <p class="text-muted">กำลังดำเนินการ</p>
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: 85%; height: 6px; background-color: #03A9F3;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar" role="progressbar" style="width: 100%; height: 6px; background-color: #03A9F3;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                 </a>
