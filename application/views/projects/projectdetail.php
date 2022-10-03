@@ -1,11 +1,11 @@
  <!-- Create by: Patiphan Pansanga, Jiradat Pomyai 19-09-2565 -->
- <div class="row">
    <div class="col-12">
      <div class="card">
        <div class="card-body">
-         <h4 class='card-title'>ตารางรายชื่อโครงการที่รับผิดชอบ</h4>
+        <h3 class='card-title' style="cursor: pointer;"><u class="name"><?= $projectData->p_name ?></u></h3>
+         <h4 class='card-title'>ตารางแสดงกิจกรรมโครงการ</h4>
          <?php if ($_SESSION['u_role'] <= 2) { ?>
-           <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มโครงการ</button>
+           <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มกิจกรรม</button>
          <?php } ?>
          <div class="table-responsive my-2">
            <table class="display table table-striped table-bordered dt-responsive nowrap">
@@ -23,10 +23,10 @@
                  <?php foreach ($getData as $key => $value) : ?>
                    <tr>
                      <td class="text-center"><?= $count++ ?></td> 
-                     <td style="cursor:pointer;">  <?= $value->tl_name ?>  </td>
+                     <td style="cursor:pointer;"><?= $value->tl_name ?></td>
                      <td><?= $value->t_createdate ?></td>
-                     <td> <?= $value->u_firstname.' '.$value->u_lastname ?>  </td>  
-                     <?php if ($_SESSION['u_id'] == $value->t_u_id) : ?>
+                     <td><?= $value->u_firstname.' '.$value->u_lastname ?></td>  
+                     <?php if ($_SESSION['u_id'] == $value->t_u_id || $_SESSION['u_role'] <= 2) : ?>
                        <td class="text-center">
                        <button type="button" class="btn btn-warning" name="edit" id="edit" onclick="edit(<?= $value->tl_id ?>)" title="แก้ไขรายการกิจกรรม"><i class="mdi mdi-pencil"></i></button>
                        <button type="button" class="btn btn-danger" name="del" id="del" title="ลบโครงการ" onclick=""><i class="mdi mdi-delete"></i></button>
@@ -38,6 +38,7 @@
              </tbody>
            </table>
          </div>
+         <a type="button" class="btn waves-effect waves-light btn-dark" href="<?= base_url() ?>projects"><i class="mdi mdi-arrow-left"></i> ย้อนกลับ</a>
        </div>
      </div>
    </div>

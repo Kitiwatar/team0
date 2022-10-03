@@ -8,6 +8,7 @@
           <table class="display table table-striped table-bordered dt-responsive nowrap">
             <thead>
               <tr>
+                <th class="text-center">ลำดับ</th>
                 <th>รายการกิจกรรม</th>
                 <th>วันที่เพิ่มรายการกิจกรรม</th>
                 <th>ผู้ดำเนินการ</th>
@@ -15,9 +16,10 @@
               </tr>
             </thead>
             <tbody>
-              <?php if (is_array($getData)) : ?>
+              <?php if (is_array($getData)) : $count = 1 ?>
                 <?php foreach ($getData as $key => $value) : ?>
                   <tr>
+                    <td class="text-center"><?= $count++ ?></td> 
                     <td><?= $value->tl_name ?></td>
                     <td><?= $value->tl_createdate ?></td>
                     <td><?= $value->u_firstname ?> <?= $value->u_lastname ?></td>
@@ -107,7 +109,7 @@
     e.preventDefault();
     $.ajax({
       method: "post",
-      url: 'tasks/getAddForm'
+      url: 'tasklist/getAddForm'
     }).done(function(returnData) {
       $('#mainModalTitle').html(returnData.title);
       $('#mainModalBody').html(returnData.body);

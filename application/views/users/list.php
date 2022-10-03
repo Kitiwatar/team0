@@ -65,15 +65,6 @@
   </div>
 </div>
 
-<style>
-  .name{
-    color: #0d6efd;
-  }
-  .name:hover {
-    color: #03a9f3;
-  }
-</style>
-
 <script>
   function showRole(id, role) {
     $.ajax({

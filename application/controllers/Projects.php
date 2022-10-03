@@ -52,7 +52,6 @@ class Projects extends CI_Controller{
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
-	
 	public function add() {
 		// Create by: Patiphan Pansanga 08-09-2565 add user in database
 		$this->genlib->ajaxOnly();
@@ -90,19 +89,20 @@ class Projects extends CI_Controller{
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
-
 	public function getAddForm() {
 		// Create by: Jiradat Pomyai 19-09-2565
-		$json['title'] = 'เพิ่มพนักงานในระบบ (<font class="text-danger">*</font>จำเป็นต้องกรอกข้อมูล)';
+		$json['title'] = 'เพิ่มโครงการ <span class="text-danger" style="font-size:12px;">(*จำเป็นต้องกรอกข้อมูล)</span>';
 		$json['body'] = $this->load->view('projects/formadd', '' ,true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit(\'new\');">บันทึก</button>
 		<button type="button" class="btn btn-danger" onclick="closeModal(\'เพิ่มโครงการ\')">ยกเลิก</button>';
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
+
 	public function viewProjectTasks($p_id)	{
 		// Create by: Jiradat 25-09-2565 index page
         $arrayJoin = array('pms_user' => 'pms_user.u_id=pms_task.t_u_id','pms_tasklist' => 'pms_tasklist.tl_id=pms_task.t_tl_id');
 		$data['getData'] = $this->genmod->getAll('pms_task', '*',array('t_p_id'=>$p_id),'',$arrayJoin,'');
+		$data['projectData'] = $this->genmod->getOne('pms_project', '*',array('p_id'=>$p_id),'','','');
 		$values['pageTitle'] = 'ตารางแสดงกิจกรรมโครงการ';
 		$values['breadcrumb'] = 'ตารางแสดงกิจกรรมโครงการ';
 		$values['pageContent'] = $this->load->view('projects/projectdetail', $data, TRUE);

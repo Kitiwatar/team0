@@ -27,7 +27,46 @@
       formData[this.id] = this.value;
     });
 
-    console.log(formData);
+    // console.log(formData);
+    var count = 0;
+    if (!formData.p_contact) {
+      $('#contactMsg').text(' กรุณากรอกช่องทางติดต่อลูกค้า');
+      $('#p_contact').focus();
+      count++
+    } else {
+      $('#contactMsg').text(' ');
+    }
+    if (!formData.p_createdate) {
+      $('#createdateMsg').text(' กรุณาเลือกวันที่เริ่มโครงการ');
+      // $('#p_createdate').focus();
+      count++
+    } else {
+      $('#createdateMsg').text(' ');
+    }
+    if (!formData.p_customer) {
+      $('#customerMsg').text(' กรุณากรอกชื่อลูกค้า');
+      $('#p_customer').focus();
+      count++
+    } else {
+      $('#customerMsg').text(' ');
+    }
+    if (!formData.p_detail) {
+      $('#detailMsg').text(' กรุณากรอกรายระเอียดโครงการ');
+      $('#p_detail').focus();
+      count++
+    } else {
+      $('#detailMsg').text(' ');
+    }
+    if (!formData.p_name) {
+      $('#nameMsg').text(' กรุณากรอกชื่อโครงการ');
+      $('#p_name').focus();
+      count++
+    } else {
+      $('#nameMsg').text(' ');
+    }
+    if (count > 0) {
+      return false;
+    }
     
     var mainMsg;
     var detailMsg;

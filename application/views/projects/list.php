@@ -26,7 +26,7 @@
                  <?php foreach ($getData as $key => $value) : ?>
                    <tr>
                      <td class="text-center"><?= $count++ ?></td> 
-                     <td  style="cursor:pointer;">  <a href="<?= base_url() ?>projects/viewProjectTasks/<?= $value->p_id ?>"><?= $value->p_name ?></a>   </td>
+                     <td  style="cursor:pointer;"><a href="<?= base_url() ?>projects/viewProjectTasks/<?= $value->p_id ?>" class="name"><u><?= $value->p_name ?></u></a></td>
                      <td><?= $leader[$key]->u_firstname . ' ' . $leader[$key]->u_lastname ?></td>
                      <td>
                        <?php if (isset($lastTask[$key]->tl_name)) : ?>
@@ -55,6 +55,7 @@
              </tbody>
            </table>
          </div>
+         <a type="button" class="btn waves-effect waves-light btn-dark" href="<?= base_url() ?>"><i class="mdi mdi-arrow-left"></i> ย้อนกลับ</a>
        </div>
      </div>
    </div>

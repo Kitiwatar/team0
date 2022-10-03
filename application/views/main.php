@@ -11,6 +11,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url() ?>assets/images/favicon.png">
+    
     <title><?= $pageTitle ?></title>
     <!-- This page CSS -->
     <!-- chartist CSS -->
@@ -24,6 +25,8 @@
     <!-- Data Table  -->
     <link href="<?= base_url() ?>assets/node_modules/datatables/media/css/dataTables.bootstrap4.css" rel="stylesheet">
     <link href="<?= base_url() ?>assets/dist/css/pages/icon-page.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -81,6 +84,14 @@
     <script src="<?= base_url() ?>assets/node_modules/echarts/echarts-all.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.3.1/dist/echarts.min.js"></script>
     <!-- end Flot Charts JavaScript -->
+    <style>
+        .name{
+            color: #0d6efd;
+        }
+        .name:hover {
+            color: #03a9f3;
+        }
+    </style>
 </head>
 
 <body class="skin-blue fixed-layout" <?php if (isset($_SESSION['u_id'])) : echo 'onload="countDown()" ' . 'onmousemove="resetTimeLeft()"'; endif;?>>
@@ -188,7 +199,7 @@
                     <ul id="sidebarnav">
                         <li>
                             <a class="waves-effect waves-dark" href="<?= base_url() ?>" aria-expanded="false">
-                                <i class="mdi mdi-chart-bar"></i><span class="hide-menu">หน้าหลัก</span>
+                                <i class="fas fa-chart-pie"></i><span class="hide-menu">หน้าหลัก</span>
                             </a>
                         </li>
                         <?php if (isset($_SESSION['u_id'])) : ?>
@@ -204,7 +215,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="waves-effect waves-dark" href="<?= base_url() ?>tasks" aria-expanded="false">
+                                    <a class="waves-effect waves-dark" href="<?= base_url() ?>tasklist" aria-expanded="false">
                                         <i class="mdi mdi-table-edit" style="font-size: 20px;"></i><span class="hide-menu">รายชื่อกิจกรรม</span>
                                     </a>
                                 </li>

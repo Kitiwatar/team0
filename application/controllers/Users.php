@@ -49,7 +49,7 @@ class Users extends CI_Controller {
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
-		$json['title'] = 'เพิ่มพนักงานในระบบ (<font class="text-danger">*</font>จำเป็นต้องกรอกข้อมูล)';
+		$json['title'] = 'เพิ่มพนักงานในระบบ <span class="text-danger" style="font-size:12px;">(*จำเป็นต้องกรอกข้อมูล)</span>';
 		$data['arrayRole'] = $this->getAllRole();
 		$json['body'] = $this->load->view('users/formadd', $data ,true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit(\'new\');">บันทึก</button>
@@ -112,7 +112,7 @@ class Users extends CI_Controller {
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
-		$json['title'] = 'แก้ไขข้อมูลพนักงาน';
+		$json['title'] = 'แก้ไขข้อมูลพนักงาน <span class="text-danger" style="font-size:12px;">(*จำเป็นต้องกรอกข้อมูล)</span>';
 		$data['arrayRole'] = $this->getAllRole();
 		$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
 		$json['body'] = $this->load->view('users/formadd', $data ,true);
