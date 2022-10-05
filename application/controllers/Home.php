@@ -74,8 +74,8 @@ class Home extends CI_Controller
 
 	public function getStatus() {
 		// Create by: Patiphan Pansanga , Kitiwat Arunwong 29-09-2565 return all status of project
-		$arraystatus = array(1 => "รอดำเนินการ", 2 => "กำลังดำเนินการ", 3 => "เสร็จสิ้น", 4 => "ยกเลิก");
-		return $arraystatus;
+		$arrayStatus = array(1 => "รอดำเนินการ", 2 => "กำลังดำเนินการ", 3 => "เสร็จสิ้น", 4 => "ยกเลิก");
+		return $arrayStatus;
 	}
 
 	public function viewProjects($status) {
@@ -101,6 +101,8 @@ class Home extends CI_Controller
 			$data['pageTitle'] =  'โครงการทั้งหมด';
 			$data['breadcrumb'] = 'โครงการทั้งหมด';
 			$p_status = 0;
+		} else {
+			redirect(base_url());
 		}
 		
 		$arrayJoin = array('pms_project' => 'pms_project.p_id=pms_permission.per_p_id','pms_user' => 'pms_user.u_id=pms_permission.per_u_id');

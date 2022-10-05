@@ -36,6 +36,7 @@
 <script>
     $('.table').DataTable({
         "dom": 't',
+        "order": [[2, "desc"]],
         "language": {
             "oPaginate": {
                 "sPrevious": "ถอยกลับ",

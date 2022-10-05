@@ -38,7 +38,7 @@ class Tasklist extends CI_Controller {
 		$json['title'] = 'เพิ่มรายการกิจกรรมใหม่';
 		$json['body'] = $this->load->view('tasklist/formadd',$data ,true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit(\'new\');">บันทึก</button>
-		<button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>';
+		<button type="button" class="btn btn-danger" onclick="closeModal(\'เพิ่มรายชื่อกิจกรรม\')">ยกเลิก</button>';
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
@@ -78,7 +78,7 @@ class Tasklist extends CI_Controller {
 		$data['getData'] = $this->genmod->getOne('pms_tasklist', '*', array('tl_id'=>$this->input->post('tl_id')));
 		$json['body'] = $this->load->view('tasklist/formadd',$data ,true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit('.$this->input->post('tl_id').');">บันทึก</button>
-		<button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>';
+		<button type="button" class="btn btn-danger" onclick="closeModal(\'แก้ไขรายชื่อกิจกรรม\')">ยกเลิก</button>';
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 

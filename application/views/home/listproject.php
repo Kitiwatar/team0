@@ -18,6 +18,7 @@
              <tbody>
                <?php if (is_array($getData)) : $count = 1; ?>
                  <?php foreach ($getData as $key => $value) : ?>
+                  <?php if($value->p_status < 1) { continue; } ?>
                    <tr>
                      <td class="text-center"><?= $count++ ?></td>
                      <td onclick="view(<?= $value->u_id ?>)" style="cursor:pointer;"><?= $value->p_name ?> </td>

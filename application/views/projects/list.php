@@ -16,17 +16,16 @@
                  <th>ผู้รับผิดชอบหลัก</th>
                  <th>กิจกรรม</th>
                  <th>สถานะ</th>
-                 <?php if ($_SESSION['u_role'] <= 2) : ?>
-                   <th class="text-center">ปุ่มดำเนินการ</th>
-                 <?php endif; ?>
+                  <th class="text-center">ปุ่มดำเนินการ</th>
                </tr>
              </thead>
              <tbody>
                <?php if (is_array($getData)) : $count = 1 ?>
                  <?php foreach ($getData as $key => $value) : ?>
+                  <?php if($value->p_status < 1 && $_SESSION['u_role'] > 1) { continue; } ?>
                    <tr>
                      <td class="text-center"><?= $count++ ?></td> 
-                     <td  style="cursor:pointer;"><a href="<?= base_url() ?>projects/viewProjectTasks/<?= $value->p_id ?>" class="name"><u><?= $value->p_name ?></u></a></td>
+                     <td class="name" style="cursor:pointer;" onclick="view('<?= $value->p_id ?>')"><u><?= $value->p_name ?></u></td>
                      <td><?= $leader[$key]->u_firstname . ' ' . $leader[$key]->u_lastname ?></td>
                      <td>
                        <?php if (isset($lastTask[$key]->tl_name)) : ?>
@@ -44,11 +43,16 @@
                         }
                         ?>
                      </td>
-                     <?php if ($_SESSION['u_role'] <= 2) : ?>
-                       <td class="text-center">
-                         <button type="button" class="btn btn-danger" name="del" id="del" title="ลบโครงการ" onclick=""><i class="mdi mdi-delete"></i></button>
-                       </td>
-                     <?php endif; ?>
+                     <td class="text-center">
+                     <a type="button" href="<?= base_url() ?>projects/viewProjectTasks/<?= $value->p_id ?>" class="btn btn-tertiary"><i class="far fa-edit"></i> จัดการกิจกรรม</a>
+                     <?php if ($_SESSION['u_role'] <= 2) : ?> 
+                        <?php if ($value->p_status > 0) : ?> 
+                         <button type="button" class="btn btn-danger" name="del" id="del" title="ลบโครงการ" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status*-1 ?>)"><i class="mdi mdi-delete"></i></button>
+                        <?php else: ?> 
+                          <button type="button" class="btn btn-dark" name="del" id="del" title="กู้คืนโครงการ" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status*-1 ?>)"><i class="mdi mdi-restore"></i></button>
+                        <?php endif; ?>
+                      <?php endif; ?>
+                     </td>
                    </tr>
                  <?php endforeach; ?>
                <?php endif; ?>

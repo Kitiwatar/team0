@@ -9,13 +9,13 @@ class Login extends CI_Controller {
 		parent::__construct();
 	}
 
-	public function index() {		// Create by: Patiphan Pansanga 07-09-2565 index page
+	public function index() {		
+		// Create by: Patiphan Pansanga 07-09-2565 index page
 		if(isset($_SESSION['u_id'])) {
 			redirect(base_url());
 		}
 		$values['pageTitle'] = 'เข้าสู่ระบบ';
 		$values['breadcrumb'] = 'เข้าสู่ระบบ';
-	    
 		$values['pageContent'] = $this->load->view('login', '', TRUE);
 		$this->load->view('main', $values);
 	}

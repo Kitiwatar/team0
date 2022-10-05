@@ -3,12 +3,6 @@
 
 <script>
   loadList();
-  const strNumber = string => [...string].every(c => '0123456789'.includes(c));
-  const strThai = string => [...string].every(c => 'กิ่ขี้ฃึ๊คื๋ฅัฆ็ง์จฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรลวศษสหฬอฮะาเแำไใฤฦๅ'.includes(c));
-  const strEmail = string => [...string].every(c => 'abcdefgijklmnopqrstuvwxyz@.-1234567890'.includes(c));
-  // new button on click and then show modal
-  
-
   function loadList() {
     $.ajax({
       url: 'projects/get',
@@ -23,19 +17,20 @@
     // $('#fMsg').text('กำลังดำเนินการ ...');
     var formData = {};
     formData['p_id'] = p_id;
-    $('[name^="inputValue"]').each(function() {
-      formData[this.id] = this.value;
-    });
-
-    // console.log(formData);
+    formData['p_name'] = $('#p_name').val()
+    formData['p_detail'] = $('#p_detail').val()
+    formData['p_customer'] = $('#p_customer').val()
+    formData['p_createdate'] = $('#p_createdate').val()
+    formData['p_telcontact'] = $('#p_telcontact').val()
+    formData['p_linecontact'] = $('#p_linecontact').val()
+    formData['p_emailcontact'] = $('#p_emailcontact').val()
+    // $('[name^="inputValue"]').each(function() {
+    //   formData[this.id] = this.value;
+    //   console.log(formData['p_name'])
+    // });
+    
+    console.log(formData);
     var count = 0;
-    if (!formData.p_contact) {
-      $('#contactMsg').text(' กรุณากรอกช่องทางติดต่อลูกค้า');
-      $('#p_contact').focus();
-      count++
-    } else {
-      $('#contactMsg').text(' ');
-    }
     if (!formData.p_createdate) {
       $('#createdateMsg').text(' กรุณาเลือกวันที่เริ่มโครงการ');
       // $('#p_createdate').focus();
@@ -101,9 +96,10 @@
               showConfirmButton: false,
               timer: 1000,
             });
-            $('#fMsg').addClass('text-success');
-            $('#fMsg').text(returnData.msg);
-            $('#usersForm')[0].reset();
+            // $('#projectsForm')[0].reset();
+            $('#mainModalTitle').html("");
+            $('#mainModalBody').html("");
+            $('#mainModalFooter').html("");
             $('#mainModal').modal('hide');
             loadList();
           } else {
@@ -115,9 +111,10 @@
               showConfirmButton: false,
               timer: 1000,
             });
-            $('#fMsg').addClass('text-success');
-            $('#fMsg').text(returnData.msg);
-            $('#usersForm')[0].reset();
+            // $('#projectsForm')[0].reset();
+            $('#mainModalTitle').html("");
+            $('#mainModalBody').html("");
+            $('#mainModalFooter').html("");
             $('#mainModal').modal('hide');
             loadList();
           }
@@ -126,20 +123,21 @@
     });
   }
 
-  function view(u_id) {
+  function view(p_id) {
     $.ajax({
       method: "post",
-      url: 'users/getDetailForm',
+      url: 'projects/getDetailForm',
       data: {
-        u_id: u_id
+        p_id: p_id
       }
     }).done(function(returnData) {
-      $('#mainModalTitle').html(returnData.title);
-      $('#mainModalBody').html(returnData.body);
-      $('#mainModalFooter').html(returnData.footer);
-      $('#mainModal').modal();
+      $('#detailModalTitle').html(returnData.title);
+      $('#detailModalBody').html(returnData.body);
+      $('#detailModalFooter').html(returnData.footer);
+      $('#detailModal').modal();
     });
   }
+
   function view2(p_id) {
     $.ajax({
       method: "post",
@@ -154,11 +152,6 @@
     
   }
 
-
-
-  
-  
-  
   function edit(u_id) {
     $.ajax({
       method: "post",
@@ -174,147 +167,15 @@
     });
   }
 
-  function submitPwdForm(u_id) {
-    // $('#fMsg').addClass('text-warning');
-    // $('#fMsg').text('กำลังดำเนินการ ...');
-    var formData = {};
-    formData['u_id'] = u_id;
-    $('[name^="inputValue"]').each(function() {
-      formData[this.id] = this.value;
-    });
-
-    console.log(formData);
-    if (!formData.pwd || !formData.cfPwd) {
-      $('#errMsg').addClass('text-danger');
-      $('#errMsg').text('กรุณาระบุข้อมูลให้ครบถ้วน');
-      !formData.pwd ? $('#cfPwd').focus() : '';
-      !formData.cfPwd ? $('#pwd').focus() : '';
-      return false;
-    } else if (formData.pwd != formData.cfPwd) {
-      $('#errMsg').addClass('text-danger');
-      $('#errMsg').text('รหัสผ่านไม่ตรงกัน');
-      return false;
-    }
-    swal({
-      title: "ยืนยันการเปลี่ยนรหัสผ่าน",
-      text: "คุณต้องการเปลี่ยนรหัสผ่านใช่หรือไม่",
-      type: "warning",
-      showCancelButton: true,
-      showConfirmButton: true,
-      confirmButtonText: "ยืนยัน",
-      cancelButtonText: "ยกเลิก",
-    }).then(function(isConfirm) {
-      if (isConfirm.value) {
-        $.ajax({
-          method: "post",
-          url: 'users/updatePassword',
-          data: formData
-        }).done(function(returnData) {
-          if (returnData.status == 1) {
-            swal({
-              title: "สำเร็จ",
-              text: returnData.msg,
-              type: "success",
-              showCancelButton: false,
-              showConfirmButton: false,
-              timer: 1000,
-            });
-            $('#fMsg').addClass('text-success');
-            $('#fMsg').text(returnData.msg);
-            $('#pwdForm')[0].reset();
-            $('#mainModal').modal('hide');
-          } else {
-            swal({
-              title: "ล้มเหลว",
-              text: returnData.msg,
-              type: "error",
-              showCancelButton: false,
-              showConfirmButton: false,
-              timer: 1000,
-            });
-            $('#fMsg').addClass('text-success');
-            $('#fMsg').text(returnData.msg);
-            $('#pwdForm')[0].reset();
-            $('#mainModal').modal('hide');
-          }
-        });
-        loadList();
-      }
-    });
-  }
-
-  function changePassword(u_id) {
-    $.ajax({
-      method: "post",
-      url: 'users/getPasswordForm',
-      data: {
-        u_id: u_id
-      }
-    }).done(function(returnData) {
-      $('#mainModalTitle').html(returnData.title);
-      $('#mainModalBody').html(returnData.body);
-      $('#mainModalFooter').html(returnData.footer);
-      $('#mainModal').modal();
-    });
-  }
-
-  function changeRole(u_id) {
-    swal({
-      title: "เปลี่ยนสิทธิ์การใช้งาน",
-      text: "คุณต้องการเปลี่ยนสิทธิ์การใช้งานใช่หรือไม่",
-      type: "warning",
-      showCancelButton: true,
-      showConfirmButton: true,
-      confirmButtonText: "ยืนยัน",
-      cancelButtonColor: "#E4E4E4",
-      cancelButtonText: "<font style='color:black'>" + "ยกเลิก" + "</font>",
-    }).then(function(isConfirm) {
-      if (isConfirm.value) {
-        console.log($('#roleInput' + u_id).val())
-        $.ajax({
-          method: "post",
-          url: 'users/updateRole',
-          data: {
-            u_id: u_id,
-            u_role: $('#roleInput' + u_id).val(),
-          }
-        }).done(function(returnData) {
-          if (returnData.status == 1) {
-            loadList();
-            swal({
-              title: "สำเร็จ",
-              text: returnData.msg,
-              type: "success",
-              showCancelButton: false,
-              showConfirmButton: false,
-              timer: 1000,
-            });
-          } else {
-            swal({
-              title: "ล้มเหลว",
-              text: returnData.msg,
-              type: "error",
-              showCancelButton: false,
-              showConfirmButton: false,
-              timer: 1000,
-            });
-          }
-        });
-      }
-      loadList();
-    })
-
-  }
-
-  function changeStatus(u_id, u_status) {
+  function changeStatus(p_id, p_status) {
     var mainMsg;
     var detailMsg;
-    if (u_status == 1) {
-      mainMsg = "ยืนยันการลบพนักงาน";
-      detailMsg = "คุณต้องการลบพนักงานออกจากระบบใช่หรือไม่";
+    if (p_status < 1) {
+      mainMsg = "ยืนยันการลบโครงการ";
+      detailMsg = "คุณต้องการลบโครงการใช่หรือไม่";
     } else {
-      mainMsg = "ยืนยันการกู้คืนพนักงาน";
-      detailMsg = "คุณต้องการกู้คืนข้อมูลพนักงานใช่หรือไม่";
+      mainMsg = "ยืนยันการกู้คืนโครงการ";
+      detailMsg = "คุณต้องการกู้คืนโครงการใช่หรือไม่";
     }
     swal({
       title: mainMsg,
@@ -329,10 +190,10 @@
       if (isConfirm.value) {
         $.ajax({
           method: "POST",
-          url: 'users/updateStatus',
+          url: 'projects/updateStatus',
           data: {
-            u_id: u_id,
-            u_status: u_status
+            p_id: p_id,
+            p_status: p_status
           }
         }).done(function(returnData) {
           if (returnData.status == 1) {

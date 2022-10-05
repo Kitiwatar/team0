@@ -7,22 +7,22 @@
         <div class="card-body">
             <div class="form-group">
               <label for="u_firstname" class="form-label">ชื่อ<?php if(!isset($detail)) { echo $required; } ?></label>
-              <input type="text" class="form-control" onkeypress="checkOnlyText('u_firstname')" name="inputValue[]" value="<?= isset($getData) ? $getData->u_firstname : '' ?>" id="u_firstname" placeholder="กรอกชื่อของพนักงาน (สมศักดิ์)" <?php if(isset($detail)){echo "disabled";}?> >
+              <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->u_firstname : '' ?>" id="u_firstname" placeholder="กรอกชื่อของพนักงาน (สมศักดิ์)" <?php if(isset($detail)){echo "disabled";}?> >
               <font id="fnameMsg" class="small text-danger"></font>
             </div>
             <div class="form-group">
               <label for="u_lastname" class="form-label">นามสกุล<?php if(!isset($detail)) { echo $required; } ?></label>
-              <input type="text" class="form-control" onkeypress="checkOnlyText('u_lastname')" name="inputValue[]" value="<?= isset($getData) ? $getData->u_lastname : '' ?>" id="u_lastname" placeholder="กรอกนามสกุลของพนักงาน (รักงาน)" <?php if(isset($detail)){echo "disabled";}?> >
+              <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->u_lastname : '' ?>" id="u_lastname" placeholder="กรอกนามสกุลของพนักงาน (รักงาน)" <?php if(isset($detail)){echo "disabled";}?> >
               <font id="lnameMsg" class="small text-danger"></font>
             </div>
             <div class="form-group">
               <label for="u_email" class="form-label">อีเมล<?php if(!isset($detail)) { echo $required; } ?></label>
-              <input type="email" class="form-control" onkeypress="checkEmailValid('u_email')" name="inputValue[]" value="<?= isset($getData) ? $getData->u_email : '' ?>" id="u_email" placeholder="กรอกอีเมลของพนักงาน (example@email.com)" <?php if(isset($detail)){echo "disabled";}?> >
+              <input type="email" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->u_email : '' ?>" id="u_email" placeholder="กรอกอีเมลของพนักงาน (example@email.com)" <?php if(isset($detail)){echo "disabled";}?> >
               <font id="emailMsg" class="small text-danger"></font>
             </div>
             <div class="form-group">
               <label for="u_tel" class="form-label">เบอร์โทรศัพท์<?php if(!isset($detail)) { echo $required; } ?></label>
-              <input type="text" class="form-control" onkeypress="checkTelValid('u_tel')" name="inputValue[]" value="<?= isset($getData) ? $getData->u_tel : '' ?>" id="u_tel" placeholder="กรอกเบอร์โทรศัพท์ของพนักงาน (0987654321)" <?php if(isset($detail)){echo "disabled";}?> >
+              <input type="text" class="form-control" name="inputValue[]" maxlength="10" value="<?= isset($getData) ? $getData->u_tel : '' ?>" id="u_tel" placeholder="กรอกเบอร์โทรศัพท์ของพนักงาน (0987654321)" <?php if(isset($detail)){echo "disabled";}?> >
               <font id="telMsg" class="small text-danger"></font>
             </div>
             <div class="form-group">
@@ -67,25 +67,13 @@
 </div>
 
 <script>
-  function checkOnlyText(id) {
-    var dom = document.getElementById(id);
-    if(strNumber(String.fromCharCode(event.which)) || dom.value.length > 99){
-      event.preventDefault();
-    }
-  }
+  $("#u_tel").keyup(function (event) {
+    var tel = document.getElementById("u_tel");
+    tel.value = tel.value.replace(/[^0-9]+/, '');
+  });
 
-  function checkEmailValid(id) {
-    var dom = document.getElementById(id);
-    if(!strEmail(String.fromCharCode(event.which)) || dom.value.length > 99){
-      event.preventDefault();
-    }
-  }
-
-  function checkTelValid(id) {
-    var dom = document.getElementById(id);
-    if(!strNumber(String.fromCharCode(event.which)) || dom.value.length > 9){
-      console.log($(id).val());
-      event.preventDefault();
-    }
-  }
+  $("#u_email").keyup(function (event) {
+    var email = document.getElementById("u_email");
+    email.value = email.value.toLowerCase();
+  });
 </script>

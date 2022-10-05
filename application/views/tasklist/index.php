@@ -1,14 +1,9 @@
-<!-- 
-  Author: Patiphan Pansanga, Jiradat Pomyai 
-  Create: 2022-09-07
- -->
+ <!-- Create by: Natakorn Phongsarikit 15-09-2565 -->
  <div id="listDiv"></div>
 
 <script>
   loadList();
-  // const strNumber = string => [...string].every(c => '0123456789'.includes(c));
-  // const strThai = string => [...string].every(c => 'กิ่ขี้ฃึ๊คื๋ฅัฆ็ง์จฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรลวศษสหฬอฮะาเแำไใฤฦๅ'.includes(c));
-  // const strEmail = string => [...string].every(c => 'abcdefgijklmnopqrstuvwxyz@.-1234567890'.includes(c));
+  
   // new button on click and then show modal
   $('#addBtn').click(function(e) {
     e.preventDefault();
@@ -37,18 +32,19 @@
     // $('#fMsg').text('กำลังดำเนินการ ...');
     var formData = {};
     formData['tl_id'] = tl_id;
-    $('[name^="inputValue"]').each(function() {
-      formData[this.id] = this.value;
-    });
+    formData['tl_name'] = $('#tl_name').val()
+    // $('[name^="inputValue"]').each(function() {
+    //   formData[this.id] = this.value;
+    // });
 
     console.log(formData);
     if (!formData.tl_name) {
-      $('#fMsg').addClass('text-danger');
-      $('#fMsg').text('กรุณาระบุข้อมูลให้ครบถ้วน');
+      $('#tlnameMsg').addClass('text-danger');
+      $('#tlnameMsg').text('กรุณากรอกชื่อกิจกรรม');
       !formData.tl_name ? $('#tl_name').focus() : '';
       return false;
       } else {
-        $('#fnameMsg').text(' ');
+        $('#tlnameMsg').text(' ');
       }
     var mainMsg;
     var detailMsg;

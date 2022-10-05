@@ -77,6 +77,10 @@
         let input = $(this).prev();
         input.attr('type', input.attr('type') === 'password' ? 'text' : 'password');
     });
+    $("#u_email").keyup(function (event) {
+        var email = document.getElementById("u_email");
+        email.value = email.value.toLowerCase();
+    });
     $('#loginForm').submit(function(e) {
         e.preventDefault();
         $.ajax({

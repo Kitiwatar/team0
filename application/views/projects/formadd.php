@@ -1,9 +1,26 @@
 <!-- Create by: Jiradat Pomyai, Patiphan Pansanga 24-09-2565 -->
+<style>
+  input {
+      position: relative;
+  }
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    background-position: right;
+    background-size: auto;
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 4px;
+    top: -13px;
+    width: auto;
+    height: 60px;
+  }
+</style>
 <?php $required = '<span class="text-danger">*</span>'; ?>
 <div class="row">
   <div class="col-12">
     <div class="card">
-      <form class="" id="usersForm" autocomplete="off">
+      <form class="" id="projectsForm" autocomplete="off">
         <div class="card-body">
             <div class="form-group">
               <label for="p_name" class="form-label">ชื่อโครงการ<?php if(!isset($detail)) { echo $required; } ?></label>
@@ -17,7 +34,7 @@
             </div>
             <div class="form-group">
               <label for="p_customer" class="form-label">ชื่อลูกค้า<?php if(!isset($detail)) { echo $required; } ?></label>
-              <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_customer : '' ?>" id="p_customer" placeholder="กรอกชื่อของลูกค้า (ภูมิพัฒน์ เรืองรังสรรค์)" <?php if(isset($detail)){echo "disabled";}?> >
+              <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_customer : '' ?>" id="p_customer" placeholder="กรอกชื่อของลูกค้า (บริษัทรักงาน)" <?php if(isset($detail)){echo "disabled";}?> >
               <font id="customerMsg" class="small text-danger"></font>
             </div>
             <div class="form-group">
@@ -27,46 +44,37 @@
             </div>
             <div class="form-group">
               <label for="p_telcontact" class="form-label">เบอร์โทรศัพท์ลูกค้า</label>
-              <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_telcontact : '' ?>" id="p_telcontact" placeholder="กรอกเบอร์โทรศัพท์ 10 หลักสำหรับติดต่อลูกค้า (0987654321)" <?php if(isset($detail)){echo "disabled";}?> >
-              <font id="contactMsg" class="small text-danger"></font>
+              <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_telcontact : '' ?>" maxlength="10" id="p_telcontact" placeholder="กรอกเบอร์โทรศัพท์ 10 หลักสำหรับติดต่อลูกค้า (0987654321)" <?php if(isset($detail)){echo "disabled";}?> >
             </div>
             <div class="form-group">
               <label for="p_linecontact" class="form-label">ไอดีไลน์ลูกค้า</label>
-              <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_linecontact : '' ?>" id="p_linecontact" placeholder="กรอกเบอร์ติดต่อลูกค้า (phoomphat90)" <?php if(isset($detail)){echo "disabled";}?> >
-              <font id="contactMsg" class="small text-danger"></font>
+              <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_linecontact : '' ?>" id="p_linecontact" placeholder="กรอกไอดีไลน์สำหรับติดต่อลูกค้า (example0101)" <?php if(isset($detail)){echo "disabled";}?> >
             </div>
             <div class="form-group">
               <label for="p_emailcontact" class="form-label">อีเมลลูกค้า</label>
-              <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_emailcontact : '' ?>" id="p_emailcontact" placeholder="กรอกอีเมลติดต่อลูกค้า (eaxmple@gmail.com)" <?php if(isset($detail)){echo "disabled";}?> >
-              <font id="contactMsg" class="small text-danger"></font>
+              <input type="email" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_emailcontact : '' ?>" id="p_emailcontact" placeholder="กรอกอีเมลสำหรับติดต่อลูกค้า (eaxmple@gmail.com)" <?php if(isset($detail)){echo "disabled";}?> >
             </div>
         </div>
       </form>
     </div>
   </div>
 </div>
-<style>
-      input {
-        position: relative;
-      }
-      input[type="date"]::-webkit-calendar-picker-indicator {
-        background-position: right;
-        background-size: auto;
-        cursor: pointer;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 4px;
-        top: -13px;
-        width: auto;
-        height: 60px;
-    }
-</style>
 <script>
-  function checkOnlyText(id) {
-    var dom = document.getElementById(id);
-    if(strNumber(String.fromCharCode(event.which)) || dom.value.length > 99){
-      event.preventDefault();
-    }
-  }  
+  $("#p_name").keyup(function (event) {
+    var name = document.getElementById("p_name");
+    name.value = name.value;
+  });
+  $("#p_telcontact").keyup(function (event) {
+    var tel = document.getElementById("p_telcontact");
+    tel.value = tel.value.replace(/[^0-9]+/, '');
+  });
+  $("#p_linecontact").keyup(function (event) {
+    var line = document.getElementById("p_linecontact");
+    line.value = line.value.replace(/[^a-zA-Z0-9_.-]+/, '');
+    line.value = line.value.toLowerCase();
+  });
+  $("#p_emailcontact").keyup(function (event) {
+    var email = document.getElementById("p_emailcontact");
+    email.value = email.value.toLowerCase();
+  });
 </script>

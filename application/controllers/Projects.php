@@ -20,8 +20,8 @@ class Projects extends CI_Controller{
 
     public function getStatus() {
 		// Create by: Jiradat Pomyai 19-09-2565 return all status of project
-		$arraystatus = array(1=>"รอดำเนินการ", 2=>"กำลังดำเนินการ", 3=>"เสร็จสิ้น", 4=>"ยกเลิก");
-		return $arraystatus;
+		$arrayStatus = array(1=>"รอดำเนินการ", 2=>"กำลังดำเนินการ", 3=>"เสร็จสิ้น", 4=>"ยกเลิก");
+		return $arrayStatus;
     }
 
 	public function get() {
@@ -66,7 +66,6 @@ class Projects extends CI_Controller{
 		$this->form_validation->set_rules('p_detail', 'รายละเอียด', 'required', $arrayErr);
 		$this->form_validation->set_rules('p_customer', 'ชื่อลูกค้า', 'required', $arrayErr);
 		$this->form_validation->set_rules('p_createdate', 'วันที่เพิ่มโครงการ', 'required', $arrayErr);
-		$this->form_validation->set_rules('p_contact', 'เบอร์ติดต่ลูกค้า', 'required', $arrayErr);
 		if($this->form_validation->run() !== FALSE){	
 			if($formData['p_id'] == 'new') {	
 					$this->genmod->add('pms_project',$formData);
@@ -92,7 +91,7 @@ class Projects extends CI_Controller{
 	public function getAddForm() {
 		// Create by: Jiradat Pomyai 19-09-2565
 		$json['title'] = 'เพิ่มโครงการ <span class="text-danger" style="font-size:12px;">(*จำเป็นต้องกรอกข้อมูล)</span>';
-		$json['body'] = $this->load->view('projects/formadd', '' ,true);
+		$json['body'] = $this->load->view('projects/formadd', '', TRUE);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit(\'new\');">บันทึก</button>
 		<button type="button" class="btn btn-danger" onclick="closeModal(\'เพิ่มโครงการ\')">ยกเลิก</button>';
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
@@ -107,6 +106,39 @@ class Projects extends CI_Controller{
 		$values['breadcrumb'] = 'ตารางแสดงกิจกรรมโครงการ';
 		$values['pageContent'] = $this->load->view('projects/projectdetail', $data, TRUE);
 		$this->load->view('main', $values);
+	}
+
+	public function getDetailForm() {
+		// Create by: Jiradat Pomyai 14-09-2565 get form detail projects
+		if($this->input->post('p_id')!=null){
+			$data['getData'] = $this->genmod->getOne('pms_project', '*', array('p_id'=>$this->input->post('p_id')));
+		} else {
+			return;
+		}
+		$data['detail'] = "yes";
+		$json['title'] = 'ข้อมูลพนักงาน';
+		$json['body'] = $this->load->view('projects/formadd', $data ,true);
+		$json['footer'] = '';
+		$this->output->set_content_type('application/json')->set_output(json_encode($json));
+	}
+
+	public function updateStatus() {
+		// Create by: Patiphan Pansanga 05-10-2565 update status user in database
+		$this->genlib->ajaxOnly();
+		$updateData = $this->input->post();
+		$validCheck = $this->genmod->getOne('pms_project', '*', array('p_id' => $updateData['p_id']));
+		if(isset($validCheck)) {
+			$this->genmod->update('pms_project', array('p_status'=> ($updateData['p_status'])), array('p_id' => $updateData['p_id']));
+			if($updateData['p_status'] < 1) {
+				$msg = "ลบโครงการสำเร็จ";
+			} else {
+				$msg = "กู้คืนข้อมูลโครงการสำเร็จ";
+			}				 
+			$json = ['status'=> 1, 'msg'=>$msg];	
+		} else {
+			$json = ['status'=> 0, 'msg'=>"เกิดข้อผิดพลาด"];
+		}
+		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 }
 ?>

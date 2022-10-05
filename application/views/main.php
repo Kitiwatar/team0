@@ -11,7 +11,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url() ?>assets/images/favicon.png">
-    
+
     <title><?= $pageTitle ?></title>
     <!-- This page CSS -->
     <!-- chartist CSS -->
@@ -85,16 +85,17 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.3.1/dist/echarts.min.js"></script>
     <!-- end Flot Charts JavaScript -->
     <style>
-        .name{
+        .name {
             color: #0d6efd;
         }
+
         .name:hover {
             color: #03a9f3;
         }
     </style>
 </head>
 
-<body class="skin-blue fixed-layout" <?php if (isset($_SESSION['u_id'])) : echo 'onload="countDown()" ' . 'onmousemove="resetTimeLeft()"'; endif;?>>
+<body class="skin-blue fixed-layout" <?php if (isset($_SESSION['u_id'])) : echo 'onload="countDown()" ' . 'onmousemove="resetTimeLeft()"';endif; ?>>
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
@@ -144,7 +145,7 @@
                     <ul class="navbar-nav me-auto">
                         <!-- This is  -->
                         <li class="nav-item"> <a class="nav-link nav-toggler d-block d-md-none waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
-                        <li class="nav-item"> <a class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark" href="javascript:void(0)"><i class="icon-menu"></i></a> </li>
+                        <li class="nav-item" onclick="setSidebar()"> <a class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark" href="javascript:void(0)"><i class="icon-menu"></i></a> </li>
                         <!-- ============================================================== -->
                         <!-- Search -->
                         <!-- ============================================================== -->
@@ -209,15 +210,17 @@
                                 </a>
                             </li>
                             <?php if ($_SESSION['u_role'] <= 1) : ?>
-                                <li>
-                                    <a class="waves-effect waves-dark" href="<?= base_url() ?>users" aria-expanded="false">
-                                        <i class="mdi mdi-account-card-details" style="font-size: 16px;"></i><span class="hide-menu">รายชื่อพนักงาน</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="waves-effect waves-dark" href="<?= base_url() ?>tasklist" aria-expanded="false">
-                                        <i class="mdi mdi-table-edit" style="font-size: 20px;"></i><span class="hide-menu">รายชื่อกิจกรรม</span>
-                                    </a>
+                                <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-settings" style="font-size: 20px;"></i><span class="hide-menu">ตั้งค่าระบบ</span></a>
+                                    <ul aria-expanded="false" class="collapse">
+                                        <li>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>users" aria-expanded="false"><i class="mdi mdi-account-card-details" style="font-size: 18px;"></i> รายชื่อพนักงาน</a>
+                                                <!-- <i class="mdi mdi-account-card-details" style="font-size: 16px;"></i><span class="hide-menu">รายชื่อพนักงาน</span> -->
+                                        </li>
+                                        <li>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>tasklist" aria-expanded="false"><i class="mdi mdi-table-large" style="font-size: 18px;"></i> รายชื่อกิจกรรม</a>
+                                                <!-- <i class="mdi mdi-table-edit" style="font-size: 20px;"></i><span class="hide-menu">รายชื่อกิจกรรม</span> -->
+                                        </li>
+                                    </ul>
                                 </li>
                             <?php endif; ?>
                             <?php if ($_SESSION['u_role'] < 1) : ?>
@@ -385,6 +388,9 @@
         }).then(function(isConfirm) {
             // $('#usersForm')[0].reset();
             if (isConfirm.value) {
+                $('#mainModalTitle').html("");
+                $('#mainModalBody').html("");
+                $('#mainModalFooter').html("");
                 $('#mainModal').modal('hide');
             }
         })
@@ -450,5 +456,15 @@
 
     function resetTimeLeft() {
         timeLeft = 3600;
+    }
+
+    function setSidebar() {
+        let sidebar = localStorage.getItem('sidebar')
+        if(sidebar == 1) {
+            localStorage.setItem('sidebar', 0)
+        } else {
+            localStorage.setItem('sidebar', 1)
+        }
+        
     }
 </script>

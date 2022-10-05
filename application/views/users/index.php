@@ -3,9 +3,6 @@
 
 <script>
   loadList();
-  const strNumber = string => [...string].every(c => '0123456789'.includes(c));
-  const strThai = string => [...string].every(c => 'กิ่ขี้ฃึ๊คื๋ฅัฆ็ง์จฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรลวศษสหฬอฮะาเแำไใฤฦๅ'.includes(c));
-  const strEmail = string => [...string].every(c => 'abcdefgijklmnopqrstuvwxyz@.-1234567890'.includes(c));
   // new button on click and then show modal
   $('#addBtn').click(function(e) {
     e.preventDefault();
@@ -34,9 +31,14 @@
     // $('#fMsg').text('กำลังดำเนินการ ...');
     var formData = {};
     formData['u_id'] = u_id;
-    $('[name^="inputValue"]').each(function() {
-      formData[this.id] = this.value;
-    });
+    formData['u_firstname'] = $('#u_firstname').val()
+    formData['u_lastname'] = $('#u_lastname').val()
+    formData['u_email'] = $('#u_email').val()
+    formData['u_tel'] = $('#u_tel').val()
+    formData['u_role'] = $('#u_role').val()
+    // $('[name^="inputValue"]').each(function() {
+    //   formData[this.id] = this.value;
+    // });
 
     // console.log(formData);
 
@@ -49,7 +51,7 @@
     } else {
       $('#roleMsg').text(' ');
     }
-    if (!formData.u_tel || !strNumber(formData.u_tel) || (formData.u_tel).length != 10) {
+    if (!formData.u_tel || (formData.u_tel).length != 10) {
       $('#telMsg').text(' กรุณากรอกตัวเลข 10 หลัก');
       $('#u_tel').focus();
       count++
@@ -57,21 +59,21 @@
       $('#telMsg').text(' ');
     }
 
-    if (!formData.u_email || !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/).test(formData.u_email)) {
+    if (!formData.u_email) {
       $('#emailMsg').text(' กรุณากรอกอีเมลให้ถูกต้อง');
       $('#u_email').focus();
       count++
     } else {
       $('#emailMsg').text(' ');
     }
-    if (!formData.u_lastname || (formData.u_lastname).match(regex)) {
+    if (!formData.u_lastname) {
       $('#lnameMsg').text(' กรุณากรอกนามสกุล');
       $('#u_lastname').focus();
       count++
     } else {
       $('#lnameMsg').text(' ');
     }
-    if (!formData.u_firstname || (formData.u_firstname).match(regex)) {
+    if (!formData.u_firstname) {
       $('#fnameMsg').text(' กรุณากรอกชื่อ');
       $('#u_firstname').focus();
       count++

@@ -12,7 +12,13 @@ $(function () {
     var set = function () {
         var width = (window.innerWidth > 0) ? window.innerWidth : this.screen.width;
         var topOffset = 55;
-        if (width < 1170 || true) {
+        let sidebar = localStorage.getItem('sidebar')
+        if(sidebar == '1') {
+            sidebar = false;
+        } else {
+            sidebar = true;
+        }
+        if (width < 1170 || sidebar) {
             $("body").addClass("mini-sidebar");
             $('.navbar-brand span').hide();
             $(".sidebartoggler i").addClass("ti-menu");

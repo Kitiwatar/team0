@@ -1,7 +1,4 @@
-<!-- 
-  Author: Jiradat Pomyai, Patiphan Pansanga 
-  Create: 2022-09-07
- -->
+<!-- Create by: Natakorn Phongsarikit 15-09-2565 -->
 <?php $required = '<span class="text-danger">*</span>'; ?>
 <div class="row">
   <div class="col-12">
@@ -10,18 +7,10 @@
         <div class="card-body">
           <div class="form-group">
             <label for="tl_name" class="form-label">รายการกิจกรรม</label>
-            <input type="text" class="form-control" onkeypress="checkOnlyText('tl_name')" name="inputValue[]" value="<?= isset($getData) ? $getData->tl_name : '' ?>" id="tl_name" placeholder="กรอกรายกิจกรรม">
-            <font id="fnameMsg" class="small text-danger"></font>
+            <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->tl_name : '' ?>" id="tl_name" placeholder="กรอกรายกิจกรรม">
+            <font id="tlnameMsg" class="small text-danger"></font>
           </div>
         </div>
     </div>
   </div>
 </div>
-<script>
-  function checkOnlyText(id) {
-    var dom = document.getElementById(id);
-    if (strNumber(String.fromCharCode(event.which)) || dom.value.length > 99) {
-      event.preventDefault();
-    }
-  }
-</script>
