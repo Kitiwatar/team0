@@ -19,6 +19,10 @@
             <tbody>
               <?php if (is_array($getData)) : $count = 1 ?>
                 <?php foreach ($getData as $key => $value) : ?>
+                <?php if($value->tl_status==0){
+                  continue;
+                }
+                ?>
                   <tr>
                     <td class="text-center"><?= $count++ ?></td> 
                     <td><?= $value->tl_name ?></td>
