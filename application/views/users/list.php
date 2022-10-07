@@ -50,8 +50,8 @@
                           <button type="button" class="btn btn-danger" name="del" id="del" title="ระงับการทำงาน" onclick="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)"><i class="mdi mdi-lock-open-outline"></i></button>
                         <?php else : ?>
                           <button type="button" class="btn btn-info" name="view" id="view" onclick="view(<?= $value->u_id ?>)" title="ดูข้อมูลพนักงาน"><i class="mdi mdi-file-find"></i></button>
-                        <button type="button" class="btn btn-secondary" name="view" id="view"  title="ไม่สามรถใช้งานได้""><i class="mdi mdi-key-variant"></i></button>
-                        <button type="button" class="btn btn-secondary" name="edit" id="edit"  title="ไม่สามรถใช้งานได้"><i class="mdi mdi-pencil"></i></button>
+                        <button type="button"style="cursor:no-drop; background-color: rgb(228, 228, 228);" class="btn btn-secondary" name="view" id="view"  title="ไม่สามรถใช้งานได้""><i class="mdi mdi-key-variant"></i></button>
+                        <button type="button" style="cursor:no-drop; background-color: rgb(228, 228, 228);" class="btn btn-secondary" name="edit" id="edit"  title="ไม่สามรถใช้งานได้"><i class="mdi mdi-pencil"></i></button>
                           <button type="button" class="btn btn-dark" name="del" id="del" title="กู้คืนข้อมูล" onclick="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)"><i class="mdi mdi-lock-outline"></i></button>
 
                         <?php endif; ?>
