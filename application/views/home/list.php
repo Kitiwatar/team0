@@ -21,7 +21,7 @@
                                         <td class="text-center"><?= $count++ ?></td>
                                         <td><?= $listName[$i] ?></td>
                                         <td class="text-center"><?= $listProject[$i] ?></td>
-                                        <td class="text-center"><?= date("d/m/Y") ?></td>
+                                        <td class="text-center"><?=thaiDate(date("d/m/Y")) ?></td>
                                     </tr>
                                 <?php endfor; ?>
                             <?php endif; ?>

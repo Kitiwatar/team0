@@ -26,7 +26,7 @@
                   <tr>
                     <td class="text-center"><?= $count++ ?></td> 
                     <td><?= $value->tl_name ?></td>
-                    <td><?= $value->tl_createdate ?></td>
+                    <td><?= thaiDateTime($value->tl_createdate)." น."?></td>
                     <td><?= $value->u_firstname ?> <?= $value->u_lastname ?></td>
                     <td class="text-center">
                       <button type="button" class="btn btn-warning" name="edit" id="edit" onclick="edit(<?= $value->tl_id ?>)" title="แก้ไขรายการกิจกรรม"><i class="mdi mdi-pencil"></i></button>

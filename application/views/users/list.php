@@ -40,16 +40,20 @@
                           ?>
                         </select>
                       </td>
-                      <td><?= $value->u_createdate ?></td>
+                      <td><?=thaiDateTime($value->u_createdate)." น." ?></td>
                       <td><?= ($value->u_status == 1) ? "กำลังทำงาน" : "ระงับการทำงาน" ?></td>
                       <td class="text-center">
-                        <button type="button" class="btn btn-info" name="view" id="view" onclick="view(<?= $value->u_id ?>)" title="ดูข้อมูลพนักงาน"><i class="mdi mdi-file-find"></i></button>
+                        <?php if ($value->u_status == 1) : ?>
+                          <button type="button" class="btn btn-info" name="view" id="view" onclick="view(<?= $value->u_id ?>)" title="ดูข้อมูลพนักงาน"><i class="mdi mdi-file-find"></i></button>
                         <button type="button" class="btn btn-primary" name="view" id="view" onclick="changePassword(<?= $value->u_id ?>)" title="เปลี่ยนรหัสผ่าน"><i class="mdi mdi-key-variant"></i></button>
                         <button type="button" class="btn btn-warning" name="edit" id="edit" onclick="edit(<?= $value->u_id ?>)" title="แก้ไขข้อมูลพนักงาน"><i class="mdi mdi-pencil"></i></button>
-                        <?php if ($value->u_status == 1) : ?>
                           <button type="button" class="btn btn-danger" name="del" id="del" title="ระงับการทำงาน" onclick="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)"><i class="mdi mdi-lock-open-outline"></i></button>
                         <?php else : ?>
+                          <button type="button" class="btn btn-info" name="view" id="view" onclick="view(<?= $value->u_id ?>)" title="ดูข้อมูลพนักงาน"><i class="mdi mdi-file-find"></i></button>
+                        <button type="button" class="btn btn-secondary" name="view" id="view"  title="ไม่สามรถใช้งานได้""><i class="mdi mdi-key-variant"></i></button>
+                        <button type="button" class="btn btn-secondary" name="edit" id="edit"  title="ไม่สามรถใช้งานได้"><i class="mdi mdi-pencil"></i></button>
                           <button type="button" class="btn btn-dark" name="del" id="del" title="กู้คืนข้อมูล" onclick="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)"><i class="mdi mdi-lock-outline"></i></button>
+
                         <?php endif; ?>
                       </td>
                     </tr>

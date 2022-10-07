@@ -41,8 +41,14 @@ class Users extends CI_Controller {
 		}
 		$data['arrayRole'] = $this->getAllRole();
 		$data['getData'] = $this->genmod->getAll('pms_user', '*','','u_createdate desc','','');
+		/*
+		for($i=0;$i<count($data['getData']);$i++){
+			$data['getData'][$i]->u_createdate =$this->general_helper->thaiDate($data['getData'][$i]->u_createdate);   
+		}
+		*/
 		$json['html'] = $this->load->view('users/list', $data, TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
+		
 	}
 
  	public function getAddForm() {
