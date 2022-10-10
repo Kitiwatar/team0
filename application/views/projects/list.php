@@ -36,9 +36,10 @@
                      </td>
                      <td>
                        <?php
+                       $statusColor = array(1=>"badge rounded-pill bg-info", 2=>"badge rounded-pill bg-info", 3=>"badge rounded-pill bg-success", 4=>"badge rounded-pill bg-danger");
                         foreach ($arrayStatus as $key => $status) {
                           if ($value->p_status == $key) {
-                            echo "<font class = 'status" . $key . " rounded'>" . $status . "</font>";
+                            echo "<span  class = ' ". $statusColor[$key] ."'>" . $status . "</span>";
                           }
                         }
                         ?>

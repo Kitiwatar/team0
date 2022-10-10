@@ -11,7 +11,23 @@
       $('#listDiv').html(returnData.html)
     })
   }
+  
+  function validateEmail(email) {
+  var re = /\S+@\S+\.\S+/;
+  return re.test(email);
+  }
+  
+function checkPhoneKey(key) {
+  return (key >= '0' && key <= '9') ||
+    ['+','(',')','-','ArrowLeft','ArrowRight','Delete','Backspace'].includes(key);
+}
+function checkLineKey(key) {
+  
+  return (key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z') || (key >= '0' && key <= '9') ||
+    ['.','-','_'].includes(key);
+}
 
+  
   function saveFormSubmit(p_id) {
     // $('#fMsg').addClass('text-warning');
     // $('#fMsg').text('กำลังดำเนินการ ...');
@@ -24,6 +40,7 @@
     formData['p_telcontact'] = $('#p_telcontact').val()
     formData['p_linecontact'] = $('#p_linecontact').val()
     formData['p_emailcontact'] = $('#p_emailcontact').val()
+    formData['p_othercontact'] = $('#p_othercontact').val()
     // $('[name^="inputValue"]').each(function() {
     //   formData[this.id] = this.value;
     //   console.log(formData['p_name'])
@@ -58,6 +75,13 @@
       count++
     } else {
       $('#nameMsg').text(' ');
+    }
+    if (!validateEmail(formData.p_emailcontact)) {
+      $('#emailMsg').text(' กรุณากรอกอีเมล');
+      $('#p_emailcontact').focus();
+      count++
+    } else {
+      $('#emailMsg').text(' ');
     }
     if (count > 0) {
       return false;

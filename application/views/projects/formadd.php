@@ -37,22 +37,32 @@
               <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_customer : '' ?>" id="p_customer" placeholder="กรอกชื่อของลูกค้า (บริษัทรักงาน)" <?php if(isset($detail)){echo "disabled";}?> >
               <font id="customerMsg" class="small text-danger"></font>
             </div>
-            <div class="form-group">
-              <label for="p_createdate" class="form-label">วันที่เริ่มโครงการ<?php if(!isset($detail)) { echo $required; } ?></label>
+            <div class="form-group">              
+            <label for="p_createdate" class="form-label">วันที่เริ่มโครงการ<?php if(!isset($detail)) { echo $required; } ?></label>
+              <div class="input-group mb-3">
               <input type="date" onfocus="this.showPicker()" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_createdate : '' ?>" id="p_createdate" <?php if(isset($detail)){echo "disabled";}?> >
+                <span class="input-group-text" id="basic-addon1"><i class=" mdi mdi-calendar-range"></i></span>               
+              </div>
               <font id="createdateMsg" class="small text-danger"></font>
             </div>
+            
             <div class="form-group">
               <label for="p_telcontact" class="form-label">เบอร์โทรศัพท์ลูกค้า</label>
-              <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_telcontact : '' ?>" maxlength="10" id="p_telcontact" placeholder="กรอกเบอร์โทรศัพท์ 10 หลักสำหรับติดต่อลูกค้า (0987654321)" <?php if(isset($detail)){echo "disabled";}?> >
+              <input type="text"  onkeydown="return checkPhoneKey(event.key)" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_telcontact : '' ?>" maxlength="10" id="p_telcontact" placeholder="กรอกเบอร์โทรศัพท์ 10 หลักสำหรับติดต่อลูกค้า (0987654321)" <?php if(isset($detail)){echo "disabled";}?> >
             </div>
             <div class="form-group">
               <label for="p_linecontact" class="form-label">ไอดีไลน์ลูกค้า</label>
-              <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_linecontact : '' ?>" id="p_linecontact" placeholder="กรอกไอดีไลน์สำหรับติดต่อลูกค้า (example0101)" <?php if(isset($detail)){echo "disabled";}?> >
+              <input type="text" onkeydown="return checkLineKey(event.key)" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_linecontact : '' ?>" id="p_linecontact" placeholder="กรอกไอดีไลน์สำหรับติดต่อลูกค้า (example0101)" <?php if(isset($detail)){echo "disabled";}?> >
             </div>
             <div class="form-group">
               <label for="p_emailcontact" class="form-label">อีเมลลูกค้า</label>
-              <input type="email" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_emailcontact : '' ?>" id="p_emailcontact" placeholder="กรอกอีเมลสำหรับติดต่อลูกค้า (eaxmple@gmail.com)" <?php if(isset($detail)){echo "disabled";}?> >
+              <input type="email"  class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_emailcontact : '' ?>" id="p_emailcontact" placeholder="กรอกอีเมลสำหรับติดต่อลูกค้า (eaxmple@gmail.com)" <?php if(isset($detail)){echo "disabled";}?> >
+              <font id="emailMsg" class="small text-danger"></font>
+            </div>
+            <div class="form-group">
+              <label for="p_othercontact" class="form-label">ข้อมูลติดต่อเพิ่มเติม</label>
+              <input type="text"  class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_othercontact : '' ?>" id="p_othercontact" placeholder="กรอกข้อมูลสำหรับติดต่อลูกค้าเพิ่มเติม" <?php if(isset($detail)){echo "disabled";}?> >
+              <font id="otherMsg" class="small text-danger"></font>
             </div>
         </div>
       </form>
@@ -60,20 +70,15 @@
   </div>
 </div>
 <script>
-  $("#p_name").keyup(function (event) {
+  $("#p_name").keydown(function (event) {
     var name = document.getElementById("p_name");
     name.value = name.value;
   });
-  $("#p_telcontact").keyup(function (event) {
-    var tel = document.getElementById("p_telcontact");
-    tel.value = tel.value.replace(/[^0-9]+/, '');
-  });
-  $("#p_linecontact").keyup(function (event) {
+  $("#p_linecontact").keydown(function (event) {
     var line = document.getElementById("p_linecontact");
-    line.value = line.value.replace(/[^a-zA-Z0-9_.-]+/, '');
     line.value = line.value.toLowerCase();
   });
-  $("#p_emailcontact").keyup(function (event) {
+  $("#p_emailcontact").keydown(function (event) {
     var email = document.getElementById("p_emailcontact");
     email.value = email.value.toLowerCase();
   });
