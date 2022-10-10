@@ -41,7 +41,7 @@
             <label for="p_createdate" class="form-label">วันที่เริ่มโครงการ<?php if(!isset($detail)) { echo $required; } ?></label>
               <div class="input-group mb-3">
               <input type="date" onfocus="this.showPicker()" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_createdate : '' ?>" id="p_createdate" <?php if(isset($detail)){echo "disabled";}?> >
-                <span class="input-group-text" id="basic-addon1"><i class=" mdi mdi-calendar-range"></i></span>               
+                <span class="input-group-text fs-5" id="basic-addon1"><i class="mdi mdi-calendar-range"></i></span>               
               </div>
               <font id="createdateMsg" class="small text-danger"></font>
             </div>
@@ -56,7 +56,7 @@
             </div>
             <div class="form-group">
               <label for="p_emailcontact" class="form-label">อีเมลลูกค้า</label>
-              <input type="email"  class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_emailcontact : '' ?>" id="p_emailcontact" placeholder="กรอกอีเมลสำหรับติดต่อลูกค้า (eaxmple@gmail.com)" <?php if(isset($detail)){echo "disabled";}?> >
+              <input type="email" onkeydown="return checkEmailKey(event.key)" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_emailcontact : '' ?>" id="p_emailcontact" placeholder="กรอกอีเมลสำหรับติดต่อลูกค้า (eaxmple@gmail.com)" <?php if(isset($detail)){echo "disabled";}?> >
               <font id="emailMsg" class="small text-danger"></font>
             </div>
             <div class="form-group">

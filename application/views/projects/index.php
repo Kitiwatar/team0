@@ -12,7 +12,7 @@
     })
   }
   
-  function validateEmail(email) {
+function validateEmail(email) {
   var re = /\S+@\S+\.\S+/;
   return re.test(email);
   }
@@ -21,12 +21,16 @@ function checkPhoneKey(key) {
   return (key >= '0' && key <= '9') ||
     ['+','(',')','-','ArrowLeft','ArrowRight','Delete','Backspace'].includes(key);
 }
+
 function checkLineKey(key) {
-  
   return (key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z') || (key >= '0' && key <= '9') ||
     ['.','-','_'].includes(key);
 }
 
+function checkEmailKey(key) {
+  return (key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z') || (key >= '0' && key <= '9') ||
+    ['.','-','_','@'].includes(key);
+}
   
   function saveFormSubmit(p_id) {
     // $('#fMsg').addClass('text-warning');
@@ -76,8 +80,8 @@ function checkLineKey(key) {
     } else {
       $('#nameMsg').text(' ');
     }
-    if (!validateEmail(formData.p_emailcontact)) {
-      $('#emailMsg').text(' กรุณากรอกอีเมล');
+    if (!validateEmail(formData.p_emailcontact) && formData.p_emailcontact != "") {
+      $('#emailMsg').text(' กรุณากรอกอีเมลให้ถูกต้อง');
       $('#p_emailcontact').focus();
       count++
     } else {
@@ -162,26 +166,13 @@ function checkLineKey(key) {
     });
   }
 
-  function view2(p_id) {
+  function edit(p_id) {
+    $('#detailModal').modal('hide');
     $.ajax({
       method: "post",
-      url: 'projects/viewProjectTasks',
+      url: 'projects/getEditForm',
       data: {
         p_id: p_id
-      }
-    }).done(function(returnData) {
-      
-      window.location='projects/viewProjectTasks'
-    });
-    
-  }
-
-  function edit(u_id) {
-    $.ajax({
-      method: "post",
-      url: 'users/getEditForm',
-      data: {
-        u_id: u_id
       }
     }).done(function(returnData) {
       $('#mainModalTitle').html(returnData.title);

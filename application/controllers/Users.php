@@ -142,7 +142,11 @@ class Users extends CI_Controller {
 		$data['detail'] = "yes";
 		$data['arrayRole'] = $this->getAllRole();
 		$json['body'] = $this->load->view('users/formadd', $data ,true);
-		$json['footer'] = '';
+		if($data['getData']->u_status == 1) {
+			$json['footer'] = '<button type="button" class="btn btn-warning" onclick="edit(' . $this->input->post('u_id') . ')" title="แก้ไขข้อมูลพนักงาน">แก้ไขข้อมูล</button>';
+		} else {
+			$json['footer'] = '';
+		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 

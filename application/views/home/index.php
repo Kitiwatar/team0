@@ -12,7 +12,7 @@
                     <div class="card-body">
                         <h3><i class="fas fa-list" style="color: #fb9678;"></i></h3>
                         <h2 class="counter text-primary text-end" id="all"></h2>
-                        <span class="text-muted fs-5">โครงการทั้งหมด</span><span class="float-end text-muted" style="font-size: 12px;">ดูเพิ่มเติม...</span>
+                        <span class="text-muted fs-5">โครงการทั้งหมด</span><span class="float-end text-muted" style="font-size: 12px;">คลิกเพื่อดูเพิ่มเติม</span>
                         <div class="progress mt-2">
                             <div class="progress-bar bg-primary" role="progressbar" style="width: 100%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <h3><i class="mdi mdi-library-books" style="color: #FEC107;"></i></h3>
                         <h2 class="counter text-end" style="color: #FEC107;" id="p_pending"></h2>
-                        <span class="text-muted fs-5">รอดำเนินการ</span><span class="float-end text-muted" style="font-size: 12px;">ดูเพิ่มเติม...</span>
+                        <span class="text-muted fs-5">รอดำเนินการ</span><span class="float-end text-muted" style="font-size: 12px;">คลิกเพื่อดูเพิ่มเติม</span>
                         <!-- <p class="text-muted">รอดำเนินการ</p> -->
                         <div class="progress mt-2">
                             <div class="progress-bar" role="progressbar" style="width: 100%; height: 6px; background-color: #FEC107;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -42,7 +42,7 @@
                         <h3><i class="far fa-edit" style="color: #03A9F3;"></i></h3>
                         <h2 class="counter text-end" style="color: #03A9F3;" id="p_progress"></h2>
                         <!-- <p class="text-muted">กำลังดำเนินการ</p> -->
-                        <span class="text-muted fs-5">กำลังดำเนินการ</span><span class="float-end text-muted" style="font-size: 12px;">ดูเพิ่มเติม...</span>
+                        <span class="text-muted fs-5">กำลังดำเนินการ</span><span class="float-end text-muted" style="font-size: 12px;">คลิกเพื่อดูเพิ่มเติม</span>
                         <div class="progress mt-2">
                             <div class="progress-bar" role="progressbar" style="width: 100%; height: 6px; background-color: #03A9F3;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
@@ -79,7 +79,7 @@
                                     <div class="col-12">
                                         <div class="row">
                                             <div class="col-6"><i class="mdi mdi-bookmark-check" style="font-size: 60px; color:white;"></i></div>
-                                            <div class="col-6 pt-3"><div style="font-size: 40px;" class="text-end p-0" id="p_success"></div><div class="text-end">ดูเพิ่มเติม...</div></div>
+                                            <div class="col-6 pt-3"><div style="font-size: 40px;" class="text-end p-0" id="p_success"></div><div class="text-end">คลิกเพื่อดูเพิ่มเติม</div></div>
                                         </div>                                        
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@
                                     <div class="col-12">
                                         <div class="row">
                                             <div class="col-6"><i class="mdi mdi-emoticon-sad" style="font-size: 60px; color:white;"></i></div>
-                                            <div class="col-6 pt-3"><div style="font-size: 40px;" class="text-end p-0" id="p_fail"></div><div class="text-end">ดูเพิ่มเติม...</div></div>
+                                            <div class="col-6 pt-3"><div style="font-size: 40px;" class="text-end p-0" id="p_fail"></div><div class="text-end">คลิกเพื่อดูเพิ่มเติม</div></div>
                                         </div>                                        
                                     </div>
                                 </div>
@@ -150,7 +150,19 @@
             $('#p_progress').html(returnData.projectProgress)
             $('#p_success').html(returnData.projectSuccess)
             $('#p_fail').html(returnData.projectFail)
-
+            let orientPosition = "";
+            let xPosition;
+            let yPosition;
+            var width = (window.innerWidth > 0) ? window.innerWidth : this.screen.width;
+            if (width < 1170) {
+                orientPosition = "horizontal"
+                xPosition = "center"
+                yPosition = "bottom"
+            } else {
+                orientPosition = "vertical"
+                xPosition = "right"
+                yPosition = "center"
+            }
             var pieChart = echarts.init(document.getElementById("projectChart"));
             // specify chart configuration item and data
             option = {
@@ -160,9 +172,12 @@
                     formatter: " {b}<br/> {c} โครงการ ({d}%)"
                 },
                 legend: {
-                    orient: 'vertical',
-                    x: 'right',
-                    y: 'center',
+                    // orient: 'vertical',
+                    orient: orientPosition,
+                    // x: 'right',
+                    // y: 'center',
+                    x: xPosition,
+                    y: yPosition,
                     data: ['เสร็จสิ้น', 'ยกเลิก', 'รอดำเนินการ', 'กำลังดำเนินการ']
                 },
                 toolbox: {
@@ -227,6 +242,9 @@
         })
     }
     // Function LoadList for Rank
+    $(window).ready(getProjectSummary);
+    $(window).on("resize", getProjectSummary);
+    
     loadList();
 
     function loadList() {

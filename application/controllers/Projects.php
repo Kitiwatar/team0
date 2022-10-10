@@ -53,7 +53,7 @@ class Projects extends CI_Controller{
 	}
 
 	public function add() {
-		// Create by: Patiphan Pansanga 08-09-2565 add user in database
+		// Create by: Jiradat Pomyai 28-09-2565 add project in database
 		$this->genlib->ajaxOnly();
 		$formData = $this->input->post();
 		$arrayErr = array(
@@ -89,7 +89,7 @@ class Projects extends CI_Controller{
 	}
 
 	public function getAddForm() {
-		// Create by: Jiradat Pomyai 19-09-2565
+		// Create by: Jiradat Pomyai 28-09-2565 get add form
 		$json['title'] = 'เพิ่มโครงการ <span class="text-danger" style="font-size:12px;">(*จำเป็นต้องกรอกข้อมูล)</span>';
 		$json['body'] = $this->load->view('projects/formadd', '', TRUE);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit(\'new\');">บันทึก</button>
@@ -97,8 +97,18 @@ class Projects extends CI_Controller{
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
+	public function getEditForm() {
+		// Create by: Patiphan Pansanga 11-10-2565 get edit form 
+		$json['title'] = 'แก้ไขข้อมูลโครงการ <span class="text-danger" style="font-size:12px;">(*จำเป็นต้องกรอกข้อมูล)</span>';
+		$data['getData'] = $this->genmod->getOne('pms_project', '*', array('p_id'=>$this->input->post('p_id')));
+		$json['body'] = $this->load->view('projects/formadd', $data ,true);
+		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit('.$this->input->post('p_id').');">บันทึก</button>
+		<button type="button" class="btn btn-danger" id="closeBtn" onclick="closeModal(\'แก้ไขโครงการ\')">ยกเลิก</button>';
+		$this->output->set_content_type('application/json')->set_output(json_encode($json));
+	}
+
 	public function viewProjectTasks($p_id)	{
-		// Create by: Jiradat 25-09-2565 index page
+		// Create by: Jiradat 01-10-2565 task page
         $arrayJoin = array('pms_user' => 'pms_user.u_id=pms_task.t_u_id','pms_tasklist' => 'pms_tasklist.tl_id=pms_task.t_tl_id');
 		$data['getData'] = $this->genmod->getAll('pms_task', '*',array('t_p_id'=>$p_id),'',$arrayJoin,'');
 		$data['projectData'] = $this->genmod->getOne('pms_project', '*',array('p_id'=>$p_id),'','','');
@@ -109,7 +119,7 @@ class Projects extends CI_Controller{
 	}
 
 	public function getDetailForm() {
-		// Create by: Jiradat Pomyai 14-09-2565 get form detail projects
+		// Create by: Jiradat Pomyai 01-10-2565 get form detail projects
 		if($this->input->post('p_id')!=null){
 			$data['getData'] = $this->genmod->getOne('pms_project', '*', array('p_id'=>$this->input->post('p_id')));
 		} else {
@@ -118,12 +128,12 @@ class Projects extends CI_Controller{
 		$data['detail'] = "yes";
 		$json['title'] = 'ข้อมูลพนักงาน';
 		$json['body'] = $this->load->view('projects/formadd', $data ,true);
-		$json['footer'] = '';
+		$json['footer'] = '<button type="button" class="btn btn-warning" onclick="edit(' . $this->input->post('p_id') . ')" title="แก้ไขข้อมูลโครงการ">แก้ไขข้อมูล</button>';
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
 	public function updateStatus() {
-		// Create by: Patiphan Pansanga 05-10-2565 update status user in database
+		// Create by: Patiphan Pansanga 01-10-2565 update status project in database
 		$this->genlib->ajaxOnly();
 		$updateData = $this->input->post();
 		$validCheck = $this->genmod->getOne('pms_project', '*', array('p_id' => $updateData['p_id']));

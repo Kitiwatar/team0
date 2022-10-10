@@ -22,7 +22,7 @@
              <tbody>
                <?php if (is_array($getData)) : $count = 1 ?>
                  <?php foreach ($getData as $key => $value) : ?>
-                  <?php if($value->p_status < 1 && $_SESSION['u_role'] > 1) { continue; } ?>
+                  <?php if($value->p_status < 1) { continue; } ?>
                    <tr>
                      <td class="text-center"><?= $count++ ?></td> 
                      <td class="name" style="cursor:pointer;" onclick="view('<?= $value->p_id ?>')"><u><?= $value->p_name ?></u></td>
@@ -37,20 +37,22 @@
                      <td>
                        <?php
                        $statusColor = array(1=>"badge rounded-pill bg-info", 2=>"badge rounded-pill bg-info", 3=>"badge rounded-pill bg-success", 4=>"badge rounded-pill bg-danger");
-                        foreach ($arrayStatus as $key => $status) {
-                          if ($value->p_status == $key) {
-                            echo "<span  class = ' ". $statusColor[$key] ."'>" . $status . "</span>";
+                        foreach ($arrayStatus as $index => $status) {
+                          if ($value->p_status == $index) {
+                            echo "<span  class = ' ". $statusColor[$index] ."'>" . $status . "</span>";
                           }
                         }
                         ?>
                      </td>
                      <td class="text-center">
-                     <a type="button" href="<?= base_url() ?>projects/viewProjectTasks/<?= $value->p_id ?>" class="btn btn-tertiary"><i class="far fa-edit"></i> จัดการกิจกรรม</a>
+                     <button type="button" class="btn btn-info" name="view" id="view" onclick="view(<?= $value->p_id ?>)" title="ดูข้อมูลโครงการ"><i class="mdi mdi-file-find"></i></button>
+                     <a type="button" href="<?= base_url() ?>projects/viewProjectTasks/<?= $value->p_id ?>" title="จัดการกิจกรรมของโครงการ" class="btn btn-tertiary">ไอคอน</a>
                      <?php if ($_SESSION['u_role'] <= 2) : ?> 
-                        <?php if ($value->p_status > 0) : ?> 
+                        <button type="button" class="btn btn-warning" name="edit" id="edit" onclick="edit(<?= $value->p_id ?>)" title="แก้ไขข้อมูลโครงการ"><i class="mdi mdi-pencil"></i></button>
+                        <?php if (!isset($lastTask[$key]->tl_name)) : ?> 
                          <button type="button" class="btn btn-danger" name="del" id="del" title="ลบโครงการ" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status*-1 ?>)"><i class="mdi mdi-delete"></i></button>
                         <?php else: ?> 
-                          <button type="button" class="btn btn-dark" name="del" id="del" title="กู้คืนโครงการ" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status*-1 ?>)"><i class="mdi mdi-restore"></i></button>
+                          <button type="button" style="cursor:no-drop; background-color: rgb(228, 228, 228);" class="btn btn-secondary" title="ไม่สามรถใช้งานได้"><i class="mdi mdi-delete"></i></button>
                         <?php endif; ?>
                       <?php endif; ?>
                      </td>

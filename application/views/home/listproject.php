@@ -21,7 +21,7 @@
                   <?php if($value->p_status < 1) { continue; } ?>
                    <tr>
                      <td class="text-center"><?= $count++ ?></td>
-                     <td onclick="view(<?= $value->u_id ?>)" style="cursor:pointer;"><?= $value->p_name ?> </td>
+                     <td><?= $value->p_name ?> </td>
                      <td><?= $leader[$key]->u_firstname . ' ' . $leader[$key]->u_lastname  ?></td>
                      <td>
                        <?php if (isset($lastTask[$key]->tl_name)) : ?>
@@ -31,10 +31,11 @@
                        <?php endif; ?>
                      </td>
                      <td>
-                       <?php
+                     <?php
+                       $statusColor = array(1=>"badge rounded-pill bg-info", 2=>"badge rounded-pill bg-info", 3=>"badge rounded-pill bg-success", 4=>"badge rounded-pill bg-danger");
                         foreach ($arrayStatus as $key => $status) {
                           if ($value->p_status == $key) {
-                            echo "<font class = 'status" . $key . " rounded'>" . $status . "</font>";
+                            echo "<span  class = ' ". $statusColor[$key] ."'>" . $status . "</span>";
                           }
                         }
                         ?>
@@ -52,33 +53,6 @@
      </div>
    </div>
  </div>
-
- <style>
-   .status1 {
-     background-color: #FEC107;
-     color: white;
-     padding: 7px;
-   }
-
-   .status2 {
-     background-color: #03A9F3;
-     color: white;
-     padding: 7px;
-   }
-
-   .status3 {
-     background-color: #57BF95;
-     color: white;
-     padding: 7px;
-   }
-
-   .status4 {
-     background-color: #E46A76;
-     color: white;
-     padding: 7px;
-   }
- </style>
-
  <script>
     pdfMake.fonts = {
     THSarabun: {

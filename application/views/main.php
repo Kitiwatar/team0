@@ -420,7 +420,7 @@
     function countDown() {
         var downloadTimer = setInterval(function() {
             timeLeft--;
-            document.getElementById("time").innerHTML = timeLeft;
+            // document.getElementById("time").innerHTML = timeLeft;
             if (timeLeft <= 0) {
                 swal({
                     title: "ต้องการอยู่ในระบบต่อหรือไม่",

@@ -159,6 +159,7 @@
   }
 
   function edit(u_id) {
+    $('#detailModal').modal('hide');
     $.ajax({
       method: "post",
       url: 'users/getEditForm',
