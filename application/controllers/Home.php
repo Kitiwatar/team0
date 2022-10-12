@@ -27,7 +27,10 @@ class Home extends CI_Controller
 		$data = array();
 		for ($i = 0; $i < 5; $i++) {
 			if ($i == 0) {
-				$data[$i] = $this->genmod->countAll('pms_project', '', '');
+				$data[$i] = 0;
+				for($j=1; $j<=4; $j++) {
+					$data[$i] += $this->genmod->countAll('pms_project', array('p_status' => $j), '');
+				}
 			} else {
 				$data[$i] = $this->genmod->countAll('pms_project', array('p_status' => $i), '');
 			}
