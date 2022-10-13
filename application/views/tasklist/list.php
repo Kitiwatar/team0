@@ -29,11 +29,11 @@
                     <td><?= thaiDateTime($value->tl_createdate)." น."?></td>
                     <td><?= $value->u_firstname ?> <?= $value->u_lastname ?></td>
                     <td class="text-center">
-                      <button type="button" class="btn btn-warning" name="edit" id="edit" onclick="edit(<?= $value->tl_id ?>)" title="แก้ไขรายการกิจกรรม"><i class="mdi mdi-pencil"></i></button>
+                      <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->tl_id ?>)" title="แก้ไขรายการกิจกรรม"><i class="mdi mdi-pencil"></i></button>
                       <?php if ($value->tl_status == 1) : ?>
-                        <button type="button" class="btn btn-danger" name="del" id="del" title="ระงับการทำงาน" onclick="changeStatus(<?= $value->tl_id ?>,<?= $value->tl_status ?>)"><i class="mdi mdi-delete"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="ระงับการทำงาน" onclick="changeStatus(<?= $value->tl_id ?>,<?= $value->tl_status ?>)"><i class="mdi mdi-delete"></i></button>
                       <?php else : ?>
-                        <button type="button" class="btn btn-dark" name="del" id="del" title="กู้คืนข้อมูล" onclick="changeStatus(<?= $value->tl_id ?>,<?= $value->tl_status ?>)"><i class="mdi mdi-delete"></i></button>
+                        <button type="button" class="btn btn-dark btn-sm" name="del" id="del" title="กู้คืนข้อมูล" onclick="changeStatus(<?= $value->tl_id ?>,<?= $value->tl_status ?>)"><i class="mdi mdi-delete"></i></button>
                       <?php endif; ?>
 
                     </td>

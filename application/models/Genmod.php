@@ -144,6 +144,10 @@ class Genmod extends CI_Model{
     $sql = "SELECT MAX(p_id) AS p_id FROM `pms_project`"; 
     return $this->db->query($sql, '')->row();            
   }
+  public function getMaxTask($p_id){  
+    $sql = "SELECT MAX(t_id) AS t_id FROM `pms_task` WHERE t_p_id = ?"; 
+    return $this->db->query($sql, array($p_id))->row();       
+  }
 }
 
 ?>

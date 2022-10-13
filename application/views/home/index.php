@@ -157,7 +157,7 @@
             if (width < 1170) {
                 orientPosition = "horizontal"
                 xPosition = "center"
-                yPosition = "bottom"
+                yPosition = "top"
             } else {
                 orientPosition = "vertical"
                 xPosition = "right"

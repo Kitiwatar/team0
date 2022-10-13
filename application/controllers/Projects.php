@@ -107,17 +107,6 @@ class Projects extends CI_Controller{
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
-	public function viewProjectTasks($p_id)	{
-		// Create by: Jiradat 01-10-2565 task page
-        $arrayJoin = array('pms_user' => 'pms_user.u_id=pms_task.t_u_id','pms_tasklist' => 'pms_tasklist.tl_id=pms_task.t_tl_id');
-		$data['getData'] = $this->genmod->getAll('pms_task', '*',array('t_p_id'=>$p_id),'',$arrayJoin,'');
-		$data['projectData'] = $this->genmod->getOne('pms_project', '*',array('p_id'=>$p_id),'','','');
-		$values['pageTitle'] = 'ตารางแสดงกิจกรรมโครงการ';
-		$values['breadcrumb'] = 'ตารางแสดงกิจกรรมโครงการ';
-		$values['pageContent'] = $this->load->view('projects/projectdetail', $data, TRUE);
-		$this->load->view('main', $values);
-	}
-
 	public function getDetailForm() {
 		// Create by: Jiradat Pomyai 01-10-2565 get form detail projects
 		if($this->input->post('p_id')!=null){
@@ -128,7 +117,43 @@ class Projects extends CI_Controller{
 		$data['detail'] = "yes";
 		$json['title'] = 'ข้อมูลพนักงาน';
 		$json['body'] = $this->load->view('projects/formadd', $data ,true);
-		$json['footer'] = '<button type="button" class="btn btn-warning" onclick="edit(' . $this->input->post('p_id') . ')" title="แก้ไขข้อมูลโครงการ">แก้ไขข้อมูล</button>';
+		if($_SESSION['u_role'] <= 2) {
+			$json['footer'] = '<button type="button" class="btn btn-warning" onclick="edit(' . $this->input->post('p_id') . ')" title="แก้ไขข้อมูลโครงการ">แก้ไขข้อมูล</button>';
+		} else {
+			$json['footer'] = '';
+		}
+		$this->output->set_content_type('application/json')->set_output(json_encode($json));
+	}
+
+	public function endProject() {
+		$this->genlib->ajaxOnly();
+		$updateData = $this->input->post();
+		$validCheck = $this->genmod->getOne('pms_project', '*', array('p_id' => $updateData['p_id']));
+		if(isset($validCheck)) {
+			$this->genmod->update('pms_project', array('p_status'=> ($updateData['p_status'])), array('p_id' => $updateData['p_id']));
+			if($updateData['p_status'] == 3) {
+				$msg = "สิ้นสุดโครงการสำเร็จ";
+			} else {
+				$msg = "ยกเลิกโครงการสำเร็จ";
+			}				 
+			$json = ['status'=> 1, 'msg'=>$msg];	
+		} else {
+			$json = ['status'=> 0, 'msg'=>"เกิดข้อผิดพลาด"];
+		}
+		$this->output->set_content_type('application/json')->set_output(json_encode($json));
+	}
+
+	public function restoreProject() {
+		$this->genlib->ajaxOnly();
+		$updateData = $this->input->post();
+		$validCheck = $this->genmod->getOne('pms_project', '*', array('p_id' => $updateData['p_id']));
+		if(isset($validCheck)) {
+			$this->genmod->update('pms_project', array('p_status'=> 2), array('p_id' => $updateData['p_id']));
+			$msg = "กู้คืนสถานะโครงการสำเร็จ";
+			$json = ['status'=> 1, 'msg'=>$msg];	
+		} else {
+			$json = ['status'=> 0, 'msg'=>"เกิดข้อผิดพลาด"];
+		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 

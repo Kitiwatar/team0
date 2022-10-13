@@ -8,7 +8,7 @@
            <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มโครงการ</button>
          <?php } ?>
          <div class="table-responsive my-2">
-           <table class="display table table-striped table-bordered dt-responsive nowrap">
+           <table class="display table table-striped table-bordered dt-responsive nowrap" id="table">
              <thead>
                <tr>
                  <th class="text-center">ลำดับ</th>
@@ -45,14 +45,14 @@
                         ?>
                      </td>
                      <td class="text-center">
-                     <button type="button" class="btn btn-info" name="view" id="view" onclick="view(<?= $value->p_id ?>)" title="ดูข้อมูลโครงการ"><i class="mdi mdi-file-find"></i></button>
-                     <a type="button" href="<?= base_url() ?>projects/viewProjectTasks/<?= $value->p_id ?>" title="จัดการกิจกรรมของโครงการ" class="btn btn-tertiary"><i class="mdi mdi-book-variant"></i></a>
+                     <a type="button" href="<?= base_url() ?>tasks/index/<?= $value->p_id ?>" title="จัดการกิจกรรมของโครงการ" class="btn btn-tertiary btn-sm"><i class=" far fa-folder-open"></i></a>
+                     <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->p_id ?>)" title="ดูข้อมูลโครงการ"><i class=" fas fa-search"></i></button>
                      <?php if ($_SESSION['u_role'] <= 2) : ?> 
-                        <button type="button" class="btn btn-warning" name="edit" id="edit" onclick="edit(<?= $value->p_id ?>)" title="แก้ไขข้อมูลโครงการ"><i class="mdi mdi-pencil"></i></button>
+                      <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->p_id ?>)" title="แก้ไขข้อมูลโครงการ"><i class="mdi mdi-pencil"></i></button>
                         <?php if ($value->p_status == 1) : ?> 
-                         <button type="button" class="btn btn-danger" name="del" id="del" title="ลบโครงการ" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status*-1 ?>)"><i class="mdi mdi-delete"></i></button>
+                          <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="ลบโครงการ" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status*-1 ?>)"><i class="mdi mdi-delete"></i></button>
                         <?php else: ?> 
-                          <button type="button" style="cursor:no-drop; background-color: rgb(228, 228, 228);" class="btn btn-secondary" title="ไม่สามรถใช้งานได้"><i class="mdi mdi-delete"></i></button>
+                          <button type="button" style="cursor:no-drop; background-color: rgb(228, 228, 228);" class="btn btn-secondary btn-sm" title="ไม่สามรถใช้งานได้"><i class="mdi mdi-delete"></i></button>
                         <?php endif; ?>
                       <?php endif; ?>
                      </td>
@@ -116,7 +116,7 @@
        bolditalics: 'THSarabun-BoldItalic.ttf'
      }
    }
-   $('.table').DataTable({
+   $('#table').DataTable({
      "dom": 'Bftlp',
      "buttons": [{
          "extend": "excel",

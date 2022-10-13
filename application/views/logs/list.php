@@ -42,7 +42,7 @@
                       <td><?=thaiDateTime($value->l_createdate)." น."?></td>
                       <td><?= $value->u_firstname . " " . $value->u_lastname ?></td>
                       <td class="text-center">
-                        <button type="button" class="btn btn-info" name="view" id="view" onclick="view(<?= $value->l_id ?>)" title="ดูรายละเอียด"><i class="mdi mdi-file-find"></i></button>
+                        <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->l_id ?>)" title="ดูรายละเอียด"><i class="fas fa-search"></i></button>
                       </td>
                     </tr>
                 <?php endforeach; ?>
