@@ -163,10 +163,25 @@ class Projects extends CI_Controller{
 		$updateData = $this->input->post();
 		$validCheck = $this->genmod->getOne('pms_project', '*', array('p_id' => $updateData['p_id']));
 		if(isset($validCheck)) {
+			if($validCheck->p_countdown!=NULL){
+				date_default_timezone_set("Asia/Bangkok");
+                $now = date("Y-m-d H:i:s");
+				if($now > $validCheck->p_countdown){
+					$json = ['status'=> 0, 'msg'=>"เกิดข้อผิดพลาด ครบกำหนดสำหรับการกู้คืนแล้ว"];
+					$this->output->set_content_type('application/json')->set_output(json_encode($json));
+					return ;
+				}
+			}
 			$this->genmod->update('pms_project', array('p_status'=> ($updateData['p_status'])), array('p_id' => $updateData['p_id']));
 			if($updateData['p_status'] < 1) {
+				date_default_timezone_set("Asia/Bangkok");
+				$d = new DateTime('+1day');
+				$tomorrow = $d->format('Y/m/d H.i.s');
+				$this->genmod->update('pms_project', array('p_countdown'=> $tomorrow), array('p_id' => $updateData['p_id']));
 				$msg = "ลบโครงการสำเร็จ";
+				
 			} else {
+				$this->genmod->update('pms_project', array('p_countdown'=> NULL), array('p_id' => $updateData['p_id']));
 				$msg = "กู้คืนข้อมูลโครงการสำเร็จ";
 			}				 
 			$json = ['status'=> 1, 'msg'=>$msg];	
@@ -175,5 +190,6 @@ class Projects extends CI_Controller{
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
+
 }
 ?>

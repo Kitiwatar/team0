@@ -166,7 +166,7 @@
                         <li class=" nav-item dropdown u-pro">
                             <?php if (isset($_SESSION['u_fullname'])) { ?>
                                 <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic fs-5" href="" data-toggle="dropdown" data-bs-display="static" aria-haspopup="true" aria-expanded="false">
-                                    <span class="hidden-md-down"><?php echo $_SESSION['u_fullname']; ?></span>
+                                    <span  class="hidden-md-down"><?php echo $_SESSION['u_fullname']; ?></span>
                                     <img src="https://synergysoft.co.th/images/2022/06/30/user.png" alt="user" class=""></a>
                                 <div class="dropdown-menu animated flipInY" style="right: 0; width:100px">
                                     <a onclick="viewPersonDetail('<?= base_url() ?>users/getDetailForm')" class="dropdown-item" style="cursor: pointer;"><i class="mdi mdi-account"></i> ข้อมูลส่วนตัว</a>
@@ -420,7 +420,7 @@
     function countDown() {
         var downloadTimer = setInterval(function() {
             timeLeft--;
-            // document.getElementById("time").innerHTML = timeLeft;
+            document.getElementById("time").innerHTML = timeLeft;
             if (timeLeft <= 0) {
                 swal({
                     title: "ต้องการอยู่ในระบบต่อหรือไม่",

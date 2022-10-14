@@ -168,6 +168,7 @@ function validateEmail(email) {
   }
 
   function changeStatus(p_id, p_status) {
+    loadList();
     var mainMsg;
     var detailMsg;
     if (p_status < 1) {
@@ -187,6 +188,7 @@ function validateEmail(email) {
       cancelButtonColor: "#E4E4E4",
       cancelButtonText: "<font style='color:black'>" + "ยกเลิก" + "</font>",
     }).then(function(isConfirm) {
+    
       if (isConfirm.value) {
         $.ajax({
           method: "POST",
@@ -196,8 +198,8 @@ function validateEmail(email) {
             p_status: p_status
           }
         }).done(function(returnData) {
+          loadList();
           if (returnData.status == 1) {
-            loadList();
             swal({
               title: "สำเร็จ",
               text: returnData.msg,
@@ -219,6 +221,5 @@ function validateEmail(email) {
         })
       }
     })
-
   }
 </script>

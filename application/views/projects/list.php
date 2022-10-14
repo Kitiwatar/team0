@@ -1,4 +1,5 @@
  <!-- Create by: Patiphan Pansanga, Jiradat Pomyai 19-09-2565 -->
+
  <div class="row">
    <div class="col-12">
      <div class="card">
@@ -22,7 +23,19 @@
              <tbody>
                <?php if (is_array($getData)) : $count = 1 ?>
                  <?php foreach ($getData as $key => $value) : ?>
-                  <?php if($value->p_status < 1) { continue; } ?>
+                  <?php if ($value->p_status < 1) : ?> 
+                   <?php
+                           date_default_timezone_set("Asia/Bangkok");
+                           $now = date("Y-m-d H:i:s");
+                           $start_date = new DateTime($value->p_countdown); 
+                           $since_start = $start_date->diff( new DateTime($now));
+                      
+                           if($now > $value->p_countdown ){
+                            continue; 
+                           }
+                           
+                    ?> 
+                  <?php endif; ?> 
                    <tr>
                      <td class="text-center"><?= $count++ ?></td> 
                      <td class="name" style="cursor:pointer;" onclick="view('<?= $value->p_id ?>')"><u><?= $value->p_name ?></u></td>
@@ -45,6 +58,10 @@
                         ?>
                      </td>
                      <td class="text-center">
+                      <?php if ($value->p_status < 1) : ?>  
+                        <button type="button" class="btn btn-warning button button1" name="edit" id="restore" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status*-1 ?>)" title="แก้ไขข้อมูลโครงการ">กู้คืนข้อมูล <br><?= $since_start->h.' ชั่วโมง '. $since_start->i.' นาที '. $since_start->s.' วินาที<br>' ?></button>
+                        <?php continue; ?>    
+                      <?php endif; ?> 
                      <a type="button" href="<?= base_url() ?>tasks/index/<?= $value->p_id ?>" title="จัดการกิจกรรมของโครงการ" class="btn btn-tertiary btn-sm"><i class=" far fa-folder-open"></i></a>
                      <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->p_id ?>)" title="ดูข้อมูลโครงการ"><i class=" fas fa-search"></i></button>
                      <?php if ($_SESSION['u_role'] <= 2) : ?> 
@@ -95,6 +112,7 @@
  </style>
 
  <script>
+  
    $('#addBtn').click(function(e) {
      e.preventDefault();
      $.ajax({
