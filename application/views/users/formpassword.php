@@ -6,7 +6,7 @@
                 <div class="card-body">
                     <?php if (isset($personPassword)) { ?>
                         <div class="form-group">
-                            <label for="curPwd" class="form-label">โปรดกรอกรหัสผ่านบัจุบัน</label>
+                            <label for="curPwd" class="form-label">โปรดกรอกรหัสผ่านปัจจุบัน</label>
                             <input type="password" class="form-control" name="inputValue[]" id="curPwd" onkeyup="checkCurrentPassword()" placeholder="รหัสผ่านปัจจุบัน">
                             <font id="curPwdMsg" class="small text-danger"></font>
                         </div>
