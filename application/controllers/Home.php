@@ -48,8 +48,15 @@ class Home extends CI_Controller
 		$dataUser = array();
 		$dataName = array();
 		if (is_array($allUser)) {
+			$arrayJoin = array('pms_project' => 'pms_project.p_id=pms_permission.per_p_id','pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
 			foreach ($allUser as $key => $value) {
-				$dataUser[$key] = $this->genmod->countAll('pms_permission', array('per_u_id' => $value->u_id), '');
+				$dataUser[$key] = 0;
+				for($i=1; $i<=2; $i++) {
+					$permissionNow = $this->genmod->getAll('pms_permission', '*', array('per_u_id'=>$value->u_id, 'p_status'=>$i), '', $arrayJoin, '');
+					if(is_array($permissionNow)) {
+						$dataUser[$key] += count($permissionNow);
+					} 
+				}
 				$dataName[$key] = $value->u_firstname . " " . $value->u_lastname;
 			}
 		}
