@@ -1,5 +1,5 @@
 <!-- Create by: Patiphan Pansanga, Jiradat Pomyai  07-09-2565-->
- <div id="listDiv"></div>
+<div id="listDiv"></div>
 
 <script>
   loadList();
@@ -84,7 +84,7 @@
     if (count > 0) {
       return false;
     }
-    
+
     var mainMsg;
     var detailMsg;
     if (u_id == "new") {
@@ -307,55 +307,39 @@
   }
 
   function changeStatus(u_id, u_status) {
-    var mainMsg;
-    var detailMsg;
+    var status = document.getElementById("status" + u_id)
     if (u_status == 1) {
-      mainMsg = "ยืนยันการระงับการทำงาน";
-      detailMsg = "คุณต้องการระงับการทำงานของพนักงานใช่หรือไม่";
+      status.checked = false;
     } else {
-      mainMsg = "ยืนยันการกู้คืนพนักงาน";
-      detailMsg = "คุณต้องการกู้คืนพนักงานใช่หรือไม่";
+      status.checked = true;
     }
-    swal({
-      title: mainMsg,
-      text: detailMsg,
-      type: "warning",
-      showCancelButton: true,
-      showConfirmButton: true,
-      confirmButtonText: "ยืนยัน",
-      cancelButtonColor: "#E4E4E4",
-      cancelButtonText: "<font style='color:black'>" + "ยกเลิก" + "</font>",
-    }).then(function(isConfirm) {
-      if (isConfirm.value) {
-        $.ajax({
-          method: "POST",
-          url: 'users/updateStatus',
-          data: {
-            u_id: u_id,
-            u_status: u_status
-          }
-        }).done(function(returnData) {
-          if (returnData.status == 1) {
-            loadList();
-            swal({
-              title: "สำเร็จ",
-              text: returnData.msg,
-              type: "success",
-              showCancelButton: false,
-              showConfirmButton: false,
-              timer: 1000,
-            });
-          } else {
-            swal({
-              title: "ล้มเหลว",
-              text: returnData.msg,
-              type: "error",
-              showCancelButton: false,
-              showConfirmButton: false,
-              timer: 1000,
-            });
-          }
-        })
+    $.ajax({
+      method: "POST",
+      url: 'users/updateStatus',
+      data: {
+        u_id: u_id,
+        u_status: u_status
+      }
+    }).done(function(returnData) {
+      if (returnData.status == 1) {
+        loadList();
+        $.toast({
+          heading: 'สำเร็จ',
+          text: returnData.msg,
+          position: 'top-right',
+          icon: 'success',
+          hideAfter: 3500,
+          stack: 6
+        });
+      } else {
+        $.toast({
+          heading: 'สำเร็จ',
+          text: returnData.msg,
+          position: 'top-right',
+          icon: 'error',
+          hideAfter: 3500,
+          stack: 6
+        });
       }
     })
 

@@ -1,4 +1,4 @@
-<!-- Create by: Patiphan Pansanga, Jiradat Pomyai 19-09-2565 -->
+<!-- Create by: Patiphan Pansanga 14-10-2565 -->
 <div id="listDiv"></div>
 <script>
   loadList(<?= $p_id ?>);
@@ -12,6 +12,50 @@
       }
     }).done(function(returnData) {
       $('#listDiv').html(returnData.html)
+    })
+  }
+
+  function updatePermission(u_id, p_id) {
+    swal({
+      title: "ยืนยันการลบพนักงานในโครงการ",
+      text: "คุณต้องการลบพนักงานในโครงการใช่หรือไม่",
+      type: "warning",
+      showCancelButton: true,
+      showConfirmButton: true,
+      confirmButtonText: "ยืนยัน",
+      cancelButtonText: "ยกเลิก",
+    }).then(function(isConfirm) {
+      if (isConfirm.value) {
+        $.ajax({
+          method: "post",
+          url: '<?= base_url() ?>permissions/remove',
+          data: {
+            u_id: u_id,
+            p_id: p_id
+          }
+        }).done(function(returnData) {
+          loadList();
+          if (returnData.status == 1) {
+            swal({
+              title: "สำเร็จ",
+              text: returnData.msg,
+              type: "success",
+              showCancelButton: false,
+              showConfirmButton: false,
+              timer: 1000,
+            });
+          } else {
+            swal({
+              title: "ล้มเหลว",
+              text: returnData.msg,
+              type: "error",
+              showCancelButton: false,
+              showConfirmButton: false,
+              timer: 1000,
+            });
+          }
+        });
+      }
     })
   }
 
@@ -190,10 +234,10 @@
         $('#mainModal').modal('hide');
       }
     })
-    
+
   }
 
-  function changeStatus(t_id, t_status) {
+  function changeStatus(t_id, t_status, p_id) {
     var mainMsg;
     var detailMsg;
     if (t_status == 1) {
@@ -219,6 +263,7 @@
           url: '<?= base_url() ?>tasks/updateStatus',
           data: {
             t_id: t_id,
+            p_id: p_id
           }
         }).done(function(returnData) {
           loadList();

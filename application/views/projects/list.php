@@ -17,27 +17,42 @@
                  <th>ผู้รับผิดชอบหลัก</th>
                  <th>กิจกรรม</th>
                  <th>สถานะ</th>
-                  <th class="text-center">ปุ่มดำเนินการ</th>
+                 <th class="text-center">ปุ่มดำเนินการ</th>
                </tr>
              </thead>
              <tbody>
                <?php if (is_array($getData)) : $count = 1 ?>
                  <?php foreach ($getData as $key => $value) : ?>
-                  <?php if ($value->p_status < 1) : ?> 
-                   <?php
-                           date_default_timezone_set("Asia/Bangkok");
-                           $now = date("Y-m-d H:i:s");
-                           $start_date = new DateTime($value->p_countdown); 
-                           $since_start = $start_date->diff( new DateTime($now));
-                      
-                           if($now > $value->p_countdown ){
-                            continue; 
-                           }
-                           
-                    ?> 
-                  <?php endif; ?> 
+                   <?php if ($value->p_status < 1) : ?>
+                     <?php
+                      date_default_timezone_set("Asia/Bangkok");
+                      $now = date("Y-m-d H:i:s");
+                      $start_date = new DateTime($value->p_countdown);
+                      $since_start = $start_date->diff(new DateTime($now));
+
+                      if ($now > $value->p_countdown) {
+                        continue;
+                      }
+                      if ($since_start->h + 1 < 11) {
+                        $hours = "0" . strval($since_start->h);
+                      } else {
+                        $hours = $since_start->h;
+                      }
+                      if ($since_start->i + 1 < 11) {
+                        $min = "0" . strval($since_start->i);
+                      } else {
+                        $min = $since_start->i;
+                      }
+                      if ($since_start->s + 1 < 11) {
+                        $sec = "0" . strval($since_start->s);
+                      } else {
+                        $sec = $since_start->s;
+                      }
+
+                      ?>
+                   <?php endif; ?>
                    <tr>
-                     <td class="text-center"><?= $count++ ?></td> 
+                     <td class="text-center"><?= $count++ ?></td>
                      <td class="name" style="cursor:pointer;" onclick="view('<?= $value->p_id ?>')"><u><?= $value->p_name ?></u></td>
                      <td><?= $leader[$key]->u_firstname . ' ' . $leader[$key]->u_lastname ?></td>
                      <td>
@@ -48,30 +63,31 @@
                        <?php endif; ?>
                      </td>
                      <td>
-                       <?php
-                       $statusColor = array(1=>"badge rounded-pill bg-info", 2=>"badge rounded-pill bg-info", 3=>"badge rounded-pill bg-success", 4=>"badge rounded-pill bg-danger");
+                       <?php if ($value->p_status < 1) : echo "ถูกลบ";
+                        endif;
+                        $statusColor = array(1 => "badge rounded-pill bg-info", 2 => "badge rounded-pill bg-info", 3 => "badge rounded-pill bg-success", 4 => "badge rounded-pill bg-danger");
                         foreach ($arrayStatus as $index => $status) {
                           if ($value->p_status == $index) {
-                            echo "<span  class = ' ". $statusColor[$index] ."'>" . $status . "</span>";
+                            echo "<span  class = ' " . $statusColor[$index] . "'>" . $status . "</span>";
                           }
                         }
                         ?>
                      </td>
                      <td class="text-center">
-                      <?php if ($value->p_status < 1) : ?>  
-                        <button type="button" class="btn btn-warning button button1" name="edit" id="restore" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status*-1 ?>)" title="แก้ไขข้อมูลโครงการ">กู้คืนข้อมูล <br><?= $since_start->h.' ชั่วโมง '. $since_start->i.' นาที '. $since_start->s.' วินาที<br>' ?></button>
-                        <?php continue; ?>    
-                      <?php endif; ?> 
-                     <a type="button" href="<?= base_url() ?>tasks/index/<?= $value->p_id ?>" title="จัดการกิจกรรมของโครงการ" class="btn btn-tertiary btn-sm"><i class=" far fa-folder-open"></i></a>
-                     <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->p_id ?>)" title="ดูข้อมูลโครงการ"><i class=" fas fa-search"></i></button>
-                     <?php if ($_SESSION['u_role'] <= 2) : ?> 
-                      <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->p_id ?>)" title="แก้ไขข้อมูลโครงการ"><i class="mdi mdi-pencil"></i></button>
-                        <?php if ($value->p_status == 1) : ?> 
-                          <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="ลบโครงการ" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status*-1 ?>)"><i class="mdi mdi-delete"></i></button>
-                        <?php else: ?> 
-                          <button type="button" style="cursor:no-drop; background-color: rgb(228, 228, 228);" class="btn btn-secondary btn-sm" title="ไม่สามรถใช้งานได้"><i class="mdi mdi-delete"></i></button>
-                        <?php endif; ?>
-                      <?php endif; ?>
+                       <?php if ($value->p_status < 1) : ?>
+                         <button type="button" class="btn btn-dark btn-sm button button1" name="restore" id="restore" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status * -1 ?>)" title="กู้คืนข้อมูลโครงการ">เหลือเวลากู้คืน <?= $hours . ':' . $min . ':' . $sec ?></button>
+                         <?php continue; ?>
+                       <?php endif; ?>
+                       <a type="button" href="<?= base_url() ?>tasks/index/<?= $value->p_id ?>" title="จัดการกิจกรรมของโครงการ" class="btn btn-tertiary btn-sm"><i class=" far fa-folder-open"></i></a>
+                       <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->p_id ?>)" title="ดูข้อมูลโครงการ"><i class=" fas fa-search"></i></button>
+                       <?php if ($_SESSION['u_role'] <= 2) : ?>
+                         <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->p_id ?>)" title="แก้ไขข้อมูลโครงการ"><i class="mdi mdi-pencil"></i></button>
+                         <?php if ($value->p_status == 1) : ?>
+                           <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="ลบโครงการ" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status * -1 ?>)"><i class="mdi mdi-delete"></i></button>
+                         <?php else : ?>
+                           <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="ไม่สามารถลบโครงการได้ เนื่องจากยังมีกิจกรรมอยู่ในโครงการ"><i class="mdi mdi-delete"></i></button>
+                         <?php endif; ?>
+                       <?php endif; ?>
                      </td>
                    </tr>
                  <?php endforeach; ?>
@@ -85,34 +101,7 @@
    </div>
  </div>
 
- <style>
-   .status1 {
-     background-color: #FEC107;
-     color: white;
-     padding: 7px;
-   }
-
-   .status2 {
-     background-color: #03A9F3;
-     color: white;
-     padding: 7px;
-   }
-
-   .status3 {
-     background-color: #57BF95;
-     color: white;
-     padding: 7px;
-   }
-
-   .status4 {
-     background-color: #E46A76;
-     color: white;
-     padding: 7px;
-   }
- </style>
-
  <script>
-  
    $('#addBtn').click(function(e) {
      e.preventDefault();
      $.ajax({
@@ -174,5 +163,7 @@
    $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn waves-effect waves-light btn-info mx-1');
    $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').removeClass("dt-button");
    $('.buttons-excel').html('<i class="mdi mdi-file-excel-box"></i> Excel');
-   $('.buttons-pdf').html('<i class="mdi mdi-file-pdf-box"></i> PDF');
+   $('.buttons-pdf').html('<i class="mdi mdi-file-pdf-box"></i> PDF');   
+
+   $('[data-toggle="tooltip"]').tooltip();
  </script>

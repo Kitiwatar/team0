@@ -50,7 +50,7 @@
         <div class="col-md-8 col-sm-12">
             <div class="card p-2">
                 <div class="card-body">
-                    <div id="projectChart" style="width:100%; height:352px;"></div>
+                    <div id="projectChart" style="width:100%; height:380px;"></div>
                 </div>
             </div>
         </div>

@@ -95,9 +95,7 @@ class Users extends CI_Controller {
 					$json = ['status'=> 0, 'msg'=>'เกิดข้อผิดพลาด อีเมลนี้มีผู้ใช้งานแล้ว', 'sql'=> $this->db->last_query()];
 				}
 			} else {
-				if(isset($validCheck->u_role) && $validCheck->u_role <= 1) {
-					$json = ['status'=> 0, 'msg'=>'เกิดข้อผิดพลาด ไม่มีสิทธิ์ในการแก้ไขข้อมูล', 'sql'=> $this->db->last_query()];
-				} else if(!$validCheck || $validCheck->u_id == $formData['u_id']) {
+				if(!$validCheck || $validCheck->u_id == $formData['u_id']) {
 					$u_id = $formData['u_id'];
 					unset($formData['u_id']);
 					$this->genmod->update('pms_user', $formData, array('u_id'=>$u_id));

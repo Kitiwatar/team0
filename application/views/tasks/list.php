@@ -1,12 +1,13 @@
- <!-- Create by: Patiphan Pansanga, Jiradat Pomyai 19-09-2565 -->
+ <!-- Create by: Patiphan Pansanga 14-10-2565 -->
  <div class="row">
  <div class="col-12">
      <div class="card">
        <div class="card-body">
         <h3 class='card-title' style="cursor: pointer;"><u class="name"><?= isset($projectData) ? $projectData->p_name : '' ?></u></h3>
          <h4 class='card-title'>ตารางแสดงกิจกรรมโครงการ</h4>
+         <?php if($isPermission == 1) { ?>
          <?php if ($projectData->p_status < 3) { ?>
-          <button type="button" class="btn btn-success me-2" id="addBtn" onclick="showAddForm('<?= base_url()?>','<?= $projectData->p_id ?>')" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มกิจกรรมโครงการ</button> 
+          <button type="button" class="btn btn-success me-2" id="addBtn" onclick="showAddForm('<?= $projectData->p_id ?>')" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มกิจกรรมโครงการ</button> 
           <?php } ?>
           <?php if($_SESSION['u_role'] <= 2 && $projectData->p_status < 3) {?>
            <button type="button" class="btn btn-info me-2" onclick="endProject(<?= $projectData->p_id ?>,3)" data-bs-toggle="modal"><i class="mdi mdi-check-circle-outline"></i> สิ้นสุดโครงการ</button>
@@ -14,7 +15,7 @@
          <?php } else if($_SESSION['u_role'] <= 2 && $projectData->p_status >= 3) { ?>
           <button type="button" class="btn btn-success" onclick="restoreProject('<?= $projectData->p_id ?>')" data-bs-toggle="modal"><i class="mdi mdi-rotate-left"></i> กู้คืนสถานะโครงการ</button>
           <?php } ?>
-          
+          <?php } ?>
          <div class="table-responsive my-2">
            <table class="display table table-striped table-bordered dt-responsive nowrap" id="table">
              <thead>
@@ -36,10 +37,12 @@
                      <td><?= $value->u_firstname.' '.$value->u_lastname ?></td>
                      <td class="text-center">
                      <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->t_id ?>)" title="ดูข้อมูลกิจกรรม"><i class="fas fa-search"></i></button>
+                     <?php if($isPermission == 1) { ?>
                      <?php if (($_SESSION['u_id'] == $value->t_u_id || $_SESSION['u_role'] <= 2) && $projectData->p_status < 3) : ?>
                        <button type="button" class="btn btn-sm btn-warning" name="edit" id="edit" onclick="edit(<?= $value->t_id ?>)" title="แก้ไขกิจกรรม"><i class="mdi mdi-pencil"></i></button>
-                       <button type="button" class="btn btn-sm btn-danger" name="del" id="del" onclick="changeStatus(<?= $value->t_id ?>, <?= $value->t_status ?>)" title="ลบกิจกรรม" onclick=""><i class="mdi mdi-delete"></i></button>
+                       <button type="button" class="btn btn-sm btn-danger" name="del" id="del" onclick="changeStatus(<?= $value->t_id ?>, <?= $value->t_status ?>, <?= $projectData->p_id ?>)" title="ลบกิจกรรม" onclick=""><i class="mdi mdi-delete"></i></button>
                      <?php endif; ?>
+                     <?php } ?>
                      </td>
                    </tr>
                  <?php endforeach; ?>
@@ -48,20 +51,24 @@
            </table>
          </div>
          <h4 class='card-title'>ตารางรายชื่อพนักงานในโครงการ</h4>
-         <?php if($_SESSION['u_role'] <= 2) { ?>
-        <button type="button" class="btn btn-success" ><i class="mdi mdi-plus-circle-outline"></i> เพิ่มพนักงานในโครงการ</button>
+         <?php if($isPermission == 1) { ?>
+         <?php if($_SESSION['u_role'] <= 2 && $projectData->p_status < 3) { ?>
+        <button type="button" class="btn btn-success" onclick="showPermissionForm(<?= $projectData->p_id ?>)"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มพนักงานในโครงการ</button>
+        <?php } ?>
         <?php } ?>
         <div class="table-responsive my-2">
           <table class="display table table-striped table-bordered dt-responsive nowrap" id="tablePermission">
             <thead>
               <tr>
-                <th>ลำดับ</th>
+                <th class="text-center">ลำดับ</th>
                 <th>ชื่อ-นามสกุล</th>
                 <th>อีเมล</th>
                 <th>เบอร์โทรศัพท์</th>
                 <th>สิทธิ์ในการใช้งานระบบ</th>
-                <?php if($_SESSION['u_role'] <= 2) { ?>
+                <?php if($isPermission == 1) { ?>
+                <?php if($_SESSION['u_role'] <= 2 && $projectData->p_status < 3) { ?>
                 <th class="text-center">ปุ่มดำเนินการ</th>
+                <?php } ?>
                 <?php } ?>
               </tr>
             </thead>
@@ -81,10 +88,16 @@
                           echo "ผู้ดูแลระบบ";
                         }?>
                       </td>
-                      <?php if($_SESSION['u_role'] <= 2) { ?>
+                      <?php if($isPermission == 1) { ?>
+                      <?php if($_SESSION['u_role'] <= 2 && $projectData->p_status < 3) { ?>
                       <td class="text-center">
-                          <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="ลบพนักงานออกจากโครงการ" onclick="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)"><i class="mdi mdi-delete"></i></button>
-                      </td>
+                        <?php if($value->per_role == 2) { ?>
+                          <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="ลบพนักงานออกจากโครงการ" onclick="updatePermission(<?= $value->u_id ?>,<?= $projectData->p_id ?>)"><i class="mdi mdi-delete"></i></button>
+                        <?php } else { ?>
+                          <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="ไม่สามารถลบได้ เนื่องจากเป็นผู้รับผิดชอบหลักของโครงการ"><i class="mdi mdi-delete"></i></button>
+                        <?php } ?>
+                        </td>
+                      <?php } ?>
                       <?php } ?>
                     </tr>
                 <?php endforeach; ?>
@@ -99,6 +112,8 @@
  </div>
 
  <script>
+  $('[data-toggle="tooltip"]').tooltip();
+
    function endProject(p_id, p_status) {
     var action = ""
     if(p_status == 3) {
@@ -189,10 +204,10 @@
     })
    }
 
-   function showAddForm(url, p_id) {
+   function showAddForm(p_id) {
     $.ajax({
        method: "post",
-       url: url + 'tasks/getAddForm',
+       url: '<?= base_url() ?>tasks/getAddForm',
        data: {
         p_id: p_id
        }
@@ -201,6 +216,21 @@
        $('#mainModalBody').html(returnData.body);
        $('#mainModalFooter').html(returnData.footer);
        $('#mainModal').modal();
+     });
+   }
+
+   function showPermissionForm(p_id) {
+    $.ajax({
+       method: "post",
+       url: '<?= base_url() ?>permissions/getAddForm',
+       data: {
+        p_id: p_id
+       }
+     }).done(function(returnData) {
+       $('#detailModalTitle').html(returnData.title);
+       $('#detailModalBody').html(returnData.body);
+       $('#detailModalFooter').html(returnData.footer);
+       $('#detailModal').modal();
      });
    }
 

@@ -117,7 +117,7 @@ class Projects extends CI_Controller{
 		$data['detail'] = "yes";
 		$json['title'] = 'ข้อมูลพนักงาน';
 		$json['body'] = $this->load->view('projects/formadd', $data ,true);
-		if($_SESSION['u_role'] <= 2) {
+		if($_SESSION['u_role'] <= 2 && ($data['getData']->p_status == 1 || $data['getData']->p_status == 2)) {
 			$json['footer'] = '<button type="button" class="btn btn-warning" onclick="edit(' . $this->input->post('p_id') . ')" title="แก้ไขข้อมูลโครงการ">แก้ไขข้อมูล</button>';
 		} else {
 			$json['footer'] = '';
@@ -175,8 +175,9 @@ class Projects extends CI_Controller{
 			$this->genmod->update('pms_project', array('p_status'=> ($updateData['p_status'])), array('p_id' => $updateData['p_id']));
 			if($updateData['p_status'] < 1) {
 				date_default_timezone_set("Asia/Bangkok");
-				$d = new DateTime('+1day');
-				$tomorrow = $d->format('Y/m/d H.i.s');
+				// $d = new DateTime('+1day');
+				// $tomorrow = $d->format('Y/m/d H.i.s');
+				$tomorrow = date("Y-m-d H:i:s", strtotime('+23 hours +59 mins +59 seconds'));
 				$this->genmod->update('pms_project', array('p_countdown'=> $tomorrow), array('p_id' => $updateData['p_id']));
 				$msg = "ลบโครงการสำเร็จ";
 				

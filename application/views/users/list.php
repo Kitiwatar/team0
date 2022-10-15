@@ -15,7 +15,7 @@
                 <th>เบอร์โทรศัพท์</th>
                 <th>สิทธิ์ในการใช้งานระบบ</th>
                 <th>วันที่เพิ่ม</th>
-                <th>สถานะ</th>
+                <th class="text-center">สถานะ</th>
                 <th class="text-center">ปุ่มดำเนินการ</th>
               </tr>
             </thead>
@@ -25,10 +25,10 @@
                   <?php if ($value->u_role > 0) : ?>
                     <tr>
                       <td class="text-center"><?= $count++ ?></td>
-                      <td onclick="view(<?= $value->u_id ?>)" style="cursor:pointer;" class="name"><u><?= $value->u_firstname ?> <?= $value->u_lastname ?></u></td>
-                      <td><?= $value->u_email ?></td>
-                      <td><?= $value->u_tel ?></td>
-                      <td><select class="form-control form-select" id="roleInput<?= $value->u_id ?>" onfocus="showRole(<?= $value->u_id ?>,<?= $value->u_role ?>)" onchange="changeRole(<?= $value->u_id ?>)">
+                      <td class="align-middle name" onclick="view(<?= $value->u_id ?>)" style="cursor:pointer;"><u><?= $value->u_firstname ?> <?= $value->u_lastname ?></u></td>
+                      <td class="align-middle"><?= $value->u_email ?></td>
+                      <td class="align-middle"><?= $value->u_tel ?></td>
+                      <td><select class="form-control form-select" <?= ($value->u_status == 0) ? 'disabled' : '' ?> id="roleInput<?= $value->u_id ?>" onfocus="showRole(<?= $value->u_id ?>,<?= $value->u_role ?>)" onchange="changeRole(<?= $value->u_id ?>)">
                           <?php
                           foreach ($arrayRole as $key => $role) {
                             if ($value->u_role == $key) {
@@ -40,18 +40,18 @@
                           ?>
                         </select>
                       </td>
-                      <td><?= thaiDateTime($value->u_createdate) . " น." ?></td>
-                      <td><?= ($value->u_status == 1) ? "กำลังทำงาน" : "ระงับการทำงาน" ?></td>
-                      <td class="text-center">
+                      <td class="align-middle"><?= thaiDateTime($value->u_createdate) . " น." ?></td>
+                      <td class="align-middle"><div class="form-check form-switch d-flex justify-content-center"><input type="checkbox" style="cursor: pointer;" class="form-check-input" onchange="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)" id="status<?= $value->u_id ?>"<?= ($value->u_status == 1) ? ' checked>' : ">" ?></div></td>
+                      <td class="text-center align-middle">
                       <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->u_id ?>)" title="ดูข้อมูลพนักงาน"><i class=" fas fa-search"></i></button>
                         <?php if ($value->u_status == 1) : ?>
                           <button type="button" class="btn btn-primary btn-sm" name="view" id="view" onclick="changePassword(<?= $value->u_id ?>)" title="เปลี่ยนรหัสผ่าน"><i class="mdi mdi-key-variant"></i></button>
                           <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->u_id ?>)" title="แก้ไขข้อมูลพนักงาน"><i class="mdi mdi-pencil"></i></button>
-                          <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="ระงับการทำงาน" onclick="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)"><i class="mdi mdi-lock-open-outline"></i></button>
+                          <!-- <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="ระงับการทำงาน" onclick="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)"><i class="mdi mdi-lock-open-outline"></i></button> -->
                         <?php else : ?>
-                          <button type="button" style="cursor:no-drop; background-color: rgb(228, 228, 228);" class="btn btn-secondary btn-sm" name="view" id="view" title="ไม่สามรถใช้งานได้""><i class=" mdi mdi-key-variant"></i></button>
-                          <button type="button" style="cursor:no-drop; background-color: rgb(228, 228, 228);" class="btn btn-secondary btn-sm" name="edit" id="edit" title="ไม่สามรถใช้งานได้"><i class="mdi mdi-pencil"></i></button>
-                          <button type="button" class="btn btn-dark btn-sm" name="del" id="del" title="กู้คืนข้อมูล" onclick="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)"><i class="mdi mdi-lock-outline"></i></button>
+                          <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" name="view" id="view" data-toggle="tooltip" data-placement="left" title="ไม่สามรถเปลี่ยนรหัสผ่านได้ เนื่องจากสถานะผู้ใช้ถูกระงับการใช้งานอยู่ในขณะนี้"><i class=" mdi mdi-key-variant"></i></button>
+                          <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" name="edit" id="edit" data-toggle="tooltip" data-placement="left" title="ไม่สามรถแก้ไขข้อมูลได้ เนื่องจากสถานะผู้ใช้ถูกระงับการใช้งานอยู่ในขณะนี้"><i class="mdi mdi-pencil"></i></button>
+                          <!-- <button type="button" class="btn btn-dark btn-sm" name="del" id="del" title="กู้คืนข้อมูล" onclick="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)"><i class="mdi mdi-lock-outline"></i></button> -->
                         <?php endif; ?>
                       </td>
                     </tr>
@@ -89,6 +89,8 @@
       }
     });
   }
+
+  $('[data-toggle="tooltip"]').tooltip();
 
   pdfMake.fonts = {
     THSarabun: {

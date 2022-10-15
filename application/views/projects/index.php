@@ -1,8 +1,9 @@
 <!-- Create by: Patiphan Pansanga, Jiradat Pomyai 19-09-2565 -->
- <div id="listDiv"></div>
+<div id="listDiv"></div>
 
 <script>
   loadList();
+
   function loadList() {
     $.ajax({
       url: 'projects/get',
@@ -11,12 +12,7 @@
       $('#listDiv').html(returnData.html)
     })
   }
-  
-function validateEmail(email) {
-  var re = /\S+@\S+\.\S+/;
-  return re.test(email);
-  }
-  
+
   function saveFormSubmit(p_id) {
     // $('#fMsg').addClass('text-warning');
     // $('#fMsg').text('กำลังดำเนินการ ...');
@@ -30,13 +26,16 @@ function validateEmail(email) {
     formData['p_linecontact'] = $('#p_linecontact').val()
     formData['p_emailcontact'] = $('#p_emailcontact').val()
     formData['p_othercontact'] = $('#p_othercontact').val()
-    // $('[name^="inputValue"]').each(function() {
-    //   formData[this.id] = this.value;
-    //   console.log(formData['p_name'])
-    // });
-    
-    console.log(formData);
     var count = 0;
+    if (formData.p_telcontact.length > 0) {
+      if (formData.p_telcontact.length != 10) {
+        $('#telMsg').text(' กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก');
+        $('#p_telcontact').focus();
+        count++
+      } else {
+        $('#telMsg').text(' ');
+      }
+    }
     if (!formData.p_createdate) {
       $('#createdateMsg').text(' กรุณาเลือกวันที่เริ่มโครงการ');
       // $('#p_createdate').focus();
@@ -75,7 +74,7 @@ function validateEmail(email) {
     if (count > 0) {
       return false;
     }
-    
+
     var mainMsg;
     var detailMsg;
     if (p_id == "new") {
@@ -101,6 +100,7 @@ function validateEmail(email) {
           data: formData
         }).done(function(returnData) {
           if (returnData.status == 1) {
+            loadList();
             swal({
               title: "สำเร็จ",
               text: returnData.msg,
@@ -114,7 +114,6 @@ function validateEmail(email) {
             $('#mainModalBody').html("");
             $('#mainModalFooter').html("");
             $('#mainModal').modal('hide');
-            loadList();
           } else {
             swal({
               title: "ล้มเหลว",
@@ -129,7 +128,6 @@ function validateEmail(email) {
             $('#mainModalBody').html("");
             $('#mainModalFooter').html("");
             $('#mainModal').modal('hide');
-            loadList();
           }
         });
       }
@@ -168,7 +166,6 @@ function validateEmail(email) {
   }
 
   function changeStatus(p_id, p_status) {
-    loadList();
     var mainMsg;
     var detailMsg;
     if (p_status < 1) {
@@ -188,7 +185,6 @@ function validateEmail(email) {
       cancelButtonColor: "#E4E4E4",
       cancelButtonText: "<font style='color:black'>" + "ยกเลิก" + "</font>",
     }).then(function(isConfirm) {
-    
       if (isConfirm.value) {
         $.ajax({
           method: "POST",
@@ -222,4 +218,25 @@ function validateEmail(email) {
       }
     })
   }
+
+  function runTime() {
+    var downloadTimer = setInterval(function() {
+      let restore = document.getElementsByName("restore")
+      for (let i = 0; i < restore.length; i++) {
+        let time = restore[i].innerHTML;
+        time = time.substring(time.length - 8);
+        var a = time.split(':');
+        var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
+        seconds--;
+        if (seconds <= 0) {
+          loadList();
+        } else {
+          let newTime = new Date(seconds * 1000).toISOString().slice(11, 19);
+          restore[i].innerHTML = "เหลือเวลากู้คืน" + newTime;
+        }
+      }
+    }, 1000);
+  }
+
+  runTime()
 </script>

@@ -1,9 +1,9 @@
 <?php
-// Create by: Jiradat Pomyai 15-09-2565 Projects management
+// Create by: Patiphan Pansanga 14-09-2565 tasks management
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Tasks extends CI_Controller{
     public function __construct() {
-		// Create by: Jiradat Pomyai 15-09-2565
+		// Create by: Patiphan Pansanga 14-09-2565
 		parent::__construct();
 		$this->genlib->checkLogin();
 		$data = $this->genmod->getOne('pms_user', '*', array('u_id'=>$_SESSION['u_id']));
@@ -11,7 +11,7 @@ class Tasks extends CI_Controller{
 	}
 
     public function index($p_id = 0)	{
-		// Create by: Jiradat Pomyai 19-09-2565 index page
+		// Create by: Patiphan Pansanga 14-09-2565 index page
 		$projectsCount = $this->genmod->countAll('pms_project', '', '');
 		if($p_id == 0 || $p_id > $projectsCount) {
 			redirect(base_url("projects"));
@@ -24,10 +24,19 @@ class Tasks extends CI_Controller{
 	}
 
 	public function get() {
-		// Create by: Jiradat Pomyai 19-09-2565
+		// Create by: Patiphan Pansanga 14-09-2565 get tasks list
 		$data['pageTitle'] =  'โครงการที่เกี่ยวข้อง';
 		$data['breadcrumb'] = 'โครงการที่เกี่ยวข้อง';
-		// $data['p_id'] =  $this->input->post('p_id');
+		if($_SESSION['u_role'] > 1) {
+			$checkPermission = $this->genmod->getOne('pms_permission', '*',array('per_u_id'=>$_SESSION['u_id'], 'per_p_id'=>$this->input->post('p_id'), 'per_status'=>1),'','','');
+			if(isset($checkPermission->per_id)) {
+				$data['isPermission'] = 1;
+			} else {
+				$data['isPermission'] = 0;
+			}
+		} else {
+			$data['isPermission'] = 1;
+		}
 		$arrayJoin = array('pms_user' => 'pms_user.u_id=pms_task.t_u_id','pms_tasklist' => 'pms_tasklist.tl_id=pms_task.t_tl_id');
 		$data['getData'] = $this->genmod->getAll('pms_task', '*',array('t_p_id'=>$this->input->post('p_id'), 't_status'=>1),'t_createdate desc',$arrayJoin,'');
 		$data['projectData'] = $this->genmod->getOne('pms_project', '*',array('p_id'=>$this->input->post('p_id')),'','','');
@@ -38,7 +47,7 @@ class Tasks extends CI_Controller{
 	}
 
 	public function add() {
-		// Create by: Jiradat Pomyai 28-09-2565 add project in database
+		// Create by: Patiphan Pansanga 14-09-2565 add task in database
 		$this->genlib->ajaxOnly();
 		$formData = $this->input->post('formData');
 		$fileNames = $this->input->post('fileNames');
@@ -108,6 +117,7 @@ class Tasks extends CI_Controller{
 	}
 
 	public function uploadFiles() {
+		// Create by: Patiphan Pansanga 14-09-2565 upload file to database
 		date_default_timezone_set("Asia/Bangkok");
 		if($_FILES["files"]["name"] != '') {
 			$output = '';
@@ -116,7 +126,7 @@ class Tasks extends CI_Controller{
 			$this->load->library('upload', $config);
 			$this->upload->initialize($config);
 			for($count = 0; $count<count($_FILES["files"]["name"]); $count++) {
-				$newName = date("Y-m-d") . "_" .rand(100,999) ."_" . $_FILES["files"]["name"][$count];
+				$newName = date("Y-m-d") . "_" .rand(100,999) ."_" . $_FILES["files"]["name"][$count]; // rename file
 				$_FILES["file"]["name"] = $newName;
 				$_FILES["file"]["type"] = $_FILES["files"]["type"][$count];
 				$_FILES["file"]["tmp_name"] = $_FILES["files"]["tmp_name"][$count];
@@ -138,18 +148,18 @@ class Tasks extends CI_Controller{
 	}
 
 	public function deleteFile() {
-		// Create by: Jiradat Pomyai 28-09-2565 get add form
+		// Create by: Patiphan Pansanga 14-09-2565 delete temporary file
 		$fileName = $this->input->post('fileName');
 		unlink("./upload/" . $fileName);
 	}
 
 	public function updateStatusFile() {
-		// Create by: Jiradat Pomyai 28-09-2565 get add form
+		// Create by: Patiphan Pansanga 14-09-2565 update status file to 0
 		$this->genmod->update('pms_file', array('f_status'=> 0), array('f_id' => $this->input->post('f_id')));
 	}
 	
 	public function getAddForm() {
-		// Create by: Jiradat Pomyai 28-09-2565 get add form
+		// Create by: Patiphan Pansanga 14-09-2565 get add form
 		$data['p_id'] =  $this->input->post('p_id');
 		$data['tasks'] = $this->genmod->getAll('pms_tasklist', '*',array('tl_status'=>1));
 		$json['title'] = 'เพิ่มกิจกรรม <span class="text-danger" style="font-size:12px;">(*จำเป็นต้องกรอกข้อมูล)</span>';
@@ -160,7 +170,7 @@ class Tasks extends CI_Controller{
 	}
 
 	public function getEditForm() {
-		// Create by: Patiphan Pansanga 11-10-2565 get edit form 
+		// Create by: Patiphan Pansanga 14-09-2565 get edit form
 		$arrayJoin = array('pms_user' => 'pms_user.u_id=pms_task.t_u_id','pms_tasklist' => 'pms_tasklist.tl_id=pms_task.t_tl_id');
 		$data['tasks'] = $this->genmod->getAll('pms_tasklist', '*',array('tl_status'=>1));
 		$data['getData'] = $this->genmod->getOne('pms_task', '*', array('t_id'=>$this->input->post('t_id')),'',$arrayJoin);
@@ -173,7 +183,7 @@ class Tasks extends CI_Controller{
 	}
 
 	public function getDetailForm() {
-		// Create by: Jiradat Pomyai 01-10-2565 get form detail projects
+		// Create by: Patiphan Pansanga 14-09-2565 get detail form
 		$arrayJoin = array('pms_user' => 'pms_user.u_id=pms_task.t_u_id','pms_tasklist' => 'pms_tasklist.tl_id=pms_task.t_tl_id', 'pms_project'=>'pms_project.p_id=pms_task.t_p_id');
 		$data['tasks'] = $this->genmod->getAll('pms_tasklist', '*',array('tl_status'=>1));
 		$data['getData'] = $this->genmod->getOne('pms_task', '*', array('t_id'=>$this->input->post('t_id')),'',$arrayJoin);
@@ -194,13 +204,17 @@ class Tasks extends CI_Controller{
 	}
 
 	public function updateStatus() {
-		// Create by: Patiphan Pansanga 01-10-2565 update status project in database
+		// Create by: Patiphan Pansanga 14-09-2565 update status task
 		$this->genlib->ajaxOnly();
 		$updateData = $this->input->post();
 		$validCheck = $this->genmod->getOne('pms_task', '*', array('t_id' => $updateData['t_id']));
 		if(isset($validCheck)) {
 			if($validCheck->t_status == 1) {
 				$this->genmod->update('pms_task', array('t_status'=> 0), array('t_id' => $updateData['t_id']));
+				$tasksCount = $this->genmod->countAll('pms_task', array('t_status' => 1, 't_p_id' => $updateData['p_id']), '');
+				if($tasksCount == 0) {
+					$this->genmod->update('pms_project', array('p_status'=> 1), array('p_id' => $updateData['p_id']));
+				}
 				$msg = "ลบกิจกรรมสำเร็จ";
 			} else {
 				$this->genmod->update('pms_task', array('t_status'=> 1), array('t_id' => $updateData['t_id']));
