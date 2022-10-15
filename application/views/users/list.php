@@ -49,8 +49,8 @@
                           <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->u_id ?>)" title="แก้ไขข้อมูลพนักงาน"><i class="mdi mdi-pencil"></i></button>
                           <!-- <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="ระงับการทำงาน" onclick="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)"><i class="mdi mdi-lock-open-outline"></i></button> -->
                         <?php else : ?>
-                          <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" name="view" id="view" data-toggle="tooltip" data-placement="left" title="ไม่สามรถเปลี่ยนรหัสผ่านได้ เนื่องจากสถานะผู้ใช้ถูกระงับการใช้งานอยู่ในขณะนี้"><i class=" mdi mdi-key-variant"></i></button>
-                          <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" name="edit" id="edit" data-toggle="tooltip" data-placement="left" title="ไม่สามรถแก้ไขข้อมูลได้ เนื่องจากสถานะผู้ใช้ถูกระงับการใช้งานอยู่ในขณะนี้"><i class="mdi mdi-pencil"></i></button>
+                          <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="ไม่สามรถเปลี่ยนรหัสผ่านได้ เนื่องจากสถานะผู้ใช้ถูกระงับการใช้งานอยู่ในขณะนี้"><i class=" mdi mdi-key-variant"></i></button>
+                          <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="ไม่สามรถแก้ไขข้อมูลได้ เนื่องจากสถานะผู้ใช้ถูกระงับการใช้งานอยู่ในขณะนี้"><i class="mdi mdi-pencil"></i></button>
                           <!-- <button type="button" class="btn btn-dark btn-sm" name="del" id="del" title="กู้คืนข้อมูล" onclick="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)"><i class="mdi mdi-lock-outline"></i></button> -->
                         <?php endif; ?>
                       </td>

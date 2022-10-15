@@ -78,7 +78,7 @@
                          <button type="button" class="btn btn-dark btn-sm button button1" name="restore" id="restore" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status * -1 ?>)" title="กู้คืนข้อมูลโครงการ">เหลือเวลากู้คืน <?= $hours . ':' . $min . ':' . $sec ?></button>
                          <?php continue; ?>
                        <?php endif; ?>
-                       <a type="button" href="<?= base_url() ?>tasks/index/<?= $value->p_id ?>" title="จัดการกิจกรรมของโครงการ" class="btn btn-tertiary btn-sm"><i class=" far fa-folder-open"></i></a>
+                       <a type="button" href="<?= base_url() ?>tasks?p_id=<?= $value->p_id ?>" title="จัดการกิจกรรมของโครงการ" class="btn btn-tertiary btn-sm"><i class=" far fa-folder-open"></i></a>
                        <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->p_id ?>)" title="ดูข้อมูลโครงการ"><i class=" fas fa-search"></i></button>
                        <?php if ($_SESSION['u_role'] <= 2) : ?>
                          <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->p_id ?>)" title="แก้ไขข้อมูลโครงการ"><i class="mdi mdi-pencil"></i></button>

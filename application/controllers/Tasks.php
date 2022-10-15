@@ -10,12 +10,19 @@ class Tasks extends CI_Controller{
 		$this->genlib->updateSession($data);
 	}
 
-    public function index($p_id = 0)	{
+    public function index()	{
 		// Create by: Patiphan Pansanga 14-09-2565 index page
-		$projectsCount = $this->genmod->countAll('pms_project', '', '');
-		if($p_id == 0 || $p_id > $projectsCount) {
+		// $projectsCount = $this->genmod->countAll('pms_project', '', '');
+		$p_id = $this->input->get('p_id');
+		if(isset($p_id)) {
+			$project = $this->genmod->getOne('pms_project', '*',array('p_id'=>$p_id),'','','');
+			if(!isset($project->p_id) || $project->p_status < 1) {
+				redirect(base_url("projects"));
+			}
+		} else {
 			redirect(base_url("projects"));
 		}
+		
 		$values['pageTitle'] = 'ตารางแสดงกิจกรรมโครงการ';
 		$values['breadcrumb'] = 'ตารางแสดงกิจกรรมโครงการ';
 		$values['p_id'] = $p_id;
@@ -50,7 +57,8 @@ class Tasks extends CI_Controller{
 		// Create by: Patiphan Pansanga 14-09-2565 add task in database
 		$this->genlib->ajaxOnly();
 		$formData = $this->input->post('formData');
-		$fileNames = $this->input->post('fileNames');
+		$fileAdd = $this->input->post('fileAdd');
+		$fileRemove = $this->input->post('fileRemove');
 		$arrayErr = array(
 			'required' => 'คุณต้องทำการระบุ  {field} ',
 		  	'numeric' => 'กรุณาระบุ {field} เป็นตัวเลขเท่านั้น',
@@ -66,10 +74,10 @@ class Tasks extends CI_Controller{
 				$formData['t_u_id'] = $_SESSION['u_id'];
 				$this->genmod->add('pms_task',$formData);
 				$this->genmod->update('pms_project', array('p_status'=> 2), array('p_id' => $formData['t_p_id']));
-				if(is_array($fileNames)) {
+				if(is_array($fileAdd)) {
 				$maxId = $this->genmod->getMaxTask($formData['t_p_id']);
-				for($i=0 ;$i<count($fileNames); $i++) {
-					$data = array('f_name'=>$fileNames[$i], 'f_t_id'=>$maxId->t_id);
+				for($i=0 ;$i<count($fileAdd); $i++) {
+					$data = array('f_name'=>$fileAdd[$i], 'f_t_id'=>$maxId->t_id);
 					$this->genmod->add('pms_file', $data);
 				}
 				}
@@ -77,42 +85,26 @@ class Tasks extends CI_Controller{
 			} else {		
 				$t_id = $formData['t_id'];
 				unset($formData['t_id']);
-				$files = $this->genmod->getAll('pms_file', '*', array('f_t_id'=>$t_id, 'f_status'=>1),'','','');
-				if(is_array($files)) {
-					for($i=0; $i<count($files); $i++) {
-						$check = 0;
-						for($j=0; $j<count($fileNames); $j++) {
-							if($fileNames[$j] == $files[$i]->f_name) {
-								$check = 1;
-								break;
-							}
-						}
-						if($check == 0) {
-							$this->genmod->update('pms_file', array('f_status'=> 0), array('f_name' => $files[$i]->f_name));
-						}
-					}
-					for($i=0; $i<count($fileNames); $i++) {
-						$find = null;
-						$find = $this->genmod->getOne('pms_file', '*', array('f_name'=>$fileNames[$i]));
-						if($find == null) {
-							$data = array('f_name'=>$fileNames[$i], 'f_t_id'=>$t_id);
+				if(is_array($fileAdd)) {
+					for($i=0 ;$i<count($fileAdd); $i++) {
+						$checkFile = $this->genmod->getOne('pms_file', '*', array('f_t_id'=>$t_id, 'f_name'=>$fileAdd[$i]),'','',''); // find file in database
+						if(!isset($checkFile->f_id)) { // not found file
+							$data = array('f_name'=>$fileAdd[$i], 'f_t_id'=>$t_id);
 							$this->genmod->add('pms_file', $data);
 						}
 					}
-				} else {
-					for($i=0 ;$i<count($fileNames); $i++) {
-						$data = array('f_name'=>$fileNames[$i], 'f_t_id'=>$t_id);
-						$this->genmod->add('pms_file', $data);
+				}
+				if(is_array($fileRemove)) {
+					for($i=0 ;$i<count($fileRemove); $i++) {
+						$checkFile = $this->genmod->getOne('pms_file', '*', array('f_t_id'=>$t_id, 'f_name'=>$fileRemove[$i]),'','',''); // find file in database
+						if(isset($checkFile->f_id)) { // found file
+							$this->genmod->update('pms_file', array('f_status'=> 0), array('f_id' => $checkFile->f_id));
+						}
 					}
 				}
-
 				$this->genmod->update('pms_task', $formData, array('t_id'=>$t_id));
 				$json = ['status'=> 1, 'msg'=>'แก้ไขข้อมูลสำเร็จ'];
 			}
-		// }else{
-		// 	$json = ['status'=> 0, 'msg'=>"พบปัญหา ข้อมูลมีความผิดพลาด เพิ่มข้อมูลไม่สำเร็จ ",'error'=>$this->form_validation->error_array()];
-		// }
-
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
@@ -191,7 +183,7 @@ class Tasks extends CI_Controller{
 		$data['detail'] = "yes";
 		$json['title'] = 'ข้อมูลพนักงาน';
 		$json['body'] = $this->load->view('tasks/formadd', $data ,true);
-		if($data['getData']->p_id < 3) {
+		if($data['getData']->p_status < 3) {
 			if($_SESSION['u_id'] == $data['getData']->t_u_id || $_SESSION['u_id'] <= 2) {
 				$json['footer'] = '<button type="button" class="btn btn-warning" onclick="edit(' . $this->input->post('t_id') . ')" title="แก้ไขข้อมูลกิจกรรม">แก้ไขข้อมูล</button>';
 			} else {

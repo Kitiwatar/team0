@@ -3,7 +3,7 @@
  <div class="col-12">
      <div class="card">
        <div class="card-body">
-        <h3 class='card-title' style="cursor: pointer;"><u class="name"><?= isset($projectData) ? $projectData->p_name : '' ?></u></h3>
+        <h3 class='card-title' style="cursor: pointer;" onclick="viewProject(<?= $projectData->p_id ?>)"><u class="name"><?= isset($projectData) ? $projectData->p_name : '' ?></u></h3>
          <h4 class='card-title'>ตารางแสดงกิจกรรมโครงการ</h4>
          <?php if($isPermission == 1) { ?>
          <?php if ($projectData->p_status < 3) { ?>
@@ -37,12 +37,14 @@
                      <td><?= $value->u_firstname.' '.$value->u_lastname ?></td>
                      <td class="text-center">
                      <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->t_id ?>)" title="ดูข้อมูลกิจกรรม"><i class="fas fa-search"></i></button>
-                     <?php if($isPermission == 1) { ?>
-                     <?php if (($_SESSION['u_id'] == $value->t_u_id || $_SESSION['u_role'] <= 2) && $projectData->p_status < 3) : ?>
+                     <?php if($isPermission == 1 && $projectData->p_status < 3) { ?>
+                     <?php if (($_SESSION['u_id'] == $value->t_u_id || $_SESSION['u_role'] <= 2)) { ?>
                        <button type="button" class="btn btn-sm btn-warning" name="edit" id="edit" onclick="edit(<?= $value->t_id ?>)" title="แก้ไขกิจกรรม"><i class="mdi mdi-pencil"></i></button>
                        <button type="button" class="btn btn-sm btn-danger" name="del" id="del" onclick="changeStatus(<?= $value->t_id ?>, <?= $value->t_status ?>, <?= $projectData->p_id ?>)" title="ลบกิจกรรม" onclick=""><i class="mdi mdi-delete"></i></button>
-                     <?php endif; ?>
-                     <?php } ?>
+                     <?php } else { ?>
+                      <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="ไม่สามรถแก้ไขข้อมูลได้ เนื่องจากคุณไม่ใช่เจ้าของกิจกรรมนี้"><i class="mdi mdi-pencil"></i></button>
+                        <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="ไม่สามารถลบได้ เนื่องจากคุณไม่ใช่เจ้าของกิจกรรมนี้"><i class="mdi mdi-delete"></i></button>
+                     <?php } } ?>
                      </td>
                    </tr>
                  <?php endforeach; ?>
@@ -207,7 +209,7 @@
    function showAddForm(p_id) {
     $.ajax({
        method: "post",
-       url: '<?= base_url() ?>tasks/getAddForm',
+       url: 'tasks/getAddForm',
        data: {
         p_id: p_id
        }

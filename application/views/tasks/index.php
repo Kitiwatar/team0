@@ -1,11 +1,14 @@
 <!-- Create by: Patiphan Pansanga 14-10-2565 -->
 <div id="listDiv"></div>
 <script>
-  loadList(<?= $p_id ?>);
+  loadList();
 
-  function loadList(p_id = <?= $p_id ?>) {
+  function loadList() {
+    let getUrl = window.location.href;
+    let url = new URL(getUrl);
+    let p_id = url.searchParams.get("p_id");
     $.ajax({
-      url: "<?php echo base_url(); ?>tasks/get",
+      url: "tasks/get",
       method: 'post',
       data: {
         p_id: p_id
@@ -73,14 +76,22 @@
     //   formData[this.id] = this.value;
     //   console.log(formData['p_name'])
     // });
-    let fileNames = []
-    let checkBoxNames = document.getElementsByName('fileNames');
-    for (var checkbox of checkBoxNames) {
+    let fileAdd = []
+    
+    let checkBoxAdd = document.getElementsByName('fileAdd');
+    for (var checkbox of checkBoxAdd) {
       if (checkbox.checked)
-        fileNames.push(checkbox.value)
+        fileAdd.push(checkbox.value)
     }
 
-    console.log(formData);
+    let fileRemove = []
+    let checkBoxRemove = document.getElementsByName('fileRemove');
+    for (var checkbox of checkBoxRemove) {
+      if (checkbox.checked)
+        fileRemove.push(checkbox.value)
+    }
+
+    // console.log(fileNames);
     var count = 0;
     if (!formData.t_createdate) {
       $('#createdateMsg').text(' กรุณาเลือกวันที่ดำเนินการ');
@@ -131,7 +142,8 @@
           url: '<?= base_url() ?>tasks/add',
           data: {
             formData: formData,
-            fileNames: fileNames
+            fileAdd: fileAdd,
+            fileRemove: fileRemove
           }
         }).done(function(returnData) {
           loadList();
@@ -172,7 +184,7 @@
   function view(t_id) {
     $.ajax({
       method: "post",
-      url: '<?= base_url() ?>tasks/getDetailForm',
+      url: 'tasks/getDetailForm',
       data: {
         t_id: t_id
       }
@@ -188,7 +200,7 @@
     $('#detailModal').modal('hide');
     $.ajax({
       method: "post",
-      url: '<?= base_url() ?>tasks/getEditForm',
+      url: 'tasks/getEditForm',
       data: {
         t_id: t_id
       }
@@ -203,7 +215,7 @@
   function deleteFile(name) {
     $.ajax({
       method: "post",
-      url: '<?php echo base_url(); ?>tasks/deleteFile',
+      url: 'tasks/deleteFile',
       data: {
         fileName: name
       }
@@ -260,7 +272,7 @@
       if (isConfirm.value) {
         $.ajax({
           method: "POST",
-          url: '<?= base_url() ?>tasks/updateStatus',
+          url: 'tasks/updateStatus',
           data: {
             t_id: t_id,
             p_id: p_id
@@ -289,6 +301,162 @@
         })
       }
     })
+  }
 
+  function viewProject(p_id) {
+    $.ajax({
+      method: "post",
+      url: '<?= base_url() ?>projects/getDetailForm',
+      data: {
+        p_id: p_id
+      }
+    }).done(function(returnData) {
+      $('#detailModalTitle').html(returnData.title);
+      $('#detailModalBody').html(returnData.body);
+      $('#detailModalFooter').html(returnData.footer);
+      $('#detailModal').modal();
+    });
+  }
+
+  function editProject(p_id) {
+    $('#detailModal').modal('hide');
+    $.ajax({
+      method: "post",
+      url: '<?= base_url() ?>projects/getEditForm',
+      data: {
+        p_id: p_id
+      }
+    }).done(function(returnData) {
+      $('#mainModalTitle').html(returnData.title);
+      $('#mainModalBody').html(returnData.body);
+      $('#mainModalFooter').html(returnData.footer);
+      $('#mainModal').modal();
+    });
+  }
+
+  function validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  }
+  
+  function saveFormProjectSubmit(p_id) {
+    // $('#fMsg').addClass('text-warning');
+    // $('#fMsg').text('กำลังดำเนินการ ...');
+    var formData = {};
+    formData['p_id'] = p_id;
+    formData['p_name'] = $('#p_name').val()
+    formData['p_detail'] = $('#p_detail').val()
+    formData['p_customer'] = $('#p_customer').val()
+    formData['p_createdate'] = $('#p_createdate').val()
+    formData['p_telcontact'] = $('#p_telcontact').val()
+    formData['p_linecontact'] = $('#p_linecontact').val()
+    formData['p_emailcontact'] = $('#p_emailcontact').val()
+    formData['p_othercontact'] = $('#p_othercontact').val()
+    var count = 0;
+    if (formData.p_telcontact.length > 0) {
+      if (formData.p_telcontact.length != 10) {
+        $('#telMsg').text(' กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก');
+        $('#p_telcontact').focus();
+        count++
+      } else {
+        $('#telMsg').text(' ');
+      }
+    }
+    if (!formData.p_createdate) {
+      $('#createdateMsg').text(' กรุณาเลือกวันที่เริ่มโครงการ');
+      // $('#p_createdate').focus();
+      count++
+    } else {
+      $('#createdateMsg').text(' ');
+    }
+    if (!formData.p_customer) {
+      $('#customerMsg').text(' กรุณากรอกชื่อลูกค้า');
+      $('#p_customer').focus();
+      count++
+    } else {
+      $('#customerMsg').text(' ');
+    }
+    if (!formData.p_detail) {
+      $('#detailMsg').text(' กรุณากรอกรายระเอียดโครงการ');
+      $('#p_detail').focus();
+      count++
+    } else {
+      $('#detailMsg').text(' ');
+    }
+    if (!formData.p_name) {
+      $('#nameMsg').text(' กรุณากรอกชื่อโครงการ');
+      $('#p_name').focus();
+      count++
+    } else {
+      $('#nameMsg').text(' ');
+    }
+    if (!validateEmail(formData.p_emailcontact) && formData.p_emailcontact != "") {
+      $('#emailMsg').text(' กรุณากรอกอีเมลให้ถูกต้อง');
+      $('#p_emailcontact').focus();
+      count++
+    } else {
+      $('#emailMsg').text(' ');
+    }
+    if (count > 0) {
+      return false;
+    }
+
+    var mainMsg;
+    var detailMsg;
+    if (p_id == "new") {
+      mainMsg = "ยืนยันการเพิ่มโครงการ";
+      detailMsg = "คุณต้องการเพิ่มโครงการในระบบใช่หรือไม่";
+    } else {
+      mainMsg = "ยืนยันการแก้ไขโครงการ";
+      detailMsg = "คุณต้องการแก้ไขโครงการในระบบใช่หรือไม่";
+    }
+    swal({
+      title: mainMsg,
+      text: detailMsg,
+      type: "warning",
+      showCancelButton: true,
+      showConfirmButton: true,
+      confirmButtonText: "ยืนยัน",
+      cancelButtonText: "ยกเลิก",
+    }).then(function(isConfirm) {
+      if (isConfirm.value) {
+        $.ajax({
+          method: "post",
+          url: '<?= base_url() ?>projects/add',
+          data: formData
+        }).done(function(returnData) {
+          if (returnData.status == 1) {
+            loadList();
+            swal({
+              title: "สำเร็จ",
+              text: returnData.msg,
+              type: "success",
+              showCancelButton: false,
+              showConfirmButton: false,
+              timer: 1000,
+            });
+            // $('#projectsForm')[0].reset();
+            $('#mainModalTitle').html("");
+            $('#mainModalBody').html("");
+            $('#mainModalFooter').html("");
+            $('#mainModal').modal('hide');
+          } else {
+            swal({
+              title: "ล้มเหลว",
+              text: returnData.msg,
+              type: "error",
+              showCancelButton: false,
+              showConfirmButton: false,
+              timer: 1000,
+            });
+            // $('#projectsForm')[0].reset();
+            $('#mainModalTitle').html("");
+            $('#mainModalBody').html("");
+            $('#mainModalFooter').html("");
+            $('#mainModal').modal('hide');
+          }
+        });
+      }
+    });
   }
 </script>

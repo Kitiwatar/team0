@@ -13,7 +13,12 @@
     })
   }
 
-  function saveFormSubmit(p_id) {
+  function validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  }
+
+  function saveFormProjectSubmit(p_id) {
     // $('#fMsg').addClass('text-warning');
     // $('#fMsg').text('กำลังดำเนินการ ...');
     var formData = {};
@@ -149,7 +154,7 @@
     });
   }
 
-  function edit(p_id) {
+  function editProject(p_id) {
     $('#detailModal').modal('hide');
     $.ajax({
       method: "post",

@@ -78,10 +78,11 @@
             </thead>
             <tbody id="uploaded">
               <?php if (isset($getFiles)) {
-                if (is_array($getFiles)) {
-                  for ($i = 0; $i < count($getFiles); $i++) { ?>
+                if (is_array($getFiles)) { ?>
+                  <div id="listRemove" class="d-none"></div>
+                  <?php for ($i = 0; $i < count($getFiles); $i++) { ?>
                     <tr id="<?= $getFiles[$i]->f_name ?>">
-                      <td class="d-none"><input type="checkbox" name="fileNames" value="<?= $getFiles[$i]->f_name ?>" checked></td>
+                      <td class="d-none"><input type="checkbox" name="fileAdd" value="<?= $getFiles[$i]->f_name ?>" checked></td>
                       <td onclick="openInNewTab('<?= base_url() . 'upload/' . $getFiles[$i]->f_name ?>')" class="name" style="cursor:pointer;"><u><?= substr($getFiles[$i]->f_name, 15) ?></u></td>
                       <td><?= thaiDate($getFiles[$i]->f_createdate) ?></td>
                       <td class="text-center <?= isset($detail) ? "d-none" : '' ?>"><button type="button" class="btn btn-danger" title="ลบไฟล์" onclick="remove('<?= $getFiles[$i]->f_name ?>')"><i class="mdi mdi-delete"></i></button></td>
@@ -103,6 +104,8 @@
   });
 
   function remove(name) {
+    let listRemove = document.getElementById("listRemove");
+    listRemove.innerHTML += `<input type="checkbox" name="fileRemove" value="` + name + `" checked>`
     document.getElementById(name).remove();
   }
 
@@ -126,7 +129,7 @@
     }
     if (error == '') {
       $.ajax({
-        url: "<?php echo base_url(); ?>tasks/uploadFiles", //base_url() return http://localhost/tutorial/codeigniter/
+        url: "tasks/uploadFiles", 
         method: "POST",
         data: form_data,
         contentType: false,

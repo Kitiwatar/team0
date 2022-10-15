@@ -92,7 +92,7 @@ class Projects extends CI_Controller{
 		// Create by: Jiradat Pomyai 28-09-2565 get add form
 		$json['title'] = 'เพิ่มโครงการ <span class="text-danger" style="font-size:12px;">(*จำเป็นต้องกรอกข้อมูล)</span>';
 		$json['body'] = $this->load->view('projects/formadd', '', TRUE);
-		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit(\'new\');">บันทึก</button>
+		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormProjectSubmit(\'new\');">บันทึก</button>
 		<button type="button" class="btn btn-danger" onclick="closeModal(\'เพิ่มโครงการ\')">ยกเลิก</button>';
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
@@ -102,7 +102,7 @@ class Projects extends CI_Controller{
 		$json['title'] = 'แก้ไขข้อมูลโครงการ <span class="text-danger" style="font-size:12px;">(*จำเป็นต้องกรอกข้อมูล)</span>';
 		$data['getData'] = $this->genmod->getOne('pms_project', '*', array('p_id'=>$this->input->post('p_id')));
 		$json['body'] = $this->load->view('projects/formadd', $data ,true);
-		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit('.$this->input->post('p_id').');">บันทึก</button>
+		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormProjectSubmit('.$this->input->post('p_id').');">บันทึก</button>
 		<button type="button" class="btn btn-danger" id="closeBtn" onclick="closeModal(\'แก้ไขโครงการ\')">ยกเลิก</button>';
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
@@ -118,7 +118,7 @@ class Projects extends CI_Controller{
 		$json['title'] = 'ข้อมูลพนักงาน';
 		$json['body'] = $this->load->view('projects/formadd', $data ,true);
 		if($_SESSION['u_role'] <= 2 && ($data['getData']->p_status == 1 || $data['getData']->p_status == 2)) {
-			$json['footer'] = '<button type="button" class="btn btn-warning" onclick="edit(' . $this->input->post('p_id') . ')" title="แก้ไขข้อมูลโครงการ">แก้ไขข้อมูล</button>';
+			$json['footer'] = '<button type="button" class="btn btn-warning" onclick="editProject(' . $this->input->post('p_id') . ')" title="แก้ไขข้อมูลโครงการ">แก้ไขข้อมูล</button>';
 		} else {
 			$json['footer'] = '';
 		}
