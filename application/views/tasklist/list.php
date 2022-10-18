@@ -3,8 +3,8 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h4 class='card-title'>เพิ่มรายการกิจกรรมใหม่</h4>
-        <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มรายการกิจกรรมในระบบ</button>
+        <h2 class='card-title'>ตารางรายชื่อกิจกรรมในระบบ</h2>
+        <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มรายชื่อกิจกรรมในระบบ</button>
         <div class="table-responsive my-2">
           <table class="display table dt-responsive nowrap">
             <thead>

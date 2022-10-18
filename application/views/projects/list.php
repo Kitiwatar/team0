@@ -1,10 +1,9 @@
  <!-- Create by: Patiphan Pansanga, Jiradat Pomyai 19-09-2565 -->
-
  <div class="row">
    <div class="col-12">
      <div class="card">
        <div class="card-body">
-         <h4 class='card-title'>ตารางรายชื่อโครงการที่รับผิดชอบ</h4>
+         <h2 class='card-title'>ตารางรายชื่อโครงการที่รับผิดชอบ</h2>
          <?php if ($_SESSION['u_role'] <= 2) { ?>
            <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มโครงการ</button>
          <?php } ?>
@@ -63,7 +62,7 @@
                        <?php endif; ?>
                      </td>
                      <td>
-                       <?php if ($value->p_status < 1) : echo "ถูกลบ";
+                       <?php if ($value->p_status < 1) : echo "<span  class='badge rounded-pill bg-dark'>ถูกลบ</span>";
                         endif;
                         $statusColor = array(1 => "badge rounded-pill bg-info", 2 => "badge rounded-pill bg-info", 3 => "badge rounded-pill bg-success", 4 => "badge rounded-pill bg-danger");
                         foreach ($arrayStatus as $index => $status) {
@@ -75,7 +74,7 @@
                      </td>
                      <td class="text-center">
                        <?php if ($value->p_status < 1) : ?>
-                         <button type="button" class="btn btn-dark btn-sm button button1" name="restore" id="<?= $value->p_id ."_". $hours . ':' . $min . ':' . $sec ?>" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status * -1 ?>)" title="กู้คืนข้อมูลโครงการ">เหลือเวลากู้คืน <?= $hours . ':' . $min . ':' . $sec ?></button>
+                         <button type="button" class="btn btn-dark button button1" name="restore" id="<?= $value->p_id ."_". $hours . ':' . $min . ':' . $sec ?>" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status * -1 ?>)" title="กู้คืนข้อมูลโครงการ">กู้คืนภายใน <span style='font-size:16px;'><?= $hours . ':' . $min?></span> ชม.</button>
                          <?php continue; ?>
                        <?php endif; ?>
                        <a type="button" href="<?= base_url() ?>tasks?p_id=<?= $value->p_id ?>" title="จัดการกิจกรรมของโครงการ" class="btn btn-tertiary btn-sm"><i class=" far fa-folder-open"></i></a>

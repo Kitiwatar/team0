@@ -40,73 +40,50 @@
             </div>
             <div class="form-group">              
             <label for="p_createdate" class="form-label">วันที่เริ่มโครงการ<?php if(!isset($detail)) { echo $required; } ?></label>
-              <div class="input-group mb-3">
+              <div class="input-group mb-3" onclick="pickDate()">
               <input type="date" onfocus="this.showPicker()" style="cursor: pointer;" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_createdate : '' ?>" id="p_createdate" <?php if(isset($detail)){echo "disabled";}?> >
-                <span class="input-group-text fs-5"><i class="mdi mdi-calendar-range"></i></span>               
+                <span class="input-group-text fs-5" style="cursor: pointer;"><i class="mdi mdi-calendar-range"></i></span>               
               </div>
               <font id="createdateMsg" class="small text-danger"></font>
             </div>
             <label class="form-label">ช่องทางติดต่อลูกค้า</label>
             <table width="100%">
               <tr>
-                <td width="70px"><label for="p_telcontact" class="form-label">เบอร์โทร:</label></td>
+                <td width="80px" class="ps-3"><label for="p_telcontact" class="form-label">เบอร์โทร:</label></td>
                 <td>
                   <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_telcontact : '' ?>" maxlength="10" id="p_telcontact" placeholder="กรอกเบอร์โทรศัพท์ 10 หลักสำหรับติดต่อลูกค้า (0987654321)" <?php if(isset($detail)){echo "disabled";}?> >
                 </td>
               </tr>
               <tr><td class="py-2"></td><td><font id="telMsg" class="small text-danger"></font></td></tr>
               <tr>
-                <td><label for="p_linecontact" class="form-label">ไลน์:</label></td>
+                <td class="ps-3"><label for="p_linecontact" class="form-label">ไลน์:</label></td>
                 <td>
                   <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_linecontact : '' ?>" id="p_linecontact" placeholder="กรอกไอดีไลน์สำหรับติดต่อลูกค้า (example0101)" <?php if(isset($detail)){echo "disabled";}?> >                 
                 </td>
               </tr>
               <tr><td class="py-2"></td><td><font id="lineMsg" class="small text-danger"></font></td></tr>
               <tr>
-                <td><label for="p_emailcontact" class="form-label">อีเมล:</label></td>
+                <td class="ps-3"><label for="p_emailcontact" class="form-label">อีเมล:</label></td>
                 <td>
                   <input type="email" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_emailcontact : '' ?>" id="p_emailcontact" placeholder="กรอกอีเมลสำหรับติดต่อลูกค้า (eaxmple@gmail.com)" <?php if(isset($detail)){echo "disabled";}?> >
                 </td>
               </tr>
               <tr><td class="py-2"></td><td><font id="emailMsg" class="small text-danger"></font></td></tr>
               <tr>
-                <td><label for="p_othercontact" class="form-label">เพิ่มเติม:</label></td>
-                <td><input type="text"  class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_othercontact : '' ?>" id="p_othercontact" placeholder="กรอกข้อมูลสำหรับติดต่อลูกค้าเพิ่มเติม" <?php if(isset($detail)){echo "disabled";}?> ></td>
+                <td class="align-top ps-3"><label for="p_othercontact" class="form-label">เพิ่มเติม:</label></td>
+                <td><textarea class="form-control" name="inputValue[]" rows="3" id="p_othercontact" placeholder="กรอกข้อมูลสำหรับติดต่อลูกค้าเพิ่มเติม" <?php if(isset($detail)){echo "disabled";}?>><?= isset($getData) ? $getData->p_othercontact : '' ?></textarea></td>
               </tr>
             </table>
-            <!-- <div class="form-group">
-              <div class="row">
-                <div class="col-md-1 col-sm-6 mt-2"><label for="p_telcontact" class="form-label">เบอร์โทร:</label></div>
-                <div class="col-md-6 col-sm-6"><input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_telcontact : '' ?>" maxlength="10" id="p_telcontact" placeholder="กรอกเบอร์โทรศัพท์ 10 หลักสำหรับติดต่อลูกค้า (0987654321)" <?php if(isset($detail)){echo "disabled";}?> ></div>
-              </div>     
-              <font id="telMsg" class="small text-danger"></font>
-            </div>
-            <div class="form-group">
-              <div class="row">
-                <div class="col-1 mt-2"><label for="p_linecontact" class="form-label">ไลน์:</label></div>
-                <div class="col-10"><input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_linecontact : '' ?>" id="p_linecontact" placeholder="กรอกไอดีไลน์สำหรับติดต่อลูกค้า (example0101)" <?php if(isset($detail)){echo "disabled";}?> ></div>
-              </div>    
-              <font id="lineMsg" class="small text-danger"></font>
-            </div>
-            <div class="form-group">
-              <div class="row">
-                <div class="col-1 mt-2"><label for="p_emailcontact" class="form-label">อีเมล:</label></div>
-                <div class="col-10"><input type="email" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_emailcontact : '' ?>" id="p_emailcontact" placeholder="กรอกอีเมลสำหรับติดต่อลูกค้า (eaxmple@gmail.com)" <?php if(isset($detail)){echo "disabled";}?> ></div>
-              </div>
-              <font id="emailMsg" class="small text-danger"></font>
-            </div>
-            <div class="form-group">
-              <div class="row">
-                <div class="col-1 mt-2"><label for="p_othercontact" class="form-label">เพิ่มเติม:</label></div>
-                <div class="col-10"><input type="text"  class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_othercontact : '' ?>" id="p_othercontact" placeholder="กรอกข้อมูลสำหรับติดต่อลูกค้าเพิ่มเติม" <?php if(isset($detail)){echo "disabled";}?> ></div>
-              </div>   
-            </div> -->
         </div>
       </form>
     </div>
   </div>
 </div>
 <script>
+  function pickDate() {
+    let date = document.getElementById("p_createdate")
+    date.showPicker()
+  }
   $('#p_telcontact').on('input', function() {
     if(this.value.match(/[^0-9]/)) {
       $('#telMsg').text(' สามารถกรอกได้เพียงตัวเลข 0-9 เท่านั้น');

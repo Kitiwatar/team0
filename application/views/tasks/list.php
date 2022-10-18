@@ -3,8 +3,29 @@
  <div class="col-12">
      <div class="card">
        <div class="card-body">
-        <h3 class='card-title' style="cursor: pointer;" onclick="viewProject(<?= $projectData->p_id ?>)"><u class="name"><?= isset($projectData) ? $projectData->p_name : '' ?></u></h3>
-         <h4 class='card-title'>ตารางแสดงกิจกรรมโครงการ</h4>
+        <a class='fs-1 mt-0' style="cursor: pointer; color:black; line-height: 80%;" onclick="viewProject(<?= $projectData->p_id ?>)"><u><?= isset($projectData) ? $projectData->p_name : '' ?></u></a>
+        <table class="mt-3">
+          <tr>
+            <td>
+              ผู้รับผิดชอบหลัก : <?= $permission[count($permission)-1]->u_firstname . " " . $permission[count($permission)-1]->u_lastname ?>
+            </td>
+            <td class="px-3">
+            สถานะโครงการ : 
+            <?php $statusColor = array(1 => "badge rounded-pill bg-info", 2 => "badge rounded-pill bg-info", 3 => "badge rounded-pill bg-success", 4 => "badge rounded-pill bg-danger");
+            $statusName = array(1=>"รอดำเนินการ", 2=>"กำลังดำเนินการ", 3=>"เสร็จสิ้น", 4=>"ยกเลิก");
+              if ($projectData->p_status > 0) {
+                echo "<span  class = ' " . $statusColor[$projectData->p_status] . "'>" . $statusName[$projectData->p_status] . "</span>";
+              } else {
+                echo "<span  class = 'badge rounded-pill bg-dark'>ถูกลบ</span>";
+              }
+            ?>
+            </td>
+          </tr>
+          <tr>
+            <td>วันที่เริ่มโครงการ : <?= thaiDate_Full($projectData->p_createdate) ?></td>
+          </tr>
+        </table>
+        <h2 class='card-title'>ตารางแสดงกิจกรรมโครงการ</h2>
          <?php if($isPermission == 1) { ?>
          <?php if ($projectData->p_status < 3) { ?>
           <button type="button" class="btn btn-success me-2" id="addBtn" onclick="showAddForm('<?= $projectData->p_id ?>')" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มกิจกรรมโครงการ</button> 
@@ -52,7 +73,8 @@
              </tbody>
            </table>
          </div>
-         <h4 class='card-title'>ตารางรายชื่อพนักงานในโครงการ</h4>
+         <hr>
+         <h2 class='card-title'>ตารางรายชื่อพนักงานในโครงการ</h2>
          <?php if($isPermission == 1) { ?>
          <?php if($_SESSION['u_role'] <= 2 && $projectData->p_status < 3) { ?>
         <button type="button" class="btn btn-success" onclick="showPermissionForm(<?= $projectData->p_id ?>)"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มพนักงานในโครงการ</button>

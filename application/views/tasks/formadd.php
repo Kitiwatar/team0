@@ -48,9 +48,9 @@
           </div>
           <div class="form-group">
             <label for="p_createdate" class="form-label">วันดำเนินการ<?= isset($detail) ? '' : $required ?></label>
-            <div class="input-group mb-3">
+            <div class="input-group mb-3" onclick="pickDate()">
               <input type="date" style="cursor: pointer;" onfocus="this.showPicker()" class="form-control" name="inputValue[]" <?= isset($detail) ? "disabled" : '' ?> value="<?= isset($getData) ? $getData->t_createdate : '' ?>" id="t_createdate">
-              <span class="input-group-text fs-5" id="basic-addon1"><i class="mdi mdi-calendar-range"></i></span>
+              <span class="input-group-text fs-5" id="basic-addon1" style="cursor: pointer;"><i class="mdi mdi-calendar-range"></i></span>
             </div>
             <font id="createdateMsg" class="small text-danger"></font>
           </div>
@@ -101,6 +101,11 @@
   </div>
 </div>
 <script>
+  function pickDate() {
+    let date = document.getElementById("t_createdate")
+    date.showPicker()
+  }
+
   $('#uploadBtn').click(function(e) {
     e.preventDefault();
     $('#files').click();

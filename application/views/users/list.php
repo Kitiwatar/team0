@@ -3,7 +3,7 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h4 class='card-title'>ตารางรายชื่อพนักงาน</h4>
+        <h2 class='card-title'>ตารางรายชื่อพนักงาน</h2>
         <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มพนักงาน</button>
         <div class="table-responsive my-2">
           <table class="display table dt-responsive nowrap">
@@ -24,7 +24,7 @@
                 <?php foreach ($getData as $key => $value) : ?>
                   <?php if ($value->u_role > 0) : ?>
                     <tr>
-                      <td class="text-center"><?= $count++ ?></td>
+                      <td class="align-middle text-center"><?= $count++ ?></td>
                       <td class="align-middle name" onclick="view(<?= $value->u_id ?>)" style="cursor:pointer;"><u><?= $value->u_firstname ?> <?= $value->u_lastname ?></u></td>
                       <td class="align-middle"><?= $value->u_email ?></td>
                       <td class="align-middle"><?= $value->u_tel ?></td>

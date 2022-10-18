@@ -166,8 +166,17 @@
                         <li class=" nav-item dropdown u-pro">
                             <?php if (isset($_SESSION['u_fullname'])) { ?>
                                 <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic fs-5" href="" data-toggle="dropdown" data-bs-display="static" aria-haspopup="true" aria-expanded="false">
-                                    <span  class="hidden-md-down"><?php echo $_SESSION['u_fullname']; ?></span>
-                                    <img src="https://synergysoft.co.th/images/2022/06/30/user.png" alt="user" class=""></a>
+                                    <table>
+                                        <tr>
+                                            <td class="hidden-md-down px-2 py-0" style="line-height: 20%;"><h5><?php echo $_SESSION['u_fullname']; ?></h5>
+                                            <span class="float-end" style="font-size: 13px;">
+                                                <?php if($_SESSION['u_role'] == 3) {echo "พนักงาน";} else if($_SESSION['u_role'] == 2) {echo "หัวหน้าโครงการ";}else {echo "ผู้ดูแลระบบ";} ?>
+                                            </span>
+                                        </td>
+                                            <td class="p-0"><img src="https://synergysoft.co.th/images/2022/06/30/user.png" alt="user" class=""></td>
+                                        </tr>
+                                    </table>
+                                    </a>
                                 <div class="dropdown-menu animated flipInY" style="right: 0; width:100px">
                                     <a onclick="viewPersonDetail('<?= base_url() ?>users/getDetailForm')" class="dropdown-item" style="cursor: pointer;"><i class="mdi mdi-account"></i> ข้อมูลส่วนตัว</a>
                                     <div class="dropdown-divider"></div>

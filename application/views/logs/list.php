@@ -3,7 +3,7 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h4 class='card-title'>ตารางประวัติฐานข้อมูลในระบบ</h4>
+        <h2 class='card-title'>ตารางประวัติฐานข้อมูลในระบบ</h2>
         <div class="table-responsive">
           <table class="display table table-striped table-bordered dt-responsive nowrap">
             <thead>

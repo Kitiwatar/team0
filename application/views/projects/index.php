@@ -2,7 +2,8 @@
 <div id="listDiv"></div>
 
 <script>
-  
+  let countSec = 0;
+
   loadList();
 
   function loadList() {
@@ -10,6 +11,7 @@
       url: 'projects/get',
       method: 'post'
     }).done(function(returnData) {
+      countSec = 0;
       $('#listDiv').html(returnData.html)
     })
   }
@@ -225,7 +227,6 @@
     })
   }
 
-  let countSec = 0;
 
   function runTime() {
     var downloadTimer = setInterval(function() {
@@ -244,8 +245,8 @@
           // document.getElementById("project"+id).style.display = "none"
           // var rows = table.rows( '#project'+id ).remove().draw();
         } else {
-          let newTime = new Date(seconds * 1000).toISOString().slice(11, 19);
-          restore[i].innerHTML = "เหลือเวลากู้คืน" + newTime;
+          let newTime = new Date(seconds * 1000).toISOString().slice(11, 16);
+          restore[i].innerHTML = "กู้คืนภายใน <span style='font-size:16px;'>" + newTime + "</span> ชม.";
         }
       }
     }, 1000);
