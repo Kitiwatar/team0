@@ -73,7 +73,7 @@
               <tr>
                 <th>ชื่อของเอกสาร</th>
                 <th>วันที่อัปโหลด</th>
-                <th class="text-center <?= isset($detail) ? "d-none" : '' ?>">ปุ่มดำเนินการ</th>
+                <th class="text-center">ปุ่มดำเนินการ</th>
               </tr>
             </thead>
             <tbody id="uploaded">
@@ -85,7 +85,10 @@
                       <td class="d-none"><input type="checkbox" name="fileAdd" value="<?= $getFiles[$i]->f_name ?>" checked></td>
                       <td onclick="openInNewTab('<?= base_url() . 'upload/' . $getFiles[$i]->f_name ?>')" class="name" style="cursor:pointer;"><u><?= substr($getFiles[$i]->f_name, 15) ?></u></td>
                       <td><?= thaiDate($getFiles[$i]->f_createdate) ?></td>
-                      <td class="text-center <?= isset($detail) ? "d-none" : '' ?>"><button type="button" class="btn btn-danger" title="ลบไฟล์" onclick="remove('<?= $getFiles[$i]->f_name ?>')"><i class="mdi mdi-delete"></i></button></td>
+                      <td class="text-center">
+                        <a class="btn btn-info" title="ดาวน์โหลดไฟล์" href="<?= base_url() . 'upload/' . $getFiles[$i]->f_name ?>" target="_blank" download="<?= substr($getFiles[$i]->f_name, 15) ?>"><i class="mdi mdi-download"></i></a>
+                        <button type="button" class="btn btn-danger <?= isset($detail) ? "d-none" : '' ?>" title="ลบไฟล์" onclick="remove('<?= $getFiles[$i]->f_name ?>')"><i class="mdi mdi-delete"></i></button>
+                      </td>
                     </tr>
               <?php }
                 }

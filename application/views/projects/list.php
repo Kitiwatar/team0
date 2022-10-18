@@ -9,7 +9,7 @@
            <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มโครงการ</button>
          <?php } ?>
          <div class="table-responsive my-2">
-           <table class="display table table-striped table-bordered dt-responsive nowrap" id="table">
+           <table class="display table dt-responsive nowrap" id="table">
              <thead>
                <tr>
                  <th class="text-center">ลำดับ</th>
@@ -51,7 +51,7 @@
 
                       ?>
                    <?php endif; ?>
-                   <tr>
+                   <tr id="<?= "project".$value->p_id ?>">
                      <td class="text-center"><?= $count++ ?></td>
                      <td class="name" style="cursor:pointer;" onclick="view('<?= $value->p_id ?>')"><u><?= $value->p_name ?></u></td>
                      <td><?= $leader[$key]->u_firstname . ' ' . $leader[$key]->u_lastname ?></td>
@@ -75,7 +75,7 @@
                      </td>
                      <td class="text-center">
                        <?php if ($value->p_status < 1) : ?>
-                         <button type="button" class="btn btn-dark btn-sm button button1" name="restore" id="restore" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status * -1 ?>)" title="กู้คืนข้อมูลโครงการ">เหลือเวลากู้คืน <?= $hours . ':' . $min . ':' . $sec ?></button>
+                         <button type="button" class="btn btn-dark btn-sm button button1" name="restore" id="<?= $value->p_id ."_". $hours . ':' . $min . ':' . $sec ?>" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status * -1 ?>)" title="กู้คืนข้อมูลโครงการ">เหลือเวลากู้คืน <?= $hours . ':' . $min . ':' . $sec ?></button>
                          <?php continue; ?>
                        <?php endif; ?>
                        <a type="button" href="<?= base_url() ?>tasks?p_id=<?= $value->p_id ?>" title="จัดการกิจกรรมของโครงการ" class="btn btn-tertiary btn-sm"><i class=" far fa-folder-open"></i></a>
@@ -123,7 +123,7 @@
        bolditalics: 'THSarabun-BoldItalic.ttf'
      }
    }
-   $('#table').DataTable({
+   var table = $('#table').DataTable({
      "dom": 'Bftlp',
      "buttons": [{
          "extend": "excel",

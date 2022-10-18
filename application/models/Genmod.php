@@ -130,16 +130,6 @@ class Genmod extends CI_Model{
     $sql = "SELECT tl_name FROM `pms_task` LEFT JOIN `pms_tasklist` ON pms_task.t_tl_id = pms_tasklist.tl_id WHERE t_p_id = ? AND t_status=1 ORDER BY pms_task.t_createdate DESC LIMIT 1"; 
     return $this->db->query($sql, array($id))->row();            
   }
-  public function addTask($tableName, $arrayData) {
-    $this->db->insert($tableName, $arrayData);
-    if($this->db->affected_rows() > 0) {
-      $insert_id = $this->db->insert_id();
-      $this->addlog('add', $tableName, $arrayData);
-      return $insert_id;
-    }else {
-      return FALSE;
-    }
-  }
   public function getLastProject(){  
     $sql = "SELECT MAX(p_id) AS p_id FROM `pms_project`"; 
     return $this->db->query($sql, '')->row();            

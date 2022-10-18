@@ -6,7 +6,7 @@
         <h4 class='card-title'>ตารางรายชื่อพนักงาน</h4>
         <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มพนักงาน</button>
         <div class="table-responsive my-2">
-          <table class="display table table-striped table-bordered dt-responsive nowrap">
+          <table class="display table dt-responsive nowrap">
             <thead>
               <tr>
                 <th>ลำดับ</th>

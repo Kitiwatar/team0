@@ -2,6 +2,7 @@
 <div id="listDiv"></div>
 
 <script>
+  
   loadList();
 
   function loadList() {
@@ -224,17 +225,24 @@
     })
   }
 
+  let countSec = 0;
+
   function runTime() {
     var downloadTimer = setInterval(function() {
       let restore = document.getElementsByName("restore")
+      countSec++
+      $('[data-toggle="tooltip"]').tooltip();
       for (let i = 0; i < restore.length; i++) {
-        let time = restore[i].innerHTML;
+        let time = restore[i].id;
         time = time.substring(time.length - 8);
         var a = time.split(':');
         var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
-        seconds--;
+        seconds -= countSec;
         if (seconds <= 0) {
           loadList();
+          // let id = restore[i].id.substring(0, restore[i].id.length-9);
+          // document.getElementById("project"+id).style.display = "none"
+          // var rows = table.rows( '#project'+id ).remove().draw();
         } else {
           let newTime = new Date(seconds * 1000).toISOString().slice(11, 19);
           restore[i].innerHTML = "เหลือเวลากู้คืน" + newTime;

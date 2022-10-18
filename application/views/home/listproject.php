@@ -5,7 +5,7 @@
        <div class="card-body">
          <h4 class='card-title'>ตารางรายชื่อ<?=$pageTitle?></h4>
          <div class="table-responsive my-2">
-           <table class="display table table-striped table-bordered dt-responsive nowrap">
+           <table class="display table dt-responsive nowrap">
              <thead>
                <tr>
                  <th>ลำดับ</th>

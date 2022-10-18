@@ -5,7 +5,7 @@
 			<div class="card-body">
 				<h4 class='card-title'>ลำดับพนักงานที่รับผิดชอบงานมากที่สุด</h4>
 				<div class="table-responsive">
-					<table class="display table table-striped table-bordered dt-responsive nowrap">
+					<table class="display table dt-responsive nowrap">
 						<thead>
 							<tr>
 								<th class="text-center">ลำดับ</th>

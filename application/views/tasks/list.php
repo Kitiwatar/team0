@@ -17,7 +17,7 @@
           <?php } ?>
           <?php } ?>
          <div class="table-responsive my-2">
-           <table class="display table table-striped table-bordered dt-responsive nowrap" id="table">
+           <table class="display table dt-responsive nowrap" id="table">
              <thead>
                <tr>
                   <th class="text-center">ลำดับ</th>
@@ -59,7 +59,7 @@
         <?php } ?>
         <?php } ?>
         <div class="table-responsive my-2">
-          <table class="display table table-striped table-bordered dt-responsive nowrap" id="tablePermission">
+          <table class="display table dt-responsive nowrap" id="tablePermission">
             <thead>
               <tr>
                 <th class="text-center">ลำดับ</th>

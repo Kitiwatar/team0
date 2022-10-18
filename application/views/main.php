@@ -226,7 +226,7 @@
                             <?php if ($_SESSION['u_role'] < 1) : ?>
                                 <li>
                                     <a class="waves-effect waves-dark" href="<?= base_url() ?>logs" aria-expanded="false">
-                                        <i class="mdi mdi-database"></i><span class="hide-menu">ฐานข้อมูล</span>
+                                        <i class="mdi mdi-database" style="font-size: 20px;"></i><span class="hide-menu">ฐานข้อมูล</span>
                                     </a>
                                 </li>
                             <?php endif; ?>

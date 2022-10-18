@@ -126,7 +126,7 @@ class Tasks extends CI_Controller{
 				$_FILES["file"]["size"] = $_FILES["files"]["size"][$count];
 				if($this->upload->do_upload('file')) {
 					$data = $this->upload->data();
-					$output .= '<tr id="'.$data["file_name"].'"><td class="d-none"><input type="checkbox" class="tmpFiles" name="fileNames" value="'.$data["file_name"].'" checked></td>
+					$output .= '<tr id="'.$data["file_name"].'"><td class="d-none"><input type="checkbox" class="tmpFiles" name="fileAdd" value="'.$data["file_name"].'" checked></td>
 					<td onclick="openInNewTab(`'. base_url().'upload/'.$data["file_name"].'`)" class="name" style="cursor:pointer;"><u>'.substr($data["file_name"], 15).'</u></td>
 					<td>'.thaiDate(date("Y-m-d")).'</td>
 					<td class="text-center"><button type="button" class="btn btn-danger" title="ลบไฟล์" onclick="deleteFile(`'.$data["file_name"].'`)"><i class="mdi mdi-delete"></i></button></td>
