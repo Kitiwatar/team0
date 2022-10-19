@@ -80,7 +80,7 @@
                        <a type="button" href="<?= base_url() ?>tasks?p_id=<?= $value->p_id ?>" title="จัดการกิจกรรมของโครงการ" class="btn btn-tertiary btn-sm"><i class=" far fa-folder-open"></i></a>
                        <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->p_id ?>)" title="ดูข้อมูลโครงการ"><i class=" fas fa-search"></i></button>
                        <?php if ($_SESSION['u_role'] <= 2) : ?>
-                         <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->p_id ?>)" title="แก้ไขข้อมูลโครงการ"><i class="mdi mdi-pencil"></i></button>
+                         <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="editProject(<?= $value->p_id ?>)" title="แก้ไขข้อมูลโครงการ"><i class="mdi mdi-pencil"></i></button>
                          <?php if ($value->p_status == 1) : ?>
                            <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="ลบโครงการ" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status * -1 ?>)"><i class="mdi mdi-delete"></i></button>
                          <?php else : ?>
