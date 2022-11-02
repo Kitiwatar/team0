@@ -126,11 +126,14 @@ class Projects extends CI_Controller{
 	}
 
 	public function endProject() {
+		// Create by: Patiphan Pansanga 15-10-2565 end a project
 		$this->genlib->ajaxOnly();
 		$updateData = $this->input->post();
 		$validCheck = $this->genmod->getOne('pms_project', '*', array('p_id' => $updateData['p_id']));
 		if(isset($validCheck)) {
-			$this->genmod->update('pms_project', array('p_status'=> ($updateData['p_status'])), array('p_id' => $updateData['p_id']));
+			date_default_timezone_set("Asia/Bangkok");
+            $now = date("Y-m-d H:i:s");
+			$this->genmod->update('pms_project', array('p_status' => ($updateData['p_status']), 'p_enddate' => $now), array('p_id' => $updateData['p_id']));
 			if($updateData['p_status'] == 3) {
 				$msg = "สิ้นสุดโครงการสำเร็จ";
 			} else {
@@ -144,11 +147,12 @@ class Projects extends CI_Controller{
 	}
 
 	public function restoreProject() {
+		// Create by: Patiphan Pansanga 15-10-2565 restore a project
 		$this->genlib->ajaxOnly();
 		$updateData = $this->input->post();
 		$validCheck = $this->genmod->getOne('pms_project', '*', array('p_id' => $updateData['p_id']));
 		if(isset($validCheck)) {
-			$this->genmod->update('pms_project', array('p_status'=> 2), array('p_id' => $updateData['p_id']));
+			$this->genmod->update('pms_project', array('p_status'=> 2, 'p_enddate' => NULL), array('p_id' => $updateData['p_id']));
 			$msg = "กู้คืนสถานะโครงการสำเร็จ";
 			$json = ['status'=> 1, 'msg'=>$msg];	
 		} else {
@@ -158,7 +162,7 @@ class Projects extends CI_Controller{
 	}
 
 	public function updateStatus() {
-		// Create by: Patiphan Pansanga 01-10-2565 update status project in database
+		// Create by: Jiradat Pomyai, Patiphan Pansanga 01-10-2565 update status project in database
 		$this->genlib->ajaxOnly();
 		$updateData = $this->input->post();
 		$validCheck = $this->genmod->getOne('pms_project', '*', array('p_id' => $updateData['p_id']));

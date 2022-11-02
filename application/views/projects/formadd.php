@@ -1,9 +1,7 @@
 <!-- Create by: Jiradat Pomyai, Patiphan Pansanga 24-09-2565 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css" rel="stylesheet">
 <style>
-  input {
-      position: relative;
-  }
-  input[type="date"]::-webkit-calendar-picker-indicator {
+  /* input[type="date"]::-webkit-calendar-picker-indicator {
     background-position: right;
     background-size: auto;
     cursor: pointer;
@@ -15,9 +13,13 @@
     width: auto;
     height: 60px;
     display: none;
+  } */
+  .datepicker {
+    position: fixed !important;
   }
 </style>
-<?php $required = '<span class="text-danger">*</span>'; ?>
+<?php $required = '<span class="text-danger">*</span>'; 
+date_default_timezone_set("Asia/Bangkok"); ?>
 <div class="row">
   <div class="col-12">
     <div class="card">
@@ -38,11 +40,22 @@
               <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_customer : '' ?>" id="p_customer" placeholder="กรอกชื่อของลูกค้า (บริษัทรักงาน)" <?php if(isset($detail)){echo "disabled";}?> >
               <font id="customerMsg" class="small text-danger"></font>
             </div>
-            <div class="form-group">              
+            <!-- <div class="form-group">              
             <label for="p_createdate" class="form-label">วันที่เริ่มโครงการ<?php if(!isset($detail)) { echo $required; } ?></label>
               <div class="input-group mb-3" onclick="pickDate()">
+              <input type="text" id="test" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_createdate : '' ?>" <?php if(isset($detail)){echo "disabled";}?> >
               <input type="date" onfocus="this.showPicker()" style="cursor: pointer;" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_createdate : '' ?>" id="p_createdate" <?php if(isset($detail)){echo "disabled";}?> >
                 <span class="input-group-text fs-5" style="cursor: pointer;"><i class="mdi mdi-calendar-range"></i></span>               
+              </div> -->
+              <div class="form-group">
+              <label for="p_createdate" class="form-label">วันที่เริ่มโครงการ<?php if(!isset($detail)) { echo $required; } ?></label>
+              <div class="input-group date" data-provide="datepicker" data-date-format="dd-mm-yyyy">
+                <?php if(isset($getData)) : $newDate = date("d-m-Y", strtotime($getData->p_createdate)); endif; ?>
+                <input type="text" class="form-control" id="p_createdate" name="inputValue[]" value="<?= isset($getData) ? $newDate : '' ?>" <?php if(isset($detail)){echo "disabled";}?> placeholder="วัน-เดือน-ปี(ค.ศ.) (<?=date("d-m-Y") ?>)" maxlength="10" minlength="10" autocomplete="off" required>
+                  <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </div>
+                <span class="input-group-text fs-5" onclick="pickDate()" style="cursor: pointer;"><i class="mdi mdi-calendar-range"></i></span> 
               </div>
               <font id="createdateMsg" class="small text-danger"></font>
             </div>
@@ -65,7 +78,7 @@
               <tr>
                 <td class="ps-3"><label for="p_emailcontact" class="form-label">อีเมล:</label></td>
                 <td>
-                  <input type="email" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_emailcontact : '' ?>" id="p_emailcontact" placeholder="กรอกอีเมลสำหรับติดต่อลูกค้า (eaxmple@gmail.com)" <?php if(isset($detail)){echo "disabled";}?> >
+                  <input type="email" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_emailcontact : '' ?>" id="p_emailcontact" placeholder="กรอกอีเมลสำหรับติดต่อลูกค้า (example@gmail.com)" <?php if(isset($detail)){echo "disabled";}?> >
                 </td>
               </tr>
               <tr><td class="py-2"></td><td><font id="emailMsg" class="small text-danger"></font></td></tr>
@@ -79,11 +92,23 @@
     </div>
   </div>
 </div>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
 <script>
   function pickDate() {
     let date = document.getElementById("p_createdate")
-    date.showPicker()
+    date.focus()
   }
+  $('#p_createdate').on('input', function() {
+    if(this.value.match(/[^0-9-]/)) {
+      $('#createdateMsg').text(' สามารถกรอกได้เพียง 0-9 และ - เท่านั้น');
+    } else {
+      $('#createdateMsg').text(' ');
+    }
+    this.value = this.value.toLowerCase();
+    this.value = this.value.replace(/[^0-9-]/g, '');
+  });
+
   $('#p_telcontact').on('input', function() {
     if(this.value.match(/[^0-9]/)) {
       $('#telMsg').text(' สามารถกรอกได้เพียงตัวเลข 0-9 เท่านั้น');

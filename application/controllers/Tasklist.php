@@ -17,8 +17,8 @@ class Tasklist extends CI_Controller {
 
 	public function index()	{
 		// Create by: Natakorn Phongsarikit 15-09-2565 index
-		$values['pageTitle'] = 'เพิ่มรายการกิจกรรมใหม่';
-		$values['breadcrumb'] = 'เพิ่มรายการกิจกรรมใหม่';
+		$values['pageTitle'] = 'รายชื่อกิจกรรม';
+		$values['breadcrumb'] = 'รายชื่อกิจกรรม';
 		$values['pageContent'] = $this->load->view('tasklist/index', $values, TRUE);
 		$this->load->view('main', $values);
 	}

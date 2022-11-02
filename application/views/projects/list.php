@@ -74,14 +74,14 @@
                      </td>
                      <td class="text-center">
                        <?php if ($value->p_status < 1) : ?>
-                         <button type="button" class="btn btn-dark button button1" name="restore" id="<?= $value->p_id ."_". $hours . ':' . $min . ':' . $sec ?>" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status * -1 ?>)" title="กู้คืนข้อมูลโครงการ">กู้คืนภายใน <span style='font-size:16px;'><?= $hours . ':' . $min?></span> ชม.</button>
+                         <button type="button" class="btn btn-dark btn-sm" name="restore" id="<?= $value->p_id ."_". $hours . ':' . $min . ':' . $sec ?>" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status * -1 ?>)" title="กู้คืนข้อมูลโครงการ">กู้คืนภายใน <span style='font-size:16px;'><?= $hours . ':' . $min?></span> ชม.</button>
                          <?php continue; ?>
                        <?php endif; ?>
                        <a type="button" href="<?= base_url() ?>tasks?p_id=<?= $value->p_id ?>" title="จัดการกิจกรรมของโครงการ" class="btn btn-tertiary btn-sm"><i class=" far fa-folder-open"></i></a>
                        <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->p_id ?>)" title="ดูข้อมูลโครงการ"><i class=" fas fa-search"></i></button>
                        <?php if ($_SESSION['u_role'] <= 2) : ?>
                          <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="editProject(<?= $value->p_id ?>)" title="แก้ไขข้อมูลโครงการ"><i class="mdi mdi-pencil"></i></button>
-                         <?php if ($value->p_status == 1) : ?>
+                         <?php if (!isset($lastTask[$key]->tl_name) && $value->p_status < 3) : ?>
                            <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="ลบโครงการ" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status * -1 ?>)"><i class="mdi mdi-delete"></i></button>
                          <?php else : ?>
                            <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="ไม่สามารถลบโครงการได้ เนื่องจากยังมีกิจกรรมอยู่ในโครงการ"><i class="mdi mdi-delete"></i></button>

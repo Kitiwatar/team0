@@ -17,7 +17,7 @@
                         <font id="pwdMsg" class="small text-danger"></font>
                     </div>
                     <div class="form-group">
-                        <label for="cfPwd" class="form-label">โปรดกรอกรหัสผ่านใหม่อีกครั่ง</label>
+                        <label for="cfPwd" class="form-label">โปรดกรอกรหัสผ่านใหม่อีกครั้ง</label>
                         <input type="password" class="form-control" name="inputValue[]" id="cfPwd" onkeyup="checkConfirmPassword()"  placeholder="ยืนยันรหัสผ่าน">
                         <font id="cfPwdMsg" class="small text-danger"></font>
                     </div>

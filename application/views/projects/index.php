@@ -29,11 +29,22 @@
     formData['p_name'] = $('#p_name').val()
     formData['p_detail'] = $('#p_detail').val()
     formData['p_customer'] = $('#p_customer').val()
-    formData['p_createdate'] = $('#p_createdate').val()
+    
     formData['p_telcontact'] = $('#p_telcontact').val()
     formData['p_linecontact'] = $('#p_linecontact').val()
     formData['p_emailcontact'] = $('#p_emailcontact').val()
     formData['p_othercontact'] = $('#p_othercontact').val()
+    var dateInput = $('#p_createdate').val()
+    if(dateInput.length == 10) {
+      // darr = dateInput.split("-");
+      // var dobj = new Date(parseInt(darr[2]),parseInt(darr[1])-1,parseInt(darr[0]));
+      var bangkokDate = dateInput.toLocaleString("en-US", {timeZone: "Asia/Bangkok"})
+      // formData['p_createdate'] = dobj.toISOString().split("T")[0]
+      formData['p_createdate'] = bangkokDate.substring(6, 10) + "-" + bangkokDate.substring(3, 5) + "-" + bangkokDate.substring(0, 2);
+    } else {
+      formData['p_createdate'] = "";
+    }
+    console.log(formData)
     var count = 0;
     if (formData.p_telcontact.length > 0) {
       if (formData.p_telcontact.length != 10) {
@@ -45,8 +56,11 @@
       }
     }
     if (!formData.p_createdate) {
-      $('#createdateMsg').text(' กรุณาเลือกวันที่เริ่มโครงการ');
+      $('#createdateMsg').text(' กรุณาระบุวันที่เริ่มโครงการ');
       // $('#p_createdate').focus();
+      count++
+    } else if(formData.p_createdate == "wrongFormat") {
+      $('#createdateMsg').text(' กรุณาระบุวันที่เริ่มโครงการให้ถูกต้อง');
       count++
     } else {
       $('#createdateMsg').text(' ');

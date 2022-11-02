@@ -69,13 +69,23 @@
     var formData = {};
     formData['t_id'] = t_id;
     formData['t_detail'] = $('#t_detail').val()
-    formData['t_createdate'] = $('#t_createdate').val()
+    // formData['t_createdate'] = $('#t_createdate').val()
     formData['t_tl_id'] = $('#t_tl_id').val()
     formData['t_p_id'] = $('#t_p_id').val()
     // $('[name^="inputValue"]').each(function() {
     //   formData[this.id] = this.value;
     //   console.log(formData['p_name'])
     // });
+    var dateInput = $('#t_createdate').val()
+    if(dateInput.length == 10) {
+      // darr = dateInput.split("-");
+      // var dobj = new Date(parseInt(darr[2]),parseInt(darr[1])-1,parseInt(darr[0]));
+      var bangkokDate = dateInput.toLocaleString("en-US", {timeZone: "Asia/Bangkok"})
+      // formData['p_createdate'] = dobj.toISOString().split("T")[0]
+      formData['t_createdate'] = bangkokDate.substring(6, 10) + "-" + bangkokDate.substring(3, 5) + "-" + bangkokDate.substring(0, 2);
+    } else {
+      formData['t_createdate'] = "";
+    }
     let fileAdd = []
     
     let checkBoxAdd = document.getElementsByName('fileAdd');
@@ -90,7 +100,6 @@
       if (checkbox.checked)
         fileRemove.push(checkbox.value)
     }
-
     // console.log(fileNames);
     var count = 0;
     if (!formData.t_createdate) {

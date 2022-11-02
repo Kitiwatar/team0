@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url() ?>assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url() ?>assets/images/pms-logo.png">
 
     <title><?= $pageTitle ?></title>
     <!-- This page CSS -->
@@ -124,14 +124,14 @@
                             <!-- Dark Logo icon -->
                             <img src="<?= base_url() ?>assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
                             <!-- Light Logo icon -->
-                            <img src="<?= base_url() ?>assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
+                            <img src="<?= base_url() ?>assets/images/pms-logo.png" width="40" alt="homepage" class="light-logo" />
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text --><span>
                             <!-- dark Logo text -->
                             <img src="<?= base_url() ?>assets/images/logo-text.png" alt="homepage" class="dark-logo" />
                             <!-- Light Logo text -->
-                            <img src="<?= base_url() ?>assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
+                            <img src="<?= base_url() ?>assets/images/pms-logo-text.png" width="140" height="21" class="light-logo" alt="homepage" />
                         </span>
                     </a>
                 </div>
