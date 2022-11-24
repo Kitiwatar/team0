@@ -50,13 +50,13 @@
                                 <div class="form-group">
                                     <div class="input-group input-group-lg">
                                         <span class="input-group-text mdi mdi-account fs-4"></span>
-                                        <input type="text" class="form-control fs-4" placeholder="อีเมล" id="u_email">
+                                        <input type="text" class="form-control fs-4" placeholder="<?= lang('p_login_email') ?>" id="u_email">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group input-group-lg">
                                         <span class="input-group-text mdi mdi-key-variant fs-4"></span>
-                                        <input type="password" class="form-control fs-4" placeholder="รหัสผ่าน" id="u_password">
+                                        <input type="password" class="form-control fs-4" placeholder="<?= lang('p_login_password') ?>" id="u_password">
                                         <div class="input-group-text toggle-password" style="cursor: pointer;">
                                             <span class="mdi mdi-eye-outline-off fs-4"></span>
                                         </div>

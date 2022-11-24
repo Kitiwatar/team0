@@ -12,7 +12,7 @@
                     <div class="card-body">
                         <h3><i class="fas fa-list" style="color: #fb9678;"></i></h3>
                         <h2 class="counter text-primary text-end" id="all"></h2>
-                        <span class="text-muted fs-5">โครงการทั้งหมด</span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/all"><button class="btn  waves-effect waves-light btn-outline-primary">ดูเพิ่มเติม...</button></a></span> 
+                        <span class="text-muted fs-5"><?= lang('t_home_allproject') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/all"><button class="btn  waves-effect waves-light btn-outline-primary">ดูเพิ่มเติม...</button></a></span> 
                         <div class="progress mt-3">
                             <div class="progress-bar bg-primary" role="progressbar" style="width: 100%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
@@ -24,7 +24,7 @@
                     <div class="card-body">
                         <h3><i class="mdi mdi-library-books" style="color: #FEC107;"></i></h3>
                         <h2 class="counter text-end" style="color: #FEC107;" id="p_pending"></h2>
-                        <span class="text-muted fs-5">รอดำเนินการ</span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/pending"><button class="btn  waves-effect waves-light btn-outline-warning">ดูเพิ่มเติม...</button></a></span>
+                        <span class="text-muted fs-5"><?= lang('t_home_pendproject') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/pending"><button class="btn  waves-effect waves-light btn-outline-warning">ดูเพิ่มเติม...</button></a></span>
                         <!-- <p class="text-muted">รอดำเนินการ</p> -->
                         <div class="progress mt-3">
                             <div class="progress-bar" role="progressbar" style="width: 100%; height: 6px; background-color: #FEC107;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
