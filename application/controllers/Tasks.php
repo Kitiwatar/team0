@@ -5,6 +5,16 @@ class Tasks extends CI_Controller{
     public function __construct() {
 		// Create by: Patiphan Pansanga 14-10-2565 construct
 		parent::__construct();
+		if(isset($_SESSION['lang'])) {
+			if($_SESSION['lang'] == "th") {
+				$this->lang->load("pages","thai");
+			} else {
+				$this->lang->load("pages","english");
+			}
+		} else {
+			$_SESSION['lang'] = "th";
+			$this->lang->load("pages","thai");
+		}
 		$this->genlib->checkLogin();
 		$data = $this->genmod->getOne('pms_user', '*', array('u_id'=>$_SESSION['u_id']));
 		$this->genlib->updateSession($data);
@@ -114,7 +124,7 @@ class Tasks extends CI_Controller{
 		if($_FILES["files"]["name"] != '') {
 			$output = '';
 			$config["upload_path"] = './upload/';
-			$config["allowed_types"] = '*';
+			$config["allowed_types"] = 'gif|jpg|jpeg|png|zip|rar|doc|docx|xls|xlsx|ppt|pptx|csv|ods|odt|odp|pdf|rtf|sxc|sxi|txt';
 			$this->load->library('upload', $config);
 			$this->upload->initialize($config);
 			for($count = 0; $count<count($_FILES["files"]["name"]); $count++) {
@@ -167,7 +177,7 @@ class Tasks extends CI_Controller{
 		$data['tasks'] = $this->genmod->getAll('pms_tasklist', '*',array('tl_status'=>1));
 		$data['getData'] = $this->genmod->getOne('pms_task', '*', array('t_id'=>$this->input->post('t_id')),'',$arrayJoin);
 		$data['getFiles'] = $this->genmod->getAll('pms_file', '*', array('f_t_id'=>$this->input->post('t_id'), 'f_status'=>1),'','','');
-		$json['title'] = 'แก้ไขข้อมูลโครงการ <span class="text-danger" style="font-size:12px;">(*จำเป็นต้องกรอกข้อมูล)</span>';
+		$json['title'] = 'แก้ไขข้อมูลกิจกรรม <span class="text-danger" style="font-size:12px;">(*จำเป็นต้องกรอกข้อมูล)</span>';
 		$json['body'] = $this->load->view('tasks/formadd', $data ,true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit('.$this->input->post('t_id').');">บันทึก</button>
 		<button type="button" class="btn btn-danger" id="closeBtn" onclick="closeModalTask(\'แก้ไขกิจกรรม\')">ยกเลิก</button>';
@@ -181,7 +191,7 @@ class Tasks extends CI_Controller{
 		$data['getData'] = $this->genmod->getOne('pms_task', '*', array('t_id'=>$this->input->post('t_id')),'',$arrayJoin);
 		$data['getFiles'] = $this->genmod->getAll('pms_file', '*', array('f_t_id'=>$this->input->post('t_id'), 'f_status'=>1),'','','');
 		$data['detail'] = "yes";
-		$json['title'] = 'ข้อมูลพนักงาน';
+		$json['title'] = 'รายละเอียดกิจกรรม';
 		$json['body'] = $this->load->view('tasks/formadd', $data ,true);
 		if($data['getData']->p_status < 3) {
 			if($_SESSION['u_id'] == $data['getData']->t_u_id || $_SESSION['u_id'] <= 2) {

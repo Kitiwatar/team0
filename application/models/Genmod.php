@@ -9,20 +9,20 @@ class Genmod extends CI_Model{
       parent::__construct();
   }
 
-  public function getTableCol($tableName, $selColName, $whereColName, $colValue) {
-      $q = "SELECT $selColName FROM $tableName WHERE $whereColName = ?";
+  // public function getTableCol($tableName, $selColName, $whereColName, $colValue) {
+  //     $q = "SELECT $selColName FROM $tableName WHERE $whereColName = ?";
 
-      $run_q = $this->db->query($q, [$colValue]);
+  //     $run_q = $this->db->query($q, [$colValue]);
 
-      if($run_q->num_rows() > 0){
-          foreach($run_q->result() as $get){
-              return $get->$selColName;
-          }
-      }
-      else{
-          return FALSE;
-      }
-  }
+  //     if($run_q->num_rows() > 0){
+  //         foreach($run_q->result() as $get){
+  //             return $get->$selColName;
+  //         }
+  //     }
+  //     else{
+  //         return FALSE;
+  //     }
+  // }
 
   // array table is array('table'=>'condition')
   public function getAll($tableName, $colName = '*', $arrayWhere = '', $order = '', $arrayJoin = '', $group = '') {
@@ -134,9 +134,9 @@ class Genmod extends CI_Model{
     $sql = "SELECT MAX(p_id) AS p_id FROM `pms_project`"; 
     return $this->db->query($sql, '')->row();            
   }
-  public function getMaxTask($p_id){  
+  public function getMaxTask($id){  
     $sql = "SELECT MAX(t_id) AS t_id FROM `pms_task` WHERE t_p_id = ?"; 
-    return $this->db->query($sql, array($p_id))->row();       
+    return $this->db->query($sql, array($id))->row();       
   }
 }
 

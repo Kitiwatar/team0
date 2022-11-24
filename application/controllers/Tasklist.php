@@ -7,6 +7,16 @@ class Tasklist extends CI_Controller {
 	public function __construct() {
 		// Create by: Natakorn Phongsarikit 15-09-2565 construct
 		parent::__construct();
+		if(isset($_SESSION['lang'])) {
+			if($_SESSION['lang'] == "th") {
+				$this->lang->load("pages","thai");
+			} else {
+				$this->lang->load("pages","english");
+			}
+		} else {
+			$_SESSION['lang'] = "th";
+			$this->lang->load("pages","thai");
+		}
 		$this->genlib->checkLogin();
 		$data = $this->genmod->getOne('pms_user', '*', array('u_id'=>$_SESSION['u_id']));
 		$this->genlib->updateSession($data);
@@ -23,11 +33,19 @@ class Tasklist extends CI_Controller {
 		$this->load->view('main', $values);
 	}
 
-
 	public function get() {
 		// Create by: Natakorn Phongsarikit 15-09-2565 get task list
 		$arrayJoin = array('pms_user'=>'pms_tasklist.tl_u_id=pms_user.u_id');
-		$data['getData'] = $this->genmod->getAll('pms_tasklist', '*','','tl_createdate desc',$arrayJoin,'');
+		$getData = $this->genmod->getAll('pms_tasklist', '*','','tl_createdate desc',$arrayJoin,'');
+		$taskCheck = array();
+		if(is_array($getData)) {
+			for($i=0; $i<count($getData); $i++) {
+				// $taskCheck[$i] = null;
+				$taskCheck[$i] = $this->genmod->getAll('pms_task', '*',array('t_tl_id'=>$getData[$i]->tl_id),'','','');
+			}
+		}
+		$data['taskCheck'] = $taskCheck;
+		$data['getData'] = $getData;
 		$json['html'] = $this->load->view('tasklist/list', $data, TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
@@ -79,24 +97,6 @@ class Tasklist extends CI_Controller {
 		$json['body'] = $this->load->view('tasklist/formadd',$data ,true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit('.$this->input->post('tl_id').');">บันทึก</button>
 		<button type="button" class="btn btn-danger" onclick="closeModal(\'แก้ไขรายชื่อกิจกรรม\')">ยกเลิก</button>';
-		$this->output->set_content_type('application/json')->set_output(json_encode($json));
-	}
-
-	public function getDetailForm() {
-		// Create by: Natakorn Phongsarikit 15-09-2565 get detail form
-		if($this->input->post('person')!=null){
-			$data['getData'] = $this->genmod->getOne('pms_user', '*', array('tl_id'=>($_SESSION['tl_id'])));
-		}
-		else{
-			if($_SESSION['u_role'] > 1) {
-				redirect(base_url());
-			}
-			$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
-		}
-		$json['title'] = 'ข้อมูลพนักงาน';
-		$data['detail'] = "yes";
-		$json['body'] = $this->load->view('users/formadd', $data ,true);
-		$json['footer'] = '';
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 

@@ -234,27 +234,34 @@
   }
 
   function closeModalTask(action) {
-    swal({
-      title: "ยกเลิกการ" + action,
-      text: "คุณต้องการยกเลิกการ" + action + "ใช่หรือไม่",
-      type: "warning",
-      showCancelButton: true,
-      showConfirmButton: true,
-      confirmButtonText: "ยืนยัน",
-      cancelButtonText: "ยกเลิก",
-    }).then(function(isConfirm) {
-      // $('#usersForm')[0].reset();
-      if (isConfirm.value) {
-        let tmpFiles = document.getElementsByClassName("tmpFiles");
-        for (var checkbox of tmpFiles) {
-          deleteFile(checkbox.value)
-        }
-        $('#mainModalTitle').html("");
-        $('#mainModalBody').html("");
-        $('#mainModalFooter').html("");
-        $('#mainModal').modal('hide');
-      }
-    })
+    let tmpFiles = document.getElementsByClassName("tmpFiles");
+    for (var checkbox of tmpFiles) {
+      deleteFile(checkbox.value)
+    }
+    $('#mainModalTitle').html("");
+    $('#mainModalBody').html("");
+    $('#mainModalFooter').html("");
+    $('#mainModal').modal('hide');
+    // swal({
+    //   title: "ยกเลิกการ" + action,
+    //   text: "คุณต้องการยกเลิกการ" + action + "ใช่หรือไม่",
+    //   type: "warning",
+    //   showCancelButton: true,
+    //   showConfirmButton: true,
+    //   confirmButtonText: "ยืนยัน",
+    //   cancelButtonText: "ยกเลิก",
+    // }).then(function(isConfirm) {
+    //   if (isConfirm.value) {
+    //     let tmpFiles = document.getElementsByClassName("tmpFiles");
+    //     for (var checkbox of tmpFiles) {
+    //       deleteFile(checkbox.value)
+    //     }
+    //     $('#mainModalTitle').html("");
+    //     $('#mainModalBody').html("");
+    //     $('#mainModalFooter').html("");
+    //     $('#mainModal').modal('hide');
+    //   }
+    // })
 
   }
 

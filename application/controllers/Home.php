@@ -8,6 +8,16 @@ class Home extends CI_Controller
 	public function __construct() {
 		// Create by: Patiphan Pansanga 07-09-2565 construct
 		parent::__construct();
+		if(isset($_SESSION['lang'])) {
+			if($_SESSION['lang'] == "th") {
+				$this->lang->load("pages","thai");
+			} else {
+				$this->lang->load("pages","english");
+			}
+		} else {
+			$_SESSION['lang'] = "th";
+			$this->lang->load("pages","thai");
+		}
 		if (isset($_SESSION['u_id'])) {
 			$data = $this->genmod->getOne('pms_user', '*', array('u_id' => $_SESSION['u_id']));
 			$this->genlib->updateSession($data);
@@ -20,6 +30,17 @@ class Home extends CI_Controller
 		$values['breadcrumb'] = 'ภาพรวมระบบ';
 		$values['pageContent'] = $this->load->view('home/index', '', TRUE);
 		$this->load->view('main', $values);
+	}
+
+	public function changeLang() {
+		$formData = $this->input->post();
+		if($formData['lang'] == "th") {
+			$_SESSION['lang'] = "th";
+		} else {
+			$_SESSION['lang'] = "en";
+		}
+		$json = ['status'=>1];
+		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
 	public function getProjectSummary() {

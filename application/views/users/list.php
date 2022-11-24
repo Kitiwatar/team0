@@ -41,7 +41,7 @@
                         </select>
                       </td>
                       <td class="align-middle"><?= thaiDateTime($value->u_createdate) . " น." ?></td>
-                      <td class="align-middle"><div class="form-check form-switch d-flex justify-content-center"><input type="checkbox" style="cursor: pointer;" class="form-check-input" onchange="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)" id="status<?= $value->u_id ?>"<?= ($value->u_status == 1) ? ' checked>' : ">" ?></div></td>
+                      <td class="align-middle"><div class="form-check form-switch d-flex justify-content-center"><input type="checkbox" style="cursor: pointer;" class="form-check-input" title="จัดการสถานะการใช้งาน" onchange="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)" id="status<?= $value->u_id ?>"<?= ($value->u_status == 1) ? ' checked>' : ">" ?></div></td>
                       <td class="text-center align-middle">
                       <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->u_id ?>)" title="ดูข้อมูลพนักงาน"><i class=" fas fa-search"></i></button>
                         <?php if ($value->u_status == 1) : ?>

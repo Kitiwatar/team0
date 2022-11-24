@@ -7,6 +7,16 @@ class Logs extends CI_Controller {
   	public function __construct() {
 		// Create by: Patiphan Pansanga 14-09-2565 construct
 		parent::__construct();
+		if(isset($_SESSION['lang'])) {
+			if($_SESSION['lang'] == "th") {
+				$this->lang->load("pages","thai");
+			} else {
+				$this->lang->load("pages","english");
+			}
+		} else {
+			$_SESSION['lang'] = "th";
+			$this->lang->load("pages","thai");
+		}
 		$this->genlib->checkLogin();
 		$data = $this->genmod->getOne('pms_user', '*', array('u_id'=>$_SESSION['u_id']));
 		$this->genlib->updateSession($data);

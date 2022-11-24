@@ -17,25 +17,21 @@
               </tr>
             </thead>
             <tbody>
-              <?php if (is_array($getData)) : $count = 1 ?>
-                <?php foreach ($getData as $key => $value) : ?>
-                <?php if($value->tl_status==0){
-                  continue;
-                }
-                ?>
+              <?php if (is_array($getData)) : $count = 1;?>
+                <?php foreach ($getData as $key => $value) :?>
+                <?php if($value->tl_status == 0) : continue; endif; ?>
                   <tr>
                     <td class="text-center"><?= $count++ ?></td> 
                     <td><?= $value->tl_name ?></td>
                     <td><?= thaiDateTime($value->tl_createdate)." น."?></td>
                     <td><?= $value->u_firstname ?> <?= $value->u_lastname ?></td>
                     <td class="text-center">
-                      <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->tl_id ?>)" title="แก้ไขรายการกิจกรรม"><i class="mdi mdi-pencil"></i></button>
-                      <?php if ($value->tl_status == 1) : ?>
-                        <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="ระงับการทำงาน" onclick="changeStatus(<?= $value->tl_id ?>,<?= $value->tl_status ?>)"><i class="mdi mdi-delete"></i></button>
-                      <?php else : ?>
-                        <button type="button" class="btn btn-dark btn-sm" name="del" id="del" title="กู้คืนข้อมูล" onclick="changeStatus(<?= $value->tl_id ?>,<?= $value->tl_status ?>)"><i class="mdi mdi-delete"></i></button>
-                      <?php endif; ?>
-
+                      <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->tl_id ?>)" title="แก้ไขรายชื่อกิจกรรม"><i class="mdi mdi-pencil"></i></button>
+                      <?php if ($taskCheck[$key] == null) { ?>
+                        <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="ลบรายชื่อกิจกรรม" onclick="changeStatus(<?= $value->tl_id ?>,<?= $value->tl_status ?>)"><i class="mdi mdi-delete"></i></button>
+                      <?php } else { ?>
+                        <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="ไม่สามารถลบรายชื่อกิจกรรมนี้ได้ เนื่องจากมีการเรียกใช้งานชื่อกิจกรรมนี้อยู่"><i class="mdi mdi-delete"></i></button>
+                      <?php } ?>
                     </td>
                   </tr>
                 <?php endforeach; ?>
@@ -59,6 +55,8 @@
 </style>
 
 <script>
+  $('[data-toggle="tooltip"]').tooltip();
+
   pdfMake.fonts = {
     THSarabun: {
       normal: 'THSarabun.ttf',

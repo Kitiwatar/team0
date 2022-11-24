@@ -40,13 +40,6 @@ date_default_timezone_set("Asia/Bangkok"); ?>
               <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_customer : '' ?>" id="p_customer" placeholder="กรอกชื่อของลูกค้า (บริษัทรักงาน)" <?php if(isset($detail)){echo "disabled";}?> >
               <font id="customerMsg" class="small text-danger"></font>
             </div>
-            <!-- <div class="form-group">              
-            <label for="p_createdate" class="form-label">วันที่เริ่มโครงการ<?php if(!isset($detail)) { echo $required; } ?></label>
-              <div class="input-group mb-3" onclick="pickDate()">
-              <input type="text" id="test" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_createdate : '' ?>" <?php if(isset($detail)){echo "disabled";}?> >
-              <input type="date" onfocus="this.showPicker()" style="cursor: pointer;" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_createdate : '' ?>" id="p_createdate" <?php if(isset($detail)){echo "disabled";}?> >
-                <span class="input-group-text fs-5" style="cursor: pointer;"><i class="mdi mdi-calendar-range"></i></span>               
-              </div> -->
               <div class="form-group">
               <label for="p_createdate" class="form-label">วันที่เริ่มโครงการ<?php if(!isset($detail)) { echo $required; } ?></label>
               <div class="input-group date" data-provide="datepicker" data-date-format="dd-mm-yyyy">
@@ -62,7 +55,7 @@ date_default_timezone_set("Asia/Bangkok"); ?>
             <label class="form-label">ช่องทางติดต่อลูกค้า</label>
             <table width="100%">
               <tr>
-                <td width="80px" class="ps-3"><label for="p_telcontact" class="form-label">เบอร์โทร:</label></td>
+                <td width="100px" class="ps-3"><label for="p_telcontact" class="form-label">เบอร์มือถือ:</label></td>
                 <td>
                   <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_telcontact : '' ?>" maxlength="10" id="p_telcontact" placeholder="กรอกเบอร์โทรศัพท์ 10 หลักสำหรับติดต่อลูกค้า (0987654321)" <?php if(isset($detail)){echo "disabled";}?> >
                 </td>

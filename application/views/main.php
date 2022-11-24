@@ -95,7 +95,7 @@
     </style>
 </head>
 
-<body class="skin-blue fixed-layout" <?php if (isset($_SESSION['u_id'])) : echo 'onload="countDown()" ' . 'onmousemove="resetTimeLeft()"';endif; ?>>
+<body class="skin-blue fixed-layout" <?php if (isset($_SESSION['u_id'])) : echo 'onload="countDown()" ' . 'onmousemove="updateTimeout()"';endif; ?>>
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
@@ -163,7 +163,7 @@
                         <!-- ============================================================== -->
                         <!-- User Profile -->
                         <!-- ============================================================== -->
-                        <li class=" nav-item dropdown u-pro">
+                        <li class="nav-item dropdown u-pro">
                             <?php if (isset($_SESSION['u_fullname'])) { ?>
                                 <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic fs-5" href="" data-toggle="dropdown" data-bs-display="static" aria-haspopup="true" aria-expanded="false">
                                     <table>
@@ -178,15 +178,19 @@
                                     </table>
                                     </a>
                                 <div class="dropdown-menu animated flipInY" style="right: 0; width:100px">
-                                    <a onclick="viewPersonDetail('<?= base_url() ?>users/getDetailForm')" class="dropdown-item" style="cursor: pointer;"><i class="mdi mdi-account"></i> ข้อมูลส่วนตัว</a>
+                                    <a onclick="viewPersonDetail('<?= base_url() ?>users/getDetailForm')" class="dropdown-item" style="cursor: pointer;"><i class="mdi mdi-account"></i> <?= lang('profile') ?></a>
                                     <div class="dropdown-divider"></div>
-                                    <a onclick="changePersonPassword('<?= base_url() ?>users/getPasswordForm')" class="dropdown-item" style="cursor: pointer;"><i class="mdi mdi-key-variant"></i> เปลี่ยนรหัสผ่าน</a>
+                                    <a onclick="changePersonPassword('<?= base_url() ?>users/getPasswordForm')" class="dropdown-item" style="cursor: pointer;"><i class="mdi mdi-key-variant"></i> <?= lang('password') ?></a>
                                     <div class="dropdown-divider"></div>
-                                    <a href="<?= base_url() ?>login/logout" class="dropdown-item"><i class="mdi mdi-logout"></i> ออกจากระบบ</a>
+                                    <a href="<?= base_url() ?>login/logout" class="dropdown-item"><i class="mdi mdi-logout"></i> <?= lang('logOut') ?></a>
                                 </div>
                             <?php } else { ?>
-                                <a class="nav-link waves-effect waves-dark profile-pic fs-5" href="<?= base_url() ?>login">ระบบสำหรับเจ้าหน้าที่ภายใน</a>
+                                <a class="nav-link waves-effect waves-dark profile-pic fs-5" href="<?= base_url() ?>login"><?= lang('login') ?></a>
                             <?php } ?>
+                        </li>
+                        <li class="nav-item dropdown u-pro">
+                            <div class="nav-link waves-effect waves-dark profile-pic fs-5" onclick="changeLang('th')">ไทย</div>
+                            <div class="nav-link waves-effect waves-dark profile-pic fs-5" onclick="changeLang('en')">english</div>
                         </li>
                         <!-- ============================================================== -->
                         <!-- End User Profile -->
@@ -209,24 +213,24 @@
                     <ul id="sidebarnav">
                         <li>
                             <a class="waves-effect waves-dark" href="<?= base_url() ?>" aria-expanded="false">
-                                <i class="fas fa-chart-pie"></i><span class="hide-menu">หน้าหลัก</span>
+                                <i class="fas fa-chart-pie"></i><span class="hide-menu"><?= lang('dashboard') ?></span>
                             </a>
                         </li>
                         <?php if (isset($_SESSION['u_id'])) : ?>
                             <li>
                                 <a class="waves-effect waves-dark" href="<?= base_url() ?>projects" aria-expanded="false">
-                                    <i class="mdi mdi-library-books" style="font-size: 18px;"></i><span class="hide-menu">โครงการที่รับผิดชอบ</span>
+                                    <i class="mdi mdi-library-books" style="font-size: 18px;"></i><span class="hide-menu"><?= lang('project') ?></span>
                                 </a>
                             </li>
                             <?php if ($_SESSION['u_role'] <= 1) : ?>
-                                <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-settings" style="font-size: 20px;"></i><span class="hide-menu">ตั้งค่าระบบ</span></a>
+                                <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-settings" style="font-size: 20px;"></i><span class="hide-menu"><?= lang('setting') ?></span></a>
                                     <ul aria-expanded="false" class="collapse">
                                         <li>
-                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>users" aria-expanded="false"><i class="mdi mdi-account-card-details" style="font-size: 18px;"></i> รายชื่อพนักงาน</a>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>users" aria-expanded="false"><i class="mdi mdi-account-card-details" style="font-size: 18px;"></i> <?= lang('user') ?></a>
                                                 <!-- <i class="mdi mdi-account-card-details" style="font-size: 16px;"></i><span class="hide-menu">รายชื่อพนักงาน</span> -->
                                         </li>
                                         <li>
-                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>tasklist" aria-expanded="false"><i class="mdi mdi-table-large" style="font-size: 18px;"></i> รายชื่อกิจกรรม</a>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>tasklist" aria-expanded="false"><i class="mdi mdi-table-large" style="font-size: 18px;"></i> <?= lang('taskList') ?></a>
                                                 <!-- <i class="mdi mdi-table-edit" style="font-size: 20px;"></i><span class="hide-menu">รายชื่อกิจกรรม</span> -->
                                         </li>
                                     </ul>
@@ -235,7 +239,7 @@
                             <?php if ($_SESSION['u_role'] < 1) : ?>
                                 <li>
                                     <a class="waves-effect waves-dark" href="<?= base_url() ?>logs" aria-expanded="false">
-                                        <i class="mdi mdi-database" style="font-size: 20px;"></i><span class="hide-menu">ฐานข้อมูล</span>
+                                        <i class="mdi mdi-database" style="font-size: 20px;"></i><span class="hide-menu"><?= lang('log') ?></span>
                                     </a>
                                 </li>
                             <?php endif; ?>
@@ -262,7 +266,7 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h4 class="text-themecolor"><?= $pageTitle ?> <span id="time"></span></h4>
+                        <h4 class="text-themecolor"><?= $pageTitle ?></h4>
                     </div>
                     <div class="col-md-7 align-self-center text-right">
                         <div class="d-flex justify-content-end align-items-center">
@@ -386,28 +390,29 @@
     }
 
     function closeModal(action) {
-        swal({
-            title: "ยกเลิกการ" + action,
-            text: "คุณต้องการยกเลิกการ" + action + "ใช่หรือไม่",
-            type: "warning",
-            showCancelButton: true,
-            showConfirmButton: true,
-            confirmButtonText: "ยืนยัน",
-            cancelButtonText: "ยกเลิก",
-        }).then(function(isConfirm) {
-            // $('#usersForm')[0].reset();
-            if (isConfirm.value) {
-                $('#mainModalTitle').html("");
-                $('#mainModalBody').html("");
-                $('#mainModalFooter').html("");
-                $('#mainModal').modal('hide');
+        $('#mainModalTitle').html("");
+        $('#mainModalBody').html("");
+        $('#mainModalFooter').html("");
+        $('#mainModal').modal('hide');
+    }
+
+    function changeLang(lang) {
+        $.ajax({
+            url: '<?= base_url() ?>home/changeLang',
+            method: 'post',
+            data: {
+                lang: lang
+            },
+        }).done(function(returnData) {
+            if(returnData.status == 1) {
+                location.reload();
             }
         })
     }
 
     function clearSession() {
         $.ajax({
-            url: 'login/logout',
+            url: '<?= base_url() ?>login/logout',
             method: 'post'
         }).done(function(returnData) {
             swal({
@@ -420,18 +425,18 @@
             }).then(function() {
                 location.replace("home");
             })
-
         })
     }
 
-    var timeLeft = 3600;
 
     function countDown() {
         var downloadTimer = setInterval(function() {
-            timeLeft--;
-            document.getElementById("time").innerHTML = timeLeft;
-            if (timeLeft <= 0) {
-                swal({
+            $.ajax({
+                url: '<?= base_url() ?>login/checkTimeout',
+                method: 'post'
+            }).done(function(returnData) {
+                if(returnData.status == 1) {
+                    swal({
                     title: "ต้องการอยู่ในระบบต่อหรือไม่",
                     html: "ออกจากระบบอัตโนมัติใน <strong></strong> วินาที",
                     type: "warning",
@@ -450,21 +455,27 @@
                     onClose: () => {
                         clearInterval(timerInterval)
                     }
-                }).then(function(isConfirm) {
-                    if (isConfirm.value) {
-                        resetTimeLeft();
-                        countDown();
-                    } else {
-                        clearSession();
-                    }
-                })
-                clearInterval(downloadTimer);
-            }
-        }, 1000);
+                    }).then(function(isConfirm) {
+                        if (isConfirm.value) {
+                            updateTimeout();
+                            countDown();
+                        } else {
+                            clearSession();
+                        }
+                    })
+                }
+            })    
+            clearInterval(downloadTimer);
+        }, 5000);
     }
 
-    function resetTimeLeft() {
-        timeLeft = 3600;
+    function updateTimeout() {
+        $.ajax({
+            url: '<?= base_url() ?>login/updateTimeout',
+            method: 'post'
+        }).done(function(returnData) {
+            console.log(returnData.time)
+        })
     }
 
     function setSidebar() {

@@ -77,7 +77,8 @@
         <h4>เอกสารที่เกี่ยวข้อง</h4>
         <div class="col-md-6 <?= isset($detail) ? "d-none" : '' ?>">
           <button type="button" class="btn btn-success" id="uploadBtn"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มเอกสารที่เกี่ยวข้อง</button>
-          <input type="file" name="files" id="files" class="d-none" accept="" multiple />
+          <input type="file" name="files" id="files" class="d-none" accept=".doc,.docx,application/msword, .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/vnd.ms-powerpoint, 
+          application/vnd.openxmlformats-officedocument.presentationml.slideshow, application/vnd.openxmlformats-officedocument.presentationml.presentation , text/plain, application/pdf, image/*" multiple />
         </div>
         <div style="clear:both"></div>
         <div class="table-responsive my-2">
@@ -108,6 +109,7 @@
               } ?>
             </tbody>
           </table>
+          <div id="loadingFile" class="text-center"></div>
         </div>
       </div>
     </div>
@@ -169,9 +171,10 @@
         cache: false,
         processData: false,
         beforeSend: function() {
-          //  $('#uploaded_images').html("<label class='text-success'>Uploading...</label>");
+          document.getElementById("loadingFile").innerHTML = '<div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div>';
         },
         success: function(data) {
+          document.getElementById("loadingFile").innerHTML = "";
           var text = document.getElementById("uploaded").innerHTML;
           text += data.output;
           document.getElementById("uploaded").innerHTML = text

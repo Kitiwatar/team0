@@ -21,7 +21,7 @@
               <font id="emailMsg" class="small text-danger"></font>
             </div>
             <div class="form-group">
-              <label for="u_tel" class="form-label">เบอร์โทรศัพท์<?php if(!isset($detail)) { echo $required; } ?></label>
+              <label for="u_tel" class="form-label">เบอร์มือถือ<?php if(!isset($detail)) { echo $required; } ?></label>
               <input type="text" class="form-control" name="inputValue[]" maxlength="10" value="<?= isset($getData) ? $getData->u_tel : '' ?>" id="u_tel" placeholder="กรอกเบอร์โทรศัพท์ของพนักงาน (0987654321)" <?php if(isset($detail)){echo "disabled";}?> >
               <font id="telMsg" class="small text-danger"></font>
             </div>

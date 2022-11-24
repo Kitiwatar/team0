@@ -7,6 +7,16 @@ class Users extends CI_Controller {
 	public function __construct() {
 		// Create by: Patiphan Pansanga 07-09-2565 construct
 		parent::__construct();
+		if(isset($_SESSION['lang'])) {
+			if($_SESSION['lang'] == "th") {
+				$this->lang->load("pages","thai");
+			} else {
+				$this->lang->load("pages","english");
+			}
+		} else {
+			$_SESSION['lang'] = "th";
+			$this->lang->load("pages","thai");
+		}
 		$this->genlib->checkLogin();
 		$data = $this->genmod->getOne('pms_user', '*', array('u_id'=>$_SESSION['u_id']));
 		$this->genlib->updateSession($data);
@@ -41,11 +51,6 @@ class Users extends CI_Controller {
 		}
 		$data['arrayRole'] = $this->getAllRole();
 		$data['getData'] = $this->genmod->getAll('pms_user', '*','','u_createdate desc','','');
-		/*
-		for($i=0;$i<count($data['getData']);$i++){
-			$data['getData'][$i]->u_createdate =$this->general_helper->thaiDate($data['getData'][$i]->u_createdate);   
-		}
-		*/
 		$json['html'] = $this->load->view('users/list', $data, TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 		

@@ -5,6 +5,16 @@ class Permissions extends CI_Controller{
     public function __construct() {
 		// Create by: Patiphan Pansanga 14-09-2565
 		parent::__construct();
+		if(isset($_SESSION['lang'])) {
+			if($_SESSION['lang'] == "th") {
+				$this->lang->load("pages","thai");
+			} else {
+				$this->lang->load("pages","english");
+			}
+		} else {
+			$_SESSION['lang'] = "th";
+			$this->lang->load("pages","thai");
+		}
 		$this->genlib->checkLogin();
 		$data = $this->genmod->getOne('pms_user', '*', array('u_id'=>$_SESSION['u_id']));
 		$this->genlib->updateSession($data);
@@ -56,7 +66,7 @@ class Permissions extends CI_Controller{
         $data['permissions'] = $this->genmod->getAll('pms_permission', '*', array('per_p_id' =>  $this->input->post('p_id'), 'per_status' => 1));
 		$json['title'] = 'เพิ่มพนักงานในโครงการ';
 		$json['body'] = $this->load->view('permissions/formadd', $data, TRUE);
-		$json['footer'] = '';
+		$json['footer'] = '<button type="button" class="btn btn-secondary" style="background-color: grey; color:white;" data-dismiss="modal" aria-hidden="true">ปิด</button>';
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
