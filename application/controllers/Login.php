@@ -24,8 +24,8 @@ class Login extends CI_Controller {
 		if(isset($_SESSION['u_id'])) {
 			redirect(base_url());
 		}
-		$values['pageTitle'] = 'เข้าสู่ระบบ';
-		$values['breadcrumb'] = 'เข้าสู่ระบบ';
+		$values['pageTitle'] = lang('login');
+		$values['breadcrumb'] = lang('login');
 		$values['pageContent'] = $this->load->view('login', '', TRUE);
 		$this->load->view('main', $values);
 	}
@@ -56,13 +56,13 @@ class Login extends CI_Controller {
 					$_SESSION['timeout'] = date('Y-m-d H:i:s');
 					$json = ['status'=> 1];
 				} else {
-					$json = ['status'=> 0, 'msg'=>'บัญชีผู้ใช้ถูกระงับ กรุณาติดต่อผู้ดูแลระบบ'];
+					$json = ['status'=> 0, 'msg'=>lang('l_result-usem')];
 				}
 			} else {
-				$json = ['status'=> 0, 'msg'=>'รหัสผ่านไม่ถูกต้อง'];
+				$json = ['status'=> 0, 'msg'=>lang('l_result-pw')];
 			} 
 		} else {
-			$json = ['status'=> 0, 'msg'=>'ไม่พบบัญชีผู้ใช้นี้ในระบบ'];			
+			$json = ['status'=> 0, 'msg'=>lang('l_result-nf')];			
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
     }

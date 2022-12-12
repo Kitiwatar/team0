@@ -22,15 +22,15 @@ class Projects extends CI_Controller{
 
     public function index()	{
 		// Create by: Jiradat Pomyai 19-09-2565 index page
-		$values['pageTitle'] = 'รายชื่อโครงการที่รับผิดชอบ';
-		$values['breadcrumb'] = 'รายชื่อโครงการที่รับผิดชอบ';
+		$values['pageTitle'] = lang('th_project_pj-responsible');
+		$values['breadcrumb'] = lang('th_project_pj-responsible');
 		$values['pageContent'] = $this->load->view('projects/index', $values, TRUE);
 		$this->load->view('main', $values);
 	}
 
     public function getStatus() {
 		// Create by: Jiradat Pomyai 19-09-2565 return all status of project
-		$arrayStatus = array(1=>"รอดำเนินการ", 2=>"กำลังดำเนินการ", 3=>"เสร็จสิ้น", 4=>"ยกเลิก");
+		$arrayStatus = array(1=>lang('sp_home_pendproject'), 2=>lang('sp_home_inprogress'), 3=>lang('sp_home_finish'), 4=>lang('sp_home_cancel'));
 		return $arrayStatus;
     }
 
@@ -84,15 +84,15 @@ class Projects extends CI_Controller{
 					$arrayPermission['per_p_id'] = $project->p_id;
 					$arrayPermission['per_u_id'] = $_SESSION['u_id'];
 					$this->genmod->add('pms_permission',$arrayPermission);
-					$json = ['status'=> 1, 'msg'=>'บันทึกข้อมูลสำเร็จ'];				
+					$json = ['status'=> 1, 'msg'=>lang('md_vm_ct-save')];				
 			} else {		
 					$p_id = $formData['p_id'];
 					unset($formData['p_id']);
 					$this->genmod->update('pms_project', $formData, array('p_id'=>$p_id));
-					$json = ['status'=> 1, 'msg'=>'แก้ไขข้อมูลสำเร็จ'];
+					$json = ['status'=> 1, 'msg'=>lang('md_vm_ct-edit')];
 			}
 		}else{
-			$json = ['status'=> 0, 'msg'=>"พบปัญหา ข้อมูลมีความผิดพลาด เพิ่มข้อมูลไม่สำเร็จ ",'error'=>$this->form_validation->error_array()];
+			$json = ['status'=> 0, 'msg'=>lang('md_vm_ad-fail') ,'error'=>$this->form_validation->error_array()];
 		}
 
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
@@ -100,20 +100,20 @@ class Projects extends CI_Controller{
 
 	public function getAddForm() {
 		// Create by: Jiradat Pomyai 28-09-2565 get add form
-		$json['title'] = 'เพิ่มโครงการ <span class="text-danger" style="font-size:12px;">(*จำเป็นต้องกรอกข้อมูล)</span>';
+		$json['title'] = lang('md_tl_a-ap').' <span class="text-danger" style="font-size:12px;">(*'.lang('md_tl-req').')</span>';
 		$json['body'] = $this->load->view('projects/formadd', '', TRUE);
-		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormProjectSubmit(\'new\');">บันทึก</button>
-		<button type="button" class="btn btn-danger" onclick="closeModal(\'เพิ่มโครงการ\')">ยกเลิก</button>';
+		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormProjectSubmit(\'new\');">'.lang("bt_save").' </button>
+		<button type="button" class="btn btn-danger" onclick="closeModal(\'เพิ่มโครงการ\')">'.lang("bt_cancel").'</button>';
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
 	public function getEditForm() {
 		// Create by: Patiphan Pansanga 11-10-2565 get edit form 
-		$json['title'] = 'แก้ไขข้อมูลโครงการ <span class="text-danger" style="font-size:12px;">(*จำเป็นต้องกรอกข้อมูล)</span>';
+		$json['title'] = lang('md_tl_e-pj').' <span class="text-danger" style="font-size:12px;">(*'.lang('md_tl-req').')</span>';
 		$data['getData'] = $this->genmod->getOne('pms_project', '*', array('p_id'=>$this->input->post('p_id')));
 		$json['body'] = $this->load->view('projects/formadd', $data ,true);
-		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormProjectSubmit('.$this->input->post('p_id').');">บันทึก</button>
-		<button type="button" class="btn btn-danger" id="closeBtn" onclick="closeModal(\'แก้ไขโครงการ\')">ยกเลิก</button>';
+		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormProjectSubmit('.$this->input->post('p_id').');">'.lang("bt_save").'</button>
+		<button type="button" class="btn btn-danger" id="closeBtn" onclick="closeModal(\'แก้ไขโครงการ\')">'.lang("bt_cancel").'</button>';
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
@@ -125,10 +125,10 @@ class Projects extends CI_Controller{
 			return;
 		}
 		$data['detail'] = "yes";
-		$json['title'] = 'ข้อมูลพนักงาน';
+		$json['title'] = lang('md_tl_v-pj');
 		$json['body'] = $this->load->view('projects/formadd', $data ,true);
 		if($_SESSION['u_role'] <= 2 && ($data['getData']->p_status == 1 || $data['getData']->p_status == 2)) {
-			$json['footer'] = '<button type="button" class="btn btn-warning" onclick="editProject(' . $this->input->post('p_id') . ')" title="แก้ไขข้อมูลโครงการ">แก้ไขข้อมูล</button>';
+			$json['footer'] = '<button type="button" class="btn btn-warning" onclick="editProject(' . $this->input->post('p_id') . ')" title="'. lang('tt_pj_eproject').'">'.lang("bt_edit").'</button>';
 		} else {
 			$json['footer'] = '';
 		}
@@ -145,13 +145,13 @@ class Projects extends CI_Controller{
             $now = date("Y-m-d H:i:s");
 			$this->genmod->update('pms_project', array('p_status' => ($updateData['p_status']), 'p_enddate' => $now), array('p_id' => $updateData['p_id']));
 			if($updateData['p_status'] == 3) {
-				$msg = "สิ้นสุดโครงการสำเร็จ";
+				$msg = lang('md_fp_suc');
 			} else {
-				$msg = "ยกเลิกโครงการสำเร็จ";
+				$msg = lang('md_cp_suc');
 			}				 
 			$json = ['status'=> 1, 'msg'=>$msg];	
 		} else {
-			$json = ['status'=> 0, 'msg'=>"เกิดข้อผิดพลาด"];
+			$json = ['status'=> 0, 'msg'=>lang('md_vm-fail')];
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
@@ -163,10 +163,10 @@ class Projects extends CI_Controller{
 		$validCheck = $this->genmod->getOne('pms_project', '*', array('p_id' => $updateData['p_id']));
 		if(isset($validCheck)) {
 			$this->genmod->update('pms_project', array('p_status'=> 2, 'p_enddate' => NULL), array('p_id' => $updateData['p_id']));
-			$msg = "กู้คืนสถานะโครงการสำเร็จ";
+			$msg = lang('md_rp_vm-msg');
 			$json = ['status'=> 1, 'msg'=>$msg];	
 		} else {
-			$json = ['status'=> 0, 'msg'=>"เกิดข้อผิดพลาด"];
+			$json = ['status'=> 0, 'msg'=>lang('md_vm-fail')];
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
@@ -181,7 +181,7 @@ class Projects extends CI_Controller{
 				date_default_timezone_set("Asia/Bangkok");
                 $now = date("Y-m-d H:i:s");
 				if($now > $validCheck->p_countdown){
-					$json = ['status'=> 0, 'msg'=>"เกิดข้อผิดพลาด ครบกำหนดสำหรับการกู้คืนแล้ว"];
+					$json = ['status'=> 0, 'msg'=>lang('md_rp_vm-f')];
 					$this->output->set_content_type('application/json')->set_output(json_encode($json));
 					return ;
 				}
@@ -193,15 +193,15 @@ class Projects extends CI_Controller{
 				// $tomorrow = $d->format('Y/m/d H.i.s');
 				$tomorrow = date("Y-m-d H:i:s", strtotime('+23 hours +59 mins +59 seconds'));
 				$this->genmod->update('pms_project', array('p_countdown'=> $tomorrow), array('p_id' => $updateData['p_id']));
-				$msg = "ลบโครงการสำเร็จ";
+				$msg = lang('md_dp_vm-msg');
 				
 			} else {
 				$this->genmod->update('pms_project', array('p_countdown'=> NULL), array('p_id' => $updateData['p_id']));
-				$msg = "กู้คืนข้อมูลโครงการสำเร็จ";
+				$msg = lang('md_rp_vm-msg');
 			}				 
 			$json = ['status'=> 1, 'msg'=>$msg];	
 		} else {
-			$json = ['status'=> 0, 'msg'=>"เกิดข้อผิดพลาด"];
+			$json = ['status'=> 0, 'msg'=>lang('md_vm-fail')];
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}

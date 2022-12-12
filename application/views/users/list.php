@@ -3,20 +3,20 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h2 class='card-title'>ตารางรายชื่อพนักงาน</h2>
-        <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มพนักงาน</button>
+        <h2 class='card-title'><?= lang('tp_user_em-name') ?></h2>
+        <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> <?= lang('b_user_addem') ?></button>
         <div class="table-responsive my-2">
           <table class="display table dt-responsive nowrap">
             <thead>
               <tr>
-                <th>ลำดับ</th>
-                <th>ชื่อ-นามสกุล</th>
-                <th>อีเมล</th>
-                <th>เบอร์โทรศัพท์</th>
-                <th>สิทธิ์ในการใช้งานระบบ</th>
-                <th>วันที่เพิ่ม</th>
-                <th class="text-center">สถานะ</th>
-                <th class="text-center">ปุ่มดำเนินการ</th>
+                <th><?= lang('tl_project_pj-no') ?></th>
+                <th><?= lang('gd_project_em-fullname') ?></th>
+                <th><?= lang('gd_project_em-email') ?></th>
+                <th><?= lang('gd_project_em-phone') ?></th>
+                <th><?= lang('gd_project_em-permission') ?></th>
+                <th><?= lang('gd_dateadded') ?></th>
+                <th class="text-center"><?= lang('tp_user-status') ?></th>
+                <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
               </tr>
             </thead>
             <tbody>
@@ -41,16 +41,16 @@
                         </select>
                       </td>
                       <td class="align-middle"><?= thaiDateTime($value->u_createdate) . " น." ?></td>
-                      <td class="align-middle"><div class="form-check form-switch d-flex justify-content-center"><input type="checkbox" style="cursor: pointer;" class="form-check-input" title="จัดการสถานะการใช้งาน" onchange="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)" id="status<?= $value->u_id ?>"<?= ($value->u_status == 1) ? ' checked>' : ">" ?></div></td>
+                      <td class="align-middle"><div class="form-check form-switch d-flex justify-content-center"><input type="checkbox" style="cursor: pointer;" class="form-check-input" title="<?= lang('tt_es_muser') ?>" onchange="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)" id="status<?= $value->u_id ?>"<?= ($value->u_status == 1) ? ' checked>' : ">" ?></div></td>
                       <td class="text-center align-middle">
-                      <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->u_id ?>)" title="ดูข้อมูลพนักงาน"><i class=" fas fa-search"></i></button>
+                      <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->u_id ?>)" title="<?= lang('tt_es_vuser') ?>"><i class=" fas fa-search"></i></button>
                         <?php if ($value->u_status == 1) : ?>
-                          <button type="button" class="btn btn-primary btn-sm" name="view" id="view" onclick="changePassword(<?= $value->u_id ?>)" title="เปลี่ยนรหัสผ่าน"><i class="mdi mdi-key-variant"></i></button>
-                          <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->u_id ?>)" title="แก้ไขข้อมูลพนักงาน"><i class="mdi mdi-pencil"></i></button>
+                          <button type="button" class="btn btn-primary btn-sm" name="view" id="view" onclick="changePassword(<?= $value->u_id ?>)" title="<?= lang('tt_es_cpuser') ?>"><i class="mdi mdi-key-variant"></i></button>
+                          <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->u_id ?>)" title="<?= lang('tt_es_vuser') ?>"><i class="mdi mdi-pencil"></i></button>
                           <!-- <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="ระงับการทำงาน" onclick="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)"><i class="mdi mdi-lock-open-outline"></i></button> -->
                         <?php else : ?>
-                          <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="ไม่สามารถเปลี่ยนรหัสผ่านได้ เนื่องจากสถานะผู้ใช้ถูกระงับการใช้งานอยู่ในขณะนี้"><i class=" mdi mdi-key-variant"></i></button>
-                          <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="ไม่สามารถแก้ไขข้อมูลได้ เนื่องจากสถานะผู้ใช้ถูกระงับการใช้งานอยู่ในขณะนี้"><i class="mdi mdi-pencil"></i></button>
+                          <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="<?= lang('tt_es_cn-cpuser') ?>"><i class=" mdi mdi-key-variant"></i></button>
+                          <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="<?= lang('tt_es_cn-euser') ?>"><i class="mdi mdi-pencil"></i></button>
                           <!-- <button type="button" class="btn btn-dark btn-sm" name="del" id="del" title="กู้คืนข้อมูล" onclick="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)"><i class="mdi mdi-lock-outline"></i></button> -->
                         <?php endif; ?>
                       </td>
@@ -61,7 +61,7 @@
             </tbody>
           </table>
         </div>
-        <a type="button" class="btn waves-effect waves-light btn-dark" href="<?= base_url() ?>"><i class="mdi mdi-arrow-left"></i> ย้อนกลับ</a>
+        <a type="button" class="btn waves-effect waves-light btn-dark" href="<?= base_url() ?>"><i class="mdi mdi-arrow-left"></i>  <?= lang('b_project_back') ?> </a>
       </div>
     </div>
   </div>
@@ -125,17 +125,17 @@
       },
     ],
     "language": {
-      "oPaginate": {
-        "sPrevious": "ถอยกลับ",
-        "sNext": "ถัดไป"
-      },
-      "sInfo": "แสดง _START_ ถึง _END_ จาก _TOTAL_ รายการ",
-      "sInfoEmpty": "แสดง 0 ถึง 0 จาก 0 รายการ",
-      "sLengthMenu": "แสดง _MENU_ รายการ",
-      "sSearch": "ค้นหา ",
-      "sInfoFiltered": "(กรองจากทั้งหมด _MAX_ รายการ)",
-      "sZeroRecords": "ไม่พบข้อมูล"
-    }
+       "oPaginate": {
+         "sPrevious": "<?= lang('b_project_previous') ?>",
+         "sNext": "<?= lang('b_project_next') ?>"
+       },
+       "sInfo": "<?= lang('tl_project_pj-numbershow') ?> _START_ ถึง _END_ จาก _TOTAL_ <?= lang('tl_project_pj-list') ?>",
+       "sInfoEmpty": "<?= lang('tl_project_pj-numbershow') ?> 0 ถึง 0 จาก 0 <?= lang('tl_project_pj-list') ?>",
+       "sLengthMenu": "<?= lang('tl_project_pj-numbershow') ?> _MENU_ <?= lang('tl_project_pj-list') ?>",
+       "sSearch": "<?= lang('in_project_search') ?> ",
+       "sInfoFiltered": "(กรองจากทั้งหมด _MAX_ รายการ)",
+       "sZeroRecords": "<?= lang('in_project_zerorecords') ?>"
+     }
   });
 
   $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn waves-effect waves-light btn-info mx-1');

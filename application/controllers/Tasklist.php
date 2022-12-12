@@ -27,8 +27,8 @@ class Tasklist extends CI_Controller {
 
 	public function index()	{
 		// Create by: Natakorn Phongsarikit 15-09-2565 index
-		$values['pageTitle'] = 'รายชื่อกิจกรรม';
-		$values['breadcrumb'] = 'รายชื่อกิจกรรม';
+		$values['pageTitle'] = lang('tp_user_tl-name');
+		$values['breadcrumb'] = lang('tp_user_tl-name');
 		$values['pageContent'] = $this->load->view('tasklist/index', $values, TRUE);
 		$this->load->view('main', $values);
 	}
@@ -53,10 +53,10 @@ class Tasklist extends CI_Controller {
  	public function getAddForm() {
 		// Create by: Natakorn Phongsarikit 15-09-2565 get form for add task
 		$data = array(); 
-		$json['title'] = 'เพิ่มรายการกิจกรรมใหม่';
+		$json['title'] = lang('md_tl_a-tl');
 		$json['body'] = $this->load->view('tasklist/formadd',$data ,true);
-		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit(\'new\');">บันทึก</button>
-		<button type="button" class="btn btn-danger" onclick="closeModal(\'เพิ่มรายชื่อกิจกรรม\')">ยกเลิก</button>';
+		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit(\'new\');">'.lang('bt_save') .'</button>
+		<button type="button" class="btn btn-danger" onclick="closeModal(\'เพิ่มรายชื่อกิจกรรม\')">'.lang('bt_cancel') .'</button>';
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
@@ -76,15 +76,15 @@ class Tasklist extends CI_Controller {
 				$formData['tl_name'] = strtolower($formData['tl_name']);
 				$formData['tl_u_id'] = $_SESSION['u_id'];
 				$this->genmod->add('pms_tasklist',$formData);
-					$json = ['status'=> 1, 'msg'=>'บันทึกข้อมูลสำเร็จ'];
+					$json = ['status'=> 1, 'msg'=>lang('md_vm_ct-save')];
 			}   else{
 						$tl_id = $formData['tl_id'];
 						unset($formData['tl_id']);
 						$this->genmod->update('pms_tasklist', $formData, array('tl_id'=>$tl_id));
-						$json = ['status'=> 1, 'msg'=>'แก้ไขข้อมูลสำเร็จ'];
+						$json = ['status'=> 1, 'msg'=>lang('md_vm_ct-edit')];
 			}
 		}else{
-			$json = ['status'=> 0, 'msg'=>"พบปัญหา ข้อมูลมีความผิดพลาด เพิ่มข้อมูลไม่สำเร็จ ",'error'=>$this->form_validation->error_array()];
+			$json = ['status'=> 0, 'msg'=>lang('md_vm_ad-fail'),'error'=>$this->form_validation->error_array()];
 		}
 
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
@@ -92,11 +92,11 @@ class Tasklist extends CI_Controller {
 
 	public function getEditForm() {
 		// Create by: Natakorn Phongsarikit 15-09-2565 get form edit task
-		$json['title'] = 'แก้ไขข้อมูลรายการกิจกรรม';
+		$json['title'] = lang('md_tl_e-tl');
 		$data['getData'] = $this->genmod->getOne('pms_tasklist', '*', array('tl_id'=>$this->input->post('tl_id')));
 		$json['body'] = $this->load->view('tasklist/formadd',$data ,true);
-		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit('.$this->input->post('tl_id').');">บันทึก</button>
-		<button type="button" class="btn btn-danger" onclick="closeModal(\'แก้ไขรายชื่อกิจกรรม\')">ยกเลิก</button>';
+		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit('.$this->input->post('tl_id').');">'. lang('bt_save') .'</button>
+		<button type="button" class="btn btn-danger" onclick="closeModal(\'แก้ไขรายชื่อกิจกรรม\')">'. lang('bt_cancel') .'</button>';
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
@@ -106,14 +106,14 @@ class Tasklist extends CI_Controller {
 		$updateData = $this->input->post();
 			if($this->genmod->update('pms_tasklist', array('tl_status'=> ($updateData['tl_status'] == 0? '1':'0')), array('tl_id'=>$updateData['tl_id']))){
 				if($updateData['tl_status'] == 1) {
-					$msg = "ลบรายการออกจากระบบสำเร็จ";
+					$msg = lang('md_dtl_vm-msg');
 				} else {
 					$msg = "กู้คืนรายการสำเร็จ";
 				}
 				$json = ['status'=> 1, 'msg'=>$msg];
 			
 		}else{
-			$json = ['status'=> 0, 'msg'=>"เกิดข้อผิดพลาด"];
+			$json = ['status'=> 0, 'msg'=>lang('md_vm-fail')];
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}

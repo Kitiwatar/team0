@@ -26,8 +26,8 @@ class Home extends CI_Controller
 
 	public function index() {
 		// Create by: Patiphan Pansanga, Kitiwat Arunwong 09-09-2565 show dashboard
-		$values['pageTitle'] = 'หน้าหลัก';
-		$values['breadcrumb'] = 'ภาพรวมระบบ';
+		$values['pageTitle'] = lang('Home');
+		$values['breadcrumb'] = lang('dashboard');
 		$values['pageContent'] = $this->load->view('home/index', '', TRUE);
 		$this->load->view('main', $values);
 	}
@@ -105,7 +105,7 @@ class Home extends CI_Controller
 
 	public function getStatus() {
 		// Create by: Patiphan Pansanga , Kitiwat Arunwong 29-09-2565 return all status of project
-		$arrayStatus = array(1 => "รอดำเนินการ", 2 => "กำลังดำเนินการ", 3 => "เสร็จสิ้น", 4 => "ยกเลิก");
+		$arrayStatus = array(1=>lang('sp_home_pendproject'), 2=>lang('sp_home_inprogress'), 3=>lang('sp_home_finish'), 4=>lang('sp_home_cancel'));
 		return $arrayStatus;
 	}
 
@@ -113,24 +113,25 @@ class Home extends CI_Controller
 		// Create by: Patiphan Pansanga, Kitiwat Arunwong 29-09-2565 view project by status name
 		$p_status = null;
 		if($status == "pending") {
-			$data['pageTitle'] =  'โครงการที่รอดำเนินการ';
-			$data['breadcrumb'] = 'โครงการที่รอดำเนินการ';
+			
+			$data['pageTitle'] =  lang('pbt_pj-pending');
+			$data['breadcrumb'] = lang('pbt_pj-pending');
 			$p_status = 1;
 		} else if($status == "progress") {
-			$data['pageTitle'] =  'โครงการที่กำลังดำเนินการ';
-			$data['breadcrumb'] = 'โครงการที่กำลังดำเนินการ';
+			$data['pageTitle'] =  lang('pbt_pj-inprogress');
+			$data['breadcrumb'] = lang('pbt_pj-inprogress');
 			$p_status = 2;
 		} else if($status == "success") {
-			$data['pageTitle'] =  'โครงการที่เสร็จสิ้น';
-			$data['breadcrumb'] = 'โครงการที่เสร็จสิ้น';
+			$data['pageTitle'] =  lang('pbt_pj-finish');
+			$data['breadcrumb'] = lang('pbt_pj-finish');
 			$p_status = 3;
 		} else if($status == "fail") {
-			$data['pageTitle'] =  'โครงการที่ยกเลิก';
-			$data['breadcrumb'] = 'โครงการที่ยกเลิก';
+			$data['pageTitle'] =  lang('pbt_pj-cancel');
+			$data['breadcrumb'] = lang('pbt_pj-cancel');
 			$p_status = 4;
 		} else if($status == "all") {
-			$data['pageTitle'] =  'โครงการทั้งหมด';
-			$data['breadcrumb'] = 'โครงการทั้งหมด';
+			$data['pageTitle'] =  lang('pbt_pj-all');
+			$data['breadcrumb'] = lang('pbt_pj-all');
 			$p_status = 0;
 		} else {
 			redirect(base_url());

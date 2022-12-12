@@ -48,7 +48,7 @@
     var count = 0;
     if (formData.p_telcontact.length > 0) {
       if (formData.p_telcontact.length != 10) {
-        $('#telMsg').text(' กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก');
+        $('#telMsg').text('<?= lang('md_rqf_cp') ?>');
         $('#p_telcontact').focus();
         count++
       } else {
@@ -56,38 +56,38 @@
       }
     }
     if (!formData.p_createdate) {
-      $('#createdateMsg').text(' กรุณาระบุวันที่เริ่มโครงการ');
+      $('#createdateMsg').text(' <?= lang('md_rqf_sd') ?>');
       // $('#p_createdate').focus();
       count++
     } else if(formData.p_createdate == "wrongFormat") {
-      $('#createdateMsg').text(' กรุณาระบุวันที่เริ่มโครงการให้ถูกต้อง');
+      $('#createdateMsg').text(' <?= lang('md_rqf_sd-f') ?>');
       count++
     } else {
       $('#createdateMsg').text(' ');
     }
     if (!formData.p_customer) {
-      $('#customerMsg').text(' กรุณากรอกชื่อลูกค้า');
+      $('#customerMsg').text(' <?= lang('md_rqf_cm') ?>');
       $('#p_customer').focus();
       count++
     } else {
       $('#customerMsg').text(' ');
     }
     if (!formData.p_detail) {
-      $('#detailMsg').text(' กรุณากรอกรายระเอียดโครงการ');
+      $('#detailMsg').text(' <?= lang('md_rqf_pd') ?>');
       $('#p_detail').focus();
       count++
     } else {
       $('#detailMsg').text(' ');
     }
     if (!formData.p_name) {
-      $('#nameMsg').text(' กรุณากรอกชื่อโครงการ');
+      $('#nameMsg').text(' <?= lang('md_rqf_pn') ?>');
       $('#p_name').focus();
       count++
     } else {
       $('#nameMsg').text(' ');
     }
     if (!validateEmail(formData.p_emailcontact) && formData.p_emailcontact != "") {
-      $('#emailMsg').text(' กรุณากรอกอีเมลให้ถูกต้อง');
+      $('#emailMsg').text(' <?= lang('md_rqf_em') ?>');
       $('#p_emailcontact').focus();
       count++
     } else {
@@ -100,11 +100,11 @@
     var mainMsg;
     var detailMsg;
     if (p_id == "new") {
-      mainMsg = "ยืนยันการเพิ่มโครงการ";
-      detailMsg = "คุณต้องการเพิ่มโครงการในระบบใช่หรือไม่";
+      mainMsg =  '<?= lang('md_ap_main-msg') ?>' ;
+      detailMsg = '<?= lang('md_ap_detail-msg') ?>';
     } else {
-      mainMsg = "ยืนยันการแก้ไขโครงการ";
-      detailMsg = "คุณต้องการแก้ไขโครงการในระบบใช่หรือไม่";
+      mainMsg = '<?= lang('md_ep_main-msg')?>';
+      detailMsg = '<?= lang('md_ep_detail-msg') ?>';
     }
     swal({
       title: mainMsg,
@@ -112,8 +112,8 @@
       type: "warning",
       showCancelButton: true,
       showConfirmButton: true,
-      confirmButtonText: "ยืนยัน",
-      cancelButtonText: "ยกเลิก",
+      confirmButtonText: '<?= lang('bt_confirm')?>',
+      cancelButtonText: '<?= lang('bt_cancel') ?>',
     }).then(function(isConfirm) {
       if (isConfirm.value) {
         $.ajax({
@@ -124,7 +124,7 @@
           if (returnData.status == 1) {
             loadList();
             swal({
-              title: "สำเร็จ",
+              title: "<?= lang('md_vm-suc') ?>",
               text: returnData.msg,
               type: "success",
               showCancelButton: false,
@@ -138,7 +138,7 @@
             $('#mainModal').modal('hide');
           } else {
             swal({
-              title: "ล้มเหลว",
+              title: "<?= lang('md_vm-fail')?>",
               text: returnData.msg,
               type: "error",
               showCancelButton: false,
@@ -191,11 +191,11 @@
     var mainMsg;
     var detailMsg;
     if (p_status < 1) {
-      mainMsg = "ยืนยันการลบโครงการ";
-      detailMsg = "คุณต้องการลบโครงการใช่หรือไม่";
+      mainMsg = '<?= lang('md_dp_main-msg') ?>';
+      detailMsg = '<?= lang('md_dp_detail-msg') ?>';
     } else {
-      mainMsg = "ยืนยันการกู้คืนโครงการ";
-      detailMsg = "คุณต้องการกู้คืนโครงการใช่หรือไม่";
+      mainMsg = '<?= lang('md_rp_main-msg') ?>';
+      detailMsg = '<?= lang('md_rp_detail-msg') ?>';
     }
     swal({
       title: mainMsg,
@@ -203,9 +203,9 @@
       type: "warning",
       showCancelButton: true,
       showConfirmButton: true,
-      confirmButtonText: "ยืนยัน",
+      confirmButtonText: '<?= lang('bt_confirm')?>',
       cancelButtonColor: "#E4E4E4",
-      cancelButtonText: "<font style='color:black'>" + "ยกเลิก" + "</font>",
+      cancelButtonText: "<font style='color:black'>" + '<?= lang('bt_cancel')?>' + "</font>",
     }).then(function(isConfirm) {
       if (isConfirm.value) {
         $.ajax({
@@ -219,7 +219,7 @@
           loadList();
           if (returnData.status == 1) {
             swal({
-              title: "สำเร็จ",
+              title: '<?= lang('md_v,-suc')?>',
               text: returnData.msg,
               type: "success",
               showCancelButton: false,
@@ -228,7 +228,7 @@
             });
           } else {
             swal({
-              title: "ล้มเหลว",
+              title: '<?= lang('md_v,-fail')?>',
               text: returnData.msg,
               type: "error",
               showCancelButton: false,
@@ -260,7 +260,7 @@
           // var rows = table.rows( '#project'+id ).remove().draw();
         } else {
           let newTime = new Date(seconds * 1000).toISOString().slice(11, 16);
-          restore[i].innerHTML = "กู้คืนภายใน <span style='font-size:16px;'>" + newTime + "</span> ชม.";
+          restore[i].innerHTML = lang('md_rp') +" <span style='font-size:16px;'>" + newTime + "</span> ชม.";
         }
       }
     }, 1000);

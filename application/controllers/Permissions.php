@@ -37,9 +37,9 @@ class Permissions extends CI_Controller{
 			$check = 1;
 		}
 		if($check == 1) {
-			$json = ['status'=> 1, 'msg'=>'เพิ่มพนักงานในโครงการสำเร็จ'];
+			$json = ['status'=> 1, 'msg'=>lang('md_aep_s-msg')];
 		} else {
-			$json = ['status'=> 0, 'msg'=>'เพิ่มพนักงานในโครงการไม่สำเร็จ'];
+			$json = ['status'=> 0, 'msg'=>lang('md_aep_f-msg')];
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
@@ -52,9 +52,9 @@ class Permissions extends CI_Controller{
 		$validCheck = $this->genmod->getOne('pms_permission', '*', array('per_p_id'=>$p_id, 'per_u_id'=>$u_id));
 		if(isset($validCheck->per_u_id)) {
 			$this->genmod->update('pms_permission', array('per_status' => 0), array('per_id'=> $validCheck->per_id));
-			$json = ['status'=> 1, 'msg'=>'ลบพนักงานในโครงการสำเร็จ'];
+			$json = ['status'=> 1, 'msg'=>lang('md_dep_s-msg')];
 		} else {
-			$json = ['status'=> 0, 'msg'=>'ลบพนักงานในโครงการไม่สำเร็จ'];
+			$json = ['status'=> 0, 'msg'=>lang('md_dep_f-msg')];
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
@@ -64,9 +64,9 @@ class Permissions extends CI_Controller{
 		$data['p_id'] = $this->input->post('p_id');
         $data['users'] = $this->genmod->getAll('pms_user', '*', array('u_role' => 3));
         $data['permissions'] = $this->genmod->getAll('pms_permission', '*', array('per_p_id' =>  $this->input->post('p_id'), 'per_status' => 1));
-		$json['title'] = 'เพิ่มพนักงานในโครงการ';
+		$json['title'] = lang('md_tl_a-em');
 		$json['body'] = $this->load->view('permissions/formadd', $data, TRUE);
-		$json['footer'] = '<button type="button" class="btn btn-secondary" style="background-color: grey; color:white;" data-dismiss="modal" aria-hidden="true">ปิด</button>';
+		$json['footer'] = '<button type="button" class="btn btn-secondary" style="background-color: grey; color:white;" data-dismiss="modal" aria-hidden="true">'.lang('md_ap_close').'</button>';
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 

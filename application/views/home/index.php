@@ -12,7 +12,7 @@
                     <div class="card-body">
                         <h3><i class="fas fa-list" style="color: #fb9678;"></i></h3>
                         <h2 class="counter text-primary text-end" id="all"></h2>
-                        <span class="text-muted fs-5"><?= lang('t_home_allproject') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/all"><button class="btn  waves-effect waves-light btn-outline-primary">ดูเพิ่มเติม...</button></a></span> 
+                        <span class="text-muted fs-5"><?= lang('sp_home_allproject') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/all"><button class="btn  waves-effect waves-light btn-outline-primary"><?= lang('b_viewmore') ?></button></a></span> 
                         <div class="progress mt-3">
                             <div class="progress-bar bg-primary" role="progressbar" style="width: 100%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
@@ -24,7 +24,7 @@
                     <div class="card-body">
                         <h3><i class="mdi mdi-library-books" style="color: #FEC107;"></i></h3>
                         <h2 class="counter text-end" style="color: #FEC107;" id="p_pending"></h2>
-                        <span class="text-muted fs-5"><?= lang('t_home_pendproject') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/pending"><button class="btn  waves-effect waves-light btn-outline-warning">ดูเพิ่มเติม...</button></a></span>
+                        <span class="text-muted fs-5"><?= lang('sp_home_pendproject') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/pending"><button class="btn  waves-effect waves-light btn-outline-warning"><?= lang('b_viewmore') ?></button></a></span>
                         <!-- <p class="text-muted">รอดำเนินการ</p> -->
                         <div class="progress mt-3">
                             <div class="progress-bar" role="progressbar" style="width: 100%; height: 6px; background-color: #FEC107;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -38,7 +38,7 @@
                         <h3><i class="far fa-edit" style="color: #03A9F3;"></i></h3>
                         <h2 class="counter text-end" style="color: #03A9F3;" id="p_progress"></h2>
                         <!-- <p class="text-muted">กำลังดำเนินการ</p> -->
-                        <span class="text-muted fs-5">กำลังดำเนินการ</span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/progress"><button class="btn waves-effect waves-light btn-outline-info">ดูเพิ่มเติม...</button></a></span>
+                        <span class="text-muted fs-5"><?= lang('sp_home_inprogress') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/progress"><button class="btn waves-effect waves-light btn-outline-info"><?= lang('b_viewmore') ?></button></a></span>
                         <div class="progress mt-3">
                             <div class="progress-bar" role="progressbar" style="width: 100%; height: 6px; background-color: #03A9F3;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
@@ -65,7 +65,7 @@
                                 <!-- </div> -->
                                 <div class="row mt-2" style="color:white;">
                                     <div class="col-12">
-                                        <div class="text-end fs-2">เสร็จสิ้น</div>
+                                        <div class="text-end fs-2"><?= lang('sp_home_finish') ?></div>
                                         <div class="progress">
                                             <div class="progress-bar bg-primary" role="progressbar" style="width: 0%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
@@ -73,7 +73,7 @@
                                     <div class="col-12">
                                         <div class="row">
                                             <div class="col-6"><i class="mdi mdi-bookmark-check" style="font-size: 60px; color:white;"></i></div>
-                                            <div class="col-6 pt-3"><div style="font-size: 40px;" class="text-end p-0" id="p_success"></div><div class="text-end"><a href="<?= base_url() ?>home/viewProjects/success"><button class="btn waves-effect waves-light btn-outline-light">ดูเพิ่มเติม...</button></a></div></div>
+                                            <div class="col-6 pt-3"><div style="font-size: 40px;" class="text-end p-0" id="p_success"></div><div class="text-end"><a href="<?= base_url() ?>home/viewProjects/success"><button class="btn waves-effect waves-light btn-outline-light"><?= lang('b_viewmore') ?></button></a></div></div>
                                         </div>                                        
                                     </div>
                                 </div>
@@ -93,7 +93,7 @@
                                         <div style="font-size: 20px;">ยกเลิก<span class="float-end" style="font-size: 15px;">ดูเพิ่มเติม...</span></div>
                                     </div> -->
                                     <div class="col-12">
-                                        <div class="text-end fs-2">ยกเลิก</div>
+                                        <div class="text-end fs-2"><?= lang('sp_home_cancel') ?></div>
                                         <div class="progress">
                                             <div class="progress-bar bg-primary" role="progressbar" style="width: 0%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
@@ -101,7 +101,7 @@
                                     <div class="col-12">
                                         <div class="row">
                                             <div class="col-6"><i class="mdi mdi-emoticon-sad" style="font-size: 60px; color:white;"></i></div>
-                                            <div class="col-6 pt-3"><div style="font-size: 40px;" class="text-end p-0" id="p_fail"></div><div class="text-end"><a href="<?= base_url() ?>home/viewProjects/fail"><button class="btn waves-effect waves-light btn-outline-light">ดูเพิ่มเติม...</button></a></div></div></div>
+                                            <div class="col-6 pt-3"><div style="font-size: 40px;" class="text-end p-0" id="p_fail"></div><div class="text-end"><a href="<?= base_url() ?>home/viewProjects/fail"><button class="btn waves-effect waves-light btn-outline-light"><?= lang('b_viewmore') ?></button></a></div></div></div>
                                         </div>                                        
                                     </div>
                                 </div>
@@ -160,7 +160,7 @@
 
                 tooltip: {
                     trigger: 'item',
-                    formatter: " {b}<br/> {c} โครงการ ({d}%)"
+                    formatter: " {b}<br/> {c} <?= lang('h_project') ?> ({d}%)"
                 },
                 legend: {
                     // orient: 'vertical',
@@ -169,7 +169,7 @@
                     // y: 'center',
                     x: xPosition,
                     y: yPosition,
-                    data: ['เสร็จสิ้น', 'ยกเลิก', 'รอดำเนินการ', 'กำลังดำเนินการ']
+                    data: ['<?= lang('sp_home_finish') ?>', '<?= lang('sp_home_cancel') ?>', '<?= lang('sp_home_pendproject') ?>', '<?= lang('sp_home_inprocess') ?>']
                 },
                 toolbox: {
                     show: true,
@@ -199,23 +199,23 @@
                     },
                     data: [{
                             value: returnData.projectSuccess,
-                            name: 'เสร็จสิ้น'
+                            name: '<?= lang('sp_home_finish') ?>'
                         },
                         {
                             value: returnData.projectFail,
-                            name: 'ยกเลิก'
+                            name: '<?= lang('sp_home_cancel') ?>'
                         },
                         {
                             value: returnData.projectPending,
-                            name: 'รอดำเนินการ'
+                            name: '<?= lang('sp_home_pendproject') ?>'
                         },
                         {
                             value: returnData.projectProgress,
-                            name: 'กำลังดำเนินการ'
+                            name: '<?= lang('sp_home_inprocess') ?>'
                         },
                     ],
                     label: {
-                        formatter: '{c} โครงการ\n ({d}%) ',
+                        formatter: '{c} <?= lang('h_project') ?>\n ({d}%) ',
                     }
                 }]
             };

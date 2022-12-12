@@ -3,16 +3,16 @@
    <div class="col-12">
      <div class="card">
        <div class="card-body">
-         <h4 class='card-title'>ตารางรายชื่อ<?=$pageTitle?></h4>
+         <h4 class='card-title'><?= lang('tl_table_title') ?><?=$pageTitle?></h4>
          <div class="table-responsive my-2">
            <table class="display table dt-responsive nowrap">
              <thead>
                <tr>
-                 <th>ลำดับ</th>
-                 <th>ชื่อโครงการ</th>
-                 <th>ผู้รับผิดชอบหลัก</th>
-                 <th>กิจกรรม</th>
-                 <th>สถานะ</th>
+                 <th><?= lang('tl_project_pj-no') ?></th>
+                 <th><?= lang('tl_project_pj-name') ?></th>
+                 <th><?= lang('tl_project_pj-mainperson') ?></th>
+                 <th><?= lang('tl_project_pj-task') ?></th>
+                 <th><?= lang('tl_project_pj-status') ?></th>
                </tr>
              </thead>
              <tbody>
@@ -48,7 +48,7 @@
              </tbody>
            </table>
          </div>
-         <a type="button" class="btn waves-effect waves-light btn-dark" href="<?= base_url() ?>"><i class="mdi mdi-arrow-left"></i> ย้อนกลับ</a>
+         <a type="button" class="btn waves-effect waves-light btn-dark" href="<?= base_url() ?>"><i class="mdi mdi-arrow-left"></i> <?= lang('b_project_back') ?></a>
        </div>
      </div>
    </div>
@@ -88,15 +88,15 @@
      ],
      "language": {
        "oPaginate": {
-         "sPrevious": "ถอยกลับ",
-         "sNext": "ถัดไป"
+         "sPrevious": "<?= lang('b_project_previous') ?>",
+         "sNext": "<?= lang('b_project_next') ?>"
        },
-       "sInfo": "แสดง _START_ ถึง _END_ จาก _TOTAL_ รายการ",
-       "sInfoEmpty": "แสดง 0 ถึง 0 จาก 0 รายการ",
-       "sLengthMenu": "แสดง _MENU_ รายการ",
-       "sSearch": "ค้นหา ",
+       "sInfo": "<?= lang('tl_project_pj-numbershow') ?> _START_ ถึง _END_ จาก _TOTAL_ <?= lang('tl_project_pj-list') ?>",
+       "sInfoEmpty": "<?= lang('tl_project_pj-numbershow') ?> 0 ถึง 0 จาก 0 <?= lang('tl_project_pj-list') ?>",
+       "sLengthMenu": "<?= lang('tl_project_pj-numbershow') ?> _MENU_ <?= lang('tl_project_pj-list') ?>",
+       "sSearch": "<?= lang('in_project_search') ?> ",
        "sInfoFiltered": "(กรองจากทั้งหมด _MAX_ รายการ)",
-       "sZeroRecords": "ไม่พบข้อมูล"
+       "sZeroRecords": "<?= lang('in_project_zerorecords') ?>"
      }
    });
    $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn waves-effect waves-light btn-info mx-1');

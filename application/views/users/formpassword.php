@@ -6,24 +6,24 @@
                 <div class="card-body">
                     <?php if (isset($personPassword)) { ?>
                         <div class="form-group">
-                            <label for="curPwd" class="form-label">โปรดกรอกรหัสผ่านปัจจุบัน</label>
-                            <input type="password" class="form-control" name="inputValue[]" id="curPwd" onkeyup="checkCurrentPassword()" placeholder="รหัสผ่านปัจจุบัน">
+                            <label for="curPwd" class="form-label"><?= lang('md_cp_psc') ?></label>
+                            <input type="password" class="form-control" name="inputValue[]" id="curPwd" onkeyup="checkCurrentPassword()" placeholder="<?= lang('md_cp_ph-psc') ?>">
                             <font id="curPwdMsg" class="small text-danger"></font>
                         </div>
                     <?php } ?>
                     <div class="form-group">
-                        <label for="pwd" class="form-label">โปรดกรอกรหัสผ่านใหม่</label>
-                        <input type="password" class="form-control" name="inputValue[]" id="pwd" onkeyup="checkConfirmPassword()" placeholder="รหัสผ่าน">
+                        <label for="pwd" class="form-label"><?= lang('md_cp_psn') ?></label>
+                        <input type="password" class="form-control" name="inputValue[]" id="pwd" onkeyup="checkConfirmPassword()" placeholder="<?= lang('md_cp_ph-psn') ?>">
                         <font id="pwdMsg" class="small text-danger"></font>
                     </div>
                     <div class="form-group">
-                        <label for="cfPwd" class="form-label">โปรดกรอกรหัสผ่านใหม่อีกครั้ง</label>
-                        <input type="password" class="form-control" name="inputValue[]" id="cfPwd" onkeyup="checkConfirmPassword()"  placeholder="ยืนยันรหัสผ่าน">
+                        <label for="cfPwd" class="form-label"><?= lang('md_cp_psng') ?></label>
+                        <input type="password" class="form-control" name="inputValue[]" id="cfPwd" onkeyup="checkConfirmPassword()"  placeholder="<?= lang('md_cp_ph-psng') ?>">
                         <font id="cfPwdMsg" class="small text-danger"></font>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="checkBoxPwd">
-                        <label class="form-check-label" for="checkBoxPwd">แสดงรหัสผ่าน</label>
+                        <label class="form-check-label" for="checkBoxPwd"><?= lang('md_cp-cb') ?></label>
                     </div>
                 </div>
             </form>
@@ -40,7 +40,7 @@
             }
         }).done(function(returnData) {
             if (returnData.result == 0) {
-                $('#curPwdMsg').text('รหัสผ่านปัจจุบันไม่ถูกต้อง');
+                $('#curPwdMsg').text('<?= lang('md_cp_rqf-curp') ?>');
             } else {
                 $('#curPwdMsg').text(' ');
             }
@@ -49,8 +49,8 @@
 
     function checkConfirmPassword() {
         if ($('#pwd').val() != $('#cfPwd').val()) {
-            $('#pwdMsg').text('รหัสผ่านใหม่ไม่ตรงกัน');
-            $('#cfPwdMsg').text('รหัสผ่านใหม่ไม่ตรงกัน');
+            $('#pwdMsg').text('<?= lang('md_cp_rqf-npnm') ?>');
+            $('#cfPwdMsg').text('<?= lang('md_cp_rqf-npnm') ?>');
         } else {
             $('#pwdMsg').text(' ');
             $('#cfPwdMsg').text(' ');
@@ -91,25 +91,25 @@
 
         if (!formData.pwd || !formData.cfPwd) {
             $('#errMsg').addClass('text-danger');
-            $('#errMsg').text('กรุณาระบุข้อมูลให้ครบถ้วน');
+            $('#errMsg').text('<?= lang('md_cp_rqf') ?>');
             !formData.pwd ? $('#cfPwd').focus() : '';
             !formData.cfPwd ? $('#pwd').focus() : '';
             !formData.pwd ? $('#curPwd').focus() : '';
             return false;
         } else if (result == 0) {
             $('#errMsg').addClass('text-danger');
-            $('#errMsg').text('รหัสผ่านปัจจุบันไม่ถูกต้อง');
+            $('#errMsg').text('<?= lang('md_cp_rqf-curp') ?>');
             !formData.pwd ? $('#curPwd').focus() : '';
             return false;
         } else if (formData.pwd != formData.cfPwd) {
             $('#errMsg').addClass('text-danger');
-            $('#errMsg').text('รหัสผ่านไม่ตรงกัน');
+            $('#errMsg').text('<?= lang('md_cp_rqf-cpns') ?>');
             return false;
         }
 
         swal({
-            title: "ยืนยันการเปลี่ยนรหัสผ่าน",
-            text: "คุณต้องการเปลี่ยนรหัสผ่านใช่หรือไม่",
+            title: "<?= lang('md_cpes_main-msg') ?>",
+            text: "<?= lang('md_cpes_detail-msg') ?>",
             type: "warning",
             showCancelButton: true,
             showConfirmButton: true,
@@ -124,7 +124,7 @@
                 }).done(function(returnData) {
                     if (returnData.status == 1) {
                         swal({
-                            title: "สำเร็จ",
+                            title: "<?= lang('md_vm-suc') ?>",
                             text: returnData.msg,
                             type: "success",
                             showCancelButton: false,
@@ -135,7 +135,7 @@
                         $('#mainModal').modal('hide');
                     } else {
                         swal({
-                            title: "ล้มเหลว",
+                            title: "<?= lang('md_vm-fail') ?>",
                             text: returnData.msg,
                             type: "error",
                             showCancelButton: false,

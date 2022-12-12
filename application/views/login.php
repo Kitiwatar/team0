@@ -62,7 +62,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" id="loginBtn" style="width: 100%;" class="btn btn-info btn-lg btn-block fs-3">เข้าสู่ระบบ</button>
+                                <button type="submit" id="loginBtn" style="width: 100%;" class="btn btn-info btn-lg btn-block fs-3"><?= lang('b_login') ?></button>
                             </form>
                         </div>
                     </div>

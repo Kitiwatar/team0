@@ -33,8 +33,8 @@ class Tasks extends CI_Controller{
 			redirect(base_url("projects"));
 		}
 		
-		$values['pageTitle'] = 'ตารางแสดงกิจกรรมโครงการ';
-		$values['breadcrumb'] = 'ตารางแสดงกิจกรรมโครงการ';
+		$values['pageTitle'] = lang('th_project_at-task');
+		$values['breadcrumb'] =lang('th_project_at-task');
 		$values['p_id'] = $p_id;
 		$values['pageContent'] = $this->load->view('tasks/index', $values, TRUE);
 		$this->load->view('main', $values);
@@ -42,8 +42,8 @@ class Tasks extends CI_Controller{
 
 	public function get() {
 		// Create by: Patiphan Pansanga 14-10-2565 get tasks list
-		$data['pageTitle'] =  'โครงการที่เกี่ยวข้อง';
-		$data['breadcrumb'] = 'โครงการที่เกี่ยวข้อง';
+		$data['pageTitle'] =  lang('th_project_pj-responsible');
+		$data['breadcrumb'] = lang('th_project_pj-responsible');
 		if($_SESSION['u_role'] > 1) {
 			$checkPermission = $this->genmod->getOne('pms_permission', '*',array('per_u_id'=>$_SESSION['u_id'], 'per_p_id'=>$this->input->post('p_id'), 'per_status'=>1),'','','');
 			if(isset($checkPermission->per_id)) {
@@ -91,7 +91,7 @@ class Tasks extends CI_Controller{
 					$this->genmod->add('pms_file', $data);
 				}
 				}
-				$json = ['status'=> 1, 'msg'=>'บันทึกข้อมูลสำเร็จ'];		
+				$json = ['status'=> 1, 'msg'=> lang('md_vm_ct-save')];		
 			} else {		
 				$t_id = $formData['t_id'];
 				unset($formData['t_id']);
@@ -113,7 +113,7 @@ class Tasks extends CI_Controller{
 					}
 				}
 				$this->genmod->update('pms_task', $formData, array('t_id'=>$t_id));
-				$json = ['status'=> 1, 'msg'=>'แก้ไขข้อมูลสำเร็จ'];
+				$json = ['status'=> 1, 'msg'=>lang('md_vm_ct-edit')];
 			}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
@@ -164,10 +164,10 @@ class Tasks extends CI_Controller{
 		// Create by: Patiphan Pansanga 14-10-2565 get add form
 		$data['p_id'] =  $this->input->post('p_id');
 		$data['tasks'] = $this->genmod->getAll('pms_tasklist', '*',array('tl_status'=>1));
-		$json['title'] = 'เพิ่มกิจกรรม <span class="text-danger" style="font-size:12px;">(*จำเป็นต้องกรอกข้อมูล)</span>';
+		$json['title'] = lang('md_tl_a-pt').' <span class="text-danger" style="font-size:12px;">(*'.lang('md_tl-req') .')</span>';
 		$json['body'] = $this->load->view('tasks/formadd', $data, TRUE);
-		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit(\'new\');">บันทึก</button>
-		<button type="button" class="btn btn-danger" onclick="closeModalTask(\'เพิ่มกิจกรรม\')">ยกเลิก</button>';
+		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit(\'new\');">'. lang('bt_save') .'</button>
+		<button type="button" class="btn btn-danger" onclick="closeModalTask(\'เพิ่มกิจกรรม\')">'. lang('bt_cancel') .'</button>';
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
@@ -177,10 +177,10 @@ class Tasks extends CI_Controller{
 		$data['tasks'] = $this->genmod->getAll('pms_tasklist', '*',array('tl_status'=>1));
 		$data['getData'] = $this->genmod->getOne('pms_task', '*', array('t_id'=>$this->input->post('t_id')),'',$arrayJoin);
 		$data['getFiles'] = $this->genmod->getAll('pms_file', '*', array('f_t_id'=>$this->input->post('t_id'), 'f_status'=>1),'','','');
-		$json['title'] = 'แก้ไขข้อมูลกิจกรรม <span class="text-danger" style="font-size:12px;">(*จำเป็นต้องกรอกข้อมูล)</span>';
+		$json['title'] =  lang('md_tl_e-pt').'<span class="text-danger" style="font-size:12px;"> (*'.lang('md_tl-req').')</span>';
 		$json['body'] = $this->load->view('tasks/formadd', $data ,true);
-		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit('.$this->input->post('t_id').');">บันทึก</button>
-		<button type="button" class="btn btn-danger" id="closeBtn" onclick="closeModalTask(\'แก้ไขกิจกรรม\')">ยกเลิก</button>';
+		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit('.$this->input->post('t_id').');">'. lang('bt_save') .'</button>
+		<button type="button" class="btn btn-danger" id="closeBtn" onclick="closeModalTask(\'แก้ไขกิจกรรม\')">'.lang("bt_cancel").'</button>';
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
@@ -191,11 +191,11 @@ class Tasks extends CI_Controller{
 		$data['getData'] = $this->genmod->getOne('pms_task', '*', array('t_id'=>$this->input->post('t_id')),'',$arrayJoin);
 		$data['getFiles'] = $this->genmod->getAll('pms_file', '*', array('f_t_id'=>$this->input->post('t_id'), 'f_status'=>1),'','','');
 		$data['detail'] = "yes";
-		$json['title'] = 'รายละเอียดกิจกรรม';
+		$json['title'] = lang('md_tl_v-pt');
 		$json['body'] = $this->load->view('tasks/formadd', $data ,true);
 		if($data['getData']->p_status < 3) {
 			if($_SESSION['u_id'] == $data['getData']->t_u_id || $_SESSION['u_id'] <= 2) {
-				$json['footer'] = '<button type="button" class="btn btn-warning" onclick="edit(' . $this->input->post('t_id') . ')" title="แก้ไขข้อมูลกิจกรรม">แก้ไขข้อมูล</button>';
+				$json['footer'] = '<button type="button" class="btn btn-warning" onclick="edit(' . $this->input->post('t_id') . ')" title="'. lang('tt_pt_etask').'">'.lang('bt_edit').'</button>';
 			} else {
 				$json['footer'] = '';
 			}
@@ -217,14 +217,14 @@ class Tasks extends CI_Controller{
 				if($tasksCount == 0) {
 					$this->genmod->update('pms_project', array('p_status'=> 1), array('p_id' => $updateData['p_id']));
 				}
-				$msg = "ลบกิจกรรมสำเร็จ";
+				$msg = lang('md_dt_vm-msg');
 			} else {
 				$this->genmod->update('pms_task', array('t_status'=> 1), array('t_id' => $updateData['t_id']));
 				$msg = "กู้คืนกิจกรรมสำเร็จ";
 			}				 
 			$json = ['status'=> 1, 'msg'=>$msg];	
 		} else {
-			$json = ['status'=> 0, 'msg'=>"เกิดข้อผิดพลาด"];
+			$json = ['status'=> 0, 'msg'=>lang('md_vm-fail')];
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}

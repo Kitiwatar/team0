@@ -6,10 +6,10 @@
 				<table class="display table table-striped table-bordered dt-responsive nowrap" id="userTable">
 					<thead>
 						<tr>
-							<th class="text-center">ลำดับ</th>
-							<th>ชื่อ-นามสกุล</th>
-				<th>อีเมล</th>
-							<th class="text-center">ปุ่มดำเนินการ</th>
+							<th class="text-center"><?= lang('tl_project_pj-no') ?></th>
+							<th><?= lang('gd_project_em-fullname') ?></th>
+				<th><?= lang('gd_project_em-email') ?></th>
+							<th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -26,7 +26,7 @@
 									<td class="text-center"><?= $count++ ?></td>
 									<td><?= $value->u_firstname . " " . $value->u_lastname ?></td>
 					<td><?= $value->u_email ?></td>
-									<td class="text-center" id="user<?= $value->u_id ?>"><button class="btn btn-success" onclick="addPermission(<?= $value->u_id ?>,<?= $p_id ?>)">เพิ่ม</button></td>
+									<td class="text-center" id="user<?= $value->u_id ?>"><button class="btn btn-success" onclick="addPermission(<?= $value->u_id ?>,<?= $p_id ?>)"><?= lang('md_ap_add') ?></button></td>
 								</tr>
 							<?php endforeach; ?>
 						<?php endif; ?>
@@ -39,24 +39,25 @@
 
 <script>
 	$('#userTable').DataTable({
+		"dom": 'ftlp',
 		"language": {
-			"oPaginate": {
-				"sPrevious": "ถอยกลับ",
-				"sNext": "ถัดไป"
-			},
-			"sInfo": "แสดง _START_ ถึง _END_ จาก _TOTAL_ รายการ",
-			"sInfoEmpty": "แสดง 0 ถึง 0 จาก 0 รายการ",
-			"sLengthMenu": "แสดง _MENU_ รายการ",
-			"sSearch": "ค้นหา ",
-			"sInfoFiltered": "(กรองจากทั้งหมด _MAX_ รายการ)",
-			"sZeroRecords": "ไม่พบข้อมูล"
-		},
+       "oPaginate": {
+         "sPrevious": "<?= lang('b_project_previous') ?>",
+         "sNext": "<?= lang('b_project_next') ?>"
+       },
+       "sInfo": "<?= lang('tl_project_pj-numbershow') ?> _START_ ถึง _END_ จาก _TOTAL_ <?= lang('tl_project_pj-list') ?>",
+       "sInfoEmpty": "<?= lang('tl_project_pj-numbershow') ?> 0 ถึง 0 จาก 0 <?= lang('tl_project_pj-list') ?>",
+       "sLengthMenu": "<?= lang('tl_project_pj-numbershow') ?> _MENU_ <?= lang('tl_project_pj-list') ?>",
+       "sSearch": "<?= lang('in_project_search') ?> ",
+       "sInfoFiltered": "(กรองจากทั้งหมด _MAX_ รายการ)",
+       "sZeroRecords": "<?= lang('in_project_zerorecords') ?>"
+     },
 		"lengthMenu": [5],
 	});
 
 	function addPermission(u_id, p_id) {
 		let user = document.getElementById("user" + u_id)
-		user.innerHTML = `<button class="btn btn-danger" onclick="deletePermission(` + u_id + `,` + p_id + `)">ลบ</button>`
+		user.innerHTML = `<button class="btn btn-danger" onclick="deletePermission(` + u_id + `,` + p_id + `)"> <?= lang('md_ap_delete') ?> </button>`
 		$.ajax({
 			method: "post",
 			url: '<?= base_url() ?>permissions/add',
@@ -68,7 +69,7 @@
 			loadList();
 			if (returnData.status == 1) {
 				$.toast({
-					heading: 'สำเร็จ',
+					heading: '<?= lang('md_vm-suc')?>',
 					text: returnData.msg,
 					position: 'top-right',
 					icon: 'success',
@@ -77,7 +78,7 @@
 				});
 			} else {
 				$.toast({
-					heading: 'สำเร็จ',
+					heading: '<?= lang('md_vm-suc')?>',
 					text: returnData.msg,
 					position: 'top-right',
 					icon: 'error',
@@ -90,7 +91,7 @@
 
 	function deletePermission(u_id, p_id) {
 		let user = document.getElementById("user" + u_id)
-		user.innerHTML = `<button class="btn btn-success" onclick="addPermission(` + u_id + `,` + p_id + `)">เพิ่ม</button>`
+		user.innerHTML = `<button class="btn btn-success" onclick="addPermission(` + u_id + `,` + p_id + `)"><?= lang('md_ap_add') ?></button>`
 		$.ajax({
 			method: "post",
 			url: '<?= base_url() ?>permissions/remove',
@@ -102,7 +103,7 @@
 			loadList();
 			if (returnData.status == 1) {
 				$.toast({
-					heading: 'สำเร็จ',
+					heading: '<?= lang('md_vm-suc')?>',
 					text: returnData.msg,
 					position: 'top-right',
 					icon: 'success',
@@ -111,7 +112,7 @@
 				});
 			} else {
 				$.toast({
-					heading: 'สำเร็จ',
+					heading: '<?= lang('md_vm-suc')?>',
 					text: returnData.msg,
 					position: 'top-right',
 					icon: 'error',

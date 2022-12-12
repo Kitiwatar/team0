@@ -27,9 +27,9 @@
         <div class="card-body">
           <input type="hidden" id="t_p_id" value="<?= isset($getData) ? $getData->t_p_id : $p_id ?>">
           <div class="form-group">
-            <label for="p_detail" class="form-label">กิจกรรมโครงการ<?= isset($detail) ? '' : $required ?></label>
+            <label for="p_detail" class="form-label"><?= lang('md_at-tl') ?><?= isset($detail) ? '' : $required ?></label>
             <select class="form-select" name="inputValue[]" id="t_tl_id" <?= isset($detail) ? "disabled" : '' ?>>
-              <option selected disabled value="">เลือกกิจกรรม</option>
+              <option selected disabled value=""><?= lang('md_at_ph-tl') ?></option>
               <?php foreach ($tasks as $key => $value) { ?>
                 <?php if (isset($getData)) {
                   if ($getData->t_tl_id == $value->tl_id) { ?>
@@ -43,8 +43,8 @@
             <font id="nameMsg" class="small text-danger"></font>
           </div>
           <div class="form-group">
-            <label for="p_detail" class="form-label">รายละเอียดกิจกรรม<?= isset($detail) ? '' : $required ?></label>
-            <textarea class="form-control" name="inputValue[]" rows="3" id="t_detail" <?= isset($detail) ? "disabled" : '' ?> placeholder="กรอกรายละเอียดของกิจกรรม (เสนอราคา...)"><?= isset($getData) ? $getData->t_detail : '' ?></textarea>
+            <label for="p_detail" class="form-label"><?= lang('md_at-dtl') ?><?= isset($detail) ? '' : $required ?></label>
+            <textarea class="form-control" name="inputValue[]" rows="3" id="t_detail" <?= isset($detail) ? "disabled" : '' ?> placeholder="<?= lang('md_at_ph-dtl') ?>"><?= isset($getData) ? $getData->t_detail : '' ?></textarea>
             <font id="detailMsg" class="small text-danger"></font>
           </div>
           <!-- <div class="form-group">
@@ -56,10 +56,10 @@
             <font id="createdateMsg" class="small text-danger"></font>
           </div> -->
           <div class="form-group">
-              <label for="p_createdate" class="form-label">วันที่เริ่มโครงการ<?php if(!isset($detail)) { echo $required; } ?></label>
+              <label for="p_createdate" class="form-label"><?= lang('md_at-imd') ?><?php if(!isset($detail)) { echo $required; } ?></label>
               <div class="input-group date" data-provide="datepicker" data-date-format="dd-mm-yyyy">
                 <?php if(isset($getData)) : $newDate = date("d-m-Y", strtotime($getData->t_createdate)); endif; ?>
-                <input type="text" class="form-control" id="t_createdate" name="inputValue[]" value="<?= isset($getData) ? $newDate : '' ?>" <?php if(isset($detail)){echo "disabled";}?> placeholder="วัน-เดือน-ปี(ค.ศ.) (<?=date("d-m-Y") ?>)" maxlength="10" minlength="10" autocomplete="off" required>
+                <input type="text" class="form-control" id="t_createdate" name="inputValue[]" value="<?= isset($getData) ? $newDate : '' ?>" <?php if(isset($detail)){echo "disabled";}?> placeholder="<?= lang('md_at_ph-imd') ?> (<?=date("d-m-Y") ?>)" maxlength="10" minlength="10" autocomplete="off" required>
                   <div class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                 </div>
@@ -68,15 +68,15 @@
               <font id="createdateMsg" class="small text-danger"></font>
             </div>
           <div class="form-group">
-            <label class="form-label">ผู้เพิ่มกิจกรรม</label>
+            <label class="form-label"><?= lang('md_at-ad') ?></label>
             <input type="text" class="form-control" value="<?= isset($getData) ? $getData->u_firstname . " " . $getData->u_lastname : $_SESSION['u_fullname'] ?>" disabled>
           </div>
         </div>
       </form>
       <div class="mx-4">
-        <h4>เอกสารที่เกี่ยวข้อง</h4>
+        <h4><?= lang('md_at-dc') ?></h4>
         <div class="col-md-6 <?= isset($detail) ? "d-none" : '' ?>">
-          <button type="button" class="btn btn-success" id="uploadBtn"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มเอกสารที่เกี่ยวข้อง</button>
+          <button type="button" class="btn btn-success" id="uploadBtn"><i class="mdi mdi-plus-circle-outline"></i><?= lang('md_at_bt-dc') ?></button>
           <input type="file" name="files" id="files" class="d-none" accept=".doc,.docx,application/msword, .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/vnd.ms-powerpoint, 
           application/vnd.openxmlformats-officedocument.presentationml.slideshow, application/vnd.openxmlformats-officedocument.presentationml.presentation , text/plain, application/pdf, image/*" multiple />
         </div>
@@ -85,9 +85,9 @@
           <table class="display table table-striped table-bordered dt-responsive nowrap">
             <thead>
               <tr>
-                <th>ชื่อของเอกสาร</th>
-                <th>วันที่อัปโหลด</th>
-                <th class="text-center">ปุ่มดำเนินการ</th>
+                <th><?= lang('md_at_dc-name') ?></th>
+                <th><?= lang('md_at_dc-updt') ?></th>
+                <th class="text-center"><?= lang('md_at_ab') ?></th>
               </tr>
             </thead>
             <tbody id="uploaded">
@@ -125,7 +125,7 @@
 
   $('#t_createdate').on('input', function() {
     if(this.value.match(/[^0-9-]/)) {
-      $('#createdateMsg').text(' สามารถกรอกได้เพียง 0-9 และ - เท่านั้น');
+      $('#createdateMsg').text('  <?= lang('md_rqf_sd-f')  ?>');
     } else {
       $('#createdateMsg').text(' ');
     }

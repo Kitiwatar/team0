@@ -27,8 +27,8 @@ class Logs extends CI_Controller {
 
 	public function index() {
 		// Create by: Patiphan Pansanga 14-09-2565 index
-		$values['pageTitle'] = 'หน้าหลัก';
-		$values['breadcrumb'] = 'ฐานข้อมูล';
+		$values['pageTitle'] = lang('home');
+		$values['breadcrumb'] = lang('tp_logs_bc');
 		$values['pageContent'] = $this->load->view('logs/index', '', TRUE);
 		$this->load->view('main', $values);
 	}
@@ -45,7 +45,7 @@ class Logs extends CI_Controller {
 	public function getDetailForm() {
 		// Create by: Patiphan Pansanga 14-09-2565 modal log detail
 		$data['detail'] = "yes";
-		$json['title'] = 'ข้อมูลประวัติ';
+		$json['title'] = lang('md_log_topic');
 		$arrayJoin = array('pms_user' => 'pms_user.u_id=pms_log.l_u_id');
 		$data['getData'] = $this->genmod->getOne('pms_log', '*', array('l_id'=>$this->input->post('l_id')), '', $arrayJoin);
 		$json['body'] = $this->load->view('logs/form', $data ,true);

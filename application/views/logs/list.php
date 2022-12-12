@@ -3,19 +3,19 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h2 class='card-title'>ตารางประวัติฐานข้อมูลในระบบ</h2>
+        <h2 class='card-title'><?= lang('tp_logs_us-history')  ?></h2>
         <div class="table-responsive">
           <table class="display table table-striped table-bordered dt-responsive nowrap">
             <thead>
               <tr>
-                <th>ลำดับ</th>
-                <th>การกระทำ</th>
-                <th>ชื่อตาราง</th>
-                <th>ข้อมูล</th>
-                <th>คำสั่ง</th>
-                <th>วันที่เรียกใช้</th>
-                <th>ผู้กระทำ</th>
-                <th class="text-center">ปุ่มดำเนินการ</th>
+                <th><?= lang('tl_project_pj-no') ?></th>
+                <th><?= lang('tb_topic_dt-action') ?></th>
+                <th><?= lang('tb_topic_dt-db') ?></th>
+                <th><?= lang('tb_topic_dt-change') ?></th>
+                <th><?= lang('tb_topic_dt-command') ?></th>
+                <th><?= lang('tb_topic_dt-called') ?></th>
+                <th><?= lang('tb_topic_dt-operator') ?></th>
+                <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
               </tr>
             </thead>
             <tbody>
@@ -42,7 +42,7 @@
                       <td><?=thaiDateTime($value->l_createdate)." น."?></td>
                       <td><?= $value->u_firstname . " " . $value->u_lastname ?></td>
                       <td class="text-center">
-                        <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->l_id ?>)" title="ดูรายละเอียด"><i class="fas fa-search"></i></button>
+                        <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->l_id ?>)" title="<?= lang('tt_log_vinfo') ?>"><i class="fas fa-search"></i></button>
                       </td>
                     </tr>
                 <?php endforeach; ?>
@@ -58,18 +58,19 @@
 <script>
 
   $('.table').DataTable({
+    "dom": 'ftlp',
     "language": {
-      "oPaginate": {
-        "sPrevious": "ถอยกลับ",
-        "sNext": "ถัดไป"
-      },
-      "sInfo": "แสดง _START_ ถึง _END_ จาก _TOTAL_ รายการ",
-      "sInfoEmpty": "แสดง 0 ถึง 0 จาก 0 รายการ",
-      "sLengthMenu": "แสดง _MENU_ รายการ",
-      "sSearch": "ค้นหา ",
-      "sInfoFiltered": "(กรองจากทั้งหมด _MAX_ รายการ)",
-      "sZeroRecords": "ไม่พบข้อมูล"
-    },
+       "oPaginate": {
+         "sPrevious": "<?= lang('b_project_previous') ?>",
+         "sNext": "<?= lang('b_project_next') ?>"
+       },
+       "sInfo": "<?= lang('tl_project_pj-numbershow') ?> _START_ ถึง _END_ จาก _TOTAL_ <?= lang('tl_project_pj-list') ?>",
+       "sInfoEmpty": "<?= lang('tl_project_pj-numbershow') ?> 0 ถึง 0 จาก 0 <?= lang('tl_project_pj-list') ?>",
+       "sLengthMenu": "<?= lang('tl_project_pj-numbershow') ?> _MENU_ <?= lang('tl_project_pj-list') ?>",
+       "sSearch": "<?= lang('in_project_search') ?> ",
+       "sInfoFiltered": "(กรองจากทั้งหมด _MAX_ รายการ)",
+       "sZeroRecords": "<?= lang('in_project_zerorecords') ?>"
+     }
   });
 
 </script>

@@ -3,20 +3,20 @@
    <div class="col-12">
      <div class="card">
        <div class="card-body">
-         <h2 class='card-title'>ตารางรายชื่อโครงการที่รับผิดชอบ</h2>
+         <h2 class='card-title'><?= lang('th_project_pj-responsible') ?></h2>
          <?php if ($_SESSION['u_role'] <= 2) { ?>
-           <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มโครงการ</button>
+           <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> <?= lang('m_project_addproject') ?></button>
          <?php } ?>
          <div class="table-responsive my-2">
            <table class="display table dt-responsive nowrap" id="table">
              <thead>
                <tr>
-                 <th class="text-center">ลำดับ</th>
-                 <th>ชื่อโครงการ</th>
-                 <th>ผู้รับผิดชอบหลัก</th>
-                 <th>กิจกรรม</th>
-                 <th>สถานะ</th>
-                 <th class="text-center">ปุ่มดำเนินการ</th>
+                 <th class="text-center"><?= lang('tl_no.') ?></th>
+                 <th><?= lang('tl_project_pj-name') ?></th>
+                 <th><?= lang('tl_project_pj-mainperson') ?></th>
+                 <th><?= lang('tl_project_pj-task') ?></th>
+                 <th><?= lang('tl_project_pj-status') ?></th>
+                 <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
                </tr>
              </thead>
              <tbody>
@@ -62,29 +62,28 @@
                        <?php endif; ?>
                      </td>
                      <td>
-                       <?php if ($value->p_status < 1) : echo "<span  class='badge rounded-pill bg-dark'>ถูกลบ</span>";
-                        endif;
-                        $statusColor = array(1 => "badge rounded-pill bg-info", 2 => "badge rounded-pill bg-info", 3 => "badge rounded-pill bg-success", 4 => "badge rounded-pill bg-danger");
-                        foreach ($arrayStatus as $index => $status) {
-                          if ($value->p_status == $index) {
-                            echo "<span  class = ' " . $statusColor[$index] . "'>" . $status . "</span>";
-                          }
+                      <?php $statusColor = array(1 => "badge rounded-pill bg-info", 2 => "badge rounded-pill bg-info", 3 => "badge rounded-pill bg-success", 4 => "badge rounded-pill bg-danger");
+                        $statusName = array(1=>lang('sp_home_pendproject'), 2=>lang('sp_home_inprogress'), 3=>lang('sp_home_finish'), 4=>lang('sp_home_cancel'));
+                        if ($value->p_status > 0) {
+                          echo "<span  class = ' " . $statusColor[$value->p_status] . "'>" . $statusName[$value->p_status] . "</span>";
+                        } else {
+                          echo "<span  class = 'badge rounded-pill bg-dark'>ถูกลบ</span>";
                         }
-                        ?>
+                      ?>
                      </td>
                      <td class="text-center">
                        <?php if ($value->p_status < 1) : ?>
-                         <button type="button" class="btn btn-dark btn-sm" name="restore" id="<?= $value->p_id ."_". $hours . ':' . $min . ':' . $sec ?>" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status * -1 ?>)" title="กู้คืนข้อมูลโครงการ">กู้คืนภายใน <span style='font-size:16px;'><?= $hours . ':' . $min?></span> ชม.</button>
+                         <button type="button" class="btn btn-dark btn-sm" name="restore" id="<?= $value->p_id ."_". $hours . ':' . $min . ':' . $sec ?>" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status * -1 ?>)" title="<?= lang('tt_pj_rproject') ?>"><?= lang('md_rp') ?> <span style='font-size:16px;'><?= $hours . ':' . $min?></span> <?= lang('md_rp-hour') ?></button>
                          <?php continue; ?>
                        <?php endif; ?>
-                       <a type="button" href="<?= base_url() ?>tasks?p_id=<?= $value->p_id ?>" title="จัดการกิจกรรมของโครงการ" class="btn btn-tertiary btn-sm"><i class="fas fa-cogs"></i></a>
-                       <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->p_id ?>)" title="ดูข้อมูลโครงการ"><i class="fas fa-search"></i></button>
+                       <a type="button" href="<?= base_url() ?>tasks?p_id=<?= $value->p_id ?>" title= "<?= lang('tt_pj_mproject') ?>" class="btn btn-tertiary btn-sm"><i class="fas fa-cogs"></i></a>
+                       <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->p_id ?>)" title="<?= lang('tt_pj_vproject') ?>"><i class="fas fa-search"></i></button>
                        <?php if ($_SESSION['u_role'] <= 2) : ?>
-                         <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="editProject(<?= $value->p_id ?>)" title="แก้ไขข้อมูลโครงการ"><i class="mdi mdi-pencil"></i></button>
+                         <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="editProject(<?= $value->p_id ?>)" title="<?= lang('tt_pj_eproject') ?>"><i class="mdi mdi-pencil"></i></button>
                          <?php if (!isset($lastTask[$key]->tl_name) && $value->p_status < 3) : ?>
-                           <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="ลบโครงการ" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status * -1 ?>)"><i class="mdi mdi-delete"></i></button>
+                           <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="<?= lang('tt_pj_dproject') ?>" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status * -1 ?>)"><i class="mdi mdi-delete"></i></button>
                          <?php else : ?>
-                           <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="ไม่สามารถลบโครงการได้ เนื่องจากยังมีกิจกรรมอยู่ในโครงการ"><i class="mdi mdi-delete"></i></button>
+                           <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="<?= lang('tt_pj_cn-dproject') ?>"><i class="mdi mdi-delete"></i></button>
                          <?php endif; ?>
                        <?php endif; ?>
                      </td>
@@ -94,7 +93,7 @@
              </tbody>
            </table>
          </div>
-         <a type="button" class="btn waves-effect waves-light btn-dark" href="<?= base_url() ?>"><i class="mdi mdi-arrow-left"></i> ย้อนกลับ</a>
+         <a type="button" class="btn waves-effect waves-light btn-dark" href="<?= base_url() ?>"><i class="mdi mdi-arrow-left"></i> <?= lang('b_project_back') ?></a>
        </div>
      </div>
    </div>
@@ -152,15 +151,15 @@
      ],
      "language": {
        "oPaginate": {
-         "sPrevious": "ถอยกลับ",
-         "sNext": "ถัดไป"
+         "sPrevious": "<?= lang('b_project_previous') ?>",
+         "sNext": "<?= lang('b_project_next') ?>"
        },
-       "sInfo": "แสดง _START_ ถึง _END_ จาก _TOTAL_ รายการ",
-       "sInfoEmpty": "แสดง 0 ถึง 0 จาก 0 รายการ",
-       "sLengthMenu": "แสดง _MENU_ รายการ",
-       "sSearch": "ค้นหา ",
+       "sInfo": "<?= lang('tl_project_pj-numbershow') ?> _START_ ถึง _END_ จาก _TOTAL_ <?= lang('tl_project_pj-list') ?>",
+       "sInfoEmpty": "<?= lang('tl_project_pj-numbershow') ?> 0 ถึง 0 จาก 0 <?= lang('tl_project_pj-list') ?>",
+       "sLengthMenu": "<?= lang('tl_project_pj-numbershow') ?> _MENU_ <?= lang('tl_project_pj-list') ?>",
+       "sSearch": "<?= lang('in_project_search') ?> ",
        "sInfoFiltered": "(กรองจากทั้งหมด _MAX_ รายการ)",
-       "sZeroRecords": "ไม่พบข้อมูล"
+       "sZeroRecords": "<?= lang('in_project_zerorecords') ?>"
      }
    });
    $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn waves-effect waves-light btn-info mx-1');

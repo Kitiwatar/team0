@@ -45,14 +45,14 @@
     var count = 0;
     var regex = /\d+/g;
     if (!formData.u_role) {
-      $('#roleMsg').text(' กรุณาเลือกสิทธิ์ของพนักงาน');
+      $('#roleMsg').text(' <?= lang('md_aes_upm_rqf') ?>');
       $('#u_role').focus();
       count++
     } else {
       $('#roleMsg').text(' ');
     }
     if (!formData.u_tel || (formData.u_tel).length != 10) {
-      $('#telMsg').text(' กรุณากรอกตัวเลข 10 หลัก');
+      $('#telMsg').text(' <?= lang('md_rqf_pn-f') ?>');
       $('#u_tel').focus();
       count++
     } else {
@@ -60,21 +60,21 @@
     }
 
     if (!formData.u_email) {
-      $('#emailMsg').text(' กรุณากรอกอีเมลให้ถูกต้อง');
+      $('#emailMsg').text(' <?= lang('md_rqf_em-f') ?>');
       $('#u_email').focus();
       count++
     } else {
       $('#emailMsg').text(' ');
     }
     if (!formData.u_lastname) {
-      $('#lnameMsg').text(' กรุณากรอกนามสกุล');
+      $('#lnameMsg').text(' <?= lang('md_aes_uln_rqf') ?>');
       $('#u_lastname').focus();
       count++
     } else {
       $('#lnameMsg').text(' ');
     }
     if (!formData.u_firstname) {
-      $('#fnameMsg').text(' กรุณากรอกชื่อ');
+      $('#fnameMsg').text(' <?= lang('md_aes_ufn_rqf') ?>');
       $('#u_firstname').focus();
       count++
     } else {
@@ -88,11 +88,11 @@
     var mainMsg;
     var detailMsg;
     if (u_id == "new") {
-      mainMsg = "ยืนยันการเพิ่มพนักงาน";
-      detailMsg = "คุณต้องการเพิ่มข้อมูลพนักงานในระบบใช่หรือไม่";
+      mainMsg = "<?= lang('md_aes_main-msg') ?>";
+      detailMsg = "<?= lang('md_aes_detail-msg') ?>";
     } else {
-      mainMsg = "ยืนยันการแก้ไขพนักงาน";
-      detailMsg = "คุณต้องการแก้ไขข้อมูลพนักงานในระบบใช่หรือไม่";
+      mainMsg = "<?= lang('md_ees_main-msg') ?>";
+      detailMsg = "<?= lang('md_ees_main-msg') ?>";
     }
     swal({
       title: mainMsg,
@@ -100,8 +100,8 @@
       type: "warning",
       showCancelButton: true,
       showConfirmButton: true,
-      confirmButtonText: "ยืนยัน",
-      cancelButtonText: "ยกเลิก",
+      confirmButtonText: "<?= lang('bt_confirm') ?>",
+      cancelButtonText: '<?= lang('bt_cancel') ?>',
     }).then(function(isConfirm) {
       if (isConfirm.value) {
         $.ajax({
@@ -111,7 +111,7 @@
         }).done(function(returnData) {
           if (returnData.status == 1) {
             swal({
-              title: "สำเร็จ",
+              title: '<?= lang('md_vm-suc') ?>',
               text: returnData.msg,
               type: "success",
               showCancelButton: false,
@@ -125,7 +125,7 @@
             loadList();
           } else {
             swal({
-              title: "ล้มเหลว",
+              title: '<?= lang('md_vm-fail') ?>',
               text: returnData.msg,
               type: "error",
               showCancelButton: false,
@@ -186,23 +186,23 @@
     // console.log(formData);
     if (!formData.pwd || !formData.cfPwd) {
       $('#errMsg').addClass('text-danger');
-      $('#errMsg').text('กรุณาระบุข้อมูลให้ครบถ้วน');
+      $('#errMsg').text('<?= lang('md_cp_rqf') ?>');
       !formData.pwd ? $('#cfPwd').focus() : '';
       !formData.cfPwd ? $('#pwd').focus() : '';
       return false;
     } else if (formData.pwd != formData.cfPwd) {
       $('#errMsg').addClass('text-danger');
-      $('#errMsg').text('รหัสผ่านไม่ตรงกัน');
+      $('#errMsg').text('<?= lang('md_cp_rqf-cpnm') ?>');
       return false;
     }
     swal({
-      title: "ยืนยันการเปลี่ยนรหัสผ่าน",
-      text: "คุณต้องการเปลี่ยนรหัสผ่านใช่หรือไม่",
+      title: "<?= lang('md_cpes_main-msg') ?>",
+      text: "<?= lang('md_cpes_detail-msg') ?>",
       type: "warning",
       showCancelButton: true,
       showConfirmButton: true,
-      confirmButtonText: "ยืนยัน",
-      cancelButtonText: "ยกเลิก",
+      confirmButtonText: "<?= lang('bt_confirm') ?>",
+      cancelButtonText: "<?= lang('bt_cancel') ?>",
     }).then(function(isConfirm) {
       if (isConfirm.value) {
         $.ajax({
@@ -212,7 +212,7 @@
         }).done(function(returnData) {
           if (returnData.status == 1) {
             swal({
-              title: "สำเร็จ",
+              title: '<?= lang('md_vm-suc') ?>',
               text: returnData.msg,
               type: "success",
               showCancelButton: false,
@@ -225,7 +225,7 @@
             $('#mainModal').modal('hide');
           } else {
             swal({
-              title: "ล้มเหลว",
+              title: '<?= lang('md_vm-fail') ?>',
               text: returnData.msg,
               type: "error",
               showCancelButton: false,
@@ -260,12 +260,12 @@
 
   function changeRole(u_id) {
     swal({
-      title: "เปลี่ยนสิทธิ์การใช้งาน",
-      text: "คุณต้องการเปลี่ยนสิทธิ์การใช้งานใช่หรือไม่",
+      title: "<?= lang('md_cpme_main-msg') ?>",
+      text: "<?= lang('md_cpme_detail-msg') ?>",
       type: "warning",
       showCancelButton: true,
       showConfirmButton: true,
-      confirmButtonText: "ยืนยัน",
+      confirmButtonText: '<?= lang('bt_confirm') ?>',
       cancelButtonColor: "#E4E4E4",
       cancelButtonText: "<font style='color:black'>" + "ยกเลิก" + "</font>",
     }).then(function(isConfirm) {
@@ -282,7 +282,7 @@
           if (returnData.status == 1) {
             loadList();
             swal({
-              title: "สำเร็จ",
+              title: '<?= lang('md_vm-suc') ?>',
               text: returnData.msg,
               type: "success",
               showCancelButton: false,
@@ -291,7 +291,7 @@
             });
           } else {
             swal({
-              title: "ล้มเหลว",
+              title: '<?= lang('md_vm-fail') ?>',
               text: returnData.msg,
               type: "error",
               showCancelButton: false,
@@ -324,7 +324,7 @@
       if (returnData.status == 1) {
         loadList();
         $.toast({
-          heading: 'สำเร็จ',
+          heading: '<?= lang('md_vm-suc') ?>',
           text: returnData.msg,
           position: 'top-right',
           icon: 'success',
@@ -333,7 +333,7 @@
         });
       } else {
         $.toast({
-          heading: 'สำเร็จ',
+          heading: '<?= lang('md_vm-fail') ?>',
           text: returnData.msg,
           position: 'top-right',
           icon: 'error',

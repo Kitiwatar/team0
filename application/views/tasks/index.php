@@ -20,13 +20,13 @@
 
   function updatePermission(u_id, p_id) {
     swal({
-      title: "ยืนยันการลบพนักงานในโครงการ",
-      text: "คุณต้องการลบพนักงานในโครงการใช่หรือไม่",
+      title: "<?= lang('md_dep_main-msg') ?>",
+      text: "<?= lang('md_dep_detail-msg') ?>",
       type: "warning",
       showCancelButton: true,
       showConfirmButton: true,
-      confirmButtonText: "ยืนยัน",
-      cancelButtonText: "ยกเลิก",
+      confirmButtonText: '<?= lang('bt_confirm')?>',
+      cancelButtonText: '<?= lang('bt_cancel')?>',
     }).then(function(isConfirm) {
       if (isConfirm.value) {
         $.ajax({
@@ -40,7 +40,7 @@
           loadList();
           if (returnData.status == 1) {
             swal({
-              title: "สำเร็จ",
+              title: '<?= lang('md_vm-suc')?>',
               text: returnData.msg,
               type: "success",
               showCancelButton: false,
@@ -49,7 +49,7 @@
             });
           } else {
             swal({
-              title: "ล้มเหลว",
+              title: '<?= lang('md_vm-fail')?>',
               text: returnData.msg,
               type: "error",
               showCancelButton: false,
@@ -103,21 +103,21 @@
     // console.log(fileNames);
     var count = 0;
     if (!formData.t_createdate) {
-      $('#createdateMsg').text(' กรุณาเลือกวันที่ดำเนินการ');
+      $('#createdateMsg').text(' <?= lang('md_at_rqf_imd') ?>');
       // $('#p_createdate').focus();
       count++
     } else {
       $('#createdateMsg').text(' ');
     }
     if (!formData.t_detail) {
-      $('#detailMsg').text(' กรุณากรอกรายระเอียดกิจกรรม');
+      $('#detailMsg').text(' <?= lang('md_at_rqf_td') ?>');
       $('#t_detail').focus();
       count++
     } else {
       $('#detailMsg').text(' ');
     }
     if (!formData.t_tl_id) {
-      $('#nameMsg').text(' กรุณาเลือกกิจกรรม');
+      $('#nameMsg').text(' <?= lang('md_at_rqf_tl') ?>');
       $('#t_tl_id').focus();
       count++
     } else {
@@ -130,11 +130,11 @@
     var mainMsg;
     var detailMsg;
     if (t_id == "new") {
-      mainMsg = "ยืนยันการเพิ่มกิจกรรม";
-      detailMsg = "คุณต้องการเพิ่มกิจกรรมในระบบใช่หรือไม่";
+      mainMsg = '<?= lang('md_at_main-msg') ?>';
+      detailMsg =  '<?= lang('md_at_detail-msg') ?>';
     } else {
-      mainMsg = "ยืนยันการแก้ไขกิจกรรม";
-      detailMsg = "คุณต้องการแก้ไขกิจกรรมในระบบใช่หรือไม่";
+      mainMsg = '<?= lang('md_et_main-msg') ?>';
+      detailMsg = '<?= lang('md_et_detail-msg') ?>';
     }
     swal({
       title: mainMsg,
@@ -142,8 +142,8 @@
       type: "warning",
       showCancelButton: true,
       showConfirmButton: true,
-      confirmButtonText: "ยืนยัน",
-      cancelButtonText: "ยกเลิก",
+      confirmButtonText: '<?= lang('bt_confirm')?>',
+      cancelButtonText: '<?= lang('bt_cancel')?>',
     }).then(function(isConfirm) {
       if (isConfirm.value) {
         $.ajax({
@@ -158,7 +158,7 @@
           loadList();
           if (returnData.status == 1) {
             swal({
-              title: "สำเร็จ",
+              title: '<?= lang('md_vm-suc')?>',
               text: returnData.msg,
               type: "success",
               showCancelButton: false,
@@ -172,7 +172,7 @@
             $('#mainModal').modal('hide');
           } else {
             swal({
-              title: "ล้มเหลว",
+              title: '<?= lang('md_vm-fail')?>',
               text: returnData.msg,
               type: "error",
               showCancelButton: false,
@@ -269,8 +269,8 @@
     var mainMsg;
     var detailMsg;
     if (t_status == 1) {
-      mainMsg = "ยืนยันการลบกิจกรรม";
-      detailMsg = "คุณต้องการลบกิจกรรมใช่หรือไม่";
+      mainMsg = "<?= lang('md_dt_main-msg')?>";
+      detailMsg = "<?= lang('md_dt_detail-msg')?>";
     } else {
       mainMsg = "ยืนยันการกู้คืนกิจกรรม";
       detailMsg = "คุณต้องการกู้คืนกิจกรรมใช่หรือไม่";
@@ -281,7 +281,7 @@
       type: "warning",
       showCancelButton: true,
       showConfirmButton: true,
-      confirmButtonText: "ยืนยัน",
+      confirmButtonText: '<?= lang('bt_save')?>',
       cancelButtonColor: "#E4E4E4",
       cancelButtonText: "<font style='color:black'>" + "ยกเลิก" + "</font>",
     }).then(function(isConfirm) {
@@ -297,7 +297,7 @@
           loadList();
           if (returnData.status == 1) {
             swal({
-              title: "สำเร็จ",
+              title: '<?= lang('md_vm-suc')?>',
               text: returnData.msg,
               type: "success",
               showCancelButton: false,
@@ -306,7 +306,7 @@
             });
           } else {
             swal({
-              title: "ล้มเหลว",
+              title: '<?= lang('md_vm-fail')?>',
               text: returnData.msg,
               type: "error",
               showCancelButton: false,

@@ -3,15 +3,15 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-body">
-				<h4 class='card-title'>ลำดับพนักงานที่รับผิดชอบงานมากที่สุด</h4>
+				<h4 class='card-title'><?= lang('tl_home_listofrank') ?></h4>
 				<div class="table-responsive">
 					<table class="display table dt-responsive nowrap">
 						<thead>
 							<tr>
-								<th class="text-center">ลำดับ</th>
-								<th>ชื่อพนักงาน</th>
-								<th class="text-center">จำนวนงานที่รับผิดชอบ</th>
-								<th class="text-center">อัปเดตลำดับล่าสุดวันที่</th>
+								<th class="text-center"><?= lang('tl_no.') ?></th>
+								<th><?= lang('tl_home_name') ?></th>
+								<th class="text-center"><?= lang('tl_home_amountworkpiece') ?></th>
+								<th class="text-center"><?= lang('tl_home_update') ?></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -41,16 +41,16 @@
 			[2, "desc"]
 		],
 		"language": {
-			"oPaginate": {
-				"sPrevious": "ถอยกลับ",
-				"sNext": "ถัดไป"
-			},
-			"sInfo": "แสดง _START_ ถึง _END_ จาก _TOTAL_ รายการ",
-			"sInfoEmpty": "แสดง 0 ถึง 0 จาก 0 รายการ",
-			"sLengthMenu": "แสดง _MENU_ รายการ",
-			"sSearch": "ค้นหา ",
-			"sInfoFiltered": "(กรองจากทั้งหมด _MAX_ รายการ)",
-			"sZeroRecords": "ไม่พบข้อมูล"
-		},
+       "oPaginate": {
+         "sPrevious": "<?= lang('b_project_previous') ?>",
+         "sNext": "<?= lang('b_project_next') ?>"
+       },
+       "sInfo": "<?= lang('tl_project_pj-numbershow') ?> _START_ ถึง _END_ จาก _TOTAL_ <?= lang('tl_project_pj-list') ?>",
+       "sInfoEmpty": "<?= lang('tl_project_pj-numbershow') ?> 0 ถึง 0 จาก 0 <?= lang('tl_project_pj-list') ?>",
+       "sLengthMenu": "<?= lang('tl_project_pj-numbershow') ?> _MENU_ <?= lang('tl_project_pj-list') ?>",
+       "sSearch": "<?= lang('in_project_search') ?> ",
+       "sInfoFiltered": "(กรองจากทั้งหมด _MAX_ รายการ)",
+       "sZeroRecords": "<?= lang('in_project_zerorecords') ?>"
+     },
 	});
 </script>

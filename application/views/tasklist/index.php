@@ -40,7 +40,7 @@
     console.log(formData);
     if (!formData.tl_name) {
       $('#tlnameMsg').addClass('text-danger');
-      $('#tlnameMsg').text('กรุณากรอกชื่อกิจกรรม');
+      $('#tlnameMsg').text('<?= lang('md_atl_rqf') ?>');
       !formData.tl_name ? $('#tl_name').focus() : '';
       return false;
       } else {
@@ -49,11 +49,11 @@
     var mainMsg;
     var detailMsg;
     if (tl_id == "new") {
-      mainMsg = "ยืนยันการเพิ่มรายการกิจกรรม";
-      detailMsg = "คุณต้องการเพิ่มรายการกิจกรรมใช่หรือไม่";
+      mainMsg = '<?= lang('md_atl_main-msg') ?>';
+      detailMsg = '<?= lang('md_atl_detail-msg') ?>';
     } else {
-      mainMsg = "ยืนยันการแก้ไขรายการกิจกรรม";
-      detailMsg = "คุณต้องการแก้ไขรายการกิจกรรมในระบบใช่หรือไม่";
+      mainMsg = '<?= lang('md_etl_main-msg') ?>';
+      detailMsg = '<?= lang('md_etl_detail-msg') ?>';
     }
     swal({
       title: mainMsg,
@@ -61,8 +61,8 @@
       type: "warning",
       showCancelButton: true,
       showConfirmButton: true,
-      confirmButtonText: "ยืนยัน",
-      cancelButtonText: "ยกเลิก",
+      confirmButtonText: "<?= lang('bt_confirm') ?>",
+      cancelButtonText: '<?= lang('bt_cancel') ?>',
     }).then(function(isConfirm) {
       if (isConfirm.value) {
         $.ajax({
@@ -72,7 +72,7 @@
         }).done(function(returnData) {
           if (returnData.status == 1) {
             swal({
-              title: "สำเร็จ",
+              title: '<?= lang('md_vm-suc') ?>',
               text: returnData.msg,
               type: "success",
               showCancelButton: false,
@@ -86,7 +86,7 @@
             loadList();
           } else {
             swal({
-              title: "ล้มเหลว",
+              title: '<?= lang('md_vm-fail') ?>',
               text: returnData.msg,
               type: "error",
               showCancelButton: false,
@@ -136,8 +136,8 @@
     var mainMsg;
     var detailMsg;
     if (tl_status == 1) {
-      mainMsg = "ยืนยันการลบรายการกิจกรรม";
-      detailMsg = "คุณต้องการลบรายกิจกรรมใช่หรือไม่";
+      mainMsg = '<?= lang('md_dtl_main-msg') ?>';
+      detailMsg = '<?= lang('md_dtl_detail-msg') ?>';
     } else {
       mainMsg = "ยืนยันการกู้คืนรายการกิจกรรม";
       detailMsg = "คุณต้องการกู้คืนรายการกิจกรรมใช่หรือไม่";
@@ -148,9 +148,9 @@
       type: "warning",
       showCancelButton: true,
       showConfirmButton: true,
-      confirmButtonText: "ยืนยัน",
+      confirmButtonText: '<?= lang('bt_confirm') ?>',
       cancelButtonColor: "#E4E4E4",
-      cancelButtonText: "<font style='color:black'>" + "ยกเลิก" + "</font>",
+      cancelButtonText: "<font style='color:black'>" + '<?= lang('bt_cancel') ?>' + "</font>",
     }).then(function(isConfirm) {
       if (isConfirm.value) {
         $.ajax({
@@ -164,7 +164,7 @@
           if (returnData.status == 1) {
             loadList();
             swal({
-              title: "สำเร็จ",
+              title: '<?= lang('md_vm-suc') ?>',
               text: returnData.msg,
               type: "success",
               showCancelButton: false,
@@ -173,7 +173,7 @@
             });
           } else {
             swal({
-              title: "ล้มเหลว",
+              title: '<?= lang('md_vm-fail') ?>',
               text: returnData.msg,
               type: "error",
               showCancelButton: false,

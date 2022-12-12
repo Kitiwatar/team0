@@ -170,7 +170,7 @@
                                         <tr>
                                             <td class="hidden-md-down px-2 py-0" style="line-height: 20%;"><h5><?php echo $_SESSION['u_fullname']; ?></h5>
                                             <span class="float-end" style="font-size: 13px;">
-                                                <?php if($_SESSION['u_role'] == 3) {echo "พนักงาน";} else if($_SESSION['u_role'] == 2) {echo "หัวหน้าโครงการ";}else {echo "ผู้ดูแลระบบ";} ?>
+                                                <?php if($_SESSION['u_role'] == 3) {echo lang('u_role-em1');} else if($_SESSION['u_role'] == 2) {echo lang('u_role-em2');}else {echo lang('u_role-am');} ?>
                                             </span>
                                         </td>
                                             <td class="p-0"><img src="https://synergysoft.co.th/images/2022/06/30/user.png" alt="user" class=""></td>
@@ -182,7 +182,7 @@
                                     <div class="dropdown-divider"></div>
                                     <a onclick="changePersonPassword('<?= base_url() ?>users/getPasswordForm')" class="dropdown-item" style="cursor: pointer;"><i class="mdi mdi-key-variant"></i> <?= lang('password') ?></a>
                                     <div class="dropdown-divider"></div>
-                                    <a href="<?= base_url() ?>login/logout" class="dropdown-item"><i class="mdi mdi-logout"></i> <?= lang('logOut') ?></a>
+                                    <a href="<?= base_url() ?>login/logout" class="dropdown-item"><i class="mdi mdi-logout"></i> <?= lang('logout') ?></a>
                                 </div>
                             <?php } else { ?>
                                 <a class="nav-link waves-effect waves-dark profile-pic fs-5" href="<?= base_url() ?>login"><?= lang('login') ?></a>
@@ -271,7 +271,7 @@
                     <div class="col-md-7 align-self-center text-right">
                         <div class="d-flex justify-content-end align-items-center">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="<?= base_url() ?>">หน้าหลัก</a></li>
+                                <li class="breadcrumb-item"><a href="<?= base_url() ?>"><?= lang('Home') ?></a></li>
                                 <?php if (isset($subBreadcrumb)) : ?>
                                     <?= $subBreadcrumb ?>
                                 <?php endif; ?>
