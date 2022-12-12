@@ -108,20 +108,29 @@
       count++
     } else {
       $('#createdateMsg').text(' ');
+      $('#t_createdate').removeClass("is-invalid");
+      $('#t_createdate').addClass("is-valid");
     }
     if (!formData.t_detail) {
       $('#detailMsg').text(' <?= lang('md_at_rqf_td') ?>');
       $('#t_detail').focus();
+      $('#t_detail').addClass("is-invalid"); 
       count++
     } else {
       $('#detailMsg').text(' ');
+      $('#t_detail').removeClass("is-invalid");
+      $('#t_detail').addClass("is-valid");
+
     }
     if (!formData.t_tl_id) {
       $('#nameMsg').text(' <?= lang('md_at_rqf_tl') ?>');
       $('#t_tl_id').focus();
+      $('#t_detail').addClass("is-invalid"); 
       count++
     } else {
       $('#nameMsg').text(' ');
+      $('#t_tl_id').removeClass("is-invalid");
+      $('#t_tl_id').addClass("is-valid");
     }
     if (count > 0) {
       return false;

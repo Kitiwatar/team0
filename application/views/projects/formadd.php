@@ -107,6 +107,7 @@ date_default_timezone_set("Asia/Bangkok"); ?>
       $('#telMsg').text('  <?= lang('md_rqf_pn-f')  ?>');
     } else {
       $('#telMsg').text(' ');
+      $('#p_telcontact').removeClass("is-invalid").addClass("is-valid");
     }
     this.value = this.value.replace(/[^0-9]/g, '');
   });
@@ -116,6 +117,8 @@ date_default_timezone_set("Asia/Bangkok"); ?>
       $('#lineMsg').text('  <?= lang('md_rqf_ln-f')  ?>');
     } else {
       $('#lineMsg').text(' ');
+      $('').removeClass("is-invalid");
+      $('#p_linecontact').addClass("is-valid");
     }
     this.value = this.value.toLowerCase();
     this.value = this.value.replace(/[^a-zA-Z0-9._-]/g, '');
@@ -126,7 +129,10 @@ date_default_timezone_set("Asia/Bangkok"); ?>
       $('#emailMsg').text('  <?= lang('md_rqf_em-f')  ?>');
     } else {
       $('#emailMsg').text(' ');
+      $('#p_emailcontact').removeClass("is-invalid");
+      $('#p_emailcontact').addClass("is-valid");
     }
+    
     this.value = this.value.toLowerCase();
     this.value = this.value.replace(/[^a-zA-Z0-9.@_-]/g, '');
   });

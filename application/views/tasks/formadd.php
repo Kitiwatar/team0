@@ -128,6 +128,8 @@
       $('#createdateMsg').text('  <?= lang('md_rqf_sd-f')  ?>');
     } else {
       $('#createdateMsg').text(' ');
+      $('#t_createdate').removeClass("is-invalid");
+      $('#t_createdate').addClass("is-valid");
     }
     this.value = this.value.toLowerCase();
     this.value = this.value.replace(/[^0-9-]/g, '');

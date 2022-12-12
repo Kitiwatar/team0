@@ -67,13 +67,41 @@
 </div>
 
 <script>
-  $("#u_tel").keyup(function (event) {
-    var tel = document.getElementById("u_tel");
-    tel.value = tel.value.replace(/[^0-9]+/, '');
+   function validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  }
+  // $("#u_tel").keyup(function (event) {
+  //   var tel = document.getElementById("u_tel");
+  //   tel.value = tel.value.replace(/[^0-9]+/, '');
+  //   $("#u_tel").addClass("is-invalid");
+  // });
+  $('#u_tel').on('input', function() {
+    if(this.value.match(/[^0-9]/)) {
+      $('#telMsg').text(' <?= lang('md_rqf_pn-f')  ?>');
+      $('#u_tel').addClass("is-invalid");
+    } else {
+      $('#telMsg').text(' ');
+      $('#u_tel').removeClass("is-invalid");
+      $('#u_tel').addClass("is-valid");
+    }
+    this.value = this.value.replace(/[^0-9]/g, '');
   });
-
-  $("#u_email").keyup(function (event) {
-    var email = document.getElementById("u_email");
-    email.value = email.value.toLowerCase();
+  // $("#u_email").keyup(function (event) {
+  //   var email = document.getElementById("u_email");
+  //   email.value = email.value.toLowerCase();
+  //   $("#u_email").addClass("is-invalid");
+  // });
+  $('#u_email').on('input', function() {
+    if(this.value.match(/[^a-zA-Z0-9.@_-]/) || !validateEmail(this.value)) {
+      $('#emailMsg').text('  <?= lang('md_rqf_em-f')  ?>');
+      $('#u_email').addClass("is-invalid");
+    } else {
+      $('#emailMsg').text(' ');
+      $('#u_email').removeClass("is-invalid");
+      $('#u_email').addClass("is-valid");
+    }
+    this.value = this.value.toLowerCase();
+    this.value = this.value.replace(/[^a-zA-Z0-9.@_-]/g, '');
   });
 </script>
