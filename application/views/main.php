@@ -95,7 +95,7 @@
     </style>
 </head>
 
-<body class="skin-blue fixed-layout" <?php if (isset($_SESSION['u_id'])) : echo 'onload="countDown()" ' . 'onmousemove="updateTimeout()"';endif; ?>>
+<body class="skin-blue fixed-layout" <?php if (isset($_SESSION['u_id'])) : echo 'onload="countDown()" ' . 'onclick="updateTimeout()"';endif; ?>>
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
@@ -178,14 +178,14 @@
                                     </table>
                                     </a>
                                 <div class="dropdown-menu animated flipInY" style="right: 0; width:100px">
-                                    <a onclick="viewPersonDetail('<?= base_url() ?>users/getDetailForm')" class="dropdown-item" style="cursor: pointer;"><i class="mdi mdi-account"></i> <?= lang('profile') ?></a>
+                                    <a onclick="viewPersonDetail()" class="dropdown-item" style="cursor: pointer;"><i class="mdi mdi-account"></i> <?= lang('profile') ?></a>
                                     <div class="dropdown-divider"></div>
-                                    <a onclick="changePersonPassword('<?= base_url() ?>users/getPasswordForm')" class="dropdown-item" style="cursor: pointer;"><i class="mdi mdi-key-variant"></i> <?= lang('password') ?></a>
+                                    <a onclick="changePersonPassword()" class="dropdown-item" style="cursor: pointer;"><i class="mdi mdi-key-variant"></i> <?= lang('password') ?></a>
                                     <div class="dropdown-divider"></div>
                                     <a href="<?= base_url() ?>login/logout" class="dropdown-item"><i class="mdi mdi-logout"></i> <?= lang('logout') ?></a>
                                 </div>
                             <?php } else { ?>
-                                <a class="nav-link waves-effect waves-dark profile-pic fs-5" href="<?= base_url() ?>login"><?= lang('login') ?></a>
+                                <div class="nav-link waves-effect waves-dark profile-pic fs-5" onclick="getLoginForm()"><?= lang('login') ?></div>
                             <?php } ?>
                         </li>
                         <li class="nav-item dropdown u-pro">
@@ -354,15 +354,46 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="mdModal" tabindex="-1" aria-labelledby="modalCenterTitle" aria-hidden="true" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-scrollable" role="document" id='modalSize'>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mdModalTitle">Modal title</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body" id="mdModalBody">
+                    ...
+                </div>
+                <div class="modal-footer" id="mdModalFooter">
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- end modal -->
 </body>
 
 </html>
 <script>
-    function viewPersonDetail(url) {
+    function getLoginForm() {
         $.ajax({
             method: "post",
-            url: url,
+            url: '<?= base_url() ?>login/getLoginForm',
+            data: {
+                person: 'yes'
+            }
+        }).done(function(returnData) {
+            $('#mdModalTitle').html(returnData.title);
+            $('#mdModalBody').html(returnData.body);
+            $('#mdModalFooter').html(returnData.footer);
+            $('#mdModal').modal();
+        });
+    }
+
+    function viewPersonDetail() {
+        $.ajax({
+            method: "post",
+            url: '<?= base_url() ?>users/getDetailForm',
             data: {
                 person: 'yes'
             }
@@ -374,10 +405,10 @@
         });
     }
 
-    function changePersonPassword(url) {
+    function changePersonPassword() {
         $.ajax({
             method: "post",
-            url: url,
+            url: '<?= base_url() ?>users/getPasswordForm',
             data: {
                 person: 'yes'
             }
@@ -474,7 +505,7 @@
             url: '<?= base_url() ?>login/updateTimeout',
             method: 'post'
         }).done(function(returnData) {
-            console.log(returnData.time)
+            // console.log(returnData.time)
         })
     }
 

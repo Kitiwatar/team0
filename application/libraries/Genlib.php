@@ -39,6 +39,14 @@ class Genlib {
        else{
            return "";
        }
-   }
+    }
+
+    public function getUserRole() {
+        return array(1=>lang('u_role-am'), 2=>lang('u_role-em2'), 3=>lang('u_role-em1'));
+    }
+
+    public function getProjectStatus() {
+        return array(1=>lang('sp_home_pendproject'), 2=>lang('sp_home_inprogress'), 3=>lang('sp_home_finish'), 4=>lang('sp_home_cancel'));
+    }
 
 }

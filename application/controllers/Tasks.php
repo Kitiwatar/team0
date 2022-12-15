@@ -22,19 +22,24 @@ class Tasks extends CI_Controller{
 
     public function index()	{
 		// Create by: Patiphan Pansanga 14-10-2565 index page
-		// $projectsCount = $this->genmod->countAll('pms_project', '', '');
 		$p_id = $this->input->get('p_id');
 		if(isset($p_id)) {
 			$project = $this->genmod->getOne('pms_project', '*',array('p_id'=>$p_id),'','','');
 			if(!isset($project->p_id) || $project->p_status < 1) {
 				redirect(base_url("projects"));
 			}
+			if($_SESSION['u_role'] > 1) {
+				$permission = $this->genmod->getOne('pms_permission', '*',array('per_u_id'=>$_SESSION['u_id'], 'per_p_id'=>$p_id, 'per_status'=>1),'','','');
+				if(!isset($permission->per_u_id)) {
+					redirect(base_url("projects"));
+				}
+			}
 		} else {
 			redirect(base_url("projects"));
 		}
 		
-		$values['pageTitle'] = lang('th_project_at-task');
-		$values['breadcrumb'] =lang('th_project_at-task');
+		$values['pageTitle'] = $project->p_name;
+		$values['breadcrumb'] = $project->p_name;
 		$values['p_id'] = $p_id;
 		$values['pageContent'] = $this->load->view('tasks/index', $values, TRUE);
 		$this->load->view('main', $values);
@@ -42,23 +47,18 @@ class Tasks extends CI_Controller{
 
 	public function get() {
 		// Create by: Patiphan Pansanga 14-10-2565 get tasks list
-		$data['pageTitle'] =  lang('th_project_pj-responsible');
-		$data['breadcrumb'] = lang('th_project_pj-responsible');
-		if($_SESSION['u_role'] > 1) {
-			$checkPermission = $this->genmod->getOne('pms_permission', '*',array('per_u_id'=>$_SESSION['u_id'], 'per_p_id'=>$this->input->post('p_id'), 'per_status'=>1),'','','');
-			if(isset($checkPermission->per_id)) {
-				$data['isPermission'] = 1;
-			} else {
-				$data['isPermission'] = 0;
-			}
-		} else {
-			$data['isPermission'] = 1;
-		}
-		$arrayJoin = array('pms_user' => 'pms_user.u_id=pms_task.t_u_id','pms_tasklist' => 'pms_tasklist.tl_id=pms_task.t_tl_id');
+	
+		// ดึงข้อมูลของโครงการและกิจกรรมในโครงการ
+		$arrayJoin = array('pms_user' => 'pms_user.u_id=pms_task.t_u_id','pms_tasklist' => 'pms_tasklist.tl_id=pms_task.t_tl_id'); 
 		$data['getData'] = $this->genmod->getAll('pms_task', '*',array('t_p_id'=>$this->input->post('p_id'), 't_status'=>1),'t_createdate desc',$arrayJoin,'');
 		$data['projectData'] = $this->genmod->getOne('pms_project', '*',array('p_id'=>$this->input->post('p_id')),'','','');
+		
+		// ดึงข้อมูลหัวหน้าโครงการและพนักงานในโครงการ
 		$arrayJoin = array('pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
-		$data['permission'] = $this->genmod->getAll('pms_permission', '*',array('per_p_id'=>$this->input->post('p_id'), 'per_status'=>1),'per_createdate desc',$arrayJoin,'');
+		$data['user'] = $this->genmod->getAll('pms_permission', '*',array('per_p_id'=>$this->input->post('p_id'), 'per_status'=>1, 'per_role'=>1),'per_createdate desc',$arrayJoin,'');
+		$data['user'] += $this->genmod->getAll('pms_permission', '*',array('per_p_id'=>$this->input->post('p_id'), 'per_status'=>1, 'per_role'=>2),'per_createdate desc',$arrayJoin,'');
+		
+		$data['projectStatus'] = $this->genlib->getProjectStatus(); // สถานะของโครงการ
 		$json['html'] = $this->load->view('tasks/list', $data, TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
@@ -128,7 +128,7 @@ class Tasks extends CI_Controller{
 			$this->load->library('upload', $config);
 			$this->upload->initialize($config);
 			for($count = 0; $count<count($_FILES["files"]["name"]); $count++) {
-				$newName = date("Y-m-d") . "_" .rand(100,999) ."_" . $_FILES["files"]["name"][$count]; // rename file
+				$newName = date("Ymd")."_".date("is").rand(1000,9999) ."_" . $_FILES["files"]["name"][$count]; // rename file
 				$_FILES["file"]["name"] = $newName;
 				$_FILES["file"]["type"] = $_FILES["files"]["type"][$count];
 				$_FILES["file"]["tmp_name"] = $_FILES["files"]["tmp_name"][$count];
@@ -137,9 +137,9 @@ class Tasks extends CI_Controller{
 				if($this->upload->do_upload('file')) {
 					$data = $this->upload->data();
 					$output .= '<tr id="'.$data["file_name"].'"><td class="d-none"><input type="checkbox" class="tmpFiles" name="fileAdd" value="'.$data["file_name"].'" checked></td>
-					<td onclick="openInNewTab(`'. base_url().'upload/'.$data["file_name"].'`)" class="name" style="cursor:pointer;"><u>'.substr($data["file_name"], 15).'</u></td>
+					<td onclick="openInNewTab(`'. base_url().'upload/'.$data["file_name"].'`)" class="name" style="cursor:pointer;"><u>'.substr($data["file_name"], 18).'</u></td>
 					<td>'.thaiDate(date("Y-m-d")).'</td>
-					<td class="text-center"><button type="button" class="btn btn-danger" title="ลบไฟล์" onclick="deleteFile(`'.$data["file_name"].'`)"><i class="mdi mdi-delete"></i></button></td>
+					<td class="text-center"><button type="button" class="btn btn-sm btn-danger" title="ลบไฟล์" onclick="deleteFile(`'.$data["file_name"].'`)"><i class="mdi mdi-delete"></i></button></td>
 					</tr>';
 				}
 			}
@@ -164,7 +164,7 @@ class Tasks extends CI_Controller{
 		// Create by: Patiphan Pansanga 14-10-2565 get add form
 		$data['p_id'] =  $this->input->post('p_id');
 		$data['tasks'] = $this->genmod->getAll('pms_tasklist', '*',array('tl_status'=>1));
-		$json['title'] = lang('md_tl_a-pt').' <span class="text-danger" style="font-size:12px;">(*'.lang('md_tl-req') .')</span>';
+		$json['title'] = lang('md_tl_a-pt').' <span class="text-danger" style="font-size:12px;">(* '.lang('md_tl_a-req') .')</span>';
 		$json['body'] = $this->load->view('tasks/formadd', $data, TRUE);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit(\'new\');">'. lang('bt_save') .'</button>
 		<button type="button" class="btn btn-danger" onclick="closeModalTask(\'เพิ่มกิจกรรม\')">'. lang('bt_cancel') .'</button>';
@@ -177,7 +177,7 @@ class Tasks extends CI_Controller{
 		$data['tasks'] = $this->genmod->getAll('pms_tasklist', '*',array('tl_status'=>1));
 		$data['getData'] = $this->genmod->getOne('pms_task', '*', array('t_id'=>$this->input->post('t_id')),'',$arrayJoin);
 		$data['getFiles'] = $this->genmod->getAll('pms_file', '*', array('f_t_id'=>$this->input->post('t_id'), 'f_status'=>1),'','','');
-		$json['title'] =  lang('md_tl_e-pt').'<span class="text-danger" style="font-size:12px;"> (*'.lang('md_tl-req').')</span>';
+		$json['title'] =  lang('md_tl_e-pt').'<span class="text-danger" style="font-size:12px;"> (* '.lang('md_tl_a-req').')</span>';
 		$json['body'] = $this->load->view('tasks/formadd', $data ,true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit('.$this->input->post('t_id').');">'. lang('bt_save') .'</button>
 		<button type="button" class="btn btn-danger" id="closeBtn" onclick="closeModalTask(\'แก้ไขกิจกรรม\')">'.lang("bt_cancel").'</button>';

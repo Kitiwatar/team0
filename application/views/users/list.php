@@ -33,9 +33,7 @@
                           foreach ($arrayRole as $key => $role) {
                             if ($value->u_role == $key) {
                               echo '<option value="' . $key . '" selected>' . $role . '</option>';
-                            } else {
-                              // echo '<option value="'.$key.'">'.$role.'</option>';
-                            }
+                            } 
                           }
                           ?>
                         </select>
@@ -47,11 +45,9 @@
                         <?php if ($value->u_status == 1) : ?>
                           <button type="button" class="btn btn-primary btn-sm" name="view" id="view" onclick="changePassword(<?= $value->u_id ?>)" title="<?= lang('tt_es_cpuser') ?>"><i class="mdi mdi-key-variant"></i></button>
                           <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->u_id ?>)" title="<?= lang('tt_es_vuser') ?>"><i class="mdi mdi-pencil"></i></button>
-                          <!-- <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="ระงับการทำงาน" onclick="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)"><i class="mdi mdi-lock-open-outline"></i></button> -->
                         <?php else : ?>
                           <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="<?= lang('tt_es_cn-cpuser') ?>"><i class=" mdi mdi-key-variant"></i></button>
                           <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="<?= lang('tt_es_cn-euser') ?>"><i class="mdi mdi-pencil"></i></button>
-                          <!-- <button type="button" class="btn btn-dark btn-sm" name="del" id="del" title="กู้คืนข้อมูล" onclick="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)"><i class="mdi mdi-lock-outline"></i></button> -->
                         <?php endif; ?>
                       </td>
                     </tr>
@@ -69,13 +65,8 @@
 
 <script>
   function showRole(id, role) {
-    $.ajax({
-      method: "post",
-      url: 'users/getAllRole/json'
-    }).done(function(returnData) {
       var select = document.getElementById('roleInput' + id);
-      var arrayRole = returnData.arrayRole;
-      console.log(select.options[0])
+      var arrayRole = ['<?= lang('u_role-am') ?>', '<?= lang('u_role-em2') ?>', '<?= lang('u_role-em1') ?>'];
       if (select.options.length < arrayRole.length) {
         for (var i = 0; i < arrayRole.length; i++) {
           if (i + 1 == role) {
@@ -87,7 +78,6 @@
           select.appendChild(opt);
         }
       }
-    });
   }
 
   $('[data-toggle="tooltip"]').tooltip();
@@ -101,28 +91,75 @@
     }
   }
   $('.table').DataTable({
-    "dom": 'Bftlp',
-    "buttons": [{
-        "extend": "excel",
-        exportOptions: {
-          columns: [0, 1, 2, 3, 4, 5, 6]
-        },
-      },
-      {
-        "extend": 'pdf',
-        "exportOptions": {
-          columns: [0, 1, 2, 3, 4, 5, 6]
-        },
-        "text": 'PDF',
-        "pageSize": 'A4',
-        "customize": function(doc) {
-          doc.defaultStyle = {
-            font: 'THSarabun',
-            fontSize: 16
-          };
-          // console.log(doc);
-        }
-      },
+    dom: 'Bftlp',
+     buttons: [{
+         extend: 'excel',
+         filename: 'รายชื่อพนักงาน',
+         title: 'รายชื่อพนักงาน',
+         exportOptions: {
+           columns: [0, 1, 2, 3, 4, 5]
+         },
+         customize: function(xlsx) {
+           var sheet = xlsx.xl['styles.xml'];
+           var fontSize = sheet.getElementsByTagName('sz');
+           var fontName = sheet.getElementsByTagName('name');
+           for (i = 0; i < fontSize.length; i++) {
+            fontSize[i].setAttribute("val", "16")
+            fontName[i].setAttribute("val", "TH Sarabun New")
+           }
+         }
+       },
+       { // กำหนดพิเศษเฉพาะปุ่ม pdf
+         extend: 'pdf', // ปุ่มสร้าง pdf ไฟล์
+         text: 'PDF', // ข้อความที่แสดง
+         filename: 'รายชื่อพนักงาน',
+         title: 'รายชื่อพนักงาน',
+         pageSize: 'A4', // ขนาดหน้ากระดาษเป็น A4
+         exportOptions: {
+           columns: [0, 1, 2, 3, 4]
+         },
+         customize: function(pdf) { // ส่วนกำหนดเพิ่มเติม ส่วนนี้จะใช้จัดการกับ pdfmake
+           // กำหนด style หลัก
+           pdf.content[1].layout = {
+             hLineWidth: function(i, node) {
+               return 1;
+             },
+             vLineWidth: function(i, node) {
+               return 1;
+             },
+             hLineColor: function(i, node) {
+               return 'black';
+             },
+             vLineColor: function(i, node) {
+               return 'black';
+             }
+           };
+           pdf.styles = {
+             tableHeader: {
+               alignment: 'center',
+               fillColor: 'white',
+               bold: 1,
+             }
+           };
+           pdf.defaultStyle = {
+             font: 'THSarabun',
+             fontSize: 16
+           };
+           pdf.styles.title = {
+             alignment: 'center',
+             fontSize: '20',
+             bold: !0,
+           };
+           // กำหนดความกว้างของ header แต่ละคอลัมน์หัวข้อ
+           pdf.content[1].table.widths = [40, 120, 150, 70, 110];
+           pdf.styles.tableHeader.fontSize = 16; // กำหนดขนาด font ของ header
+           var rowCount = pdf.content[1].table.body.length; // หาจำนวนแถวทั้งหมดในตาราง
+           // วนลูปเพื่อกำหนดค่าแต่ละคอลัมน์ เช่นการจัดตำแหน่ง
+           for (i = 1; i < rowCount; i++) { // i เริ่มที่ 1 เพราะ i แรกเป็นแถวของหัวข้อ
+             pdf.content[1].table.body[i][0].alignment = 'center'; // คอลัมน์แรกเริ่มที่ 0
+           };
+         }
+       }, // สิ้นสุดกำหนดพิเศษปุ่ม pdf
     ],
     "language": {
        "oPaginate": {

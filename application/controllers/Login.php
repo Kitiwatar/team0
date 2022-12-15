@@ -19,15 +19,13 @@ class Login extends CI_Controller {
 		}
 	}
 
-	public function index() {		
-		// Create by: Patiphan Pansanga 07-09-2565 index page
-		if(isset($_SESSION['u_id'])) {
-			redirect(base_url());
-		}
-		$values['pageTitle'] = lang('login');
-		$values['breadcrumb'] = lang('login');
-		$values['pageContent'] = $this->load->view('login', '', TRUE);
-		$this->load->view('main', $values);
+	public function getLoginForm() {
+		// Create by: Patiphan Pansanga 15-ๅ2-2565 get login form
+		$json['title'] = 'เข้าสู่ระบบ';
+		$data['arrayRole'] = $this->genlib->getUserRole();
+		$json['body'] = $this->load->view('login', '' ,true);
+		$json['footer'] = '';
+		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
 	public function checkLogin() {

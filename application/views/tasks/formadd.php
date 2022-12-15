@@ -1,24 +1,5 @@
 <!-- Create by: Patiphan Pansanga 14-10-2565 -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css" rel="stylesheet">
-<style>
-  /* input {
-    position: relative;
-  }
-
-  input[type="date"]::-webkit-calendar-picker-indicator {
-    background-position: right;
-    background-size: auto;
-    cursor: pointer;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 4px;
-    top: -13px;
-    width: auto;
-    height: 60px;
-    display: none;
-  } */
-</style>
 <?php $required = '<span class="text-danger">*</span>'; ?>
 <div class="row">
   <div class="col-12">
@@ -47,14 +28,6 @@
             <textarea class="form-control" name="inputValue[]" rows="3" id="t_detail" <?= isset($detail) ? "disabled" : '' ?> placeholder="<?= lang('md_at_ph-dtl') ?>"><?= isset($getData) ? $getData->t_detail : '' ?></textarea>
             <font id="detailMsg" class="small text-danger"></font>
           </div>
-          <!-- <div class="form-group">
-            <label for="p_createdate" class="form-label">วันดำเนินการ<?= isset($detail) ? '' : $required ?></label>
-            <div class="input-group mb-3" onclick="pickDate()">
-              <input type="date" style="cursor: pointer;" onfocus="this.showPicker()" class="form-control" name="inputValue[]" <?= isset($detail) ? "disabled" : '' ?> value="<?= isset($getData) ? $getData->t_createdate : '' ?>" id="t_createdate">
-              <span class="input-group-text fs-5" id="basic-addon1" style="cursor: pointer;"><i class="mdi mdi-calendar-range"></i></span>
-            </div>
-            <font id="createdateMsg" class="small text-danger"></font>
-          </div> -->
           <div class="form-group">
               <label for="p_createdate" class="form-label"><?= lang('md_at-imd') ?><?php if(!isset($detail)) { echo $required; } ?></label>
               <div class="input-group date" data-provide="datepicker" data-date-format="dd-mm-yyyy">
@@ -76,7 +49,7 @@
       <div class="mx-4">
         <h4><?= lang('md_at-dc') ?></h4>
         <div class="col-md-6 <?= isset($detail) ? "d-none" : '' ?>">
-          <button type="button" class="btn btn-success" id="uploadBtn"><i class="mdi mdi-plus-circle-outline"></i><?= lang('md_at_bt-dc') ?></button>
+          <button type="button" class="btn btn-success" id="uploadBtn"><i class="mdi mdi-plus-circle-outline"></i> <?= lang('md_at_bt-dc') ?></button>
           <input type="file" name="files" id="files" class="d-none" accept=".doc,.docx,application/msword, .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/vnd.ms-powerpoint, 
           application/vnd.openxmlformats-officedocument.presentationml.slideshow, application/vnd.openxmlformats-officedocument.presentationml.presentation , text/plain, application/pdf, image/*" multiple />
         </div>
@@ -97,11 +70,11 @@
                   <?php for ($i = 0; $i < count($getFiles); $i++) { ?>
                     <tr id="<?= $getFiles[$i]->f_name ?>">
                       <td class="d-none"><input type="checkbox" name="fileAdd" value="<?= $getFiles[$i]->f_name ?>" checked></td>
-                      <td onclick="openInNewTab('<?= base_url() . 'upload/' . $getFiles[$i]->f_name ?>')" class="name" style="cursor:pointer;"><u><?= substr($getFiles[$i]->f_name, 15) ?></u></td>
+                      <td onclick="openInNewTab('<?= base_url() . 'upload/' . $getFiles[$i]->f_name ?>')" class="name" style="cursor:pointer;"><u><?= substr($getFiles[$i]->f_name, 18) ?></u></td>
                       <td><?= thaiDate($getFiles[$i]->f_createdate) ?></td>
                       <td class="text-center">
-                        <a class="btn btn-info" title="ดาวน์โหลดไฟล์" href="<?= base_url() . 'upload/' . $getFiles[$i]->f_name ?>" target="_blank" download="<?= substr($getFiles[$i]->f_name, 15) ?>"><i class="mdi mdi-download"></i></a>
-                        <button type="button" class="btn btn-danger <?= isset($detail) ? "d-none" : '' ?>" title="ลบไฟล์" onclick="remove('<?= $getFiles[$i]->f_name ?>')"><i class="mdi mdi-delete"></i></button>
+                        <a class="btn btn-sm btn-info" title="ดาวน์โหลดไฟล์" href="<?= base_url() . 'upload/' . $getFiles[$i]->f_name ?>" target="_blank" download="<?= substr($getFiles[$i]->f_name, 18) ?>"><i class="mdi mdi-download"></i></a>
+                        <button type="button" class="btn btn-sm btn-danger <?= isset($detail) ? "d-none" : '' ?>" title="ลบไฟล์" onclick="remove('<?= $getFiles[$i]->f_name ?>')"><i class="mdi mdi-delete"></i></button>
                       </td>
                     </tr>
               <?php }
@@ -157,12 +130,7 @@
     for (var count = 0; count < files.length; count++) {
       var name = files[count].name;
       var extension = name.split('.').pop().toLowerCase();
-      //  if(jQuery.inArray(extension, ['gif','png','jpg','jpeg']) == -1) {
-      //   error += "Invalid " + count + " Image File"
-      //  }
-      //  else {
       form_data.append("files[]", files[count]);
-      //  }
     }
     if (error == '') {
       $.ajax({
@@ -180,7 +148,6 @@
           var text = document.getElementById("uploaded").innerHTML;
           text += data.output;
           document.getElementById("uploaded").innerHTML = text
-          //  $('#uploaded_images').html(data);
           $('#files').val('');
         }
       })

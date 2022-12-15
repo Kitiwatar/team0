@@ -22,8 +22,6 @@
   }
 
   function saveFormProjectSubmit(p_id) {
-    // $('#fMsg').addClass('text-warning');
-    // $('#fMsg').text('กำลังดำเนินการ ...');
     var formData = {};
     formData['p_id'] = p_id;
     formData['p_name'] = $('#p_name').val()
@@ -44,10 +42,16 @@
     } else {
       formData['p_createdate'] = "";
     }
-    console.log(formData)
     var count = 0;
+    if (!validateEmail(formData.p_emailcontact) && formData.p_emailcontact != "") {
+      $('#emailMsg').text(' <?= lang('md_rqf_em') ?>');
+      $('#p_emailcontact').focus();
+      count++
+    } else {
+      $('#emailMsg').text(' ');
+    }
     if (formData.p_telcontact.length > 0) {
-      if (formData.p_telcontact.length != 10) {
+      if (formData.p_telcontact.length != 10 || formData.p_telcontact[0] != '0') {
         $('#telMsg').text('<?= lang('md_rqf_cp') ?>');
         $('#p_telcontact').focus();
         count++
@@ -86,13 +90,7 @@
     } else {
       $('#nameMsg').text(' ');
     }
-    if (!validateEmail(formData.p_emailcontact) && formData.p_emailcontact != "") {
-      $('#emailMsg').text(' <?= lang('md_rqf_em') ?>');
-      $('#p_emailcontact').focus();
-      count++
-    } else {
-      $('#emailMsg').text(' ');
-    }
+
     if (count > 0) {
       return false;
     }

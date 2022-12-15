@@ -28,94 +28,91 @@
   }
 
   function saveFormSubmit(tl_id) {
-    // $('#fMsg').addClass('text-warning');
-    // $('#fMsg').text('กำลังดำเนินการ ...');
-    var formData = {};
-    formData['tl_id'] = tl_id;
-    formData['tl_name'] = $('#tl_name').val()
-    // $('[name^="inputValue"]').each(function() {
-    //   formData[this.id] = this.value;
-    // });
-
-    console.log(formData);
-    if (!formData.tl_name) {
-      $('#tlnameMsg').addClass('text-danger');
-      $('#tlnameMsg').text('<?= lang('md_atl_rqf') ?>');
-      !formData.tl_name ? $('#tl_name').focus() : '';
-      return false;
-      } else {
-        $('#tlnameMsg').text(' ');
-      }
-    var mainMsg;
-    var detailMsg;
-    if (tl_id == "new") {
-      mainMsg = '<?= lang('md_atl_main-msg') ?>';
-      detailMsg = '<?= lang('md_atl_detail-msg') ?>';
-    } else {
-      mainMsg = '<?= lang('md_etl_main-msg') ?>';
-      detailMsg = '<?= lang('md_etl_detail-msg') ?>';
-    }
-    swal({
-      title: mainMsg,
-      text: detailMsg,
-      type: "warning",
-      showCancelButton: true,
-      showConfirmButton: true,
-      confirmButtonText: "<?= lang('bt_confirm') ?>",
-      cancelButtonText: '<?= lang('bt_cancel') ?>',
-    }).then(function(isConfirm) {
-      if (isConfirm.value) {
-        $.ajax({
-          method: "post",
-          url: 'tasklist/add',
-          data: formData
-        }).done(function(returnData) {
-          if (returnData.status == 1) {
-            swal({
-              title: '<?= lang('md_vm-suc') ?>',
-              text: returnData.msg,
-              type: "success",
-              showCancelButton: false,
-              showConfirmButton: false,
-              timer: 1000,
-            });
-            $('#fMsg').addClass('text-success');
-            $('#fMsg').text(returnData.msg);
-            $('#formtasklist')[0].reset();
-            $('#mainModal').modal('hide');
-            loadList();
-          } else {
-            swal({
-              title: '<?= lang('md_vm-fail') ?>',
-              text: returnData.msg,
-              type: "error",
-              showCancelButton: false,
-              showConfirmButton: false,
-              timer: 1000,
-            });
-            $('#fMsg').addClass('text-success');
-            $('#fMsg').text(returnData.msg);
-            $('#formtasklist')[0].reset();
-            $('#mainModal').modal('hide');
-            loadList();
-          }
-        });
-      }
-    });
-
-  function view() {
-    $.ajax({
-      method: "post",
-      url: 'tasklist/getDetailForm',
-    }
-    ).done(function(returnData) {
-      $('#mainModalTitle').html(returnData.title);
-      $('#mainModalBody').html(returnData.body);
-      $('#mainModalFooter').html(returnData.footer);
-      $('#mainModal').modal();
-    });
-  }
-  }
+     var formData = {};
+     formData['tl_id'] = tl_id;
+     formData['tl_name'] = $('#tl_name').val()
+     if (!formData.tl_name) {
+       $('#tlnameMsg').addClass('text-danger');
+       $('#tlnameMsg').text('กรุณากรอกชื่อกิจกรรม');
+       !formData.tl_name ? $('#tl_name').focus() : '';
+       return false;
+     } else {
+       $('#tlnameMsg').text(' ');
+     }
+     $.ajax({
+       url: 'tasklist/checkRepeat',
+       data: {
+         tl_name: formData['tl_name']
+       },
+       method: 'post'
+     }).done(function(returnData) {
+       if (returnData.status == 0) {
+         $('#tlnameMsg').text(returnData.msg);
+         $('#tl_name').addClass('is-invalid');
+         return;
+       } else {
+         $('#tlnameMsg').text(returnData.msg);
+         $('#tl_name').removeClass('is-invalid');
+         
+         var mainMsg;
+         var detailMsg;
+         if (tl_id == "new") {
+           mainMsg = "ยืนยันการเพิ่มรายชื่อกิจกรรม";
+           detailMsg = "คุณต้องการเพิ่มรายชื่อกิจกรรมใช่หรือไม่";
+         } else {
+           mainMsg = "ยืนยันการแก้ไขรายชื่อกิจกรรม";
+           detailMsg = "คุณต้องการแก้ไขรายชื่อกิจกรรมใช่หรือไม่";
+         }
+         swal({
+           title: mainMsg,
+           text: detailMsg,
+           type: "warning",
+           showCancelButton: true,
+           showConfirmButton: true,
+           confirmButtonText: "ยืนยัน",
+           cancelButtonText: "ยกเลิก",
+         }).then(function(isConfirm) {
+           if (isConfirm.value) {
+             $.ajax({
+               method: "post",
+               url: 'tasklist/add',
+               data: formData
+             }).done(function(returnData) {
+               if (returnData.status == 1) {
+                 swal({
+                   title: "สำเร็จ",
+                   text: returnData.msg,
+                   type: "success",
+                   showCancelButton: false,
+                   showConfirmButton: false,
+                   timer: 1000,
+                 });
+                 $('#fMsg').addClass('text-success');
+                 $('#fMsg').text(returnData.msg);
+                 $('#formtasklist')[0].reset();
+                 $('#mainModal').modal('hide');
+                 loadList();
+               } else {
+                 swal({
+                   title: "ล้มเหลว",
+                   text: returnData.msg,
+                   type: "error",
+                   showCancelButton: false,
+                   showConfirmButton: false,
+                   timer: 1000,
+                 });
+                 $('#fMsg').addClass('text-success');
+                 $('#fMsg').text(returnData.msg);
+                 $('#formtasklist')[0].reset();
+                 $('#mainModal').modal('hide');
+                 loadList();
+               }
+             });
+           }
+         });
+       }
+     })
+   }
 
   function edit(tl_id) {
     $.ajax({

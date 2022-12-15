@@ -1,19 +1,6 @@
 <!-- Create by: Jiradat Pomyai, Patiphan Pansanga 24-09-2565 -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css" rel="stylesheet">
 <style>
-  /* input[type="date"]::-webkit-calendar-picker-indicator {
-    background-position: right;
-    background-size: auto;
-    cursor: pointer;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 4px;
-    top: -13px;
-    width: auto;
-    height: 60px;
-    display: none;
-  } */
   .datepicker {
     position: fixed !important;
   }
@@ -103,37 +90,73 @@ date_default_timezone_set("Asia/Bangkok"); ?>
   });
 
   $('#p_telcontact').on('input', function() {
+    let count = 0;
     if(this.value.match(/[^0-9]/)) {
+      count++;
       $('#telMsg').text('  <?= lang('md_rqf_pn-f')  ?>');
+      $('#p_telcontact').addClass("is-invalid");
+    } else if(this.value.length < 10 || this.value[0] != "0") {
+      $('#p_telcontact').addClass("is-invalid");
     } else {
       $('#telMsg').text(' ');
       $('#p_telcontact').removeClass("is-invalid").addClass("is-valid");
+    }
+    if(this.value.length == 0 && count == 0) {
+      $('#p_telcontact').removeClass("is-invalid").removeClass("is-valid");
     }
     this.value = this.value.replace(/[^0-9]/g, '');
   });
 
   $('#p_linecontact').on('input', function() {
+    let count = 0;
     if(this.value.match(/[^a-zA-Z0-9._-]/)) {
+      count++;
       $('#lineMsg').text('  <?= lang('md_rqf_ln-f')  ?>');
+      $('#p_linecontact').addClass("is-invalid");
     } else {
       $('#lineMsg').text(' ');
-      $('').removeClass("is-invalid");
-      $('#p_linecontact').addClass("is-valid");
+      $('#p_linecontact').removeClass("is-invalid").addClass("is-valid");
+    }
+    if(this.value.length == 0 && count == 0) {
+      $('#p_linecontact').removeClass("is-invalid").removeClass("is-valid");
     }
     this.value = this.value.toLowerCase();
     this.value = this.value.replace(/[^a-zA-Z0-9._-]/g, '');
   });
 
   $("#p_emailcontact").on('input', function() {
-    if(this.value.match(/[^a-zA-Z0-9.@_-]/)) {
+    let count = 0;
+    if(this.value.match(/[^a-zA-Z0-9.@_-]/)  || !validateEmail(this.value)) {
+      count++;
       $('#emailMsg').text('  <?= lang('md_rqf_em-f')  ?>');
+      $('#p_emailcontact').addClass("is-invalid");
     } else {
       $('#emailMsg').text(' ');
-      $('#p_emailcontact').removeClass("is-invalid");
-      $('#p_emailcontact').addClass("is-valid");
+      $('#p_emailcontact').removeClass("is-invalid").addClass("is-valid");
     }
-    
+    if(this.value.length == 0 && count == 0) {
+      $('#p_emailcontact').removeClass("is-invalid").removeClass("is-valid");
+    }
     this.value = this.value.toLowerCase();
     this.value = this.value.replace(/[^a-zA-Z0-9.@_-]/g, '');
+  });
+
+  $('#p_telcontact').on('focusout', function() {
+    if(this.value.length == 0) {
+      $('#p_telcontact').removeClass("is-invalid");
+      $('#telMsg').text(' ');
+    }
+  });
+  $('#p_linecontact').on('focusout', function() {
+    if(this.value.length == 0) {
+      $('#p_linecontact').removeClass("is-invalid");
+      $('#lineMsg').text(' ');
+    }
+  });
+  $('#p_emailcontact').on('focusout', function() {
+    if(this.value.length == 0) {
+      $('#p_emailcontact').removeClass("is-invalid");
+      $('#emailMsg').text(' ');
+    }
   });
 </script>

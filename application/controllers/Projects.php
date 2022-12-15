@@ -28,12 +28,6 @@ class Projects extends CI_Controller{
 		$this->load->view('main', $values);
 	}
 
-    public function getStatus() {
-		// Create by: Jiradat Pomyai 19-09-2565 return all status of project
-		$arrayStatus = array(1=>lang('sp_home_pendproject'), 2=>lang('sp_home_inprogress'), 3=>lang('sp_home_finish'), 4=>lang('sp_home_cancel'));
-		return $arrayStatus;
-    }
-
 	public function get() {
 		// Create by: Jiradat Pomyai 19-09-2565
 		$data['pageTitle'] =  'โครงการที่เกี่ยวข้อง';
@@ -45,7 +39,7 @@ class Projects extends CI_Controller{
 			$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('per_role'=>1), 'p_createdate desc', $arrayJoin, '');
 		}
 
-		$data['arrayStatus'] = $this->getStatus();
+		$data['arrayStatus'] = $this->genlib->getProjectStatus();
 		$lastTask = array();
 		$leader = array();
 		$arrayJoin = array('pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
@@ -100,7 +94,7 @@ class Projects extends CI_Controller{
 
 	public function getAddForm() {
 		// Create by: Jiradat Pomyai 28-09-2565 get add form
-		$json['title'] = lang('md_tl_a-ap').' <span class="text-danger" style="font-size:12px;">(*'.lang('md_tl-req').')</span>';
+		$json['title'] = lang('md_tl_a-ap').' <span class="text-danger" style="font-size:12px;">(* '.lang('md_tl_a-req').')</span>';
 		$json['body'] = $this->load->view('projects/formadd', '', TRUE);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormProjectSubmit(\'new\');">'.lang("bt_save").' </button>
 		<button type="button" class="btn btn-danger" onclick="closeModal(\'เพิ่มโครงการ\')">'.lang("bt_cancel").'</button>';
@@ -109,7 +103,7 @@ class Projects extends CI_Controller{
 
 	public function getEditForm() {
 		// Create by: Patiphan Pansanga 11-10-2565 get edit form 
-		$json['title'] = lang('md_tl_e-pj').' <span class="text-danger" style="font-size:12px;">(*'.lang('md_tl-req').')</span>';
+		$json['title'] = lang('md_tl_e-pj').' <span class="text-danger" style="font-size:12px;">(* '.lang('md_tl_a-req').')</span>';
 		$data['getData'] = $this->genmod->getOne('pms_project', '*', array('p_id'=>$this->input->post('p_id')));
 		$json['body'] = $this->load->view('projects/formadd', $data ,true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormProjectSubmit('.$this->input->post('p_id').');">'.lang("bt_save").'</button>

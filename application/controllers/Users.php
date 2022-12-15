@@ -33,23 +33,12 @@ class Users extends CI_Controller {
 		$this->load->view('main', $values);
 	}
 
-	public function getAllRole($dataType = "php") {
-		// Create by: Patiphan Pansanga 13-09-2565 return all user role
-		if($dataType == "php") {
-			$arrayRole = array(1=>lang('u_role-am'), 2=>lang('u_role-em2'), 3=>lang('u_role-em1'));
-			return $arrayRole;
-		} else {
-			$json = ['arrayRole'=> [lang('u_role-am'), lang('u_role-em2'), lang('u_role-em1')]];
-			$this->output->set_content_type('application/json')->set_output(json_encode($json));
-		}
-    }
-
 	public function get() {
 		// Create by: Patiphan Pansanga 08-09-2565 return table user
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
-		$data['arrayRole'] = $this->getAllRole();
+		$data['arrayRole'] = $this->genlib->getUserRole();
 		$data['getData'] = $this->genmod->getAll('pms_user', '*','','u_createdate desc','','');
 		$json['html'] = $this->load->view('users/list', $data, TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
@@ -60,8 +49,8 @@ class Users extends CI_Controller {
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
-		$json['title'] = lang('md_tl_a-aes').' <span class="text-danger" style="font-size:12px;">(*'.lang('md_tl-req').')</span>';
-		$data['arrayRole'] = $this->getAllRole();
+		$json['title'] = lang('md_tl_a-aes').' <span class="text-danger" style="font-size:12px;">(* '.lang('md_tl_a-req').')</span>';
+		$data['arrayRole'] = $this->genlib->getUserRole();
 		$json['body'] = $this->load->view('users/formadd', $data ,true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit(\'new\');">'.lang('bt_save').'</button>
 		<button type="button" class="btn btn-danger" onclick="closeModal(\'เพิ่มพนักงาน\')">'.lang('bt_cancel').'</button>';
@@ -121,8 +110,8 @@ class Users extends CI_Controller {
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
-		$json['title'] = lang('md_tl_e-em').' <span class="text-danger" style="font-size:12px;">(*'.lang('md_tl-req').')</span>';
-		$data['arrayRole'] = $this->getAllRole();
+		$json['title'] = lang('md_tl_e-em').' <span class="text-danger" style="font-size:12px;">(* '.lang('md_tl_e-req').')</span>';
+		$data['arrayRole'] = $this->genlib->getUserRole();
 		$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
 		$json['body'] = $this->load->view('users/formadd', $data ,true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit('.$this->input->post('u_id').');">'.lang('bt_save') .'</button>
@@ -143,7 +132,7 @@ class Users extends CI_Controller {
 		}
 		$json['title'] = lang('md_tl_v-em');
 		$data['detail'] = "yes";
-		$data['arrayRole'] = $this->getAllRole();
+		$data['arrayRole'] = $this->genlib->getUserRole();
 		$json['body'] = $this->load->view('users/formadd', $data ,true);
 		if($data['getData']->u_status == 1 && $this->input->post('person') == null) {
 			$json['footer'] = '<button type="button" class="btn btn-warning" onclick="edit(' . $this->input->post('u_id') . ')" title="แก้ไขข้อมูลพนักงาน">'.lang('bt_edit') .'</button>';

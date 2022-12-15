@@ -118,5 +118,15 @@ class Tasklist extends CI_Controller {
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
+	public function checkRepeat() {
+		$this->genlib->ajaxOnly();
+		$checkData = $this->genmod->getOne('pms_tasklist', '*', array('tl_name'=>$this->input->post('tl_name'), 'tl_status'=>1));
+		if(isset($checkData->tl_name)) {
+			$json = ['status'=> 0, 'msg'=>"มีรายชื่อกิจกรรมนี้อยู่แล้ว"];
+		} else {
+			$json = ['status'=> 1, 'msg'=>" "];
+		}
+		$this->output->set_content_type('application/json')->set_output(json_encode($json));
+	}
 	
 }

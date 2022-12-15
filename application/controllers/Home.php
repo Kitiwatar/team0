@@ -103,12 +103,6 @@ class Home extends CI_Controller
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
-	public function getStatus() {
-		// Create by: Patiphan Pansanga , Kitiwat Arunwong 29-09-2565 return all status of project
-		$arrayStatus = array(1=>lang('sp_home_pendproject'), 2=>lang('sp_home_inprogress'), 3=>lang('sp_home_finish'), 4=>lang('sp_home_cancel'));
-		return $arrayStatus;
-	}
-
 	public function viewProjects($status) {
 		// Create by: Patiphan Pansanga, Kitiwat Arunwong 29-09-2565 view project by status name
 		$p_status = null;
@@ -144,7 +138,7 @@ class Home extends CI_Controller
 			$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('per_role'=>1), 'p_createdate desc', $arrayJoin, '');
 		}
 
-		$data['arrayStatus'] = $this->getStatus();
+		$data['arrayStatus'] = $this->genlib->getProjectStatus();
 		$lastTask = array();
 		$leader = array();
 		$arrayJoin = array('pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
