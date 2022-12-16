@@ -21,10 +21,10 @@ class Login extends CI_Controller {
 
 	public function getLoginForm() {
 		// Create by: Patiphan Pansanga 15-ๅ2-2565 get login form
-		$json['title'] = 'เข้าสู่ระบบ';
+		
 		$data['arrayRole'] = $this->genlib->getUserRole();
 		$json['body'] = $this->load->view('login', '' ,true);
-		$json['footer'] = '';
+	
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 

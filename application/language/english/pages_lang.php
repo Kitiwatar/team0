@@ -23,13 +23,16 @@ $lang['logout'] = 'Logout';
 //++ End ++//
 
 //++ Login ++ //
+//++ Header
+$lang['Email'] = "Email";
+$lang['Password'] = "Password";
 //-- Result
 $lang['l_result-pw'] = "Password incorrect.";
 $lang['l_result-nf'] = "Not found this User.";
 $lang['l_result-usem'] = "This User got suspended please contact to admin.";
 // placeholder
-$lang['p_login_email'] = "Email";
-$lang['p_login_password'] = "Password";
+$lang['p_login_email'] = "Enter Email";
+$lang['p_login_password'] = "Enter Password";
 // Button
 $lang['b_login'] = "Log in";
 //++ End ++//
