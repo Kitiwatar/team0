@@ -92,6 +92,7 @@
         .name:hover {
             color: #03a9f3;
         }
+        
     </style>
 </head>
 
@@ -377,17 +378,15 @@
     </div>
 
     <div class="modal fade" id="mdModal" tabindex="-1" aria-labelledby="modalCenterTitle" aria-hidden="true" data-keyboard="false">
-        <div class="modal-dialog modal-dialog-scrollable" role="document" id='modalSize'>
+        <div class="modal-dialog modal-dialog-centered" role="document" id='modalSize'>
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="mdModalTitle">Modal title</h5>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true"></button>
-                </div>
+                
+                    
+               
                 <div class="modal-body" id="mdModalBody">
-                    ...
+                   
                 </div>
-                <div class="modal-footer" id="mdModalFooter">
-                </div>
+                
             </div>
         </div>
     </div>

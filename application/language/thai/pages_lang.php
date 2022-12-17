@@ -27,13 +27,16 @@ $lang['logout'] = 'ออกจากระบบ';
 //++ End ++//
 
 //++ Login ++ //
+//++ Header
+$lang['Email'] = "อีเมล";
+$lang['Password'] = "รหัสผ่าน";
 //-- Result
 $lang['l_result-pw'] = "รหัสผ่านไม่ถูกต้อง";
 $lang['l_result-nf'] = "ไม่พบบัญชีผู้ใช้นี้ในระบบ";
 $lang['l_result-usem'] = "บัญชีผู้ใช้ถูกระงับ กรุณาติดต่อผู้ดูแลระบบ";
 // placeholder
-$lang['p_login_email'] = "อีเมล";
-$lang['p_login_password'] = "รหัสผ่าน";
+$lang['p_login_email'] = "กรอกอีเมล";
+$lang['p_login_password'] = "กรอกรหัสผ่าน";
 // Button
 $lang['b_login'] = "เข้าสู่ระบบ";
 //++ End ++//
