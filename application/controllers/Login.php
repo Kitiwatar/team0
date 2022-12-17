@@ -50,8 +50,8 @@ class Login extends CI_Controller {
 					$_SESSION['u_fullname'] = $data->u_firstname . " " . $data->u_lastname;
 					$_SESSION['u_role'] = $data->u_role;
 					$_SESSION['u_status'] = $data->u_status;
-					// $_SESSION['timeout'] = date('Y-m-d H:i:s', strtotime('1 hour'));
-					$_SESSION['timeout'] = date('Y-m-d H:i:s');
+					$_SESSION['timeout'] = date('Y-m-d H:i:s', strtotime('1 hour'));
+					// $_SESSION['timeout'] = date('Y-m-d H:i:s');
 					$json = ['status'=> 1];
 				} else {
 					$json = ['status'=> 0, 'msg'=>lang('l_result-usem')];

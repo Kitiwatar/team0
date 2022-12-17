@@ -64,44 +64,35 @@ class Users extends CI_Controller {
 		}
 		$this->genlib->ajaxOnly();
 		$formData = $this->input->post();
-		$arrayErr = array(
-      		'required' => 'คุณต้องทำการระบุ  {field} ',
-			'numeric' => 'กรุณาระบุ {field} เป็นตัวเลขเท่านั้น',
-			'min_length' => 'กรุณาระบุ {field} เป็นตัวเลขอย่างน้อย {param} หลัก',
-			'max_length' => 'กรุณาระบุ {field} เป็นตัวเลขไม่เกิน {param} หลัก'
-    	);
-		$this->form_validation->set_rules('u_firstname', 'ชื่อ', 'required', $arrayErr);
-		$this->form_validation->set_rules('u_lastname', 'นามสกุล', 'required', $arrayErr);
-		$this->form_validation->set_rules('u_email', 'อีเมล', 'required|valid_email', $arrayErr);
-		$this->form_validation->set_rules('u_tel', 'เบอร์โทรศัพท์', 'required|min_length[10]|max_length[10]', $arrayErr);
-		$this->form_validation->set_rules('u_role', 'สิทธิ์การใช้งาน', 'required|numeric', $arrayErr);
-
-		if($this->form_validation->run() !== FALSE && $formData['u_role'] < 4 && $formData['u_role'] > 0){
-			$formData['u_email'] = strtolower($formData['u_email']);
-			$validCheck = $this->genmod->getOne('pms_user', '*',array('u_email'=>$formData['u_email']));
-			if($formData['u_id'] == 'new') {
-				if(!$validCheck) {
-					$formData['u_password'] = hash('sha256', $formData['u_tel']);
-					$formData['u_creator'] = $_SESSION['u_id'];
-					$this->genmod->add('pms_user',$formData);
-					$json = ['status'=> 1, 'msg'=>lang('md_vm_ct-save')];
-				} else {
-					$json = ['status'=> 0, 'msg'=>lang('md_vm_aem-fail'), 'sql'=> $this->db->last_query()];
-				}
-			} else {
-				if(!$validCheck || $validCheck->u_id == $formData['u_id']) {
-					$u_id = $formData['u_id'];
-					unset($formData['u_id']);
-					$this->genmod->update('pms_user', $formData, array('u_id'=>$u_id));
-					$json = ['status'=> 1, 'msg'=>lang('md_vm_ct-edit')];
-				} else {
-					$json = ['status'=> 0, 'msg'=>lang('md_vm_aem-fail'), 'sql'=> $this->db->last_query()];
-				}
+		$dataRequires = array('u_id','u_firstname','u_lastname','u_email','u_tel','u_role');
+		foreach ($dataRequires as $value) {
+			if(!isset($formData[$value])) {
+				$json = ['status'=> 0, 'msg'=>lang('md_vm_ad-fail')];
+				$this->output->set_content_type('application/json')->set_output(json_encode($json));
+				return;
 			}
-		}else{
-			$json = ['status'=> 0, 'msg'=>lang('md_vm_ad-fail'),'error'=>$this->form_validation->error_array()];
 		}
-
+		$formData['u_email'] = strtolower($formData['u_email']);
+		$validCheck = $this->genmod->getOne('pms_user', '*',array('u_email'=>$formData['u_email']));
+		if($formData['u_id'] == 'new') {
+			if(!$validCheck) {
+				$formData['u_password'] = hash('sha256', $formData['u_tel']);
+				$formData['u_creator'] = $_SESSION['u_id'];
+				$this->genmod->add('pms_user',$formData);
+				$json = ['status'=> 1, 'msg'=>lang('md_vm_ct-save')];
+			} else {
+				$json = ['status'=> 0, 'msg'=>lang('md_vm_aem-fail'), 'sql'=> $this->db->last_query()];
+			}
+		} else {
+			if(!$validCheck || $validCheck->u_id == $formData['u_id']) {
+				$u_id = $formData['u_id'];
+				unset($formData['u_id']);
+				$this->genmod->update('pms_user', $formData, array('u_id'=>$u_id));
+				$json = ['status'=> 1, 'msg'=>lang('md_vm_ct-edit')];
+			} else {
+				$json = ['status'=> 0, 'msg'=>lang('md_vm_aem-fail'), 'sql'=> $this->db->last_query()];
+			}
+		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 

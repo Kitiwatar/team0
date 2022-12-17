@@ -143,19 +143,19 @@ date_default_timezone_set("Asia/Bangkok"); ?>
 
   $('#p_telcontact').on('focusout', function() {
     if(this.value.length == 0) {
-      $('#p_telcontact').removeClass("is-invalid");
+      $('#p_telcontact').removeClass("is-invalid").removeClass("is-valid");
       $('#telMsg').text(' ');
     }
   });
   $('#p_linecontact').on('focusout', function() {
     if(this.value.length == 0) {
-      $('#p_linecontact').removeClass("is-invalid");
+      $('#p_linecontact').removeClass("is-invalid").removeClass("is-valid");
       $('#lineMsg').text(' ');
     }
   });
   $('#p_emailcontact').on('focusout', function() {
     if(this.value.length == 0) {
-      $('#p_emailcontact').removeClass("is-invalid");
+      $('#p_emailcontact').removeClass("is-invalid").removeClass("is-valid");
       $('#emailMsg').text(' ');
     }
   });

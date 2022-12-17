@@ -64,29 +64,26 @@ class Tasklist extends CI_Controller {
 		// Create by: Natakorn Phongsarikit 15-09-2565 add tasklist to database
 		$this->genlib->ajaxOnly();
 		$formData = $this->input->post();
-		$arrayErr = array(
-      		'required' => 'คุณต้องทำการระบุ  {field} ',
-			'numeric' => 'กรุณาระบุ {field} เป็นตัวเลขเท่านั้น',
-			'min_length' => 'กรุณาระบุ {field} เป็นตัวเลขอย่างน้อย {param} หลัก',
-			'max_length' => 'กรุณาระบุ {field} เป็นตัวเลขไม่เกิน {param} หลัก'
-    	);
-		$this->form_validation->set_rules('tl_name','ชื่อกิจกรรม', 'required', $arrayErr);
-		if($this->form_validation->run() !== FALSE){
-			if($formData['tl_id'] == 'new') {
-				$formData['tl_name'] = strtolower($formData['tl_name']);
-				$formData['tl_u_id'] = $_SESSION['u_id'];
-				$this->genmod->add('pms_tasklist',$formData);
-					$json = ['status'=> 1, 'msg'=>lang('md_vm_ct-save')];
-			}   else{
-						$tl_id = $formData['tl_id'];
-						unset($formData['tl_id']);
-						$this->genmod->update('pms_tasklist', $formData, array('tl_id'=>$tl_id));
-						$json = ['status'=> 1, 'msg'=>lang('md_vm_ct-edit')];
-			}
-		}else{
-			$json = ['status'=> 0, 'msg'=>lang('md_vm_ad-fail'),'error'=>$this->form_validation->error_array()];
-		}
 
+		$dataRequires = array('tl_id','tl_name');
+		foreach ($dataRequires as $value) {
+			if(!isset($formData[$value])) {
+				$json = ['status'=> 0, 'msg'=>lang('md_vm_ad-fail')];
+				$this->output->set_content_type('application/json')->set_output(json_encode($json));
+				return;
+			}
+		}
+		if($formData['tl_id'] == 'new') {
+			$formData['tl_name'] = strtolower($formData['tl_name']);
+			$formData['tl_u_id'] = $_SESSION['u_id'];
+			$this->genmod->add('pms_tasklist',$formData);
+			$json = ['status'=> 1, 'msg'=>lang('md_vm_ct-save')];
+		} else {
+			$tl_id = $formData['tl_id'];
+			unset($formData['tl_id']);
+			$this->genmod->update('pms_tasklist', $formData, array('tl_id'=>$tl_id));
+			$json = ['status'=> 1, 'msg'=>lang('md_vm_ct-edit')];
+		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
@@ -119,12 +116,13 @@ class Tasklist extends CI_Controller {
 	}
 
 	public function checkRepeat() {
+		// Create by: Patiphan Pansanga 16-12-2565 find repeat tasklist name
 		$this->genlib->ajaxOnly();
 		$checkData = $this->genmod->getOne('pms_tasklist', '*', array('tl_name'=>$this->input->post('tl_name'), 'tl_status'=>1));
 		if(isset($checkData->tl_name)) {
 			$json = ['status'=> 0, 'msg'=>"มีรายชื่อกิจกรรมนี้อยู่แล้ว"];
 		} else {
-			$json = ['status'=> 1, 'msg'=>" "];
+			$json = ['status'=> 1, 'msg'=>""];
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}

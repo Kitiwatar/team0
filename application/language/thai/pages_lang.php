@@ -82,7 +82,7 @@ $lang['gd_project_pj-ct-contact'] = "ช่องทางการติดต�
 $lang['gd_project_em-phone'] = "เบอร์โทรศัพท์";
 $lang['gd_project_em-fullname'] = "ขื่อ-นามสกุล";
 $lang['gd_project_em-email'] = "อีเมล";
-$lang['gd_project_em-permission'] = "สิทธิ์ในการใช้งานระบบ";
+$lang['gd_project_em-permission'] = "สิทธิ์ในโครงการ";
 // table list
 $lang['tl_table_title'] = "รายชื่อ";
 $lang['tl_project_pj-no'] = "ลำดับ";

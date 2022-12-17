@@ -56,10 +56,14 @@ class Tasks extends CI_Controller{
 		// ดึงข้อมูลหัวหน้าโครงการและพนักงานในโครงการ
 		$arrayJoin = array('pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
 		$data['user'] = $this->genmod->getAll('pms_permission', '*',array('per_p_id'=>$this->input->post('p_id'), 'per_status'=>1, 'per_role'=>1),'per_createdate desc',$arrayJoin,'');
-		$data['user'] += $this->genmod->getAll('pms_permission', '*',array('per_p_id'=>$this->input->post('p_id'), 'per_status'=>1, 'per_role'=>2),'per_createdate desc',$arrayJoin,'');
+		$userProject = $this->genmod->getAll('pms_permission', '*',array('per_p_id'=>$this->input->post('p_id'), 'per_status'=>1, 'per_role'=>2),'per_createdate desc',$arrayJoin,'');
+		if($userProject != null) {
+			$data['user'] += $userProject;
+		}
 		
 		$data['projectStatus'] = $this->genlib->getProjectStatus(); // สถานะของโครงการ
 		$json['html'] = $this->load->view('tasks/list', $data, TRUE);
+		$json['html'] .= $this->load->view('permissions/list', $data, TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
@@ -69,52 +73,50 @@ class Tasks extends CI_Controller{
 		$formData = $this->input->post('formData');
 		$fileAdd = $this->input->post('fileAdd');
 		$fileRemove = $this->input->post('fileRemove');
-		$arrayErr = array(
-			'required' => 'คุณต้องทำการระบุ  {field} ',
-		  	'numeric' => 'กรุณาระบุ {field} เป็นตัวเลขเท่านั้น',
-		  	'min_length' => 'กรุณาระบุ {field} เป็นตัวเลขอย่างน้อย {param} หลัก',
-		  	'max_length' => 'กรุณาระบุ {field} เป็นตัวเลขไม่เกิน {param} หลัก'
-	  	);
-		$this->form_validation->set_rules('t_tl_id', 'ไอดีชื่อกิจกรรม', 'required', $arrayErr);
-		$this->form_validation->set_rules('t_p_id', 'ไอดีโครงการ', 'required', $arrayErr);
-		$this->form_validation->set_rules('t_createdate', 'วันที่เพิ่มกิจกรรม', 'required', $arrayErr);
-		$this->form_validation->set_rules('t_detail', 'รายละเอียด', 'required', $arrayErr);
-		// if($this->form_validation->run() !== FALSE){	
-			if($formData['t_id'] == 'new') {
-				$formData['t_u_id'] = $_SESSION['u_id'];
-				$this->genmod->add('pms_task',$formData);
-				$this->genmod->update('pms_project', array('p_status'=> 2), array('p_id' => $formData['t_p_id']));
-				if(is_array($fileAdd)) {
-				$maxId = $this->genmod->getMaxTask($formData['t_p_id']);
-				for($i=0 ;$i<count($fileAdd); $i++) {
-					$data = array('f_name'=>$fileAdd[$i], 'f_t_id'=>$maxId->t_id);
-					$this->genmod->add('pms_file', $data);
-				}
-				}
-				$json = ['status'=> 1, 'msg'=> lang('md_vm_ct-save')];		
-			} else {		
-				$t_id = $formData['t_id'];
-				unset($formData['t_id']);
-				if(is_array($fileAdd)) {
-					for($i=0 ;$i<count($fileAdd); $i++) {
-						$checkFile = $this->genmod->getOne('pms_file', '*', array('f_t_id'=>$t_id, 'f_name'=>$fileAdd[$i]),'','',''); // find file in database
-						if(!isset($checkFile->f_id)) { // not found file
-							$data = array('f_name'=>$fileAdd[$i], 'f_t_id'=>$t_id);
-							$this->genmod->add('pms_file', $data);
-						}
-					}
-				}
-				if(is_array($fileRemove)) {
-					for($i=0 ;$i<count($fileRemove); $i++) {
-						$checkFile = $this->genmod->getOne('pms_file', '*', array('f_t_id'=>$t_id, 'f_name'=>$fileRemove[$i]),'','',''); // find file in database
-						if(isset($checkFile->f_id)) { // found file
-							$this->genmod->update('pms_file', array('f_status'=> 0), array('f_id' => $checkFile->f_id));
-						}
-					}
-				}
-				$this->genmod->update('pms_task', $formData, array('t_id'=>$t_id));
-				$json = ['status'=> 1, 'msg'=>lang('md_vm_ct-edit')];
+
+		$dataRequires = array('t_id','t_tl_id','t_p_id','t_createdate','t_detail');
+		foreach ($dataRequires as $value) {
+			if(!isset($formData[$value])) {
+				$json = ['status'=> 0, 'msg'=>"Error"];
+				$this->output->set_content_type('application/json')->set_output(json_encode($json));
+				return;
 			}
+		}
+		if($formData['t_id'] == 'new') {
+			$formData['t_u_id'] = $_SESSION['u_id'];
+			$this->genmod->add('pms_task',$formData);
+			$this->genmod->update('pms_project', array('p_status'=> 2), array('p_id' => $formData['t_p_id']));
+			if(is_array($fileAdd)) {
+			$maxId = $this->genmod->getMaxTask($formData['t_p_id']);
+			for($i=0 ;$i<count($fileAdd); $i++) {
+				$data = array('f_name'=>$fileAdd[$i], 'f_t_id'=>$maxId->t_id);
+				$this->genmod->add('pms_file', $data);
+			}
+			}
+			$json = ['status'=> 1, 'msg'=> lang('md_vm_ct-save')];		
+		} else {		
+			$t_id = $formData['t_id'];
+			unset($formData['t_id']);
+			if(is_array($fileAdd)) {
+				for($i=0 ;$i<count($fileAdd); $i++) {
+					$checkFile = $this->genmod->getOne('pms_file', '*', array('f_t_id'=>$t_id, 'f_name'=>$fileAdd[$i]),'','',''); // find file in database
+					if(!isset($checkFile->f_id)) { // not found file
+						$data = array('f_name'=>$fileAdd[$i], 'f_t_id'=>$t_id);
+						$this->genmod->add('pms_file', $data);
+					}
+				}
+			}
+			if(is_array($fileRemove)) {
+				for($i=0 ;$i<count($fileRemove); $i++) {
+					$checkFile = $this->genmod->getOne('pms_file', '*', array('f_t_id'=>$t_id, 'f_name'=>$fileRemove[$i]),'','',''); // find file in database
+					if(isset($checkFile->f_id)) { // found file
+						$this->genmod->update('pms_file', array('f_status'=> 0), array('f_id' => $checkFile->f_id));
+					}
+				}
+			}
+			$this->genmod->update('pms_task', $formData, array('t_id'=>$t_id));
+			$json = ['status'=> 1, 'msg'=>lang('md_vm_ct-edit')];
+		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 

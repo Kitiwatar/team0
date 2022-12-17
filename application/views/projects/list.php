@@ -22,8 +22,8 @@
              <tbody>
                <?php if (is_array($getData)) : $count = 1 ?>
                  <?php foreach ($getData as $key => $value) : ?>
-                   <?php if ($value->p_status < 1) : ?>
-                     <?php
+                   <?php if ($value->p_status < 1 && ($_SESSION['u_id'] == $leader[$key]->u_id || $_SESSION['u_role'] < 2)) {
+                     
                       date_default_timezone_set("Asia/Bangkok");
                       $now = date("Y-m-d H:i:s");
                       $start_date = new DateTime($value->p_countdown);
@@ -47,9 +47,11 @@
                       } else {
                         $sec = $since_start->s;
                       }
-
-                      ?>
-                   <?php endif; ?>
+                    } else if($value->p_status > 1) {
+                      
+                    } else {
+                      continue;
+                    }?>
                    <tr id="<?= "project".$value->p_id ?>">
                      <td class="text-center"><?= $count++ ?></td>
                      <td class="name" style="cursor:pointer;" onclick="linkPage('<?= base_url().'tasks?p_id='.$value->p_id ?>')"><u><?= $value->p_name ?></u></td>
@@ -74,11 +76,11 @@
                      <td class="text-center">
                        <?php if ($value->p_status < 1) : ?>
                          <button type="button" class="btn btn-dark btn-sm" name="restore" id="<?= $value->p_id ."_". $hours . ':' . $min . ':' . $sec ?>" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status * -1 ?>)" title="<?= lang('tt_pj_rproject') ?>"><?= lang('md_rp') ?> <span style='font-size:16px;'><?= $hours . ':' . $min?></span> <?= lang('md_rp-hour') ?></button>
-                         <?php continue; ?>
+                        <?php continue; ?>
                        <?php endif; ?>
                        <a type="button" href="<?= base_url() ?>tasks?p_id=<?= $value->p_id ?>" title= "<?= lang('tt_pj_mproject') ?>" class="btn btn-tertiary btn-sm"><i class="fas fa-cogs"></i></a>
                        <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->p_id ?>)" title="<?= lang('tt_pj_vproject') ?>"><i class="fas fa-search"></i></button>
-                       <?php if ($_SESSION['u_role'] <= 2) : ?>
+                       <?php if ($_SESSION['u_id'] == $leader[$key]->u_id || $_SESSION['u_role'] < 2) : ?>
                          <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="editProject(<?= $value->p_id ?>)" title="<?= lang('tt_pj_eproject') ?>"><i class="mdi mdi-pencil"></i></button>
                          <?php if (!isset($lastTask[$key]->tl_name) && $value->p_status < 3) : ?>
                            <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="<?= lang('tt_pj_dproject') ?>" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status * -1 ?>)"><i class="mdi mdi-delete"></i></button>

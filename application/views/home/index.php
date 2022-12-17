@@ -25,7 +25,6 @@
                         <h3><i class="mdi mdi-library-books" style="color: #FEC107;"></i></h3>
                         <h2 class="counter text-end" style="color: #FEC107;" id="p_pending"></h2>
                         <span class="text-muted fs-5"><?= lang('sp_home_pendproject') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/pending"><button class="btn  waves-effect waves-light btn-outline-warning"><?= lang('b_viewmore') ?></button></a></span>
-                        <!-- <p class="text-muted">รอดำเนินการ</p> -->
                         <div class="progress mt-3">
                             <div class="progress-bar" role="progressbar" style="width: 100%; height: 6px; background-color: #FEC107;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
@@ -37,7 +36,6 @@
                     <div class="card-body">
                         <h3><i class="far fa-edit" style="color: #03A9F3;"></i></h3>
                         <h2 class="counter text-end" style="color: #03A9F3;" id="p_progress"></h2>
-                        <!-- <p class="text-muted">กำลังดำเนินการ</p> -->
                         <span class="text-muted fs-5"><?= lang('sp_home_inprogress') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/progress"><button class="btn waves-effect waves-light btn-outline-info"><?= lang('b_viewmore') ?></button></a></span>
                         <div class="progress mt-3">
                             <div class="progress-bar" role="progressbar" style="width: 100%; height: 6px; background-color: #03A9F3;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -59,10 +57,6 @@
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="card" style="background-color:#57BF95;">
                             <div class="card-body">
-                                <!-- <div> -->
-                                    <!-- <div class="mdi mdi-bookmark-check" style="font-size: 40px; color:white;" align="right"></div> -->
-                                    
-                                <!-- </div> -->
                                 <div class="row mt-2" style="color:white;">
                                     <div class="col-12">
                                         <div class="text-end fs-2"><?= lang('sp_home_finish') ?></div>
@@ -83,15 +77,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="card" style="background-color:#E46A76;">
                             <div class="card-body">
-                                <!-- <div class="mdi mdi-emoticon-sad" style="font-size: 40px; color: white;" align="right"></div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 0%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div> -->
                                 <div class="row mt-2" style="color:white;">
-                                    <!-- <div class="col">
-                                        <div style="font-size: 30px;" id="p_fail"></div>
-                                        <div style="font-size: 20px;">ยกเลิก<span class="float-end" style="font-size: 15px;">ดูเพิ่มเติม...</span></div>
-                                    </div> -->
                                     <div class="col-12">
                                         <div class="text-end fs-2"><?= lang('sp_home_cancel') ?></div>
                                         <div class="progress">
@@ -169,7 +155,7 @@
                     // y: 'center',
                     x: xPosition,
                     y: yPosition,
-                    data: ['<?= lang('sp_home_finish') ?>', '<?= lang('sp_home_cancel') ?>', '<?= lang('sp_home_pendproject') ?>', '<?= lang('sp_home_inprocess') ?>']
+                    data: ['<?= lang('sp_home_finish') ?>', '<?= lang('sp_home_cancel') ?>', '<?= lang('sp_home_pendproject') ?>', '<?= lang('sp_home_inprogress') ?>']
                 },
                 toolbox: {
                     show: true,
@@ -211,7 +197,7 @@
                         },
                         {
                             value: returnData.projectProgress,
-                            name: '<?= lang('sp_home_inprocess') ?>'
+                            name: '<?= lang('sp_home_inprogress') ?>'
                         },
                     ],
                     label: {

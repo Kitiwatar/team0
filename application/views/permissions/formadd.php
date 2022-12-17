@@ -8,7 +8,7 @@
 						<tr>
 							<th class="text-center"><?= lang('tl_project_pj-no') ?></th>
 							<th><?= lang('gd_project_em-fullname') ?></th>
-				<th><?= lang('gd_project_em-email') ?></th>
+							<th><?= lang('gd_project_em-email') ?></th>
 							<th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
 						</tr>
 					</thead>
@@ -25,7 +25,7 @@
 								<tr>
 									<td class="text-center"><?= $count++ ?></td>
 									<td><?= $value->u_firstname . " " . $value->u_lastname ?></td>
-					<td><?= $value->u_email ?></td>
+									<td><?= $value->u_email ?></td>
 									<td class="text-center" id="user<?= $value->u_id ?>"><button class="btn btn-success" onclick="addPermission(<?= $value->u_id ?>,<?= $p_id ?>)"><?= lang('md_ap_add') ?></button></td>
 								</tr>
 							<?php endforeach; ?>
@@ -41,17 +41,17 @@
 	$('#userTable').DataTable({
 		"dom": 'ftlp',
 		"language": {
-       "oPaginate": {
-         "sPrevious": "<?= lang('b_project_previous') ?>",
-         "sNext": "<?= lang('b_project_next') ?>"
-       },
-       "sInfo": "<?= lang('tl_project_pj-numbershow') ?> _START_ ถึง _END_ จาก _TOTAL_ <?= lang('tl_project_pj-list') ?>",
-       "sInfoEmpty": "<?= lang('tl_project_pj-numbershow') ?> 0 ถึง 0 จาก 0 <?= lang('tl_project_pj-list') ?>",
-       "sLengthMenu": "<?= lang('tl_project_pj-numbershow') ?> _MENU_ <?= lang('tl_project_pj-list') ?>",
-       "sSearch": "<?= lang('in_project_search') ?> ",
-       "sInfoFiltered": "(กรองจากทั้งหมด _MAX_ รายการ)",
-       "sZeroRecords": "<?= lang('in_project_zerorecords') ?>"
-     },
+			"oPaginate": {
+				"sPrevious": "<?= lang('b_project_previous') ?>",
+				"sNext": "<?= lang('b_project_next') ?>"
+			},
+			"sInfo": "<?= lang('tl_project_pj-numbershow') ?> _START_ ถึง _END_ จาก _TOTAL_ <?= lang('tl_project_pj-list') ?>",
+			"sInfoEmpty": "<?= lang('tl_project_pj-numbershow') ?> 0 ถึง 0 จาก 0 <?= lang('tl_project_pj-list') ?>",
+			"sLengthMenu": "<?= lang('tl_project_pj-numbershow') ?> _MENU_ <?= lang('tl_project_pj-list') ?>",
+			"sSearch": "<?= lang('in_project_search') ?> ",
+			"sInfoFiltered": "(กรองจากทั้งหมด _MAX_ รายการ)",
+			"sZeroRecords": "<?= lang('in_project_zerorecords') ?>"
+		},
 		"lengthMenu": [5],
 	});
 
@@ -69,7 +69,7 @@
 			loadList();
 			if (returnData.status == 1) {
 				$.toast({
-					heading: '<?= lang('md_vm-suc')?>',
+					heading: '<?= lang('md_vm-suc') ?>',
 					text: returnData.msg,
 					position: 'top-right',
 					icon: 'success',
@@ -78,7 +78,7 @@
 				});
 			} else {
 				$.toast({
-					heading: '<?= lang('md_vm-suc')?>',
+					heading: '<?= lang('md_vm-suc') ?>',
 					text: returnData.msg,
 					position: 'top-right',
 					icon: 'error',
@@ -103,7 +103,7 @@
 			loadList();
 			if (returnData.status == 1) {
 				$.toast({
-					heading: '<?= lang('md_vm-suc')?>',
+					heading: '<?= lang('md_vm-suc') ?>',
 					text: returnData.msg,
 					position: 'top-right',
 					icon: 'success',
@@ -112,7 +112,7 @@
 				});
 			} else {
 				$.toast({
-					heading: '<?= lang('md_vm-suc')?>',
+					heading: '<?= lang('md_vm-suc') ?>',
 					text: returnData.msg,
 					position: 'top-right',
 					icon: 'error',

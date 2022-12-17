@@ -38,7 +38,6 @@ class Projects extends CI_Controller{
 		} else {
 			$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('per_role'=>1), 'p_createdate desc', $arrayJoin, '');
 		}
-
 		$data['arrayStatus'] = $this->genlib->getProjectStatus();
 		$lastTask = array();
 		$leader = array();
@@ -49,7 +48,6 @@ class Projects extends CI_Controller{
 				$lastTask[$key] = $this->genmod->getLastTask($value->per_p_id);
 			}
 		}
-	
 		$data['lastTask'] = $lastTask;
 		$data['leader'] = $leader;
 		$json['html'] = $this->load->view('projects/list', $data, TRUE);
@@ -60,35 +58,28 @@ class Projects extends CI_Controller{
 		// Create by: Jiradat Pomyai 28-09-2565 add project in database
 		$this->genlib->ajaxOnly();
 		$formData = $this->input->post();
-		$arrayErr = array(
-			'required' => 'คุณต้องทำการระบุ  {field} ',
-		  'numeric' => 'กรุณาระบุ {field} เป็นตัวเลขเท่านั้น',
-		  'min_length' => 'กรุณาระบุ {field} เป็นตัวเลขอย่างน้อย {param} หลัก',
-		  'max_length' => 'กรุณาระบุ {field} เป็นตัวเลขไม่เกิน {param} หลัก'
-	  );
-		$this->form_validation->set_rules('p_name', 'ชื่อโปรเจค', 'required', $arrayErr);
-		$this->form_validation->set_rules('p_detail', 'รายละเอียด', 'required', $arrayErr);
-		$this->form_validation->set_rules('p_customer', 'ชื่อลูกค้า', 'required', $arrayErr);
-		$this->form_validation->set_rules('p_createdate', 'วันที่เพิ่มโครงการ', 'required', $arrayErr);
-		if($this->form_validation->run() !== FALSE){	
-			if($formData['p_id'] == 'new') {	
-					$this->genmod->add('pms_project',$formData);
-					$project = $this->genmod->getLastProject();
-					$arrayPermission['per_role'] = 1;
-					$arrayPermission['per_p_id'] = $project->p_id;
-					$arrayPermission['per_u_id'] = $_SESSION['u_id'];
-					$this->genmod->add('pms_permission',$arrayPermission);
-					$json = ['status'=> 1, 'msg'=>lang('md_vm_ct-save')];				
-			} else {		
-					$p_id = $formData['p_id'];
-					unset($formData['p_id']);
-					$this->genmod->update('pms_project', $formData, array('p_id'=>$p_id));
-					$json = ['status'=> 1, 'msg'=>lang('md_vm_ct-edit')];
+		$dataRequires = array('p_id', 'p_name', 'p_detail', 'p_customer', 'p_createdate');
+		foreach ($dataRequires as $value) {
+			if(!isset($formData[$value])) {
+				$json = ['status'=> 0, 'msg'=>lang('md_vm_ad-fail')];
+				$this->output->set_content_type('application/json')->set_output(json_encode($json));
+				return;
 			}
-		}else{
-			$json = ['status'=> 0, 'msg'=>lang('md_vm_ad-fail') ,'error'=>$this->form_validation->error_array()];
 		}
-
+		if($formData['p_id'] == 'new') {	
+			$this->genmod->add('pms_project',$formData);
+			$project = $this->genmod->getLastProject();
+			$arrayPermission['per_role'] = 1;
+			$arrayPermission['per_p_id'] = $project->p_id;
+			$arrayPermission['per_u_id'] = $_SESSION['u_id'];
+			$this->genmod->add('pms_permission',$arrayPermission);
+			$json = ['status'=> 1, 'msg'=>lang('md_vm_ct-save')];				
+		} else {		
+			$p_id = $formData['p_id'];
+			unset($formData['p_id']);
+			$this->genmod->update('pms_project', $formData, array('p_id'=>$p_id));
+			$json = ['status'=> 1, 'msg'=>lang('md_vm_ct-edit')];
+		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
@@ -113,15 +104,16 @@ class Projects extends CI_Controller{
 
 	public function getDetailForm() {
 		// Create by: Jiradat Pomyai 01-10-2565 get form detail projects
-		if($this->input->post('p_id')!=null){
-			$data['getData'] = $this->genmod->getOne('pms_project', '*', array('p_id'=>$this->input->post('p_id')));
+		if($this->input->post('p_id') != null) {
+			$arrayJoin = array('pms_permission' => 'pms_project.p_id=pms_permission.per_p_id','pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
+			$data['getData'] = $this->genmod->getOne('pms_project', '*', array('p_id'=>$this->input->post('p_id'), 'per_role'=>1), '', $arrayJoin, '');
 		} else {
 			return;
 		}
 		$data['detail'] = "yes";
 		$json['title'] = lang('md_tl_v-pj');
 		$json['body'] = $this->load->view('projects/formadd', $data ,true);
-		if($_SESSION['u_role'] <= 2 && ($data['getData']->p_status == 1 || $data['getData']->p_status == 2)) {
+		if($_SESSION['u_role'] < 2 || $_SESSION['u_id'] == $data['getData']->per_u_id && ($data['getData']->p_status == 1 || $data['getData']->p_status == 2)) {
 			$json['footer'] = '<button type="button" class="btn btn-warning" onclick="editProject(' . $this->input->post('p_id') . ')" title="'. lang('tt_pj_eproject').'">'.lang("bt_edit").'</button>';
 		} else {
 			$json['footer'] = '';
@@ -183,8 +175,6 @@ class Projects extends CI_Controller{
 			$this->genmod->update('pms_project', array('p_status'=> ($updateData['p_status'])), array('p_id' => $updateData['p_id']));
 			if($updateData['p_status'] < 1) {
 				date_default_timezone_set("Asia/Bangkok");
-				// $d = new DateTime('+1day');
-				// $tomorrow = $d->format('Y/m/d H.i.s');
 				$tomorrow = date("Y-m-d H:i:s", strtotime('+23 hours +59 mins +59 seconds'));
 				$this->genmod->update('pms_project', array('p_countdown'=> $tomorrow), array('p_id' => $updateData['p_id']));
 				$msg = lang('md_dp_vm-msg');

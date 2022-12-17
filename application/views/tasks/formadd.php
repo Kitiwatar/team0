@@ -32,7 +32,7 @@
               <label for="p_createdate" class="form-label"><?= lang('md_at-imd') ?><?php if(!isset($detail)) { echo $required; } ?></label>
               <div class="input-group date" data-provide="datepicker" data-date-format="dd-mm-yyyy">
                 <?php if(isset($getData)) : $newDate = date("d-m-Y", strtotime($getData->t_createdate)); endif; ?>
-                <input type="text" class="form-control" id="t_createdate" name="inputValue[]" value="<?= isset($getData) ? $newDate : '' ?>" <?php if(isset($detail)){echo "disabled";}?> placeholder="<?= lang('md_at_ph-imd') ?> (<?=date("d-m-Y") ?>)" maxlength="10" minlength="10" autocomplete="off" required>
+                <input type="text" class="form-control" id="t_createdate" name="inputValue[]" value="<?= isset($getData) ? $newDate : '' ?>" <?php if(isset($detail)){echo "disabled";}?> placeholder="<?= lang('md_at_ph-ps') ?> (<?=date("d-m-Y") ?>)" maxlength="10" minlength="10" autocomplete="off" required>
                   <div class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                 </div>
@@ -95,19 +95,6 @@
     let date = document.getElementById("t_createdate")
     date.showPicker()
   }
-
-  $('#t_createdate').on('input', function() {
-    if(this.value.match(/[^0-9-]/)) {
-      $('#createdateMsg').text('  <?= lang('md_rqf_sd-f')  ?>');
-    } else {
-      $('#createdateMsg').text(' ');
-      $('#t_createdate').removeClass("is-invalid");
-      $('#t_createdate').addClass("is-valid");
-    }
-    this.value = this.value.toLowerCase();
-    this.value = this.value.replace(/[^0-9-]/g, '');
-  });
-
   $('#uploadBtn').click(function(e) {
     e.preventDefault();
     $('#files').click();

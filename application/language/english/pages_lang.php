@@ -250,7 +250,7 @@ $lang['md_at_dc-updt'] = "Upload Date"; // header
 $lang['md_at_ab'] = "Action Button"; // header
 $lang['md_at_ph-tl'] = 'Select Tasklist '; // Placeholder
 $lang['md_at_ph-dtl'] = 'Enter the detail of the task (Today we have ..)'; // Placeholder
-$lang['md_at_ph-imd'] = 'Day-Month-Year '; // Placeholder
+$lang['md_at_ph-ps'] = 'Day-Month-Year '; // Placeholder
 //- Verify modal of Task Moudule
 $lang['md_at_main-msg'] = "Confirm adding a task";
 $lang['md_at_detail-msg'] = "Do you want to add a new task ?";
