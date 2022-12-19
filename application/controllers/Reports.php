@@ -30,15 +30,23 @@ class Reports extends CI_Controller{
 
 	public function getProjects() {
         $formData = $this->input->post();
-        if(!isset($formData['begindate']) || $formData['begindate'] == 0) {
+        if(!isset($formData['begindate']) && !isset($formData['enddate'])) {
             $data['begindate'] = 0;
             $data['enddate'] = 0;
             $data['projectData'] = $this->genmod->getAll('pms_project', '*', '', 'p_createdate desc', '', '');
         } else {
-            $data['begindate'] = $formData['begindate'];
-            // $data['enddate'] = $formData['enddate'];
-            $data['projectData'] = $this->genmod->getAll('pms_project', '*', array('YEAR(p_createdate)'=>$formData['begindate']), 'p_createdate desc', '', '');
-        }
+			$data['begindate'] = $formData['begindate'];
+            $data['enddate'] = $formData['enddate'];
+			if($data['begindate'] == 0 && $data['enddate'] == 0) {
+				$data['projectData'] = $this->genmod->getAll('pms_project', '*', '', 'p_createdate desc', '', '');
+			}else if($data['begindate'] == 0 && $data['enddate'] != 0) {
+            	$data['projectData'] = $this->genmod->getAll('pms_project', '*', array('YEAR(p_enddate)'=>$formData['enddate']), 'p_createdate desc', '', '');
+        	} else if($data['begindate'] != 0 && $data['enddate'] == 0) {
+				$data['projectData'] = $this->genmod->getAll('pms_project', '*', array('YEAR(p_createdate)'=>$formData['begindate']), 'p_createdate desc', '', '');
+			} else {
+				$data['projectData'] = $this->genmod->getAll('pms_project', '*', array('YEAR(p_createdate)'=>$formData['begindate'], 'YEAR(p_enddate)'=>$formData['enddate']), 'p_createdate desc', '', '');
+			}
+		}
 		$json['html'] = $this->load->view('reports/projects/list', $data, TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}

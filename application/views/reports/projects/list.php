@@ -1,6 +1,6 @@
  <!-- Create by: Patiphan Pansanga, Jiradat Pomyai 19-09-2565 -->
  <div class="row">
-   <div class="col-12">
+   <div class="col-8">
      <div class="card">
        <div class="card-body">
          <h2 class='card-title'>รายงานโครงการ</h2>
@@ -26,8 +26,20 @@
              </td>
              <td class="ps-3">ปีที่สิ้นสุดโครงการ </td>
              <td>
-               <select class="form-select" name="enddate" id="enddate">
-                 <option selected value="0">ทั้งหมด</option>
+             <select class="form-select" name="enddate" id="enddate" onchange="changeYear()">
+               <?php if($enddate == 0) {
+                echo '<option selected value="0">ทั้งหมด</option>';
+               } else {
+                echo '<option value="0">ทั้งหมด</option>';
+               }
+                for($i=0; $i<5; $i++) {
+                  if(date("Y") - $i == $enddate) {
+                    echo '<option selected value="'.date("Y") - $i.'">'.date("Y") - $i.'</option>';
+                  } else {
+                    echo '<option value="'.date("Y") - $i.'">'.date("Y") - $i.'</option>';
+                  }
+                }
+               ?>
                </select>
              </td>
            </tr>
@@ -39,6 +51,7 @@
                <th class="text-center"><?= lang('tl_no.') ?></th>
                <th><?= lang('tl_project_pj-name') ?></th>
                <th>วันที่เริ่มโครงการ</th>
+               <th>วันที่สิ้นสุดโครงการ</th>
                <th><?= lang('tl_project_pj-status') ?></th>
              </tr>
            </thead>
@@ -51,6 +64,7 @@
                    <td class="text-center"><?= $count++ ?></td>
                    <td><?= $value->p_name ?></td>
                    <td><?= $value->p_createdate ?></td>
+                   <td><?php if($value->p_enddate != null) { echo $value->p_enddate; } else{ echo "-"; } ?></td>
                    <td>
                      <?php $statusColor = array(1 => "badge rounded-pill bg-info", 2 => "badge rounded-pill bg-info", 3 => "badge rounded-pill bg-success", 4 => "badge rounded-pill bg-danger");
                       $statusName = array(1 => lang('sp_home_pendproject'), 2 => lang('sp_home_inprogress'), 3 => lang('sp_home_finish'), 4 => lang('sp_home_cancel'));
@@ -71,6 +85,9 @@
        <a type="button" class="btn waves-effect waves-light btn-dark" href="<?= base_url() ?>"><i class="mdi mdi-arrow-left"></i> <?= lang('b_project_back') ?></a>
      </div>
    </div>
+ </div>
+ <div class="col-4">
+  test
  </div>
  </div>
 

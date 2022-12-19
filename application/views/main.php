@@ -239,7 +239,7 @@
                                     </ul>
                                 </li>
                                 <li> 
-                                    <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-world" style="font-size: 18px;"></i><span class="hide-menu">รายงาน</span></a>
+                                    <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-screen-tablet" style="font-size: 18px;"></i><span class="hide-menu">รายงาน</span></a>
                                     <ul aria-expanded="false" class="collapse">
                                         <li>
                                             <a class="waves-effect waves-dark" href="<?= base_url() ?>reports/projects" aria-expanded="false">โครงการ</a>

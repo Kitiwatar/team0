@@ -6,11 +6,13 @@
 
   function loadList() {
     console.log($('#begindate').val())
+    console.log($('#enddate').val())
     $.ajax({
       url: '<?= base_url() ?>reports/getProjects',
       method: 'post',
       data: {
-        begindate: $('#begindate').val()
+        begindate: $('#begindate').val(),
+        enddate: $('#enddate').val()
       }
     }).done(function(returnData) {
       $('#listDiv').html(returnData.html)
