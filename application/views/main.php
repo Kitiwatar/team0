@@ -244,6 +244,9 @@
                                         <li>
                                             <a class="waves-effect waves-dark" href="<?= base_url() ?>reports/projects" aria-expanded="false">โครงการ</a>
                                         </li>
+                                        <li>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>reports/users" aria-expanded="false">พนักงาน</a>
+                                        </li>
                                     </ul>
                                 </li>
                             <?php endif; ?>

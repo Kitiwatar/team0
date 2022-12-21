@@ -1,83 +1,15 @@
  <!-- Create by: Patiphan Pansanga, Jiradat Pomyai 19-09-2565 -->
  <div class="row">
-   <div class="col-12">
-     <div class="card">
+   <div class="col-12 my-0">
+     <div class="card my-0">
        <div class="card-body">
-         <h2 class='card-title'>รายงานโครงการ</h2>
-         <table>
-           <tr>
-             <td>ปีที่เริ่มโครงการ </td>
-             <td>
-               <select class="form-select" name="begindate" id="begindate" onchange="changeYear()">
-                 <?php if ($begindate == 0) {
-                    echo '<option selected value="0">ทั้งหมด</option>';
-                  } else {
-                    echo '<option value="0">ทั้งหมด</option>';
-                  }
-                  for ($i = 0; $i < 5; $i++) {
-                    if (date("Y") - $i == $begindate) {
-                      echo '<option selected value="' . date("Y") - $i . '">' . date("Y") - $i . '</option>';
-                    } else {
-                      echo '<option value="' . date("Y") - $i . '">' . date("Y") - $i . '</option>';
-                    }
-                  }
-                  ?>
-               </select>
-             </td>
-             <td class="ps-3">ปีที่สิ้นสุดโครงการ </td>
-             <td>
-               <select class="form-select" name="enddate" id="enddate" onchange="changeYear()">
-                 <?php if ($enddate == 0) {
-                    echo '<option selected value="0">ทั้งหมด</option>';
-                  } else {
-                    echo '<option value="0">ทั้งหมด</option>';
-                  }
-                  for ($i = 0; $i < 5; $i++) {
-                    if (date("Y") - $i == $enddate) {
-                      echo '<option selected value="' . date("Y") - $i . '">' . date("Y") - $i . '</option>';
-                    } else {
-                      echo '<option value="' . date("Y") - $i . '">' . date("Y") - $i . '</option>';
-                    }
-                  }
-                  ?>
-               </select>
-             </td>
-           </tr>
-         </table>
-         <div class="row">
-           <div class="col-lg-7 col-md-7 col-sm-12 m-0 py-0">
-             <div id="projectChart" style="width:100%; height:450px;" class="mt-5"></div>
-           </div>
-           <div class="col-lg-5 col-md-5 col-sm-12 m-0 p-0">
-            <?php $icons = array("mdi mdi-library-books", "far fa-edit", "mdi mdi-bookmark-check fs-1", "mdi mdi-emoticon-sad fs-1") ?>
-            <?php $colors = array("#FEC107", "#03A9F3", "#57BF95", "#E46A76") ?>
-            <?php for($i=0;$i<4;$i++) { ?>
-             <div class="card border m-0">
-               <div class="card-body">
-                <table class="table fs-3 p-0">
-                  <tr class="p-0">
-                    <td class="p-0"><i class="<?= $icons[$i] ?>" style="color: <?= $colors[$i] ?>;"></i></td>
-                    <td class="p-0 text-end" style="color: <?= $colors[$i] ?>;"><?= $projectCount[$i] ?></td>
-                  </tr>
-                </table>
-                 <span class="text-muted fs-5"><?= $projectStatus[$i+1] ?></span><span class="float-end text-muted" style="font-size: 12px"></span>
-                 <div class="progress mt-3">
-                   <div class="progress-bar" role="progressbar" style="width: 100%; height: 6px; background-color: <?= $colors[$i] ?>;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                 </div>
-               </div>
-             </div>
-             <?php } ?>
-           </div>
-         </div>
-         <hr>
-         <div class="table-responsive my-3">
+         <div class="table-responsive">
            <table class="display table dt-responsive nowrap" id="table">
              <thead>
                <tr>
                  <th class="text-center"><?= lang('tl_no.') ?></th>
                  <th><?= lang('tl_project_pj-name') ?></th>
                  <th>วันที่เริ่มโครงการ</th>
-                 <th>วันที่สิ้นสุดโครงการ</th>
                  <th><?= lang('tl_project_pj-status') ?></th>
                </tr>
              </thead>
@@ -90,11 +22,6 @@
                      <td class="text-center"><?= $count++ ?></td>
                      <td><?= $value->p_name ?></td>
                      <td><?= $value->p_createdate ?></td>
-                     <td><?php if ($value->p_enddate != null) {
-                            echo $value->p_enddate;
-                          } else {
-                            echo "-";
-                          } ?></td>
                      <td>
                        <?php $statusColor = array(1 => "badge rounded-pill bg-info", 2 => "badge rounded-pill bg-info", 3 => "badge rounded-pill bg-success", 4 => "badge rounded-pill bg-danger");
                         $statusName = array(1 => lang('sp_home_pendproject'), 2 => lang('sp_home_inprogress'), 3 => lang('sp_home_finish'), 4 => lang('sp_home_cancel'));
@@ -112,7 +39,6 @@
              </tbody>
            </table>
          </div>
-         <a type="button" class="btn waves-effect waves-light btn-dark" href="<?= base_url() ?>"><i class="mdi mdi-arrow-left"></i> <?= lang('b_project_back') ?></a>
        </div>
      </div>
    </div>
@@ -209,95 +135,4 @@
    $('.buttons-pdf').html('<i class="mdi mdi-file-pdf-box"></i> PDF');
 
    $('[data-toggle="tooltip"]').tooltip();
-   if(typeof orientPosition !== 'undefined') {
-      let orientPosition = "";
-      let xPosition;
-      let yPosition;
-    }
-   
-   var width = (window.innerWidth > 0) ? window.innerWidth : this.screen.width;
-   if (width < 1170) {
-     orientPosition = "horizontal"
-     xPosition = "center"
-     yPosition = "top"
-   } else {
-     orientPosition = "vertical"
-     xPosition = "right"
-     yPosition = "center"
-   }
-   var pieChart = echarts.init(document.getElementById("projectChart"));
-   // specify chart configuration item and data
-   option = {
-
-     tooltip: {
-       trigger: 'item',
-       formatter: " {b}<br/> {c} <?= lang('h_project') ?> ({d}%)"
-     },
-     legend: {
-       // orient: 'vertical',
-       orient: orientPosition,
-       // x: 'right',
-       // y: 'center',
-       x: xPosition,
-       y: yPosition,
-       data: ['<?= lang('sp_home_finish') ?>', '<?= lang('sp_home_cancel') ?>', '<?= lang('sp_home_pendproject') ?>', '<?= lang('sp_home_inprogress') ?>']
-     },
-     toolbox: {
-       show: true,
-       feature: {
-         dataView: {
-           show: false,
-           readOnly: true
-         },
-         magicType: {
-           type: 'pie'
-         },
-         // restore: {
-         //     show: true
-         // },
-         saveAsImage: {
-           show: false
-         }
-       }
-     },
-     color: ["#FEC107", "#03A9F3", "#57BF95", "#FF6666"],
-     // calculable : true,
-     series: [{
-       type: 'pie',
-       radius: ['40%', '80%'],
-       labelLine: {
-         length: 20
-       },
-       data: [{
-           value: <?= $projectCount[0] ?>,
-           name: '<?= lang('sp_home_pendproject') ?>'
-         },
-         {
-           value: <?= $projectCount[1] ?>,
-           name: '<?= lang('sp_home_inprogress') ?>'
-         },
-         {
-           value: <?= $projectCount[2] ?>,
-           name: '<?= lang('sp_home_finish') ?>'
-         },
-         {
-           value: <?= $projectCount[3] ?>,
-           name: '<?= lang('sp_home_cancel') ?>'
-         },
-       ],
-       label: {
-         formatter: '{c} <?= lang('h_project') ?>\n ({d}%) ',
-       }
-     }]
-   };
-
-   // use configuration item and data specified to show chart
-   pieChart.setOption(option, true), $(function() {
-     function resize() {
-       setTimeout(function() {
-         pieChart.resize()
-       }, 100)
-     }
-     $(window).on("resize", resize), $(".sidebartoggler").on("click", resize)
-   });
  </script>

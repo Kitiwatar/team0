@@ -8,39 +8,39 @@
     <div class="row g-0">
         <div class="col-lg-4 col-md-4">
             <div class="card border ">
-                
-                    <div class="card-body">
-                        <h3><i class="fas fa-list" style="color: #fb9678;"></i></h3>
-                        <h2 class="counter text-primary text-end" id="all"></h2>
-                        <span class="text-muted fs-5"><?= lang('sp_home_allproject') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/all"><button class="btn  waves-effect waves-light btn-outline-primary"><?= lang('b_viewmore') ?></button></a></span> 
-                        <div class="progress mt-3">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 100%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+
+                <div class="card-body">
+                    <h3><i class="fas fa-list" style="color: #fb9678;"></i></h3>
+                    <h2 class="counter text-primary text-end" id="all"></h2>
+                    <span class="text-muted fs-5"><?= lang('sp_home_allproject') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/all"><button class="btn  waves-effect waves-light btn-outline-primary"><?= lang('b_viewmore') ?></button></a></span>
+                    <div class="progress mt-3">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 100%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
+                </div>
             </div>
         </div>
         <div class="col-lg-4 col-md-4">
-            <div class="card border">               
-                    <div class="card-body">
-                        <h3><i class="mdi mdi-library-books" style="color: #FEC107;"></i></h3>
-                        <h2 class="counter text-end" style="color: #FEC107;" id="p_pending"></h2>
-                        <span class="text-muted fs-5"><?= lang('sp_home_pendproject') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/pending"><button class="btn  waves-effect waves-light btn-outline-warning"><?= lang('b_viewmore') ?></button></a></span>
-                        <div class="progress mt-3">
-                            <div class="progress-bar" role="progressbar" style="width: 100%; height: 6px; background-color: #FEC107;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+            <div class="card border">
+                <div class="card-body">
+                    <h3><i class="mdi mdi-library-books" style="color: #FEC107;"></i></h3>
+                    <h2 class="counter text-end" style="color: #FEC107;" id="p_pending"></h2>
+                    <span class="text-muted fs-5"><?= lang('sp_home_pendproject') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/pending"><button class="btn  waves-effect waves-light btn-outline-warning"><?= lang('b_viewmore') ?></button></a></span>
+                    <div class="progress mt-3">
+                        <div class="progress-bar" role="progressbar" style="width: 100%; height: 6px; background-color: #FEC107;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
+                </div>
             </div>
         </div>
         <div class="col-lg-4 col-md-4">
-            <div class="card border">               
-                    <div class="card-body">
-                        <h3><i class="far fa-edit" style="color: #03A9F3;"></i></h3>
-                        <h2 class="counter text-end" style="color: #03A9F3;" id="p_progress"></h2>
-                        <span class="text-muted fs-5"><?= lang('sp_home_inprogress') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/progress"><button class="btn waves-effect waves-light btn-outline-info"><?= lang('b_viewmore') ?></button></a></span>
-                        <div class="progress mt-3">
-                            <div class="progress-bar" role="progressbar" style="width: 100%; height: 6px; background-color: #03A9F3;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+            <div class="card border">
+                <div class="card-body">
+                    <h3><i class="far fa-edit" style="color: #03A9F3;"></i></h3>
+                    <h2 class="counter text-end" style="color: #03A9F3;" id="p_progress"></h2>
+                    <span class="text-muted fs-5"><?= lang('sp_home_inprogress') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/progress"><button class="btn waves-effect waves-light btn-outline-info"><?= lang('b_viewmore') ?></button></a></span>
+                    <div class="progress mt-3">
+                        <div class="progress-bar" role="progressbar" style="width: 100%; height: 6px; background-color: #03A9F3;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
+                </div>
             </div>
         </div>
     </div>
@@ -56,52 +56,59 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="card" style="background-color:#57BF95;">
-                            <div class="card-body">
-                                <div class="row mt-2" style="color:white;">
-                                    <div class="col-12">
-                                        <div class="text-end fs-2"><?= lang('sp_home_finish') ?></div>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-primary" role="progressbar" style="width: 0%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
+                        <div class="card-body">
+                            <div class="row mt-2" style="color:white;">
+                                <div class="col-12">
+                                    <div class="text-end fs-2"><?= lang('sp_home_finish') ?></div>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 0%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-6"><i class="mdi mdi-bookmark-check" style="font-size: 60px; color:white;"></i></div>
-                                            <div class="col-6 pt-3"><div style="font-size: 40px;" class="text-end p-0" id="p_success"></div><div class="text-end"><a href="<?= base_url() ?>home/viewProjects/success"><button class="btn waves-effect waves-light btn-outline-light"><?= lang('b_viewmore') ?></button></a></div></div>
-                                        </div>                                        
+                                </div>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-6"><i class="mdi mdi-bookmark-check" style="font-size: 60px; color:white;"></i></div>
+                                        <div class="col-6 pt-3">
+                                            <div style="font-size: 40px;" class="text-end p-0" id="p_success"></div>
+                                            <div class="text-end"><a href="<?= base_url() ?>home/viewProjects/success"><button class="btn waves-effect waves-light btn-outline-light"><?= lang('b_viewmore') ?></button></a></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="card" style="background-color:#E46A76;">
-                            <div class="card-body">
-                                <div class="row mt-2" style="color:white;">
-                                    <div class="col-12">
-                                        <div class="text-end fs-2"><?= lang('sp_home_cancel') ?></div>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-primary" role="progressbar" style="width: 0%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
+                        <div class="card-body">
+                            <div class="row mt-2" style="color:white;">
+                                <div class="col-12">
+                                    <div class="text-end fs-2"><?= lang('sp_home_cancel') ?></div>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 0%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-6"><i class="mdi mdi-emoticon-sad" style="font-size: 60px; color:white;"></i></div>
-                                            <div class="col-6 pt-3"><div style="font-size: 40px;" class="text-end p-0" id="p_fail"></div><div class="text-end"><a href="<?= base_url() ?>home/viewProjects/fail"><button class="btn waves-effect waves-light btn-outline-light"><?= lang('b_viewmore') ?></button></a></div></div></div>
-                                        </div>                                        
+                                </div>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-6"><i class="mdi mdi-emoticon-sad" style="font-size: 60px; color:white;"></i></div>
+                                        <div class="col-6 pt-3">
+                                            <div style="font-size: 40px;" class="text-end p-0" id="p_fail"></div>
+                                            <div class="text-end"><a href="<?= base_url() ?>home/viewProjects/fail"><button class="btn waves-effect waves-light btn-outline-light"><?= lang('b_viewmore') ?></button></a></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12">
-            <div id="listDiv"></div>
-        </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div id="listDiv"></div>
     </div>
+</div>
 </div>
 <!-- Flot Charts JavaScript -->
 <script src="<?= base_url() ?>assets/node_modules/flot/excanvas.js"></script>
@@ -221,7 +228,7 @@
     // Function LoadList for Rank
     $(window).ready(getProjectSummary);
     $(window).on("resize", getProjectSummary);
-    
+
     loadList();
 
     function loadList() {
