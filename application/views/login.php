@@ -1,6 +1,6 @@
 <div class="form-group ">
         <button type="button"  class="btn-close float-end" data-dismiss="modal" aria-hidden="true"></button>
-        </div>
+</div>
 <div class="card-body text-black">
     <form id="loginForm">
         <div class="card p-0 rounded" style="background-color: #03a9f3;   text-align: center; margin-top: -20px;">

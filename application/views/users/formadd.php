@@ -1,31 +1,22 @@
 <!-- Createby: Jiradat Pomyai, Patiphan Pansanga 07-09-2565 -->
  <?php $required = '<span class="text-danger">*</span>'; ?>
 <div class="row">
-  <div class="col-12">
+  <div class="col-12 m-0">
     <div class="card">
       <form class="" id="usersForm" autocomplete="off">
-        <div class="card-body">
-            <div class="form-group">
+        <div class="card-body p-0">
+         <div class="row">
+            <div class="form-group col-6">
               <label for="u_firstname" class="form-label"><?= lang('md_aes_ufn') ?><?php if(!isset($detail)) { echo $required; } ?></label>
               <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->u_firstname : '' ?>" id="u_firstname" placeholder="<?= lang('md_aes_ph-ufn') ?>" <?php if(isset($detail)){echo "disabled";}?> >
               <font id="fnameMsg" class="small text-danger"></font>
             </div>
-            <div class="form-group">
+            <div class="form-group col-6">
               <label for="u_lastname" class="form-label"><?= lang('md_aes_uln') ?><?php if(!isset($detail)) { echo $required; } ?></label>
               <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->u_lastname : '' ?>" id="u_lastname" placeholder="<?= lang('md_aes_ph-uln') ?>" <?php if(isset($detail)){echo "disabled";}?> >
               <font id="lnameMsg" class="small text-danger"></font>
             </div>
-            <div class="form-group">
-              <label for="u_email" class="form-label"><?= lang('md_aes_uem') ?><?php if(!isset($detail)) { echo $required; } ?></label>
-              <input type="email" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->u_email : '' ?>" id="u_email" placeholder="<?= lang('md_aes_ph-uem') ?>" <?php if(isset($detail)){echo "disabled";}?> >
-              <font id="emailMsg" class="small text-danger"></font>
-            </div>
-            <div class="form-group">
-              <label for="u_tel" class="form-label"><?= lang('md_aes_upn') ?><?php if(!isset($detail)) { echo $required; } ?></label>
-              <input type="text" class="form-control" name="inputValue[]" maxlength="10" value="<?= isset($getData) ? $getData->u_tel : '' ?>" id="u_tel" placeholder="<?= lang('md_aes_ph-upn') ?>" <?php if(isset($detail)){echo "disabled";}?> >
-              <font id="telMsg" class="small text-danger"></font>
-            </div>
-            <div class="form-group">
+            <div class="form-group col-4 mb-0">
               <label for="u_role" class="form-label"><?= lang('md_aes_upm') ?><?php if(!isset($detail)) { echo $required; } ?></label>
               <?php if(!isset($detail)) { ?>
               <style>select:invalid { color: gainsboro; }</style>
@@ -60,6 +51,17 @@
                 <input type="text" class="form-control" value="<?= $role ?>" <?php if(isset($detail)){echo "disabled";}?> >
               <?php } ?>
             </div>
+            <div class="form-group col-3 mb-0">
+              <label for="u_tel" class="form-label"><?= lang('md_aes_upn') ?><?php if(!isset($detail)) { echo $required; } ?></label>
+              <input type="text" class="form-control" name="inputValue[]" maxlength="10" value="<?= isset($getData) ? $getData->u_tel : '' ?>" id="u_tel" placeholder="<?= lang('md_aes_ph-upn') ?>" <?php if(isset($detail)){echo "disabled";}?> >
+              <font id="telMsg" class="small text-danger"></font>
+            </div>
+            <div class="form-group col-5 mb-0">
+              <label for="u_email" class="form-label"><?= lang('md_aes_uem') ?><?php if(!isset($detail)) { echo $required; } ?></label>
+              <input type="email" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->u_email : '' ?>" id="u_email" placeholder="<?= lang('md_aes_ph-uem') ?>" <?php if(isset($detail)){echo "disabled";}?> >
+              <font id="emailMsg" class="small text-danger"></font>
+            </div>
+          </div>
         </div>
       </form>
     </div>

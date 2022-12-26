@@ -346,8 +346,8 @@
         }
     </style>
     <div class="modal fade" data-backdrop="static" id="mainModal" tabindex="-1" aria-labelledby="modalCenterTitle" aria-hidden="true" data-keyboard="false">
-        <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document" id='modalSize'>
-            <div class="modal-content">
+        <div class="modal-dialog modal-xl  modal-dialog-scrollable" role="document" id='modalSize'>
+            <div class="modal-content p-2">
                 <div class="modal-header">
                     <h5 class="modal-title" id="mainModalTitle">Modal title</h5>
                     <!-- <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true"></button> -->
@@ -383,7 +383,7 @@
     <div class="modal fade" id="mdModal" tabindex="-1" aria-labelledby="modalCenterTitle" aria-hidden="true" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered" role="document" id='modalSize'>
             <div class="modal-content">
-                
+            
                     
                
                 <div class="modal-body" id="mdModalBody">

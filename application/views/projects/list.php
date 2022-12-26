@@ -47,11 +47,9 @@
                       } else {
                         $sec = $since_start->s;
                       }
-                    } else if($value->p_status > 1) {
-                      
-                    } else {
+                    } else if($value->p_status < 1) {
                       continue;
-                    }?>
+                    } ?>
                    <tr id="<?= "project".$value->p_id ?>">
                      <td class="text-center"><?= $count++ ?></td>
                      <td class="name" style="cursor:pointer;" onclick="linkPage('<?= base_url().'tasks?p_id='.$value->p_id ?>')"><u><?= $value->p_name ?></u></td>

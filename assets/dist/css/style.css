@@ -378,7 +378,7 @@ hr:not([size]) {
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
   margin-top: 0;
   margin-bottom: 0.5rem;
-  font-family: "Prompt", sans-serif;
+  font-family: "PromptMD", sans-serif;
   font-weight: 300;
   line-height: 1.2;
   color: inherit; }
@@ -4373,7 +4373,7 @@ textarea.form-control-lg {
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1rem;
-  border-bottom: 1px solid #e9ecef;
+  /* border-bottom: 1px solid #e9ecef; */
   border-top-left-radius: calc(0.3rem - 1px);
   border-top-right-radius: calc(0.3rem - 1px); }
   .modal-header .btn-close {
@@ -4396,7 +4396,7 @@ textarea.form-control-lg {
   align-items: center;
   justify-content: flex-end;
   padding: 0.75rem;
-  border-top: 1px solid #e9ecef;
+  /* border-top: 1px solid #e9ecef; */
   border-bottom-right-radius: calc(0.3rem - 1px);
   border-bottom-left-radius: calc(0.3rem - 1px); }
   .modal-footer > * {
@@ -20455,7 +20455,11 @@ icons path
 
 @font-face {
   font-family: 'Prompt';
-  src: url("fonts/prompt/Prompt-Medium.ttf") format("truetype"); }
+  src: url("fonts/prompt/Prompt-Regular.ttf") format("truetype"); }
+@font-face {
+    font-family: 'PromptMD';
+    src: url("fonts/prompt/Prompt-SemiBold.ttf") format("truetype"); }
+
 
 /*============================================================== 
  For all pages 

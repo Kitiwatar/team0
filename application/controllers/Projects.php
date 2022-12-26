@@ -95,7 +95,8 @@ class Projects extends CI_Controller{
 	public function getEditForm() {
 		// Create by: Patiphan Pansanga 11-10-2565 get edit form 
 		$json['title'] = lang('md_tl_e-pj').' <span class="text-danger" style="font-size:12px;">(* '.lang('md_tl_a-req').')</span>';
-		$data['getData'] = $this->genmod->getOne('pms_project', '*', array('p_id'=>$this->input->post('p_id')));
+		$arrayJoin = array('pms_permission' => 'pms_project.p_id=pms_permission.per_p_id','pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
+		$data['getData'] = $this->genmod->getOne('pms_project', '*', array('p_id'=>$this->input->post('p_id'),'per_role'=>1),'',$arrayJoin,'');
 		$json['body'] = $this->load->view('projects/formadd', $data ,true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormProjectSubmit('.$this->input->post('p_id').');">'.lang("bt_save").'</button>
 		<button type="button" class="btn btn-danger" id="closeBtn" onclick="closeModal(\'แก้ไขโครงการ\')">'.lang("bt_cancel").'</button>';
