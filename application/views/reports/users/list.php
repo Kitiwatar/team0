@@ -10,7 +10,7 @@
               <tr>
                 <th class="text-center"><?= lang('tl_project_pj-no') ?></th>
                 <th><?= lang('gd_project_em-fullname') ?></th>
-                <th class="text-center">จำนวนโครงการ</th>
+                <th class="text-center"><?= lang('tl_home_amountworkpiece') ?></th>
                 <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
               </tr>
             </thead>
@@ -22,7 +22,11 @@
                       <td class="align-middle text-center"><?= $count++ ?></td>
                       <td class="align-middle"><?= $value->u_firstname ." ". $value->u_lastname ?></td>
                       <td class="align-middle text-center"><?= $projectCount[$key] ?></td>
-                      <td class="align-middle text-center"><button class="btn btn-sm btn-info" onclick="viewProjects(<?= $value->u_id ?>)"><i class="mdi mdi-file-document"></i></button></td>
+                      <td class="align-middle text-center">
+                        <button class="btn btn-sm btn-info" title="ดูรายชื่อโครงการของพนักงาน" onclick="viewProjects(<?= $value->u_id ?>)">
+                          <i class="mdi mdi-file-document"></i>
+                        </button>
+                      </td>
                     </tr>
                 <?php endforeach; ?>
               <?php endif; ?>
@@ -50,10 +54,10 @@
     dom: 'Bftlp',
      buttons: [{
          extend: 'excel',
-         filename: 'รายชื่อพนักงาน',
-         title: 'รายชื่อพนักงาน',
+         filename: 'จำนวนโครงการปัจจุบันของพนักงาน',
+         title: 'จำนวนโครงการปัจจุบันของพนักงาน',
          exportOptions: {
-           columns: [0, 1, 2, 3, 4, 5]
+           columns: [0, 1, 2]
          },
          customize: function(xlsx) {
            var sheet = xlsx.xl['styles.xml'];
@@ -68,11 +72,11 @@
        { // กำหนดพิเศษเฉพาะปุ่ม pdf
          extend: 'pdf', // ปุ่มสร้าง pdf ไฟล์
          text: 'PDF', // ข้อความที่แสดง
-         filename: 'รายชื่อพนักงาน',
-         title: 'รายชื่อพนักงาน',
+         filename: 'จำนวนโครงการปัจจุบันของพนักงาน',
+         title: 'จำนวนโครงการปัจจุบันของพนักงาน',
          pageSize: 'A4', // ขนาดหน้ากระดาษเป็น A4
          exportOptions: {
-           columns: [0, 1, 2, 3, 4]
+           columns: [0, 1, 2]
          },
          customize: function(pdf) { // ส่วนกำหนดเพิ่มเติม ส่วนนี้จะใช้จัดการกับ pdfmake
            // กำหนด style หลัก
@@ -107,12 +111,13 @@
              bold: !0,
            };
            // กำหนดความกว้างของ header แต่ละคอลัมน์หัวข้อ
-           pdf.content[1].table.widths = [40, 120, 150, 70, 110];
+           pdf.content[1].table.widths = [40, 300, 150];
            pdf.styles.tableHeader.fontSize = 16; // กำหนดขนาด font ของ header
            var rowCount = pdf.content[1].table.body.length; // หาจำนวนแถวทั้งหมดในตาราง
            // วนลูปเพื่อกำหนดค่าแต่ละคอลัมน์ เช่นการจัดตำแหน่ง
            for (i = 1; i < rowCount; i++) { // i เริ่มที่ 1 เพราะ i แรกเป็นแถวของหัวข้อ
              pdf.content[1].table.body[i][0].alignment = 'center'; // คอลัมน์แรกเริ่มที่ 0
+             pdf.content[1].table.body[i][2].alignment = 'center';
            };
          }
        }, // สิ้นสุดกำหนดพิเศษปุ่ม pdf

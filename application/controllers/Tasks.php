@@ -64,6 +64,19 @@ class Tasks extends CI_Controller{
 		$data['projectStatus'] = $this->genlib->getProjectStatus(); // สถานะของโครงการ
 		$json['html'] = $this->load->view('tasks/list', $data, TRUE);
 		$json['html'] .= $this->load->view('permissions/list', $data, TRUE);
+		$json['html'] .= $this->load->view('tasks/calendar', $data, TRUE);
+		$this->output->set_content_type('application/json')->set_output(json_encode($json));
+	}
+
+	public function getCalendar() {
+		// Create by: Patiphan Pansanga 14-10-2565 get tasks list
+	
+		// ดึงข้อมูลของโครงการและกิจกรรมในโครงการ
+		$arrayJoin = array('pms_user' => 'pms_user.u_id=pms_task.t_u_id','pms_tasklist' => 'pms_tasklist.tl_id=pms_task.t_tl_id'); 
+		$data['getData'] = $this->genmod->getAll('pms_task', '*',array('t_p_id'=>$this->input->post('p_id'), 't_status'=>1),'t_createdate desc',$arrayJoin,'');
+		$data['projectData'] = $this->genmod->getOne('pms_project', '*',array('p_id'=>$this->input->post('p_id')),'','','');
+
+		$json['body'] = $this->load->view('tasks/calendar', $data, TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 

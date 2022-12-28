@@ -20,7 +20,7 @@ class Projects extends CI_Controller{
 		$this->genlib->updateSession($data);
 	}
 
-    public function index()	{
+    public function index() {
 		// Create by: Jiradat Pomyai 19-09-2565 index page
 		$values['pageTitle'] = lang('th_project_pj-responsible');
 		$values['breadcrumb'] = lang('th_project_pj-responsible');
@@ -28,16 +28,40 @@ class Projects extends CI_Controller{
 		$this->load->view('main', $values);
 	}
 
+	public function all() {
+		// Create by: Jiradat Pomyai 19-09-2565 index page
+		$values['all'] = 1;
+		$values['pageTitle'] = lang('all_project');
+		$values['breadcrumb'] = lang('all_project');
+		$values['pageContent'] = $this->load->view('projects/index', $values, TRUE);
+		$this->load->view('main', $values);
+	}
+
+	public function getAllProject() {
+		$data['tableName'] = lang('all_project');
+		$arrayJoin = array('pms_project' => 'pms_project.p_id=pms_permission.per_p_id','pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
+		$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('per_role'=>1), 'p_createdate desc', $arrayJoin, '');
+		$data['arrayStatus'] = $this->genlib->getProjectStatus();
+		$lastTask = array();
+		$leader = array();
+		$arrayJoin = array('pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
+		if(is_array($data['getData'])){
+			foreach ($data['getData'] as $key => $value){
+				$leader[$key] = $this->genmod->getOne('pms_permission', '*',array('per_p_id'=>$value->per_p_id, 'per_role'=>1),'',$arrayJoin,'');
+				$lastTask[$key] = $this->genmod->getLastTask($value->per_p_id);
+			}
+		}
+		$data['lastTask'] = $lastTask;
+		$data['leader'] = $leader;
+		$json['html'] = $this->load->view('projects/list', $data, TRUE);
+		$this->output->set_content_type('application/json')->set_output(json_encode($json));
+	}
+
 	public function get() {
 		// Create by: Jiradat Pomyai 19-09-2565
-		$data['pageTitle'] =  'โครงการที่เกี่ยวข้อง';
-		$data['breadcrumb'] = 'โครงการที่เกี่ยวข้อง';
+		$data['tableName'] = lang('th_project_pj-responsible');
 		$arrayJoin = array('pms_project' => 'pms_project.p_id=pms_permission.per_p_id','pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
-		if($_SESSION['u_role'] > 1) {
-			$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('per_u_id'=>$_SESSION['u_id']), 'p_createdate desc', $arrayJoin, '');
-		} else {
-			$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('per_role'=>1), 'p_createdate desc', $arrayJoin, '');
-		}
+		$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('per_u_id'=>$_SESSION['u_id']), 'p_createdate desc', $arrayJoin, '');
 		$data['arrayStatus'] = $this->genlib->getProjectStatus();
 		$lastTask = array();
 		$leader = array();
@@ -81,6 +105,15 @@ class Projects extends CI_Controller{
 			$json = ['status'=> 1, 'msg'=>lang('md_vm_ct-edit')];
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
+	}
+
+	public function addProject() {
+		// Create by: Patiphan Pansanga 23-12-2565 add project page
+		$values['pageTitle'] = lang('md_tl_a-ap');
+		$values['breadcrumb'] = lang('md_tl_a-ap');
+		$values['addForm'] = 1;
+		$values['pageContent'] = $this->load->view('projects/index', $values, TRUE);
+		$this->load->view('main', $values);
 	}
 
 	public function getAddForm() {

@@ -10,7 +10,7 @@
           <div class="form-group">
             <label for="p_detail" class="form-label"><?= lang('md_at-tl') ?><?= isset($detail) ? '' : $required ?></label>
             <select class="form-select" name="inputValue[]" id="t_tl_id" <?= isset($detail) ? "disabled" : '' ?>>
-              <option selected disabled value=""><?= lang('md_at_ph-tl') ?></option>
+              <option selected disabled value=""><?= lang('md_at_ph-t') ?></option>
               <?php foreach ($tasks as $key => $value) { ?>
                 <?php if (isset($getData)) {
                   if ($getData->t_tl_id == $value->tl_id) { ?>
@@ -29,17 +29,18 @@
             <font id="detailMsg" class="small text-danger"></font>
           </div>
           <div class="form-group">
-              <label for="p_createdate" class="form-label"><?= lang('md_at-imd') ?><?php if(!isset($detail)) { echo $required; } ?></label>
-              <div class="input-group date" data-provide="datepicker" data-date-format="dd-mm-yyyy">
-                <?php if(isset($getData)) : $newDate = date("d-m-Y", strtotime($getData->t_createdate)); endif; ?>
-                <input type="text" class="form-control" id="t_createdate" name="inputValue[]" value="<?= isset($getData) ? $newDate : '' ?>" <?php if(isset($detail)){echo "disabled";}?> placeholder="<?= lang('md_at_ph-ps') ?> (<?=date("d-m-Y") ?>)" maxlength="10" minlength="10" autocomplete="off" required>
-                  <div class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </div>
-                <span class="input-group-text fs-5" onclick="pickDate()" style="cursor: pointer;"><i class="mdi mdi-calendar-range"></i></span> 
+            <label for="p_createdate" class="form-label"><?= lang('md_at-imd') ?><?= isset($detail) ? '' : $required ?></label>
+            <div class="input-group date" data-provide="datepicker" data-date-format="dd-mm-yyyy">
+              <?php if (isset($getData)) : $newDate = date("d-m-Y", strtotime($getData->t_createdate));
+              endif; ?>
+              <input type="text" class="form-control" id="t_createdate" name="inputValue[]" value="<?= isset($getData) ? $newDate : '' ?>" <?= isset($detail) ? "disabled" : '' ?> placeholder="<?= lang('md_at_ph-ps') ?> (<?= date("d-m-Y") ?>)" maxlength="10" minlength="10" autocomplete="off" required>
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
               </div>
-              <font id="createdateMsg" class="small text-danger"></font>
+              <span class="input-group-text fs-5" onclick="pickDate()" style="cursor: pointer;"><i class="mdi mdi-calendar-range"></i></span>
             </div>
+            <font id="createdateMsg" class="small text-danger"></font>
+          </div>
           <div class="form-group">
             <label class="form-label"><?= lang('md_at-ad') ?></label>
             <input type="text" class="form-control" value="<?= isset($getData) ? $getData->u_firstname . " " . $getData->u_lastname : $_SESSION['u_fullname'] ?>" disabled>
@@ -121,7 +122,7 @@
     }
     if (error == '') {
       $.ajax({
-        url: "tasks/uploadFiles", 
+        url: "tasks/uploadFiles",
         method: "POST",
         data: form_data,
         contentType: false,

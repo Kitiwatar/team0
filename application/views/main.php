@@ -84,6 +84,8 @@
     <script src="<?= base_url() ?>assets/node_modules/echarts/echarts-all.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.3.1/dist/echarts.min.js"></script>
     <!-- end Flot Charts JavaScript -->
+
+    <link href="<?= base_url() ?>assets/node_modules/calendar/dist/fullcalendar.css" rel="stylesheet" />
     <style>
         .name {
             color: #0d6efd;
@@ -222,50 +224,64 @@
                             </a>
                         </li>
                         <?php if (isset($_SESSION['u_id'])) : ?>
-                            <li>
-                                <a class="waves-effect waves-dark" href="<?= base_url() ?>projects" aria-expanded="false">
-                                    <i class="icon-doc" style="font-size: 18px;"></i><span class="hide-menu"><?= lang('project') ?></span>
-                                </a>
-                            </li>
+                            <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-doc" style="font-size: 20px;"></i><span class="hide-menu"><?= lang('project') ?></span></a>
+                                    <ul aria-expanded="false" class="collapse">
+                                    <?php if ($_SESSION['u_role'] <= 1) : ?>
+                                        <li>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>projects/all" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('all_project') ?></a>
+                                        </li>
+                                        <?php endif; ?>
+                                        <li>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>projects" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('my_project') ?></a>
+                                        </li>
+                                        <?php if ($_SESSION['u_role'] <= 2) : ?>
+                                        <li>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>projects/addProject" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('m_project_addproject') ?></a>
+                                        </li>
+                                        <?php endif; ?>
+                                    </ul>
+                                </li>
                             <?php if ($_SESSION['u_role'] <= 1) : ?>
-                                <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-settings" style="font-size: 20px;"></i><span class="hide-menu"><?= lang('setting') ?></span></a>
+                                <li> 
+                                    <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-screen-tablet" style="font-size: 18px;"></i><span class="hide-menu"><?= lang('report') ?></span></a>
                                     <ul aria-expanded="false" class="collapse">
                                         <li>
-                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>users" aria-expanded="false"><i class="mdi mdi-account-card-details" style="font-size: 18px;"></i> <?= lang('user') ?></a>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>reports/projects" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('project') ?></a>
                                         </li>
                                         <li>
-                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>tasklist" aria-expanded="false"><i class="mdi mdi-table-large" style="font-size: 18px;"></i> <?= lang('taskList') ?></a>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>reports/users" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('employee') ?></a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li> 
-                                    <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-screen-tablet" style="font-size: 18px;"></i><span class="hide-menu">รายงาน</span></a>
+                                    <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-settings" style="font-size: 20px;"></i><span class="hide-menu"><?= lang('setting') ?></span></a>
                                     <ul aria-expanded="false" class="collapse">
                                         <li>
-                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>reports/projects" aria-expanded="false">โครงการ</a>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>users" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('user') ?></a>
                                         </li>
                                         <li>
-                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>reports/users" aria-expanded="false">พนักงาน</a>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>tasklist" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('taskList') ?></a>
                                         </li>
                                     </ul>
                                 </li>
+                                
                             <?php endif; ?>
                             <?php if ($_SESSION['u_role'] < 1) : ?>
                                 <li>
                                     <a class="waves-effect waves-dark" href="<?= base_url() ?>logs" aria-expanded="false">
-                                        <i class="mdi mdi-database" style="font-size: 20px;"></i><span class="hide-menu"> <?= lang('log') ?></span>
+                                        <i class="ti-server" style="font-size: 18px;"></i><span class="hide-menu"> <?= lang('log') ?></span>
                                     </a>
                                 </li>
                             <?php endif; ?>
                         <?php endif; ?>
                         <li> 
-                            <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-world" style="font-size: 18px;"></i><span class="hide-menu">การแสดงผลภาษา</span></a>
+                            <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-world" style="font-size: 18px;"></i><span class="hide-menu"><?= lang('lang') ?></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li>
-                                    <a class="waves-effect waves-dark" href="javascript:void(0)" onclick="changeLang('th')" aria-expanded="false">ภาษาไทย</a>
+                                    <a class="waves-effect waves-dark" href="javascript:void(0)" onclick="changeLang('th')" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> ภาษาไทย</a>
                                 </li>
                                 <li>
-                                    <a class="waves-effect waves-dark" href="javascript:void(0)" onclick="changeLang('en')" aria-expanded="false">English</a>
+                                    <a class="waves-effect waves-dark" href="javascript:void(0)" onclick="changeLang('en')" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> English</a>
                                 </li>
                             </ul>
                         </li>

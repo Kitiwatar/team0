@@ -25,19 +25,15 @@
                       <td class="text-center"><?= $count++ ?></td>
                       <td><?= $value->l_action ?></td>
                       <td><?= $value->l_table ?></td>
-                      <td><?php if(strlen($value->l_data) <= 30){
-                          echo $value->l_data;
-                        } else {
-                          $dataCut = mb_strimwidth($value->l_data, 0, 30, "...");
+                      <td><?php 
+                          $dataCut = mb_strimwidth($value->l_data, 0, 10, "...");
                           print($dataCut);
-                        } ?>
+                        ?>
                       </td>
-                      <td><?php if(strlen($value->l_command) <= 30){
-                          echo $value->l_command;
-                        } else {
-                          $commandCut = mb_strimwidth($value->l_command, 0, 30, "...");
+                      <td><?php 
+                          $commandCut = mb_strimwidth($value->l_command, 0, 10, "...");
                           print($commandCut);
-                        } ?>
+                        ?>
                       </td>
                       <td><?=thaiDateTime($value->l_createdate)." น."?></td>
                       <td><?= $value->u_firstname . " " . $value->u_lastname ?></td>

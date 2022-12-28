@@ -106,13 +106,8 @@ class Reports extends CI_Controller{
 
 	public function getUserProject() {
 		$formData = $this->input->post();
-		$arrayJoin = array('pms_project' => 'pms_project.p_id=pms_permission.per_p_id','pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
-		$data['projectData'] = $this->genmod->getAll('pms_permission', '*', array('per_u_id'=>$formData['u_id'], 'p_status'=>1), 'p_createdate desc', $arrayJoin, '');
-		if($data['projectData'] == null) {
-			$data['projectData'] = $this->genmod->getAll('pms_permission', '*', array('per_u_id'=>$formData['u_id'], 'p_status'=>2), 'p_createdate desc', $arrayJoin, '');
-		} else {
-			$data['projectData'] += $this->genmod->getAll('pms_permission', '*', array('per_u_id'=>$formData['u_id'], 'p_status'=>2), 'p_createdate desc', $arrayJoin, '');
-		}
+		$arrayJoin = array('pms_permission' => 'pms_project.p_id=pms_permission.per_p_id','pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
+		$data['projectData'] = $this->genmod->getAll('pms_project', '*', array('per_u_id'=>$formData['u_id']), 'p_createdate desc', $arrayJoin, '');
 		$json['title'] = "รายชื่อโครงการของ ".$data['projectData'][0]->u_firstname." ".$data['projectData'][0]->u_lastname;
 		$json['body'] = $this->load->view('reports/users/listProject', $data, TRUE);
 		$json['footer'] = '<button type="button" class="btn btn-secondary" style="background-color: grey; color:white;" data-dismiss="modal" aria-hidden="true">'.lang('md_ap_close').'</button>';
