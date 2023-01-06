@@ -13,7 +13,11 @@ $lang['setting'] = 'Settings';
 $lang['user'] = 'Users';
 $lang['taskList'] = 'TaskList';
 $lang['log'] = 'Logs';
-
+$lang['report'] = 'Reports';
+$lang['lang'] = 'Languages';
+$lang['my_project'] = 'My Projects';
+$lang['all_project'] = 'All Projects';
+$lang['employee'] = 'Users';
 
 // menu top bar
 $lang['login'] = "Login";
@@ -255,7 +259,7 @@ $lang['md_at_bt-dc'] = "Add Related documentst"; // header
 $lang['md_at_dc-name'] = "Name Of The Document"; // header
 $lang['md_at_dc-updt'] = "Upload Date"; // header
 $lang['md_at_ab'] = "Action Button"; // header
-$lang['md_at_ph-tl'] = 'Select Tasklist '; // Placeholder
+$lang['md_at_ph-t'] = 'Select Tasklist '; // Placeholder
 $lang['md_at_ph-dtl'] = 'Enter the detail of the task (Today we have ..)'; // Placeholder
 $lang['md_at_ph-ps'] = 'Day-Month-Year '; // Placeholder
 //- Verify modal of Task Moudule
@@ -345,6 +349,9 @@ $lang['md_log_command'] = "Commanded";
 $lang['md_log_calldate'] = "Called Date";
 $lang['md_log_operator'] = "Operator";
 
+// REPORT
+$lang['rp_project'] = "Projects Report";
+$lang['rp_user'] = "Users Report";
 
 //==>> ToolTips Project List <<==//
 $lang['tt_pj_mproject'] = "Manage project task";

@@ -3,15 +3,22 @@
    <div class="col-12">
      <div class="card">
        <div class="card-body">
-         <a class='fs-1 mt-0' style="cursor: pointer; color:black; line-height: 80%;" onclick="viewProject(<?= $projectData->p_id ?>)"><u><?= isset($projectData) ? $projectData->p_name : '' ?></u></a>
-         <table class="mt-3">
+        <div class="row">
+          <div class="col">
+          <a class='fs-1 mt-0' style="cursor: pointer; color:black; line-height: 80%;" onclick="viewProject(<?= $projectData->p_id ?>)"><?= isset($projectData) ? $projectData->p_name : '' ?></a>
+          </div>
+          <div class="col text-end">
+            <button class="btn waves-effect waves-light btn-outline-dark" id="calendarbtn" onclick="showCalendar()">ปฏิทินโครงการ</button>
+          </div>
+        </div>
+         <table class="mt-2">
            <tr>
              <td>
                <?= lang('tl_project_pj-mainperson') ?> : <?= $user[0]->u_firstname . " " . $user[0]->u_lastname ?>
              </td>
              <td class="px-3">
                <?= lang('tl_project_pj-status') ?> :
-               <?php $statusColor = array(1 => "badge rounded-pill bg-info", 2 => "badge rounded-pill bg-info", 3 => "badge rounded-pill bg-success", 4 => "badge rounded-pill bg-danger");
+               <?php $statusColor = array(1 => "badge rounded-pill bg-warning", 2 => "badge rounded-pill bg-info", 3 => "badge rounded-pill bg-success", 4 => "badge rounded-pill bg-danger");
                 $statusName = array(1 => lang('sp_home_pendproject'), 2 => lang('sp_home_inprogress'), 3 => lang('sp_home_finish'), 4 => lang('sp_home_cancel'));
                 if ($projectData->p_status > 0) {
                   echo "<span  class = ' " . $statusColor[$projectData->p_status] . "'>" . $statusName[$projectData->p_status] . "</span>";
@@ -26,7 +33,7 @@
              <td class="px-3"> <?= lang('gd_project_pj-enddate') ?> : <?= ($projectData->p_enddate == NULL) ? '-' : thaiDate_Full($projectData->p_enddate) ?></td>
            </tr>
          </table>
-         <h2 class='card-title'><?= lang('th_project_pj-task') ?></h2>
+         <h2 class='card-title mt-4'><?= lang('th_project_pj-task') ?></h2>
          <?php if ($projectData->p_status < 3) { ?>
            <button type="button" class="btn btn-success me-2" id="addBtn" onclick="showAddForm('<?= $projectData->p_id ?>')" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> <?= lang('m_project_addtask') ?></button>
          <?php } ?>
@@ -80,6 +87,14 @@
 
  <script>
    $('[data-toggle="tooltip"]').tooltip();
+
+   function showCalendar() {
+    
+    $('#calendarModal').modal();
+    setTimeout(function() {
+      $('.fc-month-button').click();
+    }, 50);
+   }
 
    function endProject(p_id, p_status) {
      var action = ""

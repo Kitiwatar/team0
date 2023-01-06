@@ -3,7 +3,7 @@
    <div class="col-12">
      <div class="card">
        <div class="card-body">
-         <h2 class='card-title'><?= lang('th_project_pj-responsible') ?></h2>
+         <h2 class='card-title'><?= $tableName ?></h2>
          <?php if ($_SESSION['u_role'] <= 2) { ?>
            <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> <?= lang('m_project_addproject') ?></button>
          <?php } ?>
@@ -20,10 +20,12 @@
                </tr>
              </thead>
              <tbody>
-               <?php if (is_array($getData)) : $count = 1 ?>
+               <?php if (is_array($getData)) : $count = 1;
+               $statusColor = array(1 => "badge rounded-pill bg-warning", 2 => "badge rounded-pill bg-info", 3 => "badge rounded-pill bg-success", 4 => "badge rounded-pill bg-danger");
+               $statusName = array(1=>lang('sp_home_pendproject'), 2=>lang('sp_home_inprogress'), 3=>lang('sp_home_finish'), 4=>lang('sp_home_cancel'));
+                ?>
                  <?php foreach ($getData as $key => $value) : ?>
-                   <?php if ($value->p_status < 1 && ($_SESSION['u_id'] == $leader[$key]->u_id || $_SESSION['u_role'] < 2)) {
-                     
+                   <?php if ($value->p_status < 1) { 
                       date_default_timezone_set("Asia/Bangkok");
                       $now = date("Y-m-d H:i:s");
                       $start_date = new DateTime($value->p_countdown);
@@ -62,8 +64,7 @@
                        <?php endif; ?>
                      </td>
                      <td>
-                      <?php $statusColor = array(1 => "badge rounded-pill bg-info", 2 => "badge rounded-pill bg-warning", 3 => "badge rounded-pill bg-success", 4 => "badge rounded-pill bg-danger");
-                        $statusName = array(1=>lang('sp_home_pendproject'), 2=>lang('sp_home_inprogress'), 3=>lang('sp_home_finish'), 4=>lang('sp_home_cancel'));
+                      <?php 
                         if ($value->p_status > 0) {
                           echo "<span  class = ' " . $statusColor[$value->p_status] . "'>" . $statusName[$value->p_status] . "</span>";
                         } else {
@@ -108,7 +109,7 @@
      e.preventDefault();
      $.ajax({
        method: "post",
-       url: 'projects/getAddForm'
+       url: '<?= base_url() ?>projects/getAddForm'
      }).done(function(returnData) {
        $('#mainModalTitle').html(returnData.title);
        $('#mainModalBody').html(returnData.body);
@@ -129,8 +130,8 @@
     dom: 'Bftlp',
      buttons: [{
          extend: 'excel',
-         filename: "รายชื่อโครงการที่เกี่ยวข้อง",
-         title: "รายชื่อโครงการที่เกี่ยวข้อง",
+         filename: "<?= $tableName ?>",
+         title: "<?= $tableName ?>",
          exportOptions: {
            columns: [0, 1, 2, 3, 4]
          },
@@ -147,8 +148,8 @@
        { // กำหนดพิเศษเฉพาะปุ่ม pdf
          extend: 'pdf', // ปุ่มสร้าง pdf ไฟล์
          text: 'PDF', // ข้อความที่แสดง
-         filename: "รายชื่อโครงการที่เกี่ยวข้อง",
-         title: "รายชื่อโครงการที่เกี่ยวข้อง",
+         filename: "<?= $tableName ?>",
+         title: "<?= $tableName ?>",
          pageSize: 'A4', // ขนาดหน้ากระดาษเป็น A4
          exportOptions: {
            columns: [0, 1, 2, 3, 4]

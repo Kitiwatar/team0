@@ -3,16 +3,34 @@
 
 <script>
   let countSec = 0;
-
-  loadList();
+  <?php if(!isset($addForm)) { ?>
+    loadList();
+  <?php } else { ?>
+    showAddForm();
+  <?php }?>
 
   function loadList() {
+    <?php if(isset($all)) { ?>
+      let url = '<?= base_url()."/projects/getAllProject" ?>'
+    <?php } else { ?>
+      let url = '<?= base_url()."/projects/get" ?>'
+    <?php } ?>
     $.ajax({
-      url: 'projects/get',
+      url: url,
       method: 'post'
     }).done(function(returnData) {
       countSec = 0;
       $('#listDiv').html(returnData.html)
+    })
+  }
+
+  function showAddForm() {
+    $.ajax({
+      url: '<?= base_url() ?>projects/getAddForm',
+      method: 'post'
+    }).done(function(returnData) {
+      let html = '<div class="card"><div class="card-title fs-4 m-3">'+returnData.title+'</div>'+ returnData.body +'<div class="text-end mb-4 mx-4">'+returnData.footer+'</div></div>'
+      $('#listDiv').html(html)
     })
   }
 
@@ -35,10 +53,7 @@
     formData['p_othercontact'] = $('#p_othercontact').val()
     var dateInput = $('#p_createdate').val()
     if(dateInput.length == 10) {
-      // darr = dateInput.split("-");
-      // var dobj = new Date(parseInt(darr[2]),parseInt(darr[1])-1,parseInt(darr[0]));
       var bangkokDate = dateInput.toLocaleString("en-US", {timeZone: "Asia/Bangkok"})
-      // formData['p_createdate'] = dobj.toISOString().split("T")[0]
       formData['p_createdate'] = bangkokDate.substring(6, 10) + "-" + bangkokDate.substring(3, 5) + "-" + bangkokDate.substring(0, 2);
     } else {
       formData['p_createdate'] = "";
@@ -117,11 +132,10 @@
       if (isConfirm.value) {
         $.ajax({
           method: "post",
-          url: 'projects/add',
+          url: '<?= base_url() ?>projects/add',
           data: formData
         }).done(function(returnData) {
           if (returnData.status == 1) {
-            loadList();
             swal({
               title: "<?= lang('md_vm-suc') ?>",
               text: returnData.msg,
@@ -135,6 +149,13 @@
             $('#mainModalBody').html("");
             $('#mainModalFooter').html("");
             $('#mainModal').modal('hide');
+            <?php if(!isset($addForm)) { ?>
+              loadList();
+            <?php } else { ?>
+              setTimeout(function() {
+                location.replace('<?= base_url() ?>projects');
+              }, 1000);
+            <?php }?>
           } else {
             swal({
               title: "<?= lang('md_vm-fail')?>",
@@ -158,7 +179,7 @@
   function view(p_id) {
     $.ajax({
       method: "post",
-      url: 'projects/getDetailForm',
+      url: '<?= base_url() ?>projects/getDetailForm',
       data: {
         p_id: p_id
       }
@@ -174,7 +195,7 @@
     $('#detailModal').modal('hide');
     $.ajax({
       method: "post",
-      url: 'projects/getEditForm',
+      url: '<?= base_url() ?>projects/getEditForm',
       data: {
         p_id: p_id
       }
@@ -209,7 +230,7 @@
       if (isConfirm.value) {
         $.ajax({
           method: "POST",
-          url: 'projects/updateStatus',
+          url: '<?= base_url() ?>projects/updateStatus',
           data: {
             p_id: p_id,
             p_status: p_status
