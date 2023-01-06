@@ -1,11 +1,17 @@
 <?php
-// Create by: Patiphan Pansanga 07-09-2565
+/*
+	Author: Patiphan Pansanga, Jiradat Pomyai, Natakorn Phongsarikit
+	Create: 2022-09-07
+*/
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Users extends CI_Controller {
 
 	public function __construct() {
-		// Create by: Patiphan Pansanga 07-09-2565
+		/*
+			Author: Patiphan Pansanga
+			Create: 2022-09-07
+		*/
 		parent::__construct();
 		$this->genlib->checkLogin();
 		$data = $this->genmod->getOne('pms_user', '*', array('u_id'=>$_SESSION['u_id']));
@@ -13,7 +19,10 @@ class Users extends CI_Controller {
 	}
 
 	public function getAllRole($dataType = "php") {
-		// Create by: Patiphan Pansanga 13-09-2565
+		/*
+			Author: Patiphan Pansanga
+			Create: 2022-09-13
+		*/
 		if($dataType == "php") {
 			$arrayRole = array(1=>"ผู้ดูแลระบบ", 2=>"หัวหน้าโครงการ", 3=>"พนักงาน");
 			return $arrayRole;
@@ -24,7 +33,10 @@ class Users extends CI_Controller {
     }
 
 	public function index()	{
-		// Create by: Patiphan Pansanga 07-09-2565
+		/*
+			Author: Patiphan Pansanga
+			Create: 2022-09-07
+		*/
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
@@ -35,7 +47,10 @@ class Users extends CI_Controller {
 	}
 
 	public function get() {
-		// Create by: Patiphan Pansanga 08-09-2565
+		/*
+			Author: Patiphan Pansanga
+			Create: 2022-09-07
+		*/
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
@@ -46,20 +61,26 @@ class Users extends CI_Controller {
 	}
 
  	public function getAddForm() {
-		// Create by: Patiphan Pansanga 08-09-2565
+		/*
+			Author: Patiphan Pansanga
+			Create: 2022-09-08
+		*/
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
-		$json['title'] = 'เพิ่มพนักงานในระบบ(<font class="text-danger">*</font>จำเป็นต้องกรอกข้อมูล)';
+		$json['title'] = 'เพิ่มพนักงานในระบบ';
 		$data['arrayRole'] = $this->getAllRole();
 		$json['body'] = $this->load->view('users/formadd', $data ,true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit(\'new\');">บันทึก</button>
-		<button type="button" class="btn btn-danger" onclick="closeModal(\'เพิ่มพนักงาน\')">ยกเลิก</button>';
+		<button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>';
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
 	public function add() {
-		// Create by: Patiphan Pansanga 08-09-2565
+		/*
+			Author: Patiphan Pansanga
+			Create: 2022-09-08
+		*/
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
@@ -109,7 +130,10 @@ class Users extends CI_Controller {
 	}
 
 	public function getEditForm() {
-		// Create by: Patiphan Pansanga 08-09-2565
+		/*
+			Author: Patiphan Pansanga
+			Create: 2022-09-08
+		*/
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
@@ -118,12 +142,15 @@ class Users extends CI_Controller {
 		$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
 		$json['body'] = $this->load->view('users/formadd', $data ,true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit('.$this->input->post('u_id').');">บันทึก</button>
-		<button type="button" class="btn btn-danger" id="closeBtn" onclick="closeModal(\'แก้ไขพนักงาน\')">ยกเลิก</button>';
+		<button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>';
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
 	public function getDetailForm() {
-		// Create by: Jiradat Pomyai 14-09-2565
+		/*
+			Author: Jiradat Pomyai
+			Create: 2022-09-08
+		*/
 		if($this->input->post('person')!=null){
 			$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>($_SESSION['u_id'])));
 		}
@@ -142,13 +169,16 @@ class Users extends CI_Controller {
 	}
 
 	public function getPasswordForm() {
-		// Create by: Natakorn Phongsarikit 14-09-2565
+		/*
+			Author: Natakorn Phongsarikit
+			Create: 2022-09-14
+		*/
 		if($this->input->post('person')!=null) { 
 			$data['personPassword'] = "yes";
 			$json['title'] = 'เปลี่ยนรหัสผ่าน';
 			$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>($_SESSION['u_id'])));
 			$json['footer'] = '<span id="errMsg"></span><button type="button" class="btn btn-success" onclick="submitPersonPassword()">บันทึก</button>
-			<button type="button" class="btn btn-danger" onclick="closeModal(\'เปลี่ยนรหัสผ่าน\')">ยกเลิก</button>';
+			<button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>';
 		} else {
 			if($_SESSION['u_role'] > 1) {
 				redirect(base_url());
@@ -156,7 +186,7 @@ class Users extends CI_Controller {
 			$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
 			$json['title'] = 'เปลี่ยนรหัสผ่านของ : ' . $data['getData']->u_firstname . " " . $data['getData']->u_lastname;
 			$json['footer'] = '<span id="errMsg"></span><button type="button" class="btn btn-success" onclick="submitPwdForm('.$this->input->post('u_id').');">บันทึก</button>
-			<button type="button" class="btn btn-danger" onclick="closeModal(\'เปลี่ยนรหัสผ่าน\')">ยกเลิก</button>';
+			<button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>';
 		}
 		
 		$json['body'] = $this->load->view('users/formpassword', $data ,true);
@@ -165,12 +195,15 @@ class Users extends CI_Controller {
 
 
 	public function updatePassword() {
-		// Create by: Patiphan Pansanga, Natakorn Phongsarikit 07-09-2565
+		/*
+			Author: Patiphan Pansanga, Natakorn Phongsarikit
+			Create: 2022-09-07
+		*/
 		$this->genlib->ajaxOnly();
 		$updateData = $this->input->post();
 		if(isset($updateData['curPwd'])) {
 			$validCheck = $this->genmod->getOne('pms_user', '*', array('u_id' => $_SESSION['u_id']));
-			$passwordHash = hash('sha256', $updateData['curPwd']); // เข้ารหัส Password รูปแบบ SHA-256 (Secure Hash Algorithm 256-bit)
+			$passwordHash = hash('sha256', $updateData['curPwd']);
 			if(isset($validCheck) && $validCheck->u_password == $passwordHash) {
 				if($updateData['pwd'] == $updateData['cfPwd']) {
 					if(hash('sha256', $updateData['pwd']) != $validCheck->u_password) {
@@ -178,7 +211,7 @@ class Users extends CI_Controller {
 						$this->genmod->update('pms_user', array('u_password'=> $updateData['pwd']), array('u_id' => $_SESSION['u_id']));
 						$json = ['status'=> 1, 'msg'=>"เปลี่ยนรหัสผ่านสำเร็จ"];
 					}else{
-						$json = ['status'=> 0, 'msg'=>"รหัสผ่านตรงใหม่ต้องไม่ตรงกับรหัสผ่านปัจจุบัน"];
+						$json = ['status'=> 0, 'msg'=>"รหัสผ่านตรงใหม่ต้องไม่ตรงกับรหัสผ่านปัจุบัน"];
 					}
 				}
 
@@ -201,7 +234,10 @@ class Users extends CI_Controller {
 	}
 
 	public function updateRole() {
-		// Create by: Patiphan Pansanga 07-09-2565
+		/*
+			Author: Patiphan Pansanga
+			Create: 2022-09-07
+		*/
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
@@ -220,7 +256,10 @@ class Users extends CI_Controller {
 	}
 
   	public function updateStatus() {
-		// Create by: Patiphan Pansanga 07-09-2565
+		/*
+			Author: Patiphan Pansanga
+			Create: 2022-09-07
+		*/
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
@@ -230,7 +269,7 @@ class Users extends CI_Controller {
 		if(isset($validCheck) && $_SESSION['u_role'] <= $validCheck->u_role) {
 			if($this->genmod->update('pms_user', array('u_status'=> ($updateData['u_status'] == 0? '1':'0')), array('u_id'=>$updateData['u_id']))){
 				if($updateData['u_status'] == 1) {
-					$msg = "ระงับการทำงานของพนักงานสำเร็จ";
+					$msg = "ลบพนักงานออกจากระบบสำเร็จ";
 				} else {
 					$msg = "กู้คืนข้อมูลพนักงานสำเร็จ";
 				}
@@ -238,18 +277,6 @@ class Users extends CI_Controller {
 			}
 		}else{
 			$json = ['status'=> 0, 'msg'=>"เกิดข้อผิดพลาด"];
-		}
-		$this->output->set_content_type('application/json')->set_output(json_encode($json));
-	}
-
-	public function checkCurrentPassword() {
-		// Create by: Patiphan Pansanga 15-09-2565
-		$data = $this->input->post();
-		$validCheck = $this->genmod->getOne('pms_user', '*', array('u_id' => $_SESSION['u_id']));
-		if($validCheck->u_password == hash('sha256', $data['pwd'])) {
-			$json = ['result'=> 1];
-		} else {
-			$json = ['result'=> 0];
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}

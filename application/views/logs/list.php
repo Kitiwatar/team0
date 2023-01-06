@@ -2,7 +2,7 @@
   Author: Patiphan Pansanga 
   Create: 2022-09-14
  -->
- <div class="row">
+<div class="row">
   <div class="col-12">
     <div class="card">
       <div class="card-body">
@@ -11,7 +11,6 @@
           <table class="display table table-striped table-bordered dt-responsive nowrap">
             <thead>
               <tr>
-                <th>ลำดับ</th>
                 <th>การกระทำ</th>
                 <th>ชื่อตาราง</th>
                 <th>ข้อมูล</th>
@@ -22,26 +21,23 @@
               </tr>
             </thead>
             <tbody>
-              <?php if (is_array($getData)) : $count = 1;?>
+              <?php if (is_array($getData)) : ?>
                 <?php foreach ($getData as $key => $value) : ?>
                     <tr>
-                      <td class="text-center"><?= $count++ ?></td>
                       <td><?= $value->l_action ?></td>
                       <td><?= $value->l_table ?></td>
-                      <td><?php if(strlen($value->l_data) <= 30){
+                      <td><?php if(strlen($value->l_data) <= 50){
                           echo $value->l_data;
                         } else {
-                          $dataCut = mb_strimwidth($value->l_data, 0, 30, "...");
-                          print($dataCut);
+                          echo substr($value->l_data, 0, 47) . "...";
                         } ?>
                       </td>
-                      <td><?php if(strlen($value->l_command) <= 30){
+                      <!-- <td><?php if(strlen($value->l_command) <= 50){
                           echo $value->l_command;
                         } else {
-                          $commandCut = mb_strimwidth($value->l_command, 0, 30, "...");
-                          print($commandCut);
+                          echo substr($value->l_command, 0, 47) . "...";
                         } ?>
-                      </td>
+                      </td> -->
                       <td><?= $value->l_createdate ?></td>
                       <td><?= $value->u_firstname . " " . $value->u_lastname ?></td>
                       <td class="text-center">
@@ -72,7 +68,7 @@
       "sSearch": "ค้นหา ",
       "sInfoFiltered": "(กรองจากทั้งหมด _MAX_ รายการ)",
       "sZeroRecords": "ไม่พบข้อมูล"
-    },
+    }
   });
 
 </script>
