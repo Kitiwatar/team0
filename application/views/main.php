@@ -96,8 +96,7 @@
     </style>
 </head>
 
-<body class="skin-blue fixed-layout" <?php if (isset($_SESSION['u_id'])) : echo 'onload="countDown()" ' . 'onclick="updateTimeout()"';
-                                        endif; ?>>
+<body class="skin-blue fixed-layout" <?php if (isset($_SESSION['u_id'])) : echo 'onload="countDown()" ' . 'onclick="updateTimeout()"'; endif; ?>>
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->

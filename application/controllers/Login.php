@@ -48,6 +48,7 @@ class Login extends CI_Controller {
 					date_default_timezone_set("Asia/Bangkok");
 					$_SESSION['u_id'] = $data->u_id;
 					$_SESSION['u_fullname'] = $data->u_firstname . " " . $data->u_lastname;
+					$_SESSION['u_firstname'] = $data->u_firstname;
 					$_SESSION['u_role'] = $data->u_role;
 					$_SESSION['u_status'] = $data->u_status;
 					$_SESSION['timeout'] = date('Y-m-d H:i:s', strtotime('1 hour'));

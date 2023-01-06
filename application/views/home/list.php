@@ -3,7 +3,7 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-body">
-				<h4 class='card-title'><?= lang('tl_home_listofrank') ?></h4>
+
 				<div class="table-responsive">
 					<table class="display table dt-responsive nowrap">
 						<thead>

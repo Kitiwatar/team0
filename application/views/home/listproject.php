@@ -32,7 +32,7 @@
                      </td>
                      <td>
                      <?php
-                       $statusColor = array(1=>"badge rounded-pill bg-info", 2=>"badge rounded-pill bg-info", 3=>"badge rounded-pill bg-success", 4=>"badge rounded-pill bg-danger");
+                       $statusColor = array(1=>"badge rounded-pill bg-info", 2=>"badge rounded-pill bg-warning", 3=>"badge rounded-pill bg-success", 4=>"badge rounded-pill bg-danger");
                         foreach ($arrayStatus as $key => $status) {
                           if ($value->p_status == $key) {
                             echo "<span  class = ' ". $statusColor[$key] ."'>" . $status . "</span>";
@@ -104,3 +104,5 @@
    $('.buttons-excel').html('<i class="mdi mdi-file-excel-box"></i> Excel');
    $('.buttons-pdf').html('<i class="mdi mdi-file-pdf-box"></i> PDF');
  </script>
+
+

@@ -43,14 +43,16 @@ $lang['b_login'] = "เข้าสู่ระบบ";
 
 //++ Home ++//
 $lang['h_project'] = "โครงการ";
+$lang['h_status'] = "ที่";
 // Button
 $lang['b_viewmore']= "ดูเพิ่มเติม...";
 // status of Project
-$lang['sp_home_allproject'] = "โครงการทั้งหมด";
+$lang['sp_home_allproject'] = "จำนวนโครงการทั้งหมด";
+$lang['sp_home_responproject'] = "โครงการที่มีส่วนเกี่ยวข้อง";
 $lang['sp_home_pendproject'] = "รอดำเนินการ";
 $lang['sp_home_inprogress'] = "กำลังดำเนินการ";
-$lang['sp_home_finish'] = "เสร็จสิ้น";
-$lang['sp_home_cancel'] = "ยกเลิก";
+$lang['sp_home_finish'] = "สิ้นสุด";
+$lang['sp_home_cancel'] = "ถูกยุติ";
 // Ranke
 $lang['tl_home_listofrank'] = "ลำดับพนักงานที่รับผิดชอบงานมากที่สุด";
 $lang['tl_home_amountworkpiece'] = "จำนวนงานที่รับผิดชอบ ";
@@ -113,7 +115,7 @@ $lang['pbt_pj-finish'] = "โครงการที่เสร็จสิ้
 $lang['pbt_pj-cancel'] = "โครงการที่ยกเลิก";
 $lang['pbt_pj-all'] = "โครงการทั้งหมด";
 $lang['pbt_pj-pending'] = "โครงการที่รอดำเนินการ";
-$lang['pbt_pj-inprocess'] = "โครงการที่กำลังดำเนินการ";
+$lang['pbt_pj-inprogress'] = "โครงการที่กำลังดำเนินการ";
 //++ End ++//
 
 //++ User ++//

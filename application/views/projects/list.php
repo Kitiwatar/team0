@@ -62,7 +62,7 @@
                        <?php endif; ?>
                      </td>
                      <td>
-                      <?php $statusColor = array(1 => "badge rounded-pill bg-info", 2 => "badge rounded-pill bg-info", 3 => "badge rounded-pill bg-success", 4 => "badge rounded-pill bg-danger");
+                      <?php $statusColor = array(1 => "badge rounded-pill bg-info", 2 => "badge rounded-pill bg-warning", 3 => "badge rounded-pill bg-success", 4 => "badge rounded-pill bg-danger");
                         $statusName = array(1=>lang('sp_home_pendproject'), 2=>lang('sp_home_inprogress'), 3=>lang('sp_home_finish'), 4=>lang('sp_home_cancel'));
                         if ($value->p_status > 0) {
                           echo "<span  class = ' " . $statusColor[$value->p_status] . "'>" . $statusName[$value->p_status] . "</span>";

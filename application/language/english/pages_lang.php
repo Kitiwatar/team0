@@ -39,11 +39,13 @@ $lang['b_login'] = "Log in";
 
 //++ Home ++//
 $lang['h_project'] = "Project";
+$lang['h_status'] = "";
 // Button
 $lang['b_viewmore']= "More...";
 
 // status of Project
 $lang['sp_home_allproject'] = "All of Projects";
+$lang['sp_home_responproject'] = "Responsibility Project";
 $lang['sp_home_pendproject'] = "Pending";
 $lang['sp_home_inprogress'] = "In Progress";
 $lang['sp_home_finish'] = "Finish";

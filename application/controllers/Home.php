@@ -59,10 +59,41 @@ class Home extends CI_Controller
 				$data[$i] = 0;
 			}
 		}
-		$json = ['projectSum' => $data[0], 'projectPending' => $data[1], 'projectProgress' => $data[2], 'projectSuccess' => $data[3], 'projectFail' => $data[4]];
+		
+		if(isset($_SESSION['u_role']) && $_SESSION['u_role'] < 3 ){
+			$arrayJoin = array('pms_project' => 'pms_project.p_id=pms_permission.per_p_id');
+			$data[5] = $this->genmod->countAll('pms_permission',array('pms_project.p_status ' => 1 ,'per_u_id' => $_SESSION['u_id']),$arrayJoin);
+			$data[5] += $this->genmod->countAll('pms_permission',array('pms_project.p_status '=>2 ,'per_u_id' => $_SESSION['u_id']),$arrayJoin);
+			$data[5] += $this->genmod->countAll('pms_permission',array('pms_project.p_status '=>3 ,'per_u_id' => $_SESSION['u_id']),$arrayJoin);
+			$data[5] += $this->genmod->countAll('pms_permission',array('pms_project.p_status '=>4 ,'per_u_id' => $_SESSION['u_id']),$arrayJoin);
+			$data[6] = $this->genmod->countAll('pms_permission',array('pms_project.p_status '=>1 ,'per_u_id' => $_SESSION['u_id']),$arrayJoin);
+			$data[7] = $this->genmod->countAll('pms_permission',array('pms_project.p_status '=>2 ,'per_u_id' => $_SESSION['u_id']),$arrayJoin);
+			$data[8] = $this->genmod->countAll('pms_permission',array('pms_project.p_status '=>3 ,'per_u_id' => $_SESSION['u_id']),$arrayJoin);
+			$data[9] = $this->genmod->countAll('pms_permission',array('pms_project.p_status '=>4 ,'per_u_id' => $_SESSION['u_id']),$arrayJoin);
+			$data[10] = 1;
+		}else{
+			$data[5]=0;
+			$data[6]=0;
+			$data[7]=0;
+			$data[8]=0;
+			$data[9]=0;
+			$data[10]= 0;
+		}
+		$json = ['projectSum' => $data[0],'projectPending' => $data[1], 'projectProgress' => $data[2], 'projectSuccess' => $data[3], 'projectFail' => $data[4],'projectRespon'=>$data[5],'resprojectPending' => $data[6],'resprojectProgress' => $data[7],'resprojectSuccess' => $data[8],'resprojectFail' => $data[9],'session' => $data[10]];
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
-
+	
+	public function getCause(){
+		$json['html'] = $this->load->view('home/list-cause','', TRUE);
+		$this->output->set_content_type('application/json')->set_output(json_encode($json));
+	}
+	public function getToDoList(){
+		date_default_timezone_set("Asia/Bangkok"); 
+		$arrayJoin = array('pms_tasklist' => 'pms_task.t_tl_id=pms_tasklist.tl_id','pms_project' => 'pms_project.p_id=pms_task.t_p_id');
+		$data['listtodo'] = $this->genmod->getAll('pms_task', '*', array('t_u_id'=>$_SESSION['u_id'],'t_createdate'=>date("Y-m-d")), '', $arrayJoin, '');
+		$json['html'] = $this->load->view('home/todolist',$data, TRUE);
+		$this->output->set_content_type('application/json')->set_output(json_encode($json));
+	}
 	public function getRank() {
 		// Create by: Patiphan Pansanga, Kitiwat Arunwong 29-09-2565 get top five employee has most working
 		$allUser = $this->genmod->getAll('pms_user', '*', '', 'u_createdate desc', '', '');
