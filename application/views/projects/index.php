@@ -29,7 +29,7 @@
       url: '<?= base_url() ?>projects/getAddForm',
       method: 'post'
     }).done(function(returnData) {
-      let html = '<div class="card"><div class="card-title fs-4 m-3">'+returnData.title+'</div>'+ returnData.body +'<div class="text-end mb-4 mx-4">'+returnData.footer+'</div></div>'
+      let html = '<div class="card"><h2 class="card-title m-3">'+returnData.title+'</h2>'+ returnData.body +'<div class="text-end mb-4 mx-4">'+returnData.footer+'</div></div>'
       $('#listDiv').html(html)
     })
   }

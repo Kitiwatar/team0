@@ -25,7 +25,7 @@ class Home extends CI_Controller
 	}
 
 	public function index() {
-		// Create by: Patiphan Pansanga, Kitiwat Arunwong 09-09-2565 show dashboard
+		// Create by: Kitiwat Arunwong 09-09-2565 show dashboard
 		$values['pageTitle'] = lang('Home');
 		$values['breadcrumb'] = lang('dashboard');
 		$values['pageContent'] = $this->load->view('home/index', '', TRUE);
@@ -33,6 +33,7 @@ class Home extends CI_Controller
 	}
 
 	public function changeLang() {
+		// Create by: Patiphan Pansanga 24-11-2565 change language
 		$formData = $this->input->post();
 		if($formData['lang'] == "th") {
 			$_SESSION['lang'] = "th";
@@ -46,30 +47,27 @@ class Home extends CI_Controller
 	public function getProjectSummary() {
 		// Create by: Kitiwat Arunwong 19-09-2565 return summary of project
 		$data = array();
-		for ($i = 0; $i < 5; $i++) {
-			if ($i == 0) {
-				$data[$i] = 0;
-				for($j=1; $j<=4; $j++) {
-					$data[$i] += $this->genmod->countAll('pms_project', array('p_status' => $j), '');
-				}
-			} else {
+		date_default_timezone_set("Asia/Bangkok"); 
+		$data[0] = 0;
+		for($i=1; $i<=4; $i++) {
+			if($i <= 2) {
 				$data[$i] = $this->genmod->countAll('pms_project', array('p_status' => $i), '');
+			} else {
+				$data[$i] = $this->genmod->countAll('pms_project', array('p_status' => $i,'YEAR(p_enddate)'=>date("Y")), '');
 			}
-			if ($data[$i] == 0) {
-				$data[$i] = 0;
-			}
+			$data[0] += $data[$i];
 		}
 		
-		if(isset($_SESSION['u_role']) && $_SESSION['u_role'] < 3 ){
+		if(isset($_SESSION['u_id'])){
 			$arrayJoin = array('pms_project' => 'pms_project.p_id=pms_permission.per_p_id');
-			$data[5] = $this->genmod->countAll('pms_permission',array('pms_project.p_status ' => 1 ,'per_u_id' => $_SESSION['u_id']),$arrayJoin);
+			$data[5] = $this->genmod->countAll('pms_permission',array('pms_project.p_status ' =>1 ,'per_u_id' => $_SESSION['u_id']),$arrayJoin);
 			$data[5] += $this->genmod->countAll('pms_permission',array('pms_project.p_status '=>2 ,'per_u_id' => $_SESSION['u_id']),$arrayJoin);
-			$data[5] += $this->genmod->countAll('pms_permission',array('pms_project.p_status '=>3 ,'per_u_id' => $_SESSION['u_id']),$arrayJoin);
-			$data[5] += $this->genmod->countAll('pms_permission',array('pms_project.p_status '=>4 ,'per_u_id' => $_SESSION['u_id']),$arrayJoin);
+			$data[5] += $this->genmod->countAll('pms_permission',array('pms_project.p_status '=>3 ,'per_u_id' => $_SESSION['u_id'], 'YEAR(p_enddate)'=>date("Y")),$arrayJoin);
+			$data[5] += $this->genmod->countAll('pms_permission',array('pms_project.p_status '=>4 ,'per_u_id' => $_SESSION['u_id'], 'YEAR(p_enddate)'=>date("Y")),$arrayJoin);
 			$data[6] = $this->genmod->countAll('pms_permission',array('pms_project.p_status '=>1 ,'per_u_id' => $_SESSION['u_id']),$arrayJoin);
 			$data[7] = $this->genmod->countAll('pms_permission',array('pms_project.p_status '=>2 ,'per_u_id' => $_SESSION['u_id']),$arrayJoin);
-			$data[8] = $this->genmod->countAll('pms_permission',array('pms_project.p_status '=>3 ,'per_u_id' => $_SESSION['u_id']),$arrayJoin);
-			$data[9] = $this->genmod->countAll('pms_permission',array('pms_project.p_status '=>4 ,'per_u_id' => $_SESSION['u_id']),$arrayJoin);
+			$data[8] = $this->genmod->countAll('pms_permission',array('pms_project.p_status '=>3 ,'per_u_id' => $_SESSION['u_id'], 'YEAR(p_enddate)'=>date("Y")),$arrayJoin);
+			$data[9] = $this->genmod->countAll('pms_permission',array('pms_project.p_status '=>4 ,'per_u_id' => $_SESSION['u_id'], 'YEAR(p_enddate)'=>date("Y")),$arrayJoin);
 			$data[10] = 1;
 		}else{
 			$data[5]=0;
@@ -84,16 +82,19 @@ class Home extends CI_Controller
 	}
 	
 	public function getCause(){
+		// Create by: Jiradat Pomyai 03-01-2566
 		$json['html'] = $this->load->view('home/list-cause','', TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 	public function getToDoList(){
+		// Create by: Jiradat Pomyai 03-01-2566 to do list
 		date_default_timezone_set("Asia/Bangkok"); 
 		$arrayJoin = array('pms_tasklist' => 'pms_task.t_tl_id=pms_tasklist.tl_id','pms_project' => 'pms_project.p_id=pms_task.t_p_id');
 		$data['listtodo'] = $this->genmod->getAll('pms_task', '*', array('t_u_id'=>$_SESSION['u_id'],'t_createdate'=>date("Y-m-d")), '', $arrayJoin, '');
 		$json['html'] = $this->load->view('home/todolist',$data, TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
+
 	public function getRank() {
 		// Create by: Patiphan Pansanga, Kitiwat Arunwong 29-09-2565 get top five employee has most working
 		$allUser = $this->genmod->getAll('pms_user', '*', '', 'u_createdate desc', '', '');
@@ -134,40 +135,35 @@ class Home extends CI_Controller
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
-	public function viewProjects($status) {
+	public function getProjects() {
 		// Create by: Patiphan Pansanga, Kitiwat Arunwong 29-09-2565 view project by status name
-		$p_status = null;
-		if($status == "pending") {
-			
-			$data['pageTitle'] =  lang('pbt_pj-pending');
-			$data['breadcrumb'] = lang('pbt_pj-pending');
-			$p_status = 1;
-		} else if($status == "progress") {
-			$data['pageTitle'] =  lang('pbt_pj-inprogress');
-			$data['breadcrumb'] = lang('pbt_pj-inprogress');
-			$p_status = 2;
-		} else if($status == "success") {
-			$data['pageTitle'] =  lang('pbt_pj-finish');
-			$data['breadcrumb'] = lang('pbt_pj-finish');
-			$p_status = 3;
-		} else if($status == "fail") {
-			$data['pageTitle'] =  lang('pbt_pj-cancel');
-			$data['breadcrumb'] = lang('pbt_pj-cancel');
-			$p_status = 4;
-		} else if($status == "all") {
-			$data['pageTitle'] =  lang('pbt_pj-all');
-			$data['breadcrumb'] = lang('pbt_pj-all');
-			$p_status = 0;
+		$p_status = $this->input->post('p_status');
+		$u_id = $this->input->post('u_id');
+		$arrayStatus = array(lang('pbt_pj-all'), lang('pbt_pj-pending'), lang('pbt_pj-inprogress'), lang('pbt_pj-finish'), lang('pbt_pj-cancel'));
+		$arrayJoin = array('pms_project' => 'pms_project.p_id=pms_permission.per_p_id','pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
+		date_default_timezone_set("Asia/Bangkok"); 
+		if($u_id == 0) {
+			if($p_status > 0) {
+				if ($p_status > 2) {
+					$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('p_status'=>$p_status, 'per_role'=>1, 'YEAR(p_enddate)'=>date("Y")), 'p_createdate desc', $arrayJoin, '');
+				} else {
+					$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('p_status'=>$p_status, 'per_role'=>1), 'p_createdate desc', $arrayJoin, '');
+				}
+			} else {
+				$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('per_role'=>1), 'p_createdate desc', $arrayJoin, '');
+			}
 		} else {
-			redirect(base_url());
+			if($p_status > 0) {
+				if($p_status > 2) {
+					$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('p_status'=>$p_status, 'per_u_id'=>$u_id, 'YEAR(p_enddate)'=>date("Y")), 'p_createdate desc', $arrayJoin, '');
+				} else {
+					$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('p_status'=>$p_status, 'per_u_id'=>$u_id), 'p_createdate desc', $arrayJoin, '');
+				}
+			} else {
+				$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('per_u_id'=>$u_id), 'p_createdate desc', $arrayJoin, '');
+			}
 		}
 		
-		$arrayJoin = array('pms_project' => 'pms_project.p_id=pms_permission.per_p_id','pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
-		if($p_status > 0) {
-			$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('p_status'=>$p_status, 'per_role'=>1), 'p_createdate desc', $arrayJoin, '');
-		} else {
-			$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('per_role'=>1), 'p_createdate desc', $arrayJoin, '');
-		}
 
 		$data['arrayStatus'] = $this->genlib->getProjectStatus();
 		$lastTask = array();
@@ -182,8 +178,9 @@ class Home extends CI_Controller
 	
 		$data['lastTask'] = $lastTask;
 		$data['leader'] = $leader;
-		$json['html'] = $this->load->view('projects/list', $data, TRUE);
-		$values['pageContent'] = $this->load->view('home/listproject', '', TRUE);
-		$this->load->view('main', $values);
+
+		$json['title'] = "<h3>".$arrayStatus[$p_status]."</h3>";
+		$json['body'] = $this->load->view('home/listproject', $data ,true);
+		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 }

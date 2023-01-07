@@ -30,7 +30,7 @@
                       <?php if ($taskCheck[$key] == null) { ?>
                         <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="<?= lang('tt_tl_dtl') ?>" onclick="changeStatus(<?= $value->tl_id ?>,<?= $value->tl_status ?>)"><i class="mdi mdi-delete"></i></button>
                       <?php } else { ?>
-                        <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="<?= lang('tt_tl_cn-dtl') ?>"><i class="mdi mdi-delete"></i></button>
+                        <button type="button" style="cursor:no-drop" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="<?= lang('tt_tl_cn-dtl') ?>"><i class="mdi mdi-delete" style="color: grey;"></i></button>
                       <?php } ?>
                     </td>
                   </tr>

@@ -13,7 +13,7 @@
                <tr>
                  <th class="text-center"><?= lang('tl_no.') ?></th>
                  <th><?= lang('tl_project_pj-name') ?></th>
-                 <th><?= lang('tl_project_pj-mainperson') ?></th>
+                 <th><?= lang('md_ap-ps') ?></th>
                  <th><?= lang('tl_project_pj-task') ?></th>
                  <th><?= lang('tl_project_pj-status') ?></th>
                  <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
@@ -25,7 +25,7 @@
                $statusName = array(1=>lang('sp_home_pendproject'), 2=>lang('sp_home_inprogress'), 3=>lang('sp_home_finish'), 4=>lang('sp_home_cancel'));
                 ?>
                  <?php foreach ($getData as $key => $value) : ?>
-                   <?php if ($value->p_status < 1) { 
+                   <?php if ($value->p_status < 1 && ($value->per_role == 1 || $_SESSION['u_role'] < 2)) { 
                       date_default_timezone_set("Asia/Bangkok");
                       $now = date("Y-m-d H:i:s");
                       $start_date = new DateTime($value->p_countdown);
@@ -49,13 +49,19 @@
                       } else {
                         $sec = $since_start->s;
                       }
-                    } else if($value->p_status < 1) {
+                    } else if($value->p_status >= 1) {
+                      
+                    } else {
                       continue;
-                    } ?>
+                    }?>
                    <tr id="<?= "project".$value->p_id ?>">
                      <td class="text-center"><?= $count++ ?></td>
-                     <td class="name" style="cursor:pointer;" onclick="linkPage('<?= base_url().'tasks?p_id='.$value->p_id ?>')"><u><?= $value->p_name ?></u></td>
-                     <td><?= $leader[$key]->u_firstname . ' ' . $leader[$key]->u_lastname ?></td>
+                     <?php if($value->p_status >= 1) { ?>
+                     <td class="name" style="cursor:pointer; font-weight: 900;" onclick="linkPage('<?= base_url().'tasks?p_id='.$value->p_id ?>')"><?= $value->p_name ?></td>
+                     <?php } else { ?>
+                      <td><?= $value->p_name ?></td>
+                     <?php } ?>
+                     <td><?= thaiDate($value->p_createdate) ?></td>
                      <td>
                        <?php if (isset($lastTask[$key]->tl_name)) : ?>
                          <?= $lastTask[$key]->tl_name ?>
@@ -74,7 +80,7 @@
                      </td>
                      <td class="text-center">
                        <?php if ($value->p_status < 1) : ?>
-                         <button type="button" class="btn btn-dark btn-sm" name="restore" id="<?= $value->p_id ."_". $hours . ':' . $min . ':' . $sec ?>" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status * -1 ?>)" title="<?= lang('tt_pj_rproject') ?>"><?= lang('md_rp') ?> <span style='font-size:16px;'><?= $hours . ':' . $min?></span> <?= lang('md_rp-hour') ?></button>
+                         <button type="button" class="btn btn-dark btn-sm" name="restore" id="<?= $value->p_id ."_". $hours . ':' . $min . ':' . $sec ?>" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status * -1 ?>)" title="<?= lang('tt_pj_rproject') ?>"><?= lang('md_rp') ?> <?= $hours . ':' . $min?> <?= lang('md_rp-hour') ?></button>
                         <?php continue; ?>
                        <?php endif; ?>
                        <a type="button" href="<?= base_url() ?>tasks?p_id=<?= $value->p_id ?>" title= "<?= lang('tt_pj_mproject') ?>" class="btn btn-tertiary btn-sm"><i class="fas fa-cogs"></i></a>
@@ -84,7 +90,7 @@
                          <?php if (!isset($lastTask[$key]->tl_name) && $value->p_status < 3) : ?>
                            <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="<?= lang('tt_pj_dproject') ?>" onclick="changeStatus(<?= $value->p_id ?>,<?= $value->p_status * -1 ?>)"><i class="mdi mdi-delete"></i></button>
                          <?php else : ?>
-                           <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="<?= lang('tt_pj_cn-dproject') ?>"><i class="mdi mdi-delete"></i></button>
+                           <button type="button" style="cursor:no-drop;" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="<?= lang('tt_pj_cn-dproject') ?>"><i class="mdi mdi-delete" style="color: grey;"></i></button>
                          <?php endif; ?>
                        <?php endif; ?>
                      </td>

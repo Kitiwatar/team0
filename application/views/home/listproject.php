@@ -3,9 +3,8 @@
    <div class="col-12">
      <div class="card">
        <div class="card-body">
-         <h4 class='card-title'><?= lang('tl_table_title') ?><?=$pageTitle?></h4>
          <div class="table-responsive my-2">
-           <table class="display table dt-responsive nowrap">
+           <table class="display table dt-responsive nowrap" id="tableproject">
              <thead>
                <tr>
                  <th><?= lang('tl_project_pj-no') ?></th>
@@ -16,9 +15,12 @@
                </tr>
              </thead>
              <tbody>
-               <?php if (is_array($getData)) : $count = 1; ?>
+               <?php if (is_array($getData)) : $count = 1; date_default_timezone_set("Asia/Bangkok"); ?>
                  <?php foreach ($getData as $key => $value) : ?>
-                  <?php if($value->p_status < 1) { continue; } ?>
+                  <?php if ($value->p_status < 1) : continue; endif; ?>
+                  <?php if ($value->p_enddate != null){
+                    if (substr($value->p_enddate,0,4) < date("Y")) : continue; endif;
+                  } ?>
                    <tr>
                      <td class="text-center"><?= $count++ ?></td>
                      <td><?= $value->p_name ?> </td>
@@ -32,7 +34,7 @@
                      </td>
                      <td>
                      <?php
-                       $statusColor = array(1=>"badge rounded-pill bg-info", 2=>"badge rounded-pill bg-warning", 3=>"badge rounded-pill bg-success", 4=>"badge rounded-pill bg-danger");
+                       $statusColor = array(1=>"badge rounded-pill bg-warning", 2=>"badge rounded-pill bg-info", 3=>"badge rounded-pill bg-success", 4=>"badge rounded-pill bg-danger");
                         foreach ($arrayStatus as $key => $status) {
                           if ($value->p_status == $key) {
                             echo "<span  class = ' ". $statusColor[$key] ."'>" . $status . "</span>";
@@ -48,7 +50,6 @@
              </tbody>
            </table>
          </div>
-         <a type="button" class="btn waves-effect waves-light btn-dark" href="<?= base_url() ?>"><i class="mdi mdi-arrow-left"></i> <?= lang('b_project_back') ?></a>
        </div>
      </div>
    </div>
@@ -62,7 +63,7 @@
       bolditalics: 'THSarabun-BoldItalic.ttf'
     }
   }
-   $('.table').DataTable({
+   $('#tableproject').DataTable({
      "dom": 'Bftlp',
      "buttons": [{
          "extend": "excel",

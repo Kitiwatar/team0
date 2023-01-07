@@ -20,11 +20,8 @@ class Login extends CI_Controller {
 	}
 
 	public function getLoginForm() {
-		// Create by: Patiphan Pansanga 15-ๅ2-2565 get login form
-		
-		$data['arrayRole'] = $this->genlib->getUserRole();
+		// Create by: Jiradat Pomyai 15-12-2565 get login form
 		$json['body'] = $this->load->view('login', '' ,true);
-	
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
@@ -74,6 +71,7 @@ class Login extends CI_Controller {
 	}
 
 	public function checkTimeout() {
+		// Create by: Patiphan Pansanga 18-12-2565 check session time in session
 		date_default_timezone_set("Asia/Bangkok");
 		$dateNow = date('Y-m-d H:i:s');
 		if($dateNow >= $_SESSION['timeout']) {

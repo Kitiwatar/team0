@@ -45,8 +45,8 @@
     .icon-shape {
         border-radius: 50%;
         color: #fff;
-        width: 120px;
-        height: 110px;
+        width: 100px;
+        height: 100px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -57,179 +57,46 @@
 
 <!------------------------------------------------------------------ Dashbaord For User ------------------------------------------------------------------>
 <?php if (isset($_SESSION['u_id'])) : ?>
-    <?php if ($_SESSION['u_role'] == 3) : ?>
-        <div class="row">
-            <div class="col-lg-4 col-md-4">
-                <div class="card">
-                    <div class=" card-body p-5">
-                        <div class="row">
-                            <?php date_default_timezone_set("Asia/Bangkok"); ?>
-                            <div class="col-lg-12 col-md-12 Date" style="font-size: 45px; font-weight:bold;">วันที่ <?= $date = date('d'); ?> </div>
-                            <div class="pb-4 col-lg-12 col-md-12" style="font-size: 45px; font-weight:bold;"><?= thaiMonthFull(date('m')) . ' ' . $year = date('Y') + 543 ?> </div>
-                            <div class="col-lg-12 col-md-12" style="font-size: 30px; ">เวลาปัจจุบัน </div>
-                            <?php if ($_SESSION['lang'] == "th") :  ?>
-                                <div class="col-lg-12 col-md-12" style="font-size: 70px; font-weight:bold; color:#03A9F3;"><?= $date = date('G:i'); ?> น.</div>
-                            <?php else : ?>
-                                <div class="col-lg-12 col-md-12" style="font-size: 70px; font-weight:bold; color:#03A9F3;"><?= $date = date('h:i A'); ?></div>
-                            <?php endif; ?>
-                            <div class="col-lg-12 col-md-12">
-                                <div class="card ">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-3" style="width:100px;">
-                                                <i class="far fa-envelope" style="font-size: 80px;"></i>
-                                            </div>
-                                            <div class="col-lg-9 col-md-9">
-                                                <div style="font-size: 28px; ">ข้อความจากระบบ </div>
-                                                <div style="font-size: 28px; font-weight:bold;">"สวัสดีคุณ <?= $_SESSION['u_firstname'] ?> " </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-8 col-md-8">
-                <div class="card" style="height: 548px;">
-                    <div class="card-body p-4">
-                       <div id="todolist"><!-- งานของฉันวันนี้ --></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-12 col-md-12">
-                <div class="card p-2" style="background-color: #03A9F3;">
-                    <div style="color:white;">ภาพรวมโครงการทั้งหมด พ.ศ 2565 </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-                <div class="col-lg-12 col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div id="AllprojectChart" style="width:100%; height:510px;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-                <div class="row">
-                    <div class="col-lg-8 col-md-8">
-                        <div class="card">
-                            <div class="card-body border-left-yellow">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <span class=" fs-3"><?= lang('sp_home_allproject') ?></span>
-                                        <h2 class="counter all" style="font-size: 119px; color: #A68DDE;"></h2>
-                                        <a href="<?= base_url() ?>home/viewProjects/all"><button class="btn  waves-effect waves-light purple-outline"><?= lang('b_viewmore') ?></button></a></span>
-                                    </div>
-                                    <div class=" col-6 d-flex align-items-center justify-content-end">
-                                        <div class="icon-shape " style="background-color: #A68DDE;">
-                                            <i class="fas fa-list" style="color: white; font-size: 50px;"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="card border ">
-                            <div class="card-body">
-                                <h3><i class="fas fa-list text-success"></i></h3>
-                                <h2 class="counter text-success p_success" style="font-size: 100px;"></h2>
-                                <span class=" fs-5 text-success"><?= lang('h_project') ?><br></span><span class=" fs-5 text-success" style=" font-weight:bold;"><?= lang('h_status') ?><?= lang('sp_home_finish') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/success"><button class="btn  waves-effect waves-light btn-outline-success"><?= lang('b_viewmore') ?></button></a></span>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="card border">
-
-                            <div class="card-body">
-                                <h3><i class="fas fa-list text-info"></i></h3>
-                                <h2 class="counter text-info p_pending" style="font-size: 100px;"></h2>
-                                <span class=" fs-5 text-info"><?= lang('h_project') ?><br></span><span class=" fs-5 text-info" style=" font-weight:bold;"><?= lang('h_status') ?><?= lang('sp_home_pendproject') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/pending"><button class="btn  waves-effect waves-light btn-outline-info"><?= lang('b_viewmore') ?></button></a></span>
-
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="card border">
-                            <div class="card-body">
-                                <h3><i class="fas fa-list text-warning"></i></h3>
-                                <h2 class="counter text-warning p_progress" style="font-size: 100px;"></h2>
-                                <span class=" fs-5 text-warning"><?= lang('h_project') ?><br></span><span class=" fs-5 text-warning" style=" font-weight:bold;"><?= lang('h_status') ?><?= lang('sp_home_inprogress') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/progress"><button class="btn  waves-effect waves-light btn-outline-warning"><?= lang('b_viewmore') ?></button></a></span>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="card border">
-                            <div class="card-body">
-                                <h3><i class="fas fa-list text-danger"></i></h3>
-                                <h2 class="counter text-danger p_fail" style="font-size: 100px;"></h2>
-                                <span class=" fs-5 text-danger"><?= lang('h_project') ?><br></span><span class=" fs-5 text-danger" style=" font-weight:bold;"><?= lang('h_status') ?><?= lang('sp_home_cancel') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/fail"><button class="btn  waves-effect waves-light btn-outline-danger"><?= lang('b_viewmore') ?></button></a></span>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <?php endif; ?>
-    <?php if ($_SESSION['u_role'] < 3) : ?>
-        <div class="row">
-            <div class="col-lg-4 col-md-12 col-sm-12">
-                <div class="card" ">
-                    <div class=" card-body p-5">
+    <div class="row">
+        <div class="col-lg-4 col-md-12 col-sm-12">
+            <div class="card" style="height: 95%;">
+                <div class="card-body">
                     <div class="row">
                         <?php date_default_timezone_set("Asia/Bangkok"); ?>
-                        <div class="col-lg-12 col-md-12 Date" style="font-size: 45px; font-weight:bold;">วันที่ <?= $date = date('d'); ?> </div>
-                        <div class="pb-4 col-lg-12 col-md-12" style="font-size: 45px; font-weight:bold;"><?= thaiMonthFull(date('m')) . ' ' . $year = date('Y') + 543 ?> </div>
-                        <div class="col-lg-12 col-md-12" style="font-size: 30px; ">เวลาปัจจุบัน </div>
+                        <div class="col-lg-12 col-md-12 Date" style="font-size: 45px; font-weight:bold;">วันที่ <span id="dayNow"></span></div>
+                        <div class="pb-4 col-lg-12 col-md-12" style="font-size: 45px; font-weight:bold;"><span id="monthNow"></span> <span id="yearNow"></span></div>
+                        <div class="col-lg-12 col-md-12" style="font-size: 20px;">เวลาปัจจุบัน </div>
                         <?php if ($_SESSION['lang'] == "th") :  ?>
-                            <div class="col-lg-12 col-md-12" style="font-size: 70px; font-weight:bold; color:#03A9F3;"><?= $date = date('G:i'); ?> น.</div>
+                            <div class="col-lg-12 col-md-12" style="font-size: 70px; font-weight:bold; color:#03A9F3;"><span id="timeNow"></span> น.</div>
                         <?php else : ?>
-                            <div class="col-lg-12 col-md-12" style="font-size: 70px; font-weight:bold; color:#03A9F3;"><?= $date = date('h:i A'); ?></div>
+                            <div class="col-lg-12 col-md-12" style="font-size: 70px; font-weight:bold; color:#03A9F3;"><span id="timeNow"></span></div>
                         <?php endif; ?>
-                        <div class="col-lg-12 col-md-12">
-                            <div class="card ">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3" style="width:100px;">
-                                            <i class="far fa-envelope" style="font-size: 80px;"></i>
-                                        </div>
-                                        <div class="col-lg-9 col-md-9">
-                                            <div style="font-size: 28px; ">ข้อความจากระบบ </div>
-                                            <div style="font-size: 28px; font-weight:bold;">"สวัสดีคุณ <?= $_SESSION['u_firstname'] ?> " </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="col-lg-3 col-md-3">
+                            <i class="far fa-envelope" style="font-size: 70px;"></i>
+                        </div>
+                        <div class="col-lg-9 col-md-9">
+                            <div style="font-size: 18px;">ข้อความจากระบบ </div>
+                            <div style="font-size: 23px; font-weight:bold;">"สวัสดีคุณ <?= $_SESSION['u_firstname'] ?>"</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="col-lg-8 col-md-12 col-sm-12">
-            <div class="card" style="height: 548px;" id="todolist">
-
-                
+            <div class="card" style="height: 95%;" id="todolist">
             </div>
         </div>
-        <div class="col-lg-12 col-md-12">
+        <div class="col-lg-12 col-md-12 mt-3">
             <div class="card p-2" style="background-color: #03A9F3;">
-                <div style="color:white;">ภาพรวมที่มีส่วนเกี่ยวข้อง พ.ศ 2565 </div>
+                <div style="color:white;" class="fs-4 px-2">ภาพรวมโครงการที่มีส่วนเกี่ยวข้อง พ.ศ <?= $date = date('Y') + 543; ?></div>
             </div>
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <div id="ResprojectChart" style="width:100%; height:510px;"></div>
+                        <div class="fs-3">กราฟแสดงจำนวนโครงการที่มีส่วนเกี่ยวข้องตามสถานะ</div>
+                        <div id="ResprojectChart" class="py-5 pe-3" style="width:100%; height:520px;"></div>
                     </div>
                 </div>
             </div>
@@ -238,17 +105,17 @@
             <div class="row">
                 <div class="col-lg-8 col-md-8">
                     <div class="card">
-                        <div class="card-body border-left-yellow">
+                        <div class="card-body">
+                            <div class="fs-3"><?= lang('sp_home_responproject') ?></div>
                             <div class="row">
                                 <div class="col-6">
-                                    <span class=" fs-3"><?= lang('sp_home_responproject') ?></span>
-                                    <h2 class="counter respon" style="font-size: 119px; color: #ED9B7E;"></h2>
-                                    <a href="<?= base_url() ?>home/viewProjects/all"><button class="btn  waves-effect waves-light brown-outline"><?= lang('b_viewmore') ?></button></a></span>
+                                    <h2 class="counter respon" style="font-size: 140px; color: #ED9B7E;"></h2>
                                 </div>
-                                <div class=" col-6 d-flex align-items-center justify-content-end">
-                                    <div class="icon-shape " style="background-color: #ED9B7E;">
-                                        <i class="fas fa-list" style="color: white; font-size: 50px;"></i>
-                                    </div>
+                                <div class="col-6 text-end">
+                                    <i class="fas fa-list rounded-circle p-5" style="color: green; font-size: 40px; color: white; background-color: #ED9B7E;"></i>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn waves-effect waves-light brown-outline" onclick="viewProject(0,<?= $_SESSION['u_id'] ?>)"><?= lang('b_viewmore') ?></button>
                                 </div>
                             </div>
                         </div>
@@ -259,31 +126,49 @@
                         <div class="card-body">
                             <h3><i class="fas fa-list text-success"></i></h3>
                             <h2 class="counter text-success rp_success" style="font-size: 100px;"></h2>
-                            <span class=" fs-5 text-success"><?= lang('h_project') ?><br></span><span class=" fs-5 text-success" style=" font-weight:bold;"><?= lang('h_status') ?><?= lang('sp_home_finish') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/success"><button class="btn  waves-effect waves-light btn-outline-success"><?= lang('b_viewmore') ?></button></a></span>
-
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 fs-5 text-success">
+                                    <div><?= lang('h_project') ?></div>
+                                    <div class="fw-bold"><?= lang('h_status') ?><?= lang('sp_home_finish') ?></div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 text-end">
+                                    <button class="btn waves-effect waves-light btn-outline-success" onclick="viewProject(3,<?= $_SESSION['u_id'] ?>)"><?= lang('b_viewmore') ?></button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4">
-                    <div class="card border">
-
-                        <div class="card-body">
-                            <h3><i class="fas fa-list text-info"></i></h3>
-                            <h2 class="counter text-info rp_pending" style="font-size: 100px;"></h2>
-                            <span class=" fs-5 text-info"><?= lang('h_project') ?><br></span><span class=" fs-5 text-info" style=" font-weight:bold;"><?= lang('h_status') ?><?= lang('sp_home_pendproject') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/pending"><button class="btn  waves-effect waves-light btn-outline-info"><?= lang('b_viewmore') ?></button></a></span>
-
-                        </div>
-
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4">
                     <div class="card border">
                         <div class="card-body">
                             <h3><i class="fas fa-list text-warning"></i></h3>
-                            <h2 class="counter text-warning rp_progress" style="font-size: 100px;"></h2>
-                            <span class=" fs-5 text-warning"><?= lang('h_project') ?><br></span><span class=" fs-5 text-warning" style=" font-weight:bold;"><?= lang('h_status') ?><?= lang('sp_home_inprogress') ?></span>
-                            <span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/progress"><button class="btn  waves-effect waves-light btn-outline-warning"><?= lang('b_viewmore') ?></button></a></span>
-
+                            <h2 class="counter text-warning rp_pending" style="font-size: 100px;"></h2>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 fs-5 text-warning ">
+                                    <div><?= lang('h_project') ?></div>
+                                    <div class="fw-bold"><?= lang('h_status') ?><?= lang('sp_home_pendproject') ?></div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 text-end">
+                                    <button class="btn waves-effect waves-light btn-outline-warning" onclick="viewProject(1,<?= $_SESSION['u_id'] ?>)"><?= lang('b_viewmore') ?></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="card border">
+                        <div class="card-body">
+                            <h3><i class="fas fa-list text-info"></i></h3>
+                            <h2 class="counter text-info rp_progress" style="font-size: 100px;"></h2>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 fs-5 text-info">
+                                    <div><?= lang('h_project') ?></div>
+                                    <div class="fw-bold"><?= lang('h_status') ?><?= lang('sp_home_inprogress') ?></div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 text-end">
+                                    <button class="btn waves-effect waves-light btn-outline-info" onclick="viewProject(2,<?= $_SESSION['u_id'] ?>)"><?= lang('b_viewmore') ?></button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -293,125 +178,144 @@
                             <h3><i class="fas fa-list text-danger"></i></h3>
                             <h2 class="counter text-danger rp_fail" style="font-size: 100px;"></h2>
                             <div class="row">
-                                <div class="col-lg-6 col-md-12 col-sm-12">
-                                <span class="fs-5 text-danger"><?= lang('h_project') ?><br></span><span class=" fs-5 text-danger" style=" font-weight:bold;"><?= lang('h_status') ?><?= lang('sp_home_cancel') ?></span>
-
+                                <div class="col-lg-12 col-md-12 fs-5 text-danger">
+                                    <div><?= lang('h_project') ?></div>
+                                    <div class="fw-bold"><?= lang('h_status') ?><?= lang('sp_home_cancel') ?></div>
                                 </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12">
-                                <span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/fail" class="btn  waves-effect waves-light btn-outline-danger"><?= lang('b_viewmore') ?></a></span>
-
+                                <div class="col-lg-12 col-md-12 text-end">
+                                    <button class="btn waves-effect waves-light btn-outline-danger" onclick="viewProject(4,<?= $_SESSION['u_id'] ?>)"><?= lang('b_viewmore') ?></button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-12 col-md-12">
-            <div class="card p-2" style="background-color: #03A9F3;">
-                <div style="color:white;">ภาพรวมโครงการทั้งหมด พ.ศ 2565 </div>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-6">
+        <?php if ($_SESSION['u_role'] < 3) : ?>
+            <!-- สำหรับพนักงานระดับ 2 กับผู้ดูแลระบบ -->
             <div class="col-lg-12 col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div id="AllprojectChart" style="width:100%; height:510px;"></div>
+                <div class="card p-2" style="background-color: #03A9F3;">
+                    <div style="color:white;" class="fs-4 px-2">ภาพรวมโครงการทั้งหมด พ.ศ <?= $date = date('Y') + 543; ?></div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="col-lg-12 col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="fs-3">กราฟแสดงจำนวนโครงการทั้งหมดตามสถานะ</div>
+                            <div id="AllprojectChart" class="py-5 pe-3" style="width:100%; height:520px;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-6 col-md-6">
-            <div class="row">
-                <div class="col-lg-8 col-md-8">
-                    <div class="card">
-                        <div class="card-body border-left-yellow">
-                            <div class="row">
-                                <div class="col-6">
-                                    <span class=" fs-3"><?= lang('sp_home_allproject') ?></span>
-                                    <h2 class="counter all" style="font-size: 119px; color: #A68DDE;"></h2>
-                                    <a href="<?= base_url() ?>home/viewProjects/all"><button class="btn  waves-effect waves-light purple-outline"><?= lang('b_viewmore') ?></button></a></span>
+            <div class="col-lg-6 col-md-12">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class=" fs-3"><?= lang('sp_home_allproject') ?></div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h2 class="counter all" style="font-size: 140px; color: #A68DDE;"></h2>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <i class="fas fa-list rounded-circle p-5" style="color: green; font-size: 40px; color: white; background-color: #A68DDE;"></i>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn waves-effect waves-light purple-outline" onclick="viewProject(0,0)"><?= lang('b_viewmore') ?></button>
+                                    </div>
                                 </div>
-                                <div class=" col-6 d-flex align-items-center justify-content-end">
-                                    <div class="icon-shape " style="background-color: #A68DDE;">
-                                        <i class="fas fa-list" style="color: white; font-size: 50px;"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <div class="card border ">
+                            <div class="card-body">
+                                <h3><i class="fas fa-list text-success"></i></h3>
+                                <h2 class="counter text-success p_success" style="font-size: 100px;"></h2>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 fs-5 text-success">
+                                        <div><?= lang('h_project') ?></div>
+                                        <div class="fw-bold"><?= lang('h_status') ?><?= lang('sp_home_finish') ?></div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 text-end">
+                                        <button class="btn waves-effect waves-light btn-outline-success" onclick="viewProject(3,0)"><?= lang('b_viewmore') ?></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <div class="card border">
+                            <div class="card-body">
+                                <h3><i class="fas fa-list text-warning"></i></h3>
+                                <h2 class="counter text-warning p_pending" style="font-size: 100px;"></h2>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 fs-5 text-warning ">
+                                        <div><?= lang('h_project') ?></div>
+                                        <div class="fw-bold"><?= lang('h_status') ?><?= lang('sp_home_pendproject') ?></div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 text-end">
+                                        <button class="btn waves-effect waves-light btn-outline-warning" onclick="viewProject(1,0)"><?= lang('b_viewmore') ?></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <div class="card border">
+                            <div class="card-body">
+                                <h3><i class="fas fa-list text-info"></i></h3>
+                                <h2 class="counter text-info p_progress" style="font-size: 100px;"></h2>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 fs-5 text-info">
+                                        <div><?= lang('h_project') ?></div>
+                                        <div class="fw-bold"><?= lang('h_status') ?><?= lang('sp_home_inprogress') ?></div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 text-end">
+                                        <button class="btn waves-effect waves-light btn-outline-info" onclick="viewProject(2,0)"><?= lang('b_viewmore') ?></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <div class="card border">
+                            <div class="card-body">
+                                <h3><i class="fas fa-list text-danger"></i></h3>
+                                <h2 class="counter text-danger p_fail" style="font-size: 100px;"></h2>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 fs-5 text-danger">
+                                        <div><?= lang('h_project') ?></div>
+                                        <div class="fw-bold"><?= lang('h_status') ?><?= lang('sp_home_cancel') ?></div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 text-end">
+                                        <button class="btn waves-effect waves-light btn-outline-danger" onclick="viewProject(4,0)"><?= lang('b_viewmore') ?></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4">
-                    <div class="card border ">
-                        <div class="card-body">
-                            <h3><i class="fas fa-list text-success"></i></h3>
-                            <h2 class="counter text-success p_success" style="font-size: 100px;"></h2>
-                            <span class=" fs-5 text-success"><?= lang('h_project') ?><br></span><span class=" fs-5 text-success" style=" font-weight:bold;"><?= lang('h_status') ?><?= lang('sp_home_finish') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/success"><button class="btn  waves-effect waves-light btn-outline-success"><?= lang('b_viewmore') ?></button></a></span>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4">
-                    <div class="card border">
-
-                        <div class="card-body">
-                            <h3><i class="fas fa-list text-info"></i></h3>
-                            <h2 class="counter text-info p_pending" style="font-size: 100px;"></h2>
-                            <span class=" fs-5 text-info"><?= lang('h_project') ?><br></span><span class=" fs-5 text-info" style=" font-weight:bold;"><?= lang('h_status') ?><?= lang('sp_home_pendproject') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/pending"><button class="btn  waves-effect waves-light btn-outline-info"><?= lang('b_viewmore') ?></button></a></span>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4">
-                    <div class="card border">
-                        <div class="card-body">
-                            <h3><i class="fas fa-list text-warning"></i></h3>
-                            <h2 class="counter text-warning p_progress" style="font-size: 100px;"></h2>
-                            <span class=" fs-5 text-warning"><?= lang('h_project') ?><br></span><span class=" fs-5 text-warning" style=" font-weight:bold;"><?= lang('h_status') ?><?= lang('sp_home_inprogress') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/progress"><button class="btn  waves-effect waves-light btn-outline-warning"><?= lang('b_viewmore') ?></button></a></span>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4">
-                    <div class="card border">
-                        <div class="card-body">
-                            <h3><i class="fas fa-list text-danger"></i></h3>
-                            <h2 class="counter text-danger p_fail" style="font-size: 100px;"></h2>
-                            <span class=" fs-5 text-danger"><?= lang('h_project') ?><br></span><span class=" fs-5 text-danger" style=" font-weight:bold;"><?= lang('h_status') ?><?= lang('sp_home_cancel') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/fail"><button class="btn  waves-effect waves-light btn-outline-danger"><?= lang('b_viewmore') ?></button></a></span>
-
-                        </div>
-                    </div>
-                </div>
             </div>
-        </div>
-        <div class="col-lg-6 col-md-6">
-            <div class="card" style="height: 470px;">
-                <div class="col-lg-12 col-md-12">
-                    <div class="card p-2" style="background-color: #03A9F3;">
-                        <div style="color:white;">ภาพรวมโครงการทั้งหมด พ.ศ 2565 </div>
-                    </div>
-                </div>
-                <div class="card-body p-4">
+        <?php endif; ?>
+        <?php if ($_SESSION['u_role'] < 2) : ?>
+            <!-- อันดับสาเหตุยุติโครงการ -->
+            <div class="col-lg-6 col-md-12">
+                <div class="card" style="height: 395px;">
+                    <div class="p-2 fs-4" style="background-color: #03A9F3; color: white;">อันดับสาเหตุการยุติโครงการ 5 อันดับ</div>
                     <div id="listDiv2"></div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-6 col-md-6">
-            <div class="card" style="height: 470px;">
-                <div class="col-lg-12 col-md-12">
-                    <div class="card p-2" style="background-color: #03A9F3;">
-                        <div style="color:white;"><?= lang('tl_home_listofrank') ?> </div>
-                    </div>
-                </div>
-                <div class="card-body p-2">
+            <!-- อันดับพนักงาน -->
+            <div class="col-lg-6 col-md-12">
+                <div class="card" style="height: 395px;">
+                    <div class="p-2 fs-4" style="background-color: #03A9F3; color: white;"><?= lang('tl_home_listofrank') ?></div>
                     <div id="listDiv"></div>
                 </div>
             </div>
-        </div>
-        </div>
-    <?php endif; ?>
+        <?php endif; ?>
+    </div>
     <!------------------------------------------------------------------ Dashbaord For Aonnymous ------------------------------------------------------------------>
 
 <?php else : ?>
@@ -419,33 +323,33 @@
     <div class="row">
         <div class="col-lg-12 col-md-12">
             <div class="card p-2" style="background-color: #03A9F3;">
-                <div style="color:white;">ภาพรวมโครงการทั้งหมด พ.ศ 2565 </div>
+                <div style="color:white;" class="fs-4 px-2">ภาพรวมโครงการทั้งหมด พ.ศ <?= $date = date('Y') + 543; ?></div>
             </div>
         </div>
-        <div class="col-lg-8 col-md-8">
-            <div class="col-lg-12 col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div id="AllprojectChart" style="width:100%; height:603px;"></div>
-                    </div>
+        <div class="col-lg-8 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="fs-3">กราฟแสดงจำนวนโครงการทั้งหมดตามสถานะ</div>
+                    <div id="AllprojectChart" class="py-5 pe-5" style="width:100%; height:660px;"></div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-4">
+        <div class="col-lg-4 col-md-12">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="card">
                         <div class="card-body border-left-yellow">
+
+                            <div class=" fs-3"><?= lang('sp_home_allproject') ?></div>
                             <div class="row">
                                 <div class="col-6">
-                                    <span class=" fs-3"><?= lang('sp_home_allproject') ?></span>
-                                    <h2 class="counter all" style="font-size: 100px; color: #A68DDE;"></h2>
-                                    <a href="<?= base_url() ?>home/viewProjects/all"><button class="btn  waves-effect waves-light purple-outline"><?= lang('b_viewmore') ?></button></a></span>
+                                    <h2 class="counter all" style="font-size: 140px; color: #A68DDE;"></h2>
                                 </div>
-                                <div class=" col-6 d-flex align-items-center justify-content-end">
-                                    <div class="icon-shape " style="background-color: #A68DDE;">
-                                        <i class="fas fa-list" style="color: white; font-size: 50px;"></i>
-                                    </div>
+                                <div class="col-6 text-end">
+                                    <i class="fas fa-list rounded-circle p-5" style="color: green; font-size: 40px; color: white; background-color: #A68DDE;"></i>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn waves-effect waves-light purple-outline" onclick="viewProject(0,0)"><?= lang('b_viewmore') ?></button>
                                 </div>
                             </div>
                         </div>
@@ -456,29 +360,49 @@
                         <div class="card-body">
                             <h3><i class="fas fa-list text-success"></i></h3>
                             <h2 class="counter text-success p_success"></h2>
-                            <span class=" fs-5 text-success"><?= lang('h_project') ?><br></span><span class=" fs-5 text-success" style=" font-weight:bold;"><?= lang('h_status') ?><?= lang('sp_home_finish') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/success"><button class="btn  waves-effect waves-light btn-outline-success"><?= lang('b_viewmore') ?></button></a></span>
-
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 fs-5 text-success">
+                                    <div><?= lang('h_project') ?></div>
+                                    <div class="fw-bold"><?= lang('h_status') ?><?= lang('sp_home_finish') ?></div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 text-end">
+                                    <button class="btn waves-effect waves-light btn-outline-success" onclick="viewProject(3,0)"><?= lang('b_viewmore') ?></button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="card border">
-
-                        <div class="card-body">
-                            <h3><i class="fas fa-list text-info"></i></h3>
-                            <h2 class="counter text-info p_pending"></h2>
-                            <span class=" fs-5 text-info"><?= lang('h_project') ?><br></span><span class=" fs-5 text-info" style=" font-weight:bold;"><?= lang('h_status') ?><?= lang('sp_home_pendproject') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/pending"><button class="btn  waves-effect waves-light btn-outline-info"><?= lang('b_viewmore') ?></button></a></span>
-                        </div>
-
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="card border">
                         <div class="card-body">
                             <h3><i class="fas fa-list text-warning"></i></h3>
-                            <h2 class="counter text-warning p_progress"></h2>
-                            <span class=" fs-5 text-warning"><?= lang('h_project') ?><br></span><span class=" fs-5 text-warning" style=" font-weight:bold;"><?= lang('h_status') ?><?= lang('sp_home_inprogress') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/progress"><button class="btn  waves-effect waves-light btn-outline-warning"><?= lang('b_viewmore') ?></button></a></span>
-
+                            <h2 class="counter text-warning p_pending"></h2>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 fs-5 text-warning ">
+                                    <div><?= lang('h_project') ?></div>
+                                    <div class="fw-bold"><?= lang('h_status') ?><?= lang('sp_home_pendproject') ?></div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 text-end">
+                                    <button class="btn waves-effect waves-light btn-outline-warning" onclick="viewProject(1,0)"><?= lang('b_viewmore') ?></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="card border">
+                        <div class="card-body">
+                            <h3><i class="fas fa-list text-info"></i></h3>
+                            <h2 class="counter text-info p_progress"></h2>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 fs-5 text-info">
+                                    <div><?= lang('h_project') ?></div>
+                                    <div class="fw-bold"><?= lang('h_status') ?><?= lang('sp_home_inprogress') ?></div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 text-end">
+                                    <button class="btn waves-effect waves-light btn-outline-info" onclick="viewProject(2,0)"><?= lang('b_viewmore') ?></button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -487,8 +411,15 @@
                         <div class="card-body">
                             <h3><i class="fas fa-list text-danger"></i></h3>
                             <h2 class="counter text-danger p_fail"></h2>
-                            <span class=" fs-5 text-danger"><?= lang('h_project') ?><br></span><span class=" fs-5 text-danger" style=" font-weight:bold;"><?= lang('h_status') ?><?= lang('sp_home_cancel') ?></span><span class="float-end text-muted" style="font-size: 12px;"><a href="<?= base_url() ?>home/viewProjects/fail"><button class="btn  waves-effect waves-light btn-outline-danger"><?= lang('b_viewmore') ?></button></a></span>
-
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 fs-5 text-danger">
+                                    <div><?= lang('h_project') ?></div>
+                                    <div class="fw-bold"><?= lang('h_status') ?><?= lang('sp_home_cancel') ?></div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 text-end">
+                                    <button class="btn waves-effect waves-light btn-outline-danger" onclick="viewProject(4,0)"><?= lang('b_viewmore') ?></button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -582,7 +513,7 @@
                             }
                         }
                     },
-                    color: ["#00c292 ", "#FF6666", "#03a9f3", "#FEC107"],
+                    color: ["#00c292 ", "#FF6666", "#FEC107", "#03a9f3"],
                     // calculable : true,
                     series: [{
                         type: 'pie',
@@ -659,7 +590,7 @@
                         }
                     }
                 },
-                color: ["#00c292 ", "#FF6666", "#03a9f3", "#FEC107"],
+                color: ["#00c292 ", "#FF6666", "#FEC107", "#03a9f3"],
                 // calculable : true,
                 series: [{
                     type: 'pie',
@@ -705,9 +636,6 @@
     // Function LoadList for Rank
     $(window).ready(getProjectSummary);
     $(window).on("resize", getProjectSummary);
-    loadRankList();
-    loadCauseList();
-    loadToDoList();
 
     function loadCauseList() {
         $.ajax({
@@ -742,7 +670,68 @@
     // End Function LoadList for Rank
 
     getProjectSummary();
-    var realTimeData = setInterval(getProjectSummary, 10000);
-    var realTimeRank = setInterval(loadList, 10000);
+    loadRankList();
+    // loadCauseList();
+    loadToDoList();
+
+    refreshData();
+
+    function refreshData() {
+        var downloadTimer = setInterval(function() {
+            getProjectSummary();
+            loadRankList();
+            // loadCauseList();
+            loadToDoList();
+        }, 1000 * 60 * 30);
+    }
+
+    function viewProject(p_status, u_id) {
+        $.ajax({
+        method: "post",
+        url: '<?= base_url() ?>home/getProjects',
+        data: {
+            p_status: p_status,
+            u_id: u_id
+        }
+        }).done(function(returnData) {
+            $('#detailModalTitle').html(returnData.title);
+            $('#detailModalBody').html(returnData.body);
+            $('#detailModalFooter').html("");
+            $('#detailModal').modal();
+        });
+    }
+
+    function checkLessThanTen(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+
+
+    function refreshTime() {
+        var monthNamesThai = ["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤษจิกายน","ธันวาคม"];
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        h = checkLessThanTen(h);
+        m = checkLessThanTen(m);
+        document.getElementById('timeNow').innerHTML = h + ":" + m;
+        document.getElementById('dayNow').innerHTML = today.getDate();
+        document.getElementById('monthNow').innerHTML = monthNamesThai[today.getMonth()];
+        document.getElementById('yearNow').innerHTML = today.getFullYear() + 543;
+        var downloadTimer = setInterval(function() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            h = checkLessThanTen(h);
+            m = checkLessThanTen(m);
+            document.getElementById('timeNow').innerHTML = h + ":" + m;
+            document.getElementById('dayNow').innerHTML = today.getDate();
+            document.getElementById('monthNow').innerHTML = monthNamesThai[today.getMonth()];
+            document.getElementById('yearNow').innerHTML = today.getFullYear() + 543;
+        }, 1000);
+    }
+    refreshTime();
     //End Get Project Summary
 </script>

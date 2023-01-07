@@ -9,11 +9,11 @@
           <table class="display table dt-responsive nowrap">
             <thead>
               <tr>
-                <th><?= lang('tl_project_pj-no') ?></th>
+                <th class="text-center"><?= lang('tl_project_pj-no') ?></th>
                 <th><?= lang('gd_project_em-fullname') ?></th>
-                <th><?= lang('gd_project_em-email') ?></th>
-                <th><?= lang('gd_project_em-phone') ?></th>
-                <th><?= lang('gd_project_em-permission') ?></th>
+                <!-- <th><?= lang('gd_project_em-email') ?></th> -->
+                <!-- <th><?= lang('gd_project_em-phone') ?></th> -->
+                <th><?= lang('md_aes_upm') ?></th>
                 <th><?= lang('gd_dateadded') ?></th>
                 <th class="text-center"><?= lang('tp_user-status') ?></th>
                 <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
@@ -25,9 +25,9 @@
                   <?php if ($value->u_role > 0) : ?>
                     <tr>
                       <td class="align-middle text-center"><?= $count++ ?></td>
-                      <td class="align-middle name" onclick="view(<?= $value->u_id ?>)" style="cursor:pointer;"><u><?= $value->u_firstname ?> <?= $value->u_lastname ?></u></td>
-                      <td class="align-middle"><?= $value->u_email ?></td>
-                      <td class="align-middle"><?= $value->u_tel ?></td>
+                      <td class="align-middle name" onclick="view(<?= $value->u_id ?>)" style="cursor:pointer; font-weight: 900;"><?= $value->u_firstname ?> <?= $value->u_lastname ?></td>
+                      <!-- <td class="align-middle"><?= $value->u_email ?></td> -->
+                      <!-- <td class="align-middle"><?= $value->u_tel ?></td> -->
                       <td><select class="form-control form-select" <?= ($value->u_status == 0) ? 'disabled' : '' ?> id="roleInput<?= $value->u_id ?>" onfocus="showRole(<?= $value->u_id ?>,<?= $value->u_role ?>)" onchange="changeRole(<?= $value->u_id ?>)">
                           <?php
                           foreach ($arrayRole as $key => $role) {
@@ -97,7 +97,7 @@
          filename: 'รายชื่อพนักงาน',
          title: 'รายชื่อพนักงาน',
          exportOptions: {
-           columns: [0, 1, 2, 3, 4, 5]
+           columns: [0, 1, 2, 3]
          },
          customize: function(xlsx) {
            var sheet = xlsx.xl['styles.xml'];
@@ -116,7 +116,7 @@
          title: 'รายชื่อพนักงาน',
          pageSize: 'A4', // ขนาดหน้ากระดาษเป็น A4
          exportOptions: {
-           columns: [0, 1, 2, 3, 4]
+           columns: [0, 1, 2, 3]
          },
          customize: function(pdf) { // ส่วนกำหนดเพิ่มเติม ส่วนนี้จะใช้จัดการกับ pdfmake
            // กำหนด style หลัก
@@ -151,12 +151,14 @@
              bold: !0,
            };
            // กำหนดความกว้างของ header แต่ละคอลัมน์หัวข้อ
-           pdf.content[1].table.widths = [40, 120, 150, 70, 110];
+           pdf.content[1].table.widths = [40, 170, 120, 150];
            pdf.styles.tableHeader.fontSize = 16; // กำหนดขนาด font ของ header
            var rowCount = pdf.content[1].table.body.length; // หาจำนวนแถวทั้งหมดในตาราง
            // วนลูปเพื่อกำหนดค่าแต่ละคอลัมน์ เช่นการจัดตำแหน่ง
            for (i = 1; i < rowCount; i++) { // i เริ่มที่ 1 เพราะ i แรกเป็นแถวของหัวข้อ
              pdf.content[1].table.body[i][0].alignment = 'center'; // คอลัมน์แรกเริ่มที่ 0
+             pdf.content[1].table.body[i][2].alignment = 'center';
+             pdf.content[1].table.body[i][3].alignment = 'center';
            };
          }
        }, // สิ้นสุดกำหนดพิเศษปุ่ม pdf

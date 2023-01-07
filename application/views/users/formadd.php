@@ -6,21 +6,21 @@
       <form class="" id="usersForm" autocomplete="off">
         <div class="card-body p-0">
          <div class="row">
-            <div class="form-group col-6">
-              <label for="u_firstname" class="form-label"><?= lang('md_aes_ufn') ?><?php if(!isset($detail)) { echo $required; } ?></label>
-              <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->u_firstname : '' ?>" id="u_firstname" placeholder="<?= lang('md_aes_ph-ufn') ?>" <?php if(isset($detail)){echo "disabled";}?> >
+            <div class="form-group col-lg-6 col-md-6 col-sm-12">
+              <label for="u_firstname" class="form-label"><?= lang('md_aes_ufn') ?><?= isset($detail) ? '' : $required ?></label>
+              <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->u_firstname : '' ?>" id="u_firstname" placeholder="<?= lang('md_aes_ph-ufn') ?>" <?= isset($detail) ? "disabled" : '' ?> >
               <font id="fnameMsg" class="small text-danger"></font>
             </div>
-            <div class="form-group col-6">
-              <label for="u_lastname" class="form-label"><?= lang('md_aes_uln') ?><?php if(!isset($detail)) { echo $required; } ?></label>
-              <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->u_lastname : '' ?>" id="u_lastname" placeholder="<?= lang('md_aes_ph-uln') ?>" <?php if(isset($detail)){echo "disabled";}?> >
+            <div class="form-group col-lg-6 col-md-6 col-sm-12">
+              <label for="u_lastname" class="form-label"><?= lang('md_aes_uln') ?><?= isset($detail) ? '' : $required ?></label>
+              <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->u_lastname : '' ?>" id="u_lastname" placeholder="<?= lang('md_aes_ph-uln') ?>" <?= isset($detail) ? "disabled" : '' ?> >
               <font id="lnameMsg" class="small text-danger"></font>
             </div>
-            <div class="form-group col-4 mb-0">
-              <label for="u_role" class="form-label"><?= lang('md_aes_upm') ?><?php if(!isset($detail)) { echo $required; } ?></label>
+            <div class="form-group col-lg-4 col-md-4 col-sm-12">
+              <label for="u_role" class="form-label"><?= lang('md_aes_upm') ?><?= isset($detail) ? '' : $required ?></label>
               <?php if(!isset($detail)) { ?>
               <style>select:invalid { color: gainsboro; }</style>
-              <select class="form-control form-select" name="inputValue[]" id="u_role" tabindex="1" <?php if(isset($detail)){echo "disabled";}?> >
+              <select class="form-control form-select" name="inputValue[]" id="u_role" tabindex="1" <?= isset($detail) ? "disabled" : '' ?> >
                 <?php if(isset($getData->u_role)) {
                   if($getData->u_role > 3 || $getData->u_role < 1) { 
                     echo '<option value="" selected disabled>'.lang('md_aes_ph-upm') .'</option>';
@@ -48,17 +48,17 @@
                   }
                 } 
               ?>
-                <input type="text" class="form-control" value="<?= $role ?>" <?php if(isset($detail)){echo "disabled";}?> >
+                <input type="text" class="form-control" value="<?= $role ?>" <?= isset($detail) ? "disabled" : '' ?> >
               <?php } ?>
             </div>
-            <div class="form-group col-3 mb-0">
-              <label for="u_tel" class="form-label"><?= lang('md_aes_upn') ?><?php if(!isset($detail)) { echo $required; } ?></label>
-              <input type="text" class="form-control" name="inputValue[]" maxlength="10" value="<?= isset($getData) ? $getData->u_tel : '' ?>" id="u_tel" placeholder="<?= lang('md_aes_ph-upn') ?>" <?php if(isset($detail)){echo "disabled";}?> >
+            <div class="form-group col-lg-3 col-md-3 col-sm-12">
+              <label for="u_tel" class="form-label"><?= lang('md_aes_upn') ?><?= isset($detail) ? '' : $required ?></label>
+              <input type="text" class="form-control" name="inputValue[]" maxlength="10" value="<?= isset($getData) ? $getData->u_tel : '' ?>" id="u_tel" placeholder="<?= lang('md_aes_ph-upn') ?>" <?= isset($detail) ? "disabled" : '' ?> >
               <font id="telMsg" class="small text-danger"></font>
             </div>
-            <div class="form-group col-5 mb-0">
-              <label for="u_email" class="form-label"><?= lang('md_aes_uem') ?><?php if(!isset($detail)) { echo $required; } ?></label>
-              <input type="email" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->u_email : '' ?>" id="u_email" placeholder="<?= lang('md_aes_ph-uem') ?>" <?php if(isset($detail)){echo "disabled";}?> >
+            <div class="form-group col-lg-5 col-md-5 col-sm-12">
+              <label for="u_email" class="form-label"><?= lang('md_aes_uem') ?><?= isset($detail) ? '' : $required ?></label>
+              <input type="email" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->u_email : '' ?>" id="u_email" placeholder="<?= lang('md_aes_ph-uem') ?>" <?= isset($detail) ? "disabled" : '' ?> >
               <font id="emailMsg" class="small text-danger"></font>
             </div>
           </div>

@@ -1,17 +1,16 @@
 <!-- Create by : Kitiwat Arunwong 24/09/2565 -->
-<div class="row">
+<div class="row py-0">
 	<div class="col-12">
 		<div class="card">
-			<div class="card-body">
-
+			<div class="card-body py-0">
 				<div class="table-responsive">
-					<table class="display table dt-responsive nowrap">
+					<table class="display table dt-responsive nowrap" id="tablerank">
 						<thead>
 							<tr>
 								<th class="text-center"><?= lang('tl_no.') ?></th>
 								<th><?= lang('tl_home_name') ?></th>
 								<th class="text-center"><?= lang('tl_home_amountworkpiece') ?></th>
-								<th class="text-center"><?= lang('tl_home_update') ?></th>
+								<!-- <th class="text-center"><?= lang('tl_home_update') ?></th> -->
 							</tr>
 						</thead>
 						<tbody>
@@ -22,7 +21,7 @@
 										<td class="text-center"><?= $count++ ?></td>
 										<td><?= $listName[$i] ?></td>
 										<td class="text-center"><?= $listProject[$i] ?></td>
-										<td class="text-center"><?= thaiDate(date("Y-m-d")) ?></td>
+										<!-- <td class="text-center"><?= thaiDate(date("Y-m-d")) ?></td> -->
 									</tr>
 								<?php endfor; ?>
 							<?php endif; ?>
@@ -35,7 +34,7 @@
 </div>
 
 <script>
-	$('.table').DataTable({
+	$('#tablerank').DataTable({
 		"dom": 't',
 		"order": [
 			[2, "desc"]

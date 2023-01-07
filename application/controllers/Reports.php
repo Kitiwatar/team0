@@ -3,7 +3,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Reports extends CI_Controller{
     public function __construct() {
-		// Create by: Jiradat Pomyai 15-09-2565
+		// Create by: Patiphan Pansanga 19-12-2565
 		parent::__construct();
 		if(isset($_SESSION['lang'])) {
 			if($_SESSION['lang'] == "th") {
@@ -21,6 +21,7 @@ class Reports extends CI_Controller{
 	}
 
     public function projects() {
+		// Create by: Patiphan Pansanga 19-12-2565 show report of project
         $values['pageTitle'] = "รายงานโครงการ";
 		$values['breadcrumb'] = "รายงานโครงการ";
 		$values['pageContent'] = $this->load->view('reports/projects/index', $values, TRUE);
@@ -28,6 +29,7 @@ class Reports extends CI_Controller{
     }
 
 	public function getProjects() {
+		// Create by: Patiphan Pansanga 19-12-2565 get data report of project
         $formData = $this->input->post();
         if(!isset($formData['begindate']) && !isset($formData['enddate'])) {
             $data['begindate'] = 0;
@@ -63,6 +65,7 @@ class Reports extends CI_Controller{
 	}
 
 	public function users() {
+		// Create by: Patiphan Pansanga 19-12-2565 show report of user
         $values['pageTitle'] = "รายงานพนักงาน";
 		$values['breadcrumb'] = "รายงานพนักงาน";
 		$values['pageContent'] = $this->load->view('reports/users/index', $values, TRUE);
@@ -70,6 +73,7 @@ class Reports extends CI_Controller{
     }
 	
 	public function getUsers() {
+		// Create by: Patiphan Pansanga 19-12-2565 get data report of user
 		$users = $this->genmod->getAll('pms_user', '*', '', 'u_createdate desc', '', '');
 		$projectCount = array();
 		if (is_array($users)) {
@@ -97,7 +101,6 @@ class Reports extends CI_Controller{
 				}
 			}
 		}
-
 		$data['projectCount'] = $projectCount;
 		$data['users'] = $users;
 		$json['html'] = $this->load->view('reports/users/list', $data, TRUE);
@@ -105,6 +108,7 @@ class Reports extends CI_Controller{
 	}
 
 	public function getUserProject() {
+		// Create by: Patiphan Pansanga 19-12-2565 get user project
 		$formData = $this->input->post();
 		$arrayJoin = array('pms_permission' => 'pms_project.p_id=pms_permission.per_p_id','pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
 		$data['projectData'] = $this->genmod->getAll('pms_project', '*', array('per_u_id'=>$formData['u_id']), 'p_createdate desc', $arrayJoin, '');

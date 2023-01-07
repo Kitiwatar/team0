@@ -29,7 +29,7 @@ class Projects extends CI_Controller{
 	}
 
 	public function all() {
-		// Create by: Jiradat Pomyai 19-09-2565 index page
+		// Create by: Patiphan Pansanga 28-12-2565 show all project for admin
 		$values['all'] = 1;
 		$values['pageTitle'] = lang('all_project');
 		$values['breadcrumb'] = lang('all_project');

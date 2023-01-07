@@ -15,8 +15,8 @@ $lang['Home'] = 'หน้าหลัก';
 $lang['dashboard'] = 'แดชบอร์ด';
 $lang['project'] = 'โครงการ';
 $lang['setting'] = 'ตั้งค่าระบบ';
-$lang['user'] = 'รายชื่อพนักงาน';
-$lang['taskList'] = 'รายชื่อกิจกรรม';
+$lang['user'] = 'จัดการพนักงาน';
+$lang['taskList'] = 'จัดการชื่อกิจกรรม';
 $lang['log'] = 'ฐานข้อมูล';
 $lang['signin'] = 'เข้าสู่ระบบ';
 $lang['report'] = 'รายงาน';
@@ -60,9 +60,9 @@ $lang['sp_home_inprogress'] = "กำลังดำเนินการ";
 $lang['sp_home_finish'] = "สิ้นสุด";
 $lang['sp_home_cancel'] = "ถูกยุติ";
 // Ranke
-$lang['tl_home_listofrank'] = "ลำดับพนักงานที่รับผิดชอบงานมากที่สุด";
-$lang['tl_home_amountworkpiece'] = "จำนวนโครงการที่รับผิดชอบ ";
-$lang['tl_home_name'] = "ชื่อพนักงาน";
+$lang['tl_home_listofrank'] = "อันดับพนักงานที่มีส่วนเกี่ยวข้องกับโครงการมากที่สุด 5 อันดับ";
+$lang['tl_home_amountworkpiece'] = "จำนวนภาระงาน";
+$lang['tl_home_name'] = "ชื่อ-นามสกุล";
 $lang['tl_home_update'] = "อัปเดตลำดับล่าสุดวันที่";
 //++ End ++//
 
@@ -140,7 +140,7 @@ $lang['tp_user-status'] = "สถานะ";
 //++ Tasklist ++//
 $lang['b_user_addtasklist'] = "เพิ่มรายชื่อกิจกรรม";
 // table topic data
-$lang['tp_tasklist-name'] = "รายการกิจกรรม";
+$lang['tb_topic_dt-name'] = "รายการกิจกรรม";
 // Topic 
 $lang['tp_user_tl-name'] = "ตารางรายชื่อรายการกิจกรรม";
 //++ End ++//
@@ -233,7 +233,7 @@ $lang['md_fp_main-msg'] = "สิ้นสุดโครงการ";
 $lang['md_fp_suc'] = "สิ้นสุดโครงการสำเร็จ";
 $lang['md_cp_main-msg'] = "ยุติโครงการ";
 $lang['md_cp_suc'] = "ยุติโครงการสำเร็จ";
-$lang['md_rp'] = "กู้คืนภายใน";
+$lang['md_rp'] = "เหลือเวลากู้คืน";
 $lang['md_rp-hour'] = "ชม.";
 $lang['md_rqf_sd'] = "กรุณาระบุวันที่เริ่มโครงการ";
 $lang['md_rqf_sd-f'] = "กรุณาระบุวันที่เริ่มโครงการให้ถูกต้อง";

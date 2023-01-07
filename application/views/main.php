@@ -88,17 +88,16 @@
     <link href="<?= base_url() ?>assets/node_modules/calendar/dist/fullcalendar.css" rel="stylesheet" />
     <style>
         .name {
-            color: #0d6efd;
+            color: #03a9f3;
         }
 
         .name:hover {
-            color: #03a9f3;
+            color: #01d0f8;
         }
         
     </style>
 </head>
-
-<body class="skin-blue fixed-layout" <?php if (isset($_SESSION['u_id'])) : echo 'onload="countDown()" ' . 'onclick="updateTimeout()"'; endif; ?>>
+<body class="skin-blue fixed-layout" <?= isset($_SESSION['u_id']) ? 'onload="countDown()" ' . 'onclick="updateTimeout()"' : '' ?>>
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->

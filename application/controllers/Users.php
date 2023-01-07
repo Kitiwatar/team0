@@ -46,6 +46,7 @@ class Users extends CI_Controller {
 	}
 
  	public function getAddForm() {
+		// Create by: Patiphan Pansanga 08-09-2565 get add user form
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
@@ -101,7 +102,7 @@ class Users extends CI_Controller {
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
-		$json['title'] = lang('md_tl_e-em').' <span class="text-danger" style="font-size:12px;">(* '.lang('md_tl_e-req').')</span>';
+		$json['title'] = lang('md_tl_e-em').'<span class="text-danger" style="font-size:12px;"> (* '.lang('md_tl_a-req').')</span>';
 		$data['arrayRole'] = $this->genlib->getUserRole();
 		$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
 		$json['body'] = $this->load->view('users/formadd', $data ,true);
@@ -137,7 +138,7 @@ class Users extends CI_Controller {
 		// Create by: Natakorn Phongsarikit 14-09-2565 get form password
 		if($this->input->post('person')!=null) { 
 			$data['personPassword'] = "yes";
-			$json['title'] = lang('md_tl_e-ps');
+			$json['title'] = lang('md_tl_e-ps') ." ". $_SESSION['u_fullname'];
 			$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>($_SESSION['u_id'])));
 			$json['footer'] = '<span id="errMsg"></span><button type="button" class="btn btn-success" onclick="submitPersonPassword()">'.lang('bt_save') .'</button>
 			<button type="button" class="btn btn-danger" onclick="closeModal(\'เปลี่ยนรหัสผ่าน\')">'.lang('bt_cancel') .'</button>';
@@ -146,7 +147,7 @@ class Users extends CI_Controller {
 				redirect(base_url());
 			}
 			$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
-			$json['title'] = lang('md_tl_e-ps').' : ' . $data['getData']->u_firstname . " " . $data['getData']->u_lastname;
+			$json['title'] = lang('md_tl_e-ps') ." ". $data['getData']->u_firstname . " " . $data['getData']->u_lastname;
 			$json['footer'] = '<span id="errMsg"></span><button type="button" class="btn btn-success" onclick="submitPwdForm('.$this->input->post('u_id').');">'.lang('bt_save') .'</button>
 			<button type="button" class="btn btn-danger" onclick="closeModal(\'เปลี่ยนรหัสผ่าน\')">'.lang('bt_cancel') .'</button>';
 		}

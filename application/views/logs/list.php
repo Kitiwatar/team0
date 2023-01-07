@@ -5,10 +5,10 @@
       <div class="card-body">
         <h2 class='card-title'><?= lang('tp_logs_us-history')  ?></h2>
         <div class="table-responsive">
-          <table class="display table table-striped table-bordered dt-responsive nowrap">
+          <table class="display table dt-responsive nowrap">
             <thead>
               <tr>
-                <th><?= lang('tl_project_pj-no') ?></th>
+                <th class="text-center"><?= lang('tl_project_pj-no') ?></th>
                 <th><?= lang('tb_topic_dt-action') ?></th>
                 <th><?= lang('tb_topic_dt-db') ?></th>
                 <th><?= lang('tb_topic_dt-change') ?></th>

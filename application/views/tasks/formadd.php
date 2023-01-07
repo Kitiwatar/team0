@@ -56,7 +56,7 @@
         </div>
         <div style="clear:both"></div>
         <div class="table-responsive my-2">
-          <table class="display table table-striped table-bordered dt-responsive nowrap">
+          <table class="display table table-bordered dt-responsive nowrap">
             <thead>
               <tr>
                 <th><?= lang('md_at_dc-name') ?></th>
