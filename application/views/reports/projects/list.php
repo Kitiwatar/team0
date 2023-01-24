@@ -16,9 +16,9 @@
                   }
                   for ($i = 0; $i < 5; $i++) {
                     if (date("Y") - $i == $begindate) {
-                      echo '<option selected value="' . date("Y") - $i . '">' . date("Y") - $i . '</option>';
+                      echo '<option selected value="' . (date("Y") - $i) . '">' . (date("Y") - $i) . '</option>';
                     } else {
-                      echo '<option value="' . date("Y") - $i . '">' . date("Y") - $i . '</option>';
+                      echo '<option value="' . (date("Y") - $i) . '">' . (date("Y") - $i) . '</option>';
                     }
                   }
                   ?>
@@ -34,9 +34,9 @@
                   }
                   for ($i = 0; $i < 5; $i++) {
                     if (date("Y") - $i == $enddate) {
-                      echo '<option selected value="' . date("Y") - $i . '">' . date("Y") - $i . '</option>';
+                      echo '<option selected value="' . (date("Y") - $i) . '">' . (date("Y") - $i) . '</option>';
                     } else {
-                      echo '<option value="' . date("Y") - $i . '">' . date("Y") - $i . '</option>';
+                      echo '<option value="' . (date("Y") - $i) . '">' . (date("Y") - $i) . '</option>';
                     }
                   }
                   ?>

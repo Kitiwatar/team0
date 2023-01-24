@@ -1,20 +1,27 @@
-<div class="modal fade" id="calendarModal" tabindex="-1" aria-labelledby="modalCenterTitle" aria-hidden="true" data-keyboard="false">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document" id='modalSize'>
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="calendarModalTitle">ปฏิทินโครงการ</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true"></button>
-            </div>
-            <div class="modal-body" id="calendarModalBody">
-                <div class="card-body b-l calender-sidebar">
-                    <div id="calendar"></div>
+<div class="card">
+    <div class="card-body">
+        <div class="tab-pane p-20" id="messages2" role="tabpanel">
+            <div class="modal fade" id="calendarModal" tabindex="-1" aria-labelledby="modalCenterTitle" aria-hidden="true" data-keyboard="false">
+                <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document" id='modalSize'>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="calendarModalTitle">ปฏิทินโครงการ</h5>
+                            <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true"></button>
+                        </div>
+                        <div class="modal-body" id="calendarModalBody">
+                            <div class="card-body b-l calender-sidebar">
+                                <div id="calendar"></div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" id="calendarModalFooter">
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer" id="calendarModalFooter">
             </div>
         </div>
     </div>
 </div>
+
 <!-- Calendar JavaScript -->
 <script src="<?= base_url() ?>assets/node_modules/calendar/jquery-ui.min.js"></script>
 <script src="<?= base_url() ?>assets/node_modules/moment/moment.js"></script>

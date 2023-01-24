@@ -57,14 +57,18 @@ class Tasks extends CI_Controller{
 		$arrayJoin = array('pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
 		$data['user'] = $this->genmod->getAll('pms_permission', '*',array('per_p_id'=>$this->input->post('p_id'), 'per_status'=>1, 'per_role'=>1),'per_createdate desc',$arrayJoin,'');
 		$userProject = $this->genmod->getAll('pms_permission', '*',array('per_p_id'=>$this->input->post('p_id'), 'per_status'=>1, 'per_role'=>2),'per_createdate desc',$arrayJoin,'');
-		if($userProject != null) {
-			$data['user'] += $userProject;
+		if(is_array($userProject)) {
+			foreach ($userProject as $key => $value) {
+				$data['user'][$key+1] = $value;
+			}
+			
 		}
-		
+
 		$data['projectStatus'] = $this->genlib->getProjectStatus(); // สถานะของโครงการ
-		$json['html'] = $this->load->view('tasks/list', $data, TRUE);
-		$json['html'] .= $this->load->view('permissions/list', $data, TRUE);
-		$json['html'] .= $this->load->view('tasks/calendar', $data, TRUE);
+		$values['taskContent'] = $this->load->view('tasks/list', $data, TRUE);
+		$values['calendarContent'] = $this->load->view('tasks/calendar', $data, TRUE);
+		$values['permissionContent'] = $this->load->view('permissions/list', $data, TRUE);
+		$json['html'] = $this->load->view('tasks/tabs.php', $values, TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 

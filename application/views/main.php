@@ -85,6 +85,8 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.3.1/dist/echarts.min.js"></script>
     <!-- end Flot Charts JavaScript -->
 
+    <!-- <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/pages/tab-page.css"> -->
+
     <link href="<?= base_url() ?>assets/node_modules/calendar/dist/fullcalendar.css" rel="stylesheet" />
     <style>
         .name {

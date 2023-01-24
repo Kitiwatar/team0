@@ -18,6 +18,7 @@
     })
   }
 
+
   function updatePermission(u_id, p_id) {
     swal({
       title: "<?= lang('md_dep_main-msg') ?>",

@@ -326,7 +326,7 @@
                 <div style="color:white;" class="fs-4 px-2">ภาพรวมโครงการทั้งหมด พ.ศ <?= $date = date('Y') + 543; ?></div>
             </div>
         </div>
-        <div class="col-lg-8 col-md-12">
+        <div class="col-lg-6 col-md-12">
             <div class="card">
                 <div class="card-body">
                     <div class="fs-3">กราฟแสดงจำนวนโครงการทั้งหมดตามสถานะ</div>
@@ -334,7 +334,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-12">
+        <div class="col-lg-6 col-md-12">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="card">

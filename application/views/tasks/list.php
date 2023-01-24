@@ -1,99 +1,89 @@
  <!-- Create by: Patiphan Pansanga 14-10-2565 -->
- <div class="row">
-   <div class="col-12">
-     <div class="card">
-       <div class="card-body">
-        <div class="row">
-          <div class="col">
-          <h1 class='fs-1 mt-0' style="cursor: pointer; color:black; line-height: 80%;" onclick="viewProject(<?= $projectData->p_id ?>)"><?= isset($projectData) ? $projectData->p_name : '' ?></้>
-          </div>
-          <div class="col text-end">
-            <button class="btn waves-effect waves-light btn-outline-dark" id="calendarbtn" onclick="showCalendar()">ปฏิทินโครงการ</button>
-          </div>
-        </div>
-         <table class="mt-2">
+ <div class="card">
+   <div class="card-body">
+     <div class="row">
+       <div class="col">
+         <h1 class='fs-1 mt-0' style="cursor: pointer; color:black; line-height: 80%;" onclick="viewProject(<?= $projectData->p_id ?>)"><?= isset($projectData) ? $projectData->p_name : '' ?></้>
+       </div>
+     </div>
+     <table class="mt-2">
+       <tr>
+         <td>
+           <?= lang('tl_project_pj-mainperson') ?> : <?= $user[0]->u_firstname . " " . $user[0]->u_lastname ?>
+         </td>
+         <td class="px-3">
+           <?= lang('tl_project_pj-status') ?> :
+           <?php $statusColor = array(1 => "badge rounded-pill bg-warning", 2 => "badge rounded-pill bg-info", 3 => "badge rounded-pill bg-success", 4 => "badge rounded-pill bg-danger");
+            $statusName = array(1 => lang('sp_home_pendproject'), 2 => lang('sp_home_inprogress'), 3 => lang('sp_home_finish'), 4 => lang('sp_home_cancel'));
+            if ($projectData->p_status > 0) {
+              echo "<span  class = ' " . $statusColor[$projectData->p_status] . "'>" . $statusName[$projectData->p_status] . "</span>";
+            } else {
+              echo "<span  class = 'badge rounded-pill bg-dark'>ถูกลบ</span>";
+            }
+            ?>
+         </td>
+       </tr>
+       <tr>
+         <td><?= lang('gd_project_pj-startdate') ?> : <?= thaiDate_Full($projectData->p_createdate) ?></td>
+         <td class="px-3"> <?= lang('gd_project_pj-enddate') ?> : <?= ($projectData->p_enddate == NULL) ? '-' : thaiDate_Full($projectData->p_enddate) ?></td>
+       </tr>
+     </table>
+     <h2 class='card-title mt-4'><?= lang('th_project_pj-task') ?></h2>
+     <?php if ($projectData->p_status < 3) { ?>
+       <button type="button" class="btn btn-success me-2" id="addBtn" onclick="showAddForm('<?= $projectData->p_id ?>')" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> <?= lang('m_project_addtask') ?></button>
+     <?php } ?>
+     <?php if (($_SESSION['u_id'] == $user[0]->u_id || $_SESSION['u_role'] < 2) && $projectData->p_status < 3) { ?>
+       <button type="button" class="btn btn-info me-2" onMouseOver="this.style.backgroundColor='#56BFF9'" onMouseOut="this.style.backgroundColor='#56BDC6'" style="background-color: #56BDC6; border-color:#56BDC6;" onclick="endProject(<?= $projectData->p_id ?>,3)"><i class="mdi mdi-check-circle-outline"></i> <?= lang('m_project_finishproject') ?></button>
+       <button type="button" class="btn btn-danger" onclick="endProject(<?= $projectData->p_id ?>,4)"><i class="mdi mdi-close-circle-outline"></i> <?= lang('m_project_cancelproject') ?></button>
+     <?php } else if (($_SESSION['u_id'] == $user[0]->u_id || $_SESSION['u_role'] < 2) && $projectData->p_status >= 3) { ?>
+       <button type="button" class="btn btn-success" onclick="restoreProject('<?= $projectData->p_id ?>')"><i class="mdi mdi-rotate-left"></i> <?= lang('m_project_reinstateproject') ?></button>
+     <?php } ?>
+     <div class="table-responsive my-2">
+       <table class="display table dt-responsive nowrap" id="table">
+         <thead>
            <tr>
-             <td>
-               <?= lang('tl_project_pj-mainperson') ?> : <?= $user[0]->u_firstname . " " . $user[0]->u_lastname ?>
-             </td>
-             <td class="px-3">
-               <?= lang('tl_project_pj-status') ?> :
-               <?php $statusColor = array(1 => "badge rounded-pill bg-warning", 2 => "badge rounded-pill bg-info", 3 => "badge rounded-pill bg-success", 4 => "badge rounded-pill bg-danger");
-                $statusName = array(1 => lang('sp_home_pendproject'), 2 => lang('sp_home_inprogress'), 3 => lang('sp_home_finish'), 4 => lang('sp_home_cancel'));
-                if ($projectData->p_status > 0) {
-                  echo "<span  class = ' " . $statusColor[$projectData->p_status] . "'>" . $statusName[$projectData->p_status] . "</span>";
-                } else {
-                  echo "<span  class = 'badge rounded-pill bg-dark'>ถูกลบ</span>";
-                }
-                ?>
-             </td>
+             <th class="text-center"><?= lang('tl_project_pj-no') ?></th>
+             <th><?= lang("tl_project_at-nametask") ?></th>
+             <th><?= lang('tl_project_at-implementationdate') ?></th>
+             <th><?= lang('tl_project_at-operator') ?></th>
+             <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
            </tr>
-           <tr>
-             <td><?= lang('gd_project_pj-startdate') ?> : <?= thaiDate_Full($projectData->p_createdate) ?></td>
-             <td class="px-3"> <?= lang('gd_project_pj-enddate') ?> : <?= ($projectData->p_enddate == NULL) ? '-' : thaiDate_Full($projectData->p_enddate) ?></td>
-           </tr>
-         </table>
-         <h2 class='card-title mt-4'><?= lang('th_project_pj-task') ?></h2>
-         <?php if ($projectData->p_status < 3) { ?>
-           <button type="button" class="btn btn-success me-2" id="addBtn" onclick="showAddForm('<?= $projectData->p_id ?>')" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> <?= lang('m_project_addtask') ?></button>
-         <?php } ?>
-         <?php if (($_SESSION['u_id'] == $user[0]->u_id || $_SESSION['u_role'] < 2) && $projectData->p_status < 3) { ?>
-           <button type="button" class="btn btn-info me-2" onMouseOver="this.style.backgroundColor='#56BFF9'" onMouseOut="this.style.backgroundColor='#56BDC6'" style="background-color: #56BDC6; border-color:#56BDC6;" onclick="endProject(<?= $projectData->p_id ?>,3)" ><i class="mdi mdi-check-circle-outline"></i> <?= lang('m_project_finishproject') ?></button>
-           <button type="button" class="btn btn-danger" onclick="endProject(<?= $projectData->p_id ?>,4)" ><i class="mdi mdi-close-circle-outline"></i> <?= lang('m_project_cancelproject') ?></button>
-         <?php } else if (($_SESSION['u_id'] == $user[0]->u_id || $_SESSION['u_role'] < 2) && $projectData->p_status >= 3) { ?>
-           <button type="button" class="btn btn-success" onclick="restoreProject('<?= $projectData->p_id ?>')" ><i class="mdi mdi-rotate-left"></i> <?= lang('m_project_reinstateproject') ?></button>
-         <?php } ?>
-         <div class="table-responsive my-2">
-           <table class="display table dt-responsive nowrap" id="table">
-             <thead>
+         </thead>
+         <tbody>
+           <?php if (is_array($getData)) : $count = 1 ?>
+             <?php foreach ($getData as $key => $value) : ?>
                <tr>
-                 <th class="text-center"><?= lang('tl_project_pj-no') ?></th>
-                 <th><?= lang("tl_project_at-nametask") ?></th>
-                 <th><?= lang('tl_project_at-implementationdate') ?></th>
-                 <th><?= lang('tl_project_at-operator') ?></th>
-                 <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
+                 <td class="text-center"><?= $count++ ?></td>
+                 <td style="cursor:pointer; font-weight: 900;" class="name" onclick="view(<?= $value->t_id ?>)"><?= $value->tl_name ?></td>
+                 <td><?= thaiDate($value->t_createdate) ?></td>
+                 <td><?= $value->u_firstname . ' ' . $value->u_lastname ?></td>
+                 <td class="text-center">
+                   <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->t_id ?>)" title="<?= lang('tt_pt_vtask') ?>"><i class="fas fa-search"></i></button>
+                   <?php if (($_SESSION['u_id'] == $value->t_u_id || $_SESSION['u_role'] < 2 || $_SESSION['u_id'] == $user[0]->u_id) && $projectData->p_status <= 2) { ?>
+                     <button type="button" class="btn btn-sm btn-warning" name="edit" id="edit" onclick="edit(<?= $value->t_id ?>)" title="<?= lang('tt_pt_etask') ?>"><i class="mdi mdi-pencil"></i></button>
+                     <button type="button" class="btn btn-sm btn-danger" name="del" id="del" onclick="changeStatus(<?= $value->t_id ?>, <?= $value->t_status ?>, <?= $projectData->p_id ?>)" title="<?= lang('tt_pt_dtask') ?>" onclick=""><i class="mdi mdi-delete"></i></button>
+                   <?php } else { ?>
+                     <button type="button" style="cursor:no-drop;" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="<?= lang('tt_pt_cn-etask') ?>"><i class="mdi mdi-pencil" style="color: grey;"></i></button>
+                     <button type="button" style="cursor:no-drop;" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="<?= lang('tt_pt_cn-dtask') ?>"><i class="mdi mdi-delete" style="color: grey;"></i></button>
+                   <?php } ?>
+                 </td>
                </tr>
-             </thead>
-             <tbody>
-               <?php if (is_array($getData)) : $count = 1 ?>
-                 <?php foreach ($getData as $key => $value) : ?>
-                   <tr>
-                     <td class="text-center"><?= $count++ ?></td>
-                     <td style="cursor:pointer; font-weight: 900;" class="name" onclick="view(<?= $value->t_id ?>)"><?= $value->tl_name ?></td>
-                     <td><?= thaiDate($value->t_createdate) ?></td>
-                     <td><?= $value->u_firstname . ' ' . $value->u_lastname ?></td>
-                     <td class="text-center">
-                       <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->t_id ?>)" title="<?= lang('tt_pt_vtask') ?>"><i class="fas fa-search"></i></button>
-                       <?php if (($_SESSION['u_id'] == $value->t_u_id || $_SESSION['u_role'] < 2 || $_SESSION['u_id'] == $user[0]->u_id) && $projectData->p_status <= 2) { ?>
-                         <button type="button" class="btn btn-sm btn-warning" name="edit" id="edit" onclick="edit(<?= $value->t_id ?>)" title="<?= lang('tt_pt_etask') ?>"><i class="mdi mdi-pencil"></i></button>
-                         <button type="button" class="btn btn-sm btn-danger" name="del" id="del" onclick="changeStatus(<?= $value->t_id ?>, <?= $value->t_status ?>, <?= $projectData->p_id ?>)" title="<?= lang('tt_pt_dtask') ?>" onclick=""><i class="mdi mdi-delete"></i></button>
-                       <?php } else { ?>
-                         <button type="button" style="cursor:no-drop;" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="<?= lang('tt_pt_cn-etask') ?>"><i class="mdi mdi-pencil" style="color: grey;"></i></button>
-                         <button type="button" style="cursor:no-drop;" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="<?= lang('tt_pt_cn-dtask') ?>"><i class="mdi mdi-delete" style="color: grey;"></i></button>
-                       <?php } ?>
-                     </td>
-                   </tr>
-                 <?php endforeach; ?>
-               <?php endif; ?>
-             </tbody>
-           </table>
-         </div>
-         <hr>
-
-       <!-- </div>
+             <?php endforeach; ?>
+           <?php endif; ?>
+         </tbody>
+       </table>
      </div>
    </div>
- </div> -->
-
+ </div>
  <script>
    $('[data-toggle="tooltip"]').tooltip();
 
    function showCalendar() {
-    
-    $('#calendarModal').modal();
-    setTimeout(function() {
-      $('.fc-month-button').click();
-    }, 50);
+
+     $('#calendarModal').modal();
+     setTimeout(function() {
+       $('.fc-month-button').click();
+     }, 50);
    }
 
    function endProject(p_id, p_status) {
@@ -314,7 +304,7 @@
      }
    });
 
-  
+
    $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn waves-effect waves-light btn-info mx-1');
    $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').removeClass("dt-button");
    $('.buttons-excel').html('<i class="mdi mdi-file-excel-box"></i> Excel');

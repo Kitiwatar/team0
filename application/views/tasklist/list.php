@@ -39,6 +39,7 @@
             </tbody>
           </table>
         </div>
+        <a type="button" class="btn waves-effect waves-light btn-dark" href="<?= base_url() ?>"><i class="mdi mdi-arrow-left"></i>  <?= lang('b_project_back') ?> </a>
       </div>
     </div>
   </div>

@@ -14,7 +14,7 @@ class Genlib {
 
     public function checkLogin() {
         if (empty($_SESSION['u_id']) || session_status() !== PHP_SESSION_ACTIVE ) {
-            redirect(base_url('login')); //redirects to login page
+            redirect(base_url()); //redirects to login page
         }else {
             return "";
         }
