@@ -9,7 +9,7 @@
     e.preventDefault();
     $.ajax({
       method: "post",
-      url: 'tasklist/getAddForm'
+      url: 'cancellist/getAddForm'
     }).done(function(returnData) {
       $('#mainModalTitle').html(returnData.title);
       $('#mainModalBody').html(returnData.body);
@@ -27,36 +27,36 @@
     })
   }
 
-  function saveFormSubmit(tl_id) {
+  function saveFormSubmit(cl_id) {
      var formData = {};
-     formData['tl_id'] = tl_id;
-     formData['tl_name'] = $('#tl_name').val()
-     if (!formData.tl_name) {
-       $('#tlnameMsg').addClass('text-danger');
-       $('#tlnameMsg').text('กรุณากรอกชื่อกิจกรรม');
-       !formData.tl_name ? $('#tl_name').focus() : '';
+     formData['cl_id'] = cl_id;
+     formData['cl_name'] = $('#cl_name').val()
+     if (!formData.cl_name) {
+       $('#clnameMsg').addClass('text-danger');
+       $('#clnameMsg').text('กรุณากรอกชื่อกิจกรรม');
+       !formData.cl_name ? $('#cl_name').focus() : '';
        return false;
      } else {
-       $('#tlnameMsg').text(' ');
+       $('#clnameMsg').text(' ');
      }
      $.ajax({
-       url: 'tasklist/checkRepeat',
+       url: 'cancellist/checkRepeat',
        data: {
-         tl_name: formData['tl_name']
+         cl_name: formData['cl_name']
        },
        method: 'post'
      }).done(function(returnData) {
        if (returnData.status == 0) {
-         $('#tlnameMsg').text(returnData.msg);
-         $('#tl_name').addClass('is-invalid');
+         $('#clnameMsg').text(returnData.msg);
+         $('#cl_name').addClass('is-invalid');
          return;
        } else {
-         $('#tlnameMsg').text(returnData.msg);
-         $('#tl_name').removeClass('is-invalid');
+         $('#clnameMsg').text(returnData.msg);
+         $('#cl_name').removeClass('is-invalid');
          
          var mainMsg;
          var detailMsg;
-         if (tl_id == "new") {
+         if (cl_id == "new") {
            mainMsg = "ยืนยันการเพิ่มรายชื่อกิจกรรม";
            detailMsg = "คุณต้องการเพิ่มรายชื่อกิจกรรมใช่หรือไม่";
          } else {
@@ -75,7 +75,7 @@
            if (isConfirm.value) {
              $.ajax({
                method: "post",
-               url: 'tasklist/add',
+               url: 'cancellist/add',
                data: formData
              }).done(function(returnData) {
                if (returnData.status == 1) {
@@ -89,7 +89,7 @@
                  });
                  $('#fMsg').addClass('text-success');
                  $('#fMsg').text(returnData.msg);
-                 $('#formtasklist')[0].reset();
+                 $('#formcancellist')[0].reset();
                  $('#mainModal').modal('hide');
                  loadList();
                } else {
@@ -103,7 +103,7 @@
                  });
                  $('#fMsg').addClass('text-success');
                  $('#fMsg').text(returnData.msg);
-                 $('#formtasklist')[0].reset();
+                 $('#formcancellist')[0].reset();
                  $('#mainModal').modal('hide');
                  loadList();
                }
@@ -114,13 +114,12 @@
      })
    }
 
-  function edit(tl_id) {
+  function edit(cl_id) {
     $.ajax({
       method: "post",
-      url: 'tasklist/getEditForm',
+      url: 'cancellist/getEditForm',
       data: {
-        tl_id: tl_id
-      }
+        cl_id: cl_id      }
     }).done(function(returnData) {
       $('#mainModalTitle').html(returnData.title);
       $('#mainModalBody').html(returnData.body);
@@ -129,10 +128,10 @@
     });
   }
 
-  function changeStatus(tl_id, tl_status) {
+  function changeStatus(cl_id, cl_status) {
     var mainMsg;
     var detailMsg;
-    if (tl_status == 1) {
+    if (cl_status == 1) {
       mainMsg = '<?= lang('md_dtl_main-msg') ?>';
       detailMsg = '<?= lang('md_dtl_detail-msg') ?>';
     } else {
@@ -152,10 +151,10 @@
       if (isConfirm.value) {
         $.ajax({
           method: "POST",
-          url: 'tasklist/updateStatus',
+          url: 'cancellist/updateStatus',
           data: {
-            tl_id: tl_id,
-            tl_status: tl_status
+            cl_id: cl_id,
+            cl_status: cl_status
           }
         }).done(function(returnData) {
           if (returnData.status == 1) {

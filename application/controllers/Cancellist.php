@@ -59,7 +59,7 @@ class Cancellist extends CI_Controller {
 	}
 
 	public function add() {
-		// Create by: Natakorn Phongsarikit 15-09-2565 add tasklist to database
+		// Create by: Natakorn Phongsarikit 15-09-2565 add cancellist to database
 		$this->genlib->ajaxOnly();
 		$formData = $this->input->post();
 
@@ -88,7 +88,7 @@ class Cancellist extends CI_Controller {
 	public function getEditForm() {
 		// Create by: Natakorn Phongsarikit 15-09-2565 get form edit task
 		$json['title'] = lang('md_tl_e-tl');
-		$data['getData'] = $this->genmod->getOne('pms_tasklist', '*', array('tl_id'=>$this->input->post('cl_id')));
+		$data['getData'] = $this->genmod->getOne('pms_cancellist', '*', array('cl_id'=>$this->input->post('cl_id')));
 		$json['body'] = $this->load->view('cancellist/formadd',$data ,true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit('.$this->input->post('cl_id').');">'. lang('bt_save') .'</button>
 		<button type="button" class="btn btn-danger" onclick="closeModal(\'แก้ไขรายชื่อยุติโครงการ\')">'. lang('bt_cancel') .'</button>';
@@ -96,7 +96,7 @@ class Cancellist extends CI_Controller {
 	}
 
   	public function updateStatus() {
-		// Create by: Natakorn Phongsarikit 15-09-2565 update status of tasklist
+		// Create by: Natakorn Phongsarikit 15-09-2565 update status of cancellist
 		$this->genlib->ajaxOnly();
 		$updateData = $this->input->post();
 			if($this->genmod->update('pms_cancellist', array('cl_status'=> ($updateData['cl_status'] == 0? '1':'0')), array('cl_id'=>$updateData['cl_id']))){
@@ -114,9 +114,9 @@ class Cancellist extends CI_Controller {
 	}
 
 	public function checkRepeat() {
-		// Create by: Patiphan Pansanga 16-12-2565 find repeat tasklist name
+		// Create by: Patiphan Pansanga 16-12-2565 find repeat cancellist name
 		$this->genlib->ajaxOnly();
-		$checkData = $this->genmod->getOne('pms_tasklist', '*', array('cl_name'=>$this->input->post('cl_name'), 'cl_status'=>1));
+		$checkData = $this->genmod->getOne('pms_cancellist', '*', array('cl_name'=>$this->input->post('cl_name'), 'cl_status'=>1));
 		if(isset($checkData->cl_name)) {
 			$json = ['status'=> 0, 'msg'=>"มีรายชื่อกิจกรรมนี้อยู่แล้ว"];
 		} else {

@@ -3,12 +3,12 @@
 <div class="row">
   <div class="col-12">
     <div class="card">
-      <form class="" id="formtasklist" autocomplete="off">
+      <form class="" id="formcancellist" autocomplete="off">
         <div class="card-body">
           <div class="form-group">
             <label for="cl_name" class="form-label">ชื่อสาเหตุการยุติโครงการ</label>
             <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->cl_name : '' ?>" id="cl_name" placeholder="<?= lang('md_at_ph-tl') ?>">
-            <font id="tlnameMsg" class="small text-danger"></font>
+            <font id="clnameMsg" class="small text-danger"></font>
           </div>
         </div>
     </div>
