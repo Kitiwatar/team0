@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 28, 2022 at 07:54 PM
+-- Generation Time: Jan 25, 2023 at 04:14 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -20,6 +20,34 @@ SET time_zone = "+00:00";
 --
 -- Database: `team0`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pms_cancel`
+--
+
+CREATE TABLE `pms_cancel` (
+  `c_id` int(11) NOT NULL COMMENT 'ไอดีการยุติโครงการ (ตัวอย่าง 1)	',
+  `c_detail` varchar(1000) NOT NULL COMMENT 'รายละเอียดการยุติโครงการ (ตัวอย่าง ลูกค้าไม่ต้องการ...)	',
+  `c_createdate` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'วันที่ยุติโครงการ (ตัวอย่าง 2022-12-25 11:14:08)	',
+  `c_cl_id` int(11) NOT NULL COMMENT 'ไอดีรายชื่อสาเหตุการยุติโครงการ (ตัวอย่าง 1)',
+  `c_u_id` int(11) NOT NULL COMMENT 'ไอดีผู้ดำเนินการยุติโครงการ (ตัวอย่าง 1)'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ตารางการยุติโครงการ';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pms_cancellist`
+--
+
+CREATE TABLE `pms_cancellist` (
+  `cl_id` int(11) NOT NULL COMMENT 'ไอดีสาเหตุยุติโครงการ (ตัวอย่าง 1)',
+  `cl_name` varchar(100) NOT NULL COMMENT 'ชื่อสาเหตุยุติโครงการ (ตัวอย่าง ลูกค้ายกเลิก)',
+  `cl_createdate` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'วันที่เพิ่ม (ตัวอย่าง 2022-12-25 11:14:08)	',
+  `cl_status` int(11) NOT NULL COMMENT 'สถานะของชื่อสาเหตุยุติโครงการ (0 ถูกลบ, 1 ปกติ)	',
+  `cl_u_id` int(11) NOT NULL COMMENT 'ไอดีผู้เพิ่ม (ตัวอย่าง 1)'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ตารางรายชื่อของสาเหตุยุติโครงการ';
 
 -- --------------------------------------------------------
 
@@ -52,6 +80,40 @@ CREATE TABLE `pms_log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ตารางบันทึกประวัติของระบบ';
 
 --
+-- Dumping data for table `pms_log`
+--
+
+INSERT INTO `pms_log` (`l_id`, `l_action`, `l_table`, `l_data`, `l_command`, `l_createdate`, `l_u_id`) VALUES
+(809, 'add', 'pms_project', '{\"p_id\":\"new\",\"p_name\":\"ads\",\"p_detail\":\"asd\",\"p_customer\":\"ads\",\"p_address\":\"\",\"p_telcontact\":\"\",\"p_linecontact\":\"\",\"p_emailcontact\":\"\",\"p_othercontact\":\"\",\"p_createdate\":\"2023-01-10\"}', 'INSERT INTO `pms_project` (`p_id`, `p_name`, `p_detail`, `p_customer`, `p_address`, `p_telcontact`, `p_linecontact`, `p_emailcontact`, `p_othercontact`, `p_createdate`) VALUES (\'new\', \'ads\', \'asd\', \'ads\', \'\', \'\', \'\', \'\', \'\', \'2023-01-10\')', '2023-01-10 04:20:12', 11),
+(810, 'add', 'pms_permission', '{\"per_role\":1,\"per_p_id\":\"42\",\"per_u_id\":\"11\"}', 'INSERT INTO `pms_permission` (`per_role`, `per_p_id`, `per_u_id`) VALUES (1, \'42\', \'11\')', '2023-01-10 04:20:12', 11),
+(811, 'add', 'pms_permission', '{\"per_u_id\":\"12\",\"per_p_id\":\"42\",\"per_role\":2}', 'INSERT INTO `pms_permission` (`per_u_id`, `per_p_id`, `per_role`) VALUES (\'12\', \'42\', 2)', '2023-01-10 04:20:18', 11),
+(812, 'add', 'pms_permission', '{\"per_u_id\":\"13\",\"per_p_id\":\"42\",\"per_role\":2}', 'INSERT INTO `pms_permission` (`per_u_id`, `per_p_id`, `per_role`) VALUES (\'13\', \'42\', 2)', '2023-01-10 04:20:22', 11),
+(813, 'add', 'pms_project', '{\"p_id\":\"new\",\"p_name\":\"zxczxczxc\",\"p_detail\":\"ads\",\"p_customer\":\"asd\",\"p_address\":\"\",\"p_telcontact\":\"\",\"p_linecontact\":\"\",\"p_emailcontact\":\"\",\"p_othercontact\":\"\",\"p_createdate\":\"2021-01-10\"}', 'INSERT INTO `pms_project` (`p_id`, `p_name`, `p_detail`, `p_customer`, `p_address`, `p_telcontact`, `p_linecontact`, `p_emailcontact`, `p_othercontact`, `p_createdate`) VALUES (\'new\', \'zxczxczxc\', \'ads\', \'asd\', \'\', \'\', \'\', \'\', \'\', \'2021-01-10\')', '2023-01-10 04:40:51', 11),
+(814, 'add', 'pms_permission', '{\"per_role\":1,\"per_p_id\":\"43\",\"per_u_id\":\"11\"}', 'INSERT INTO `pms_permission` (`per_role`, `per_p_id`, `per_u_id`) VALUES (1, \'43\', \'11\')', '2023-01-10 04:40:51', 11),
+(815, 'add', 'pms_project', '{\"p_id\":\"new\",\"p_name\":\"ads\",\"p_detail\":\"asd\",\"p_customer\":\"asd\",\"p_address\":\"\",\"p_telcontact\":\"\",\"p_linecontact\":\"\",\"p_emailcontact\":\"\",\"p_othercontact\":\"\",\"p_createdate\":\"2022-01-10\"}', 'INSERT INTO `pms_project` (`p_id`, `p_name`, `p_detail`, `p_customer`, `p_address`, `p_telcontact`, `p_linecontact`, `p_emailcontact`, `p_othercontact`, `p_createdate`) VALUES (\'new\', \'ads\', \'asd\', \'asd\', \'\', \'\', \'\', \'\', \'\', \'2022-01-10\')', '2023-01-10 04:41:02', 11),
+(816, 'add', 'pms_permission', '{\"per_role\":1,\"per_p_id\":\"44\",\"per_u_id\":\"11\"}', 'INSERT INTO `pms_permission` (`per_role`, `per_p_id`, `per_u_id`) VALUES (1, \'44\', \'11\')', '2023-01-10 04:41:02', 11),
+(817, 'add', 'pms_project', '{\"p_id\":\"new\",\"p_name\":\"ads\",\"p_detail\":\"asd\",\"p_customer\":\"asd\",\"p_address\":\"\",\"p_telcontact\":\"\",\"p_linecontact\":\"\",\"p_emailcontact\":\"\",\"p_othercontact\":\"\",\"p_createdate\":\"2020-01-10\"}', 'INSERT INTO `pms_project` (`p_id`, `p_name`, `p_detail`, `p_customer`, `p_address`, `p_telcontact`, `p_linecontact`, `p_emailcontact`, `p_othercontact`, `p_createdate`) VALUES (\'new\', \'ads\', \'asd\', \'asd\', \'\', \'\', \'\', \'\', \'\', \'2020-01-10\')', '2023-01-10 04:41:11', 11),
+(818, 'add', 'pms_permission', '{\"per_role\":1,\"per_p_id\":\"45\",\"per_u_id\":\"11\"}', 'INSERT INTO `pms_permission` (`per_role`, `per_p_id`, `per_u_id`) VALUES (1, \'45\', \'11\')', '2023-01-10 04:41:11', 11),
+(819, 'update', 'pms_project', '{\"p_name\":\"zzzczxca\",\"p_detail\":\"asd\",\"p_customer\":\"asd\",\"p_address\":\"\",\"p_telcontact\":\"\",\"p_linecontact\":\"\",\"p_emailcontact\":\"\",\"p_othercontact\":\"\",\"p_createdate\":\"2020-01-10\"}', 'UPDATE `pms_project` SET `p_name` = \'zzzczxca\', `p_detail` = \'asd\', `p_customer` = \'asd\', `p_address` = \'\', `p_telcontact` = \'\', `p_linecontact` = \'\', `p_emailcontact` = \'\', `p_othercontact` = \'\', `p_createdate` = \'2020-01-10\'\nWHERE `p_id` = \'45\'', '2023-01-10 04:41:19', 11),
+(820, 'update', 'pms_project', '{\"p_name\":\"vvvv\",\"p_detail\":\"asd\",\"p_customer\":\"asd\",\"p_address\":\"\",\"p_telcontact\":\"\",\"p_linecontact\":\"\",\"p_emailcontact\":\"\",\"p_othercontact\":\"\",\"p_createdate\":\"2022-01-10\"}', 'UPDATE `pms_project` SET `p_name` = \'vvvv\', `p_detail` = \'asd\', `p_customer` = \'asd\', `p_address` = \'\', `p_telcontact` = \'\', `p_linecontact` = \'\', `p_emailcontact` = \'\', `p_othercontact` = \'\', `p_createdate` = \'2022-01-10\'\nWHERE `p_id` = \'44\'', '2023-01-10 04:41:24', 11),
+(821, 'update', 'pms_project', '{\"p_status\":\"3\",\"p_enddate\":\"2023-01-11 22:29:17\"}', 'UPDATE `pms_project` SET `p_status` = \'3\', `p_enddate` = \'2023-01-11 22:29:17\'\nWHERE `p_id` = \'42\'', '2023-01-11 15:29:17', 11),
+(822, 'update', 'pms_project', '{\"p_status\":2,\"p_enddate\":null}', 'UPDATE `pms_project` SET `p_status` = 2, `p_enddate` = NULL\nWHERE `p_id` = \'42\'', '2023-01-11 15:33:05', 11),
+(823, 'add', 'pms_project', '{\"p_id\":\"new\",\"p_name\":\"ffffff\",\"p_detail\":\"ffff\",\"p_customer\":\"fff\",\"p_address\":\"\",\"p_telcontact\":\"\",\"p_linecontact\":\"\",\"p_emailcontact\":\"\",\"p_othercontact\":\"\",\"p_createdate\":\"2023-01-11\"}', 'INSERT INTO `pms_project` (`p_id`, `p_name`, `p_detail`, `p_customer`, `p_address`, `p_telcontact`, `p_linecontact`, `p_emailcontact`, `p_othercontact`, `p_createdate`) VALUES (\'new\', \'ffffff\', \'ffff\', \'fff\', \'\', \'\', \'\', \'\', \'\', \'2023-01-11\')', '2023-01-11 15:33:44', 12),
+(824, 'add', 'pms_permission', '{\"per_role\":1,\"per_p_id\":\"46\",\"per_u_id\":\"12\"}', 'INSERT INTO `pms_permission` (`per_role`, `per_p_id`, `per_u_id`) VALUES (1, \'46\', \'12\')', '2023-01-11 15:33:44', 12),
+(825, 'update', 'pms_project', '{\"p_status\":\"3\",\"p_enddate\":\"2023-01-11 22:33:50\"}', 'UPDATE `pms_project` SET `p_status` = \'3\', `p_enddate` = \'2023-01-11 22:33:50\'\nWHERE `p_id` = \'46\'', '2023-01-11 15:33:50', 12),
+(826, 'update', 'pms_project', '{\"p_status\":2,\"p_enddate\":null}', 'UPDATE `pms_project` SET `p_status` = 2, `p_enddate` = NULL\nWHERE `p_id` = \'46\'', '2023-01-11 15:33:54', 12),
+(827, 'update', 'pms_project', '{\"p_status\":\"3\",\"p_enddate\":\"2023-01-11 22:35:17\"}', 'UPDATE `pms_project` SET `p_status` = \'3\', `p_enddate` = \'2023-01-11 22:35:17\'\nWHERE `p_id` = \'46\'', '2023-01-11 15:35:17', 12),
+(828, 'update', 'pms_project', '{\"p_status\":2,\"p_enddate\":null}', 'UPDATE `pms_project` SET `p_status` = 2, `p_enddate` = NULL\nWHERE `p_id` = \'46\'', '2023-01-11 15:35:26', 12),
+(829, 'add', 'pms_task', '{\"t_id\":\"new\",\"t_detail\":\"ฟหก\\n\",\"t_tl_id\":\"1\",\"t_p_id\":\"42\",\"t_createdate\":\"2023-01-11\",\"t_u_id\":\"11\"}', 'INSERT INTO `pms_task` (`t_id`, `t_detail`, `t_tl_id`, `t_p_id`, `t_createdate`, `t_u_id`) VALUES (\'new\', \'ฟหก\\n\', \'1\', \'42\', \'2023-01-11\', \'11\')', '2023-01-11 15:51:43', 11),
+(830, 'update', 'pms_project', '{\"p_status\":2}', 'UPDATE `pms_project` SET `p_status` = 2\nWHERE `p_id` = \'42\'', '2023-01-11 15:51:43', 11),
+(831, 'add', 'pms_project', '{\"p_id\":\"new\",\"p_name\":\"asdasd\",\"p_detail\":\"asd\",\"p_customer\":\"asd\",\"p_address\":\"\",\"p_telcontact\":\"\",\"p_linecontact\":\"\",\"p_emailcontact\":\"\",\"p_othercontact\":\"\",\"p_createdate\":\"2023-01-24\"}', 'INSERT INTO `pms_project` (`p_id`, `p_name`, `p_detail`, `p_customer`, `p_address`, `p_telcontact`, `p_linecontact`, `p_emailcontact`, `p_othercontact`, `p_createdate`) VALUES (\'new\', \'asdasd\', \'asd\', \'asd\', \'\', \'\', \'\', \'\', \'\', \'2023-01-24\')', '2023-01-24 15:02:39', 11),
+(832, 'add', 'pms_permission', '{\"per_role\":1,\"per_p_id\":\"1\",\"per_u_id\":\"11\"}', 'INSERT INTO `pms_permission` (`per_role`, `per_p_id`, `per_u_id`) VALUES (1, \'1\', \'11\')', '2023-01-24 15:02:39', 11),
+(833, 'add', 'pms_task', '{\"t_id\":\"new\",\"t_detail\":\"asdads\",\"t_tl_id\":\"1\",\"t_p_id\":\"1\",\"t_createdate\":\"2023-01-24\",\"t_u_id\":\"11\"}', 'INSERT INTO `pms_task` (`t_id`, `t_detail`, `t_tl_id`, `t_p_id`, `t_createdate`, `t_u_id`) VALUES (\'new\', \'asdads\', \'1\', \'1\', \'2023-01-24\', \'11\')', '2023-01-24 16:02:33', 11),
+(834, 'update', 'pms_project', '{\"p_status\":2}', 'UPDATE `pms_project` SET `p_status` = 2\nWHERE `p_id` = \'1\'', '2023-01-24 16:02:33', 11);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `pms_permission`
 --
 
@@ -64,6 +126,12 @@ CREATE TABLE `pms_permission` (
   `per_u_id` int(11) NOT NULL COMMENT 'ไอดีพนักงาน (ตัวอย่าง 1)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ตารางสิทธิ์ในโครงการ';
 
+--
+-- Dumping data for table `pms_permission`
+--
+
+INSERT INTO `pms_permission` (`per_id`, `per_role`, `per_createdate`, `per_status`, `per_p_id`, `per_u_id`) VALUES
+(1, 1, '2023-01-24 15:02:39', 1, 1, 11);
 
 -- --------------------------------------------------------
 
@@ -87,6 +155,14 @@ CREATE TABLE `pms_project` (
   `p_status` int(11) NOT NULL DEFAULT 1 COMMENT 'สถานะโครงการ (น้อยกว่า 1 ถูกลบ, 1 รอดำเนินการ, 2 กำลังดำเนินการ, 3 สำเร็จ, 4 ยกเลิก)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ตารางโครงการ';
 
+--
+-- Dumping data for table `pms_project`
+--
+
+INSERT INTO `pms_project` (`p_id`, `p_name`, `p_customer`, `p_telcontact`, `p_linecontact`, `p_emailcontact`, `p_othercontact`, `p_detail`, `p_address`, `p_createdate`, `p_enddate`, `p_countdown`, `p_status`) VALUES
+(1, 'asdasd', 'asd', '', '', '', '', 'asd', '', '2023-01-24', NULL, NULL, 2);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `pms_task`
@@ -102,6 +178,14 @@ CREATE TABLE `pms_task` (
   `t_u_id` int(11) NOT NULL COMMENT 'ไอดีพนักงาน (ตัวอย่าง 1)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ตารางกิจกรรม';
 
+--
+-- Dumping data for table `pms_task`
+--
+
+INSERT INTO `pms_task` (`t_id`, `t_detail`, `t_createdate`, `t_status`, `t_tl_id`, `t_p_id`, `t_u_id`) VALUES
+(1, 'asdads', '2023-01-24', 1, 1, 1, 11);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `pms_tasklist`
@@ -191,6 +275,18 @@ INSERT INTO `pms_user` (`u_id`, `u_email`, `u_password`, `u_firstname`, `u_lastn
 --
 
 --
+-- Indexes for table `pms_cancel`
+--
+ALTER TABLE `pms_cancel`
+  ADD PRIMARY KEY (`c_id`);
+
+--
+-- Indexes for table `pms_cancellist`
+--
+ALTER TABLE `pms_cancellist`
+  ADD PRIMARY KEY (`cl_id`);
+
+--
 -- Indexes for table `pms_file`
 --
 ALTER TABLE `pms_file`
@@ -236,6 +332,60 @@ ALTER TABLE `pms_user`
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `pms_cancel`
+--
+ALTER TABLE `pms_cancel`
+  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีการยุติโครงการ (ตัวอย่าง 1)	';
+
+--
+-- AUTO_INCREMENT for table `pms_cancellist`
+--
+ALTER TABLE `pms_cancellist`
+  MODIFY `cl_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีสาเหตุยุติโครงการ (ตัวอย่าง 1)';
+
+--
+-- AUTO_INCREMENT for table `pms_file`
+--
+ALTER TABLE `pms_file`
+  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีไฟล์ (ตัวอย่าง 1)', AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `pms_log`
+--
+ALTER TABLE `pms_log`
+  MODIFY `l_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีบันทึก (ตัวอย่าง 1)', AUTO_INCREMENT=835;
+
+--
+-- AUTO_INCREMENT for table `pms_permission`
+--
+ALTER TABLE `pms_permission`
+  MODIFY `per_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีสิทธิ์ (ตัวอย่าง 1)', AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `pms_project`
+--
+ALTER TABLE `pms_project`
+  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีโครงการ (ตัวอย่าง 1)', AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `pms_task`
+--
+ALTER TABLE `pms_task`
+  MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีกิจกรรม (ตัวอย่าง 1)', AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `pms_tasklist`
+--
+ALTER TABLE `pms_tasklist`
+  MODIFY `tl_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีชื่อกิจกรรม (ตัวอย่าง 1)', AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `pms_user`
+--
+ALTER TABLE `pms_user`
+  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีผู้ใช้ (ตัวอย่าง 1)', AUTO_INCREMENT=32;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
