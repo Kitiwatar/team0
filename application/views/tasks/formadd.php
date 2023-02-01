@@ -143,16 +143,16 @@
       alert(error);
     }
   });
-  $("#p_name").keydown(function(event) {
-    var name = document.getElementById("p_name");
-    name.value = name.value;
+
+  $("#t_createdate").on('change', function() {
+    this.value = this.value.replace(/[^0-9]-/g, '');
+    if($("#t_createdate").val() == "" || $("#t_createdate").val().length < 10) {
+      $('#t_createdate').removeClass("is-valid");
+      $('#t_createdate').addClass("is-invalid");
+    } else {
+      $('#t_createdate').removeClass("is-invalid");
+      $('#t_createdate').addClass("is-valid");
+    }
   });
-  $("#p_linecontact").keydown(function(event) {
-    var line = document.getElementById("p_linecontact");
-    line.value = line.value.toLowerCase();
-  });
-  $("#p_emailcontact").keydown(function(event) {
-    var email = document.getElementById("p_emailcontact");
-    email.value = email.value.toLowerCase();
-  });
+
 </script>

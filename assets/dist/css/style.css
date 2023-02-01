@@ -21100,7 +21100,7 @@ html body .navbar-dark .mailbox .message-center {
 .fc-event {
   border-radius: 0px;
   border: none;
-  cursor: move;
+  cursor: pointer;
   color: #fff !important;
   font-size: 13px;
   margin: 1px -1px 0 -1px;

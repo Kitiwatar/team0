@@ -63,29 +63,84 @@
       bolditalics: 'THSarabun-BoldItalic.ttf'
     }
   }
+    var elm
+    <?php if(is_array($getData)) { ?>
+      elm = 'Bftlp'
+    <?php } else { ?>
+      elm = 'ftlp'
+    <?php } ?>
+
    $('#tableproject').DataTable({
-     "dom": 'Bftlp',
-     "buttons": [{
-         "extend": "excel",
+    
+    dom: elm,
+     buttons: [{
+         extend: 'excel',
+         filename: "รายชื่อโครงการ",
+         title: "รายชื่อโครงการ",
          exportOptions: {
            columns: [0, 1, 2, 3, 4]
          },
+         customize: function(xlsx) {
+           var sheet = xlsx.xl['styles.xml'];
+           var fontSize = sheet.getElementsByTagName('sz');
+           var fontName = sheet.getElementsByTagName('name');
+           for (i = 0; i < fontSize.length; i++) {
+            fontSize[i].setAttribute("val", "16")
+            fontName[i].setAttribute("val", "TH Sarabun New")
+           }
+         }
        },
-       {
-         "extend": 'pdf',
-         "exportOptions": {
+       { // กำหนดพิเศษเฉพาะปุ่ม pdf
+         extend: 'pdf', // ปุ่มสร้าง pdf ไฟล์
+         text: 'PDF', // ข้อความที่แสดง
+         filename: "รายชื่อโครงการ",
+         title: "รายชื่อโครงการ",
+         pageSize: 'A4', // ขนาดหน้ากระดาษเป็น A4
+         exportOptions: {
            columns: [0, 1, 2, 3, 4]
          },
-         "text": 'PDF',
-         "pageSize": 'A4',
-         "customize": function(doc) {
-           doc.defaultStyle = {
+         customize: function(pdf) { // ส่วนกำหนดเพิ่มเติม ส่วนนี้จะใช้จัดการกับ pdfmake
+           // กำหนด style หลัก
+           pdf.content[1].layout = {
+             hLineWidth: function(i, node) {
+               return 1;
+             },
+             vLineWidth: function(i, node) {
+               return 1;
+             },
+             hLineColor: function(i, node) {
+               return 'black';
+             },
+             vLineColor: function(i, node) {
+               return 'black';
+             }
+           };
+           pdf.styles = {
+             tableHeader: {
+               alignment: 'center',
+               fillColor: 'white',
+               bold: 1,
+             }
+           };
+           pdf.defaultStyle = {
              font: 'THSarabun',
              fontSize: 16
            };
-          //  console.log(doc);
+           pdf.styles.title = {
+             alignment: 'center',
+             fontSize: '20',
+             bold: !0,
+           };
+           // กำหนดความกว้างของ header แต่ละคอลัมน์หัวข้อ
+           pdf.content[1].table.widths = [40, 150, 90, 100, 100];
+           pdf.styles.tableHeader.fontSize = 16; // กำหนดขนาด font ของ header
+           var rowCount = pdf.content[1].table.body.length; // หาจำนวนแถวทั้งหมดในตาราง
+           // วนลูปเพื่อกำหนดค่าแต่ละคอลัมน์ เช่นการจัดตำแหน่ง
+           for (i = 1; i < rowCount; i++) { // i เริ่มที่ 1 เพราะ i แรกเป็นแถวของหัวข้อ
+             pdf.content[1].table.body[i][0].alignment = 'center'; // คอลัมน์แรกเริ่มที่ 0
+           };
          }
-       },
+       }, // สิ้นสุดกำหนดพิเศษปุ่ม pdf
      ],
      "language": {
        "oPaginate": {

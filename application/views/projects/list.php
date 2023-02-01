@@ -193,7 +193,7 @@
              bold: !0,
            };
            // กำหนดความกว้างของ header แต่ละคอลัมน์หัวข้อ
-           pdf.content[1].table.widths = [40, 150, 150, 150];
+           pdf.content[1].table.widths = [40, 150, 90, 100, 100];
            pdf.styles.tableHeader.fontSize = 16; // กำหนดขนาด font ของ header
            var rowCount = pdf.content[1].table.body.length; // หาจำนวนแถวทั้งหมดในตาราง
            // วนลูปเพื่อกำหนดค่าแต่ละคอลัมน์ เช่นการจัดตำแหน่ง

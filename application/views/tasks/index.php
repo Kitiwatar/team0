@@ -73,10 +73,6 @@
     // formData['t_createdate'] = $('#t_createdate').val()
     formData['t_tl_id'] = $('#t_tl_id').val()
     formData['t_p_id'] = $('#t_p_id').val()
-    // $('[name^="inputValue"]').each(function() {
-    //   formData[this.id] = this.value;
-    //   console.log(formData['p_name'])
-    // });
     var dateInput = $('#t_createdate').val()
     if(dateInput.length == 10) {
       // darr = dateInput.split("-");
@@ -215,6 +211,20 @@
     });
   }
 
+  $('.fc-content').click(function(e) {
+    e.preventDefault();
+    console.log($('.fc-content'))
+    // $.ajax({
+    //   method: "post",
+    //   url: 'users/getAddForm'
+    // }).done(function(returnData) {
+    //   $('#mainModalTitle').html(returnData.title);
+    //   $('#mainModalBody').html(returnData.body);
+    //   $('#mainModalFooter').html(returnData.footer);
+    //   $('#mainModal').modal();
+    // });
+  });
+
   function edit(t_id) {
     $('#detailModal').modal('hide');
     $.ajax({
@@ -252,26 +262,6 @@
     $('#mainModalBody').html("");
     $('#mainModalFooter').html("");
     $('#mainModal').modal('hide');
-    // swal({
-    //   title: "ยกเลิกการ" + action,
-    //   text: "คุณต้องการยกเลิกการ" + action + "ใช่หรือไม่",
-    //   type: "warning",
-    //   showCancelButton: true,
-    //   showConfirmButton: true,
-    //   confirmButtonText: "ยืนยัน",
-    //   cancelButtonText: "ยกเลิก",
-    // }).then(function(isConfirm) {
-    //   if (isConfirm.value) {
-    //     let tmpFiles = document.getElementsByClassName("tmpFiles");
-    //     for (var checkbox of tmpFiles) {
-    //       deleteFile(checkbox.value)
-    //     }
-    //     $('#mainModalTitle').html("");
-    //     $('#mainModalBody').html("");
-    //     $('#mainModalFooter').html("");
-    //     $('#mainModal').modal('hide');
-    //   }
-    // })
 
   }
 
@@ -366,8 +356,6 @@
   }
   
   function saveFormProjectSubmit(p_id) {
-    // $('#fMsg').addClass('text-warning');
-    // $('#fMsg').text('กำลังดำเนินการ ...');
     var formData = {};
     formData['p_id'] = p_id;
     formData['p_name'] = $('#p_name').val()

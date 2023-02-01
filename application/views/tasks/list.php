@@ -34,7 +34,7 @@
      <?php } ?>
      <?php if (($_SESSION['u_id'] == $user[0]->u_id || $_SESSION['u_role'] < 2) && $projectData->p_status < 3) { ?>
        <button type="button" class="btn btn-info me-2" onMouseOver="this.style.backgroundColor='#56BFF9'" onMouseOut="this.style.backgroundColor='#56BDC6'" style="background-color: #56BDC6; border-color:#56BDC6;" onclick="endProject(<?= $projectData->p_id ?>,3)"><i class="mdi mdi-check-circle-outline"></i> <?= lang('m_project_finishproject') ?></button>
-       <button type="button" class="btn btn-danger" onclick="endProject(<?= $projectData->p_id ?>,4)"><i class="mdi mdi-close-circle-outline"></i> <?= lang('m_project_cancelproject') ?></button>
+       <button type="button" class="btn btn-danger" onclick="showCancelForm('<?= $projectData->p_id ?>')"><i class="mdi mdi-close-circle-outline"></i> <?= lang('m_project_cancelproject') ?></button>
      <?php } else if (($_SESSION['u_id'] == $user[0]->u_id || $_SESSION['u_role'] < 2) && $projectData->p_status >= 3) { ?>
        <button type="button" class="btn btn-success" onclick="restoreProject('<?= $projectData->p_id ?>')"><i class="mdi mdi-rotate-left"></i> <?= lang('m_project_reinstateproject') ?></button>
      <?php } ?>
@@ -77,14 +77,6 @@
  </div>
  <script>
    $('[data-toggle="tooltip"]').tooltip();
-
-   function showCalendar() {
-
-     $('#calendarModal').modal();
-     setTimeout(function() {
-       $('.fc-month-button').click();
-     }, 50);
-   }
 
    function endProject(p_id, p_status) {
      var action = ""
@@ -196,6 +188,101 @@
      });
    }
 
+   function showCancelForm(p_id) {
+     $.ajax({
+       method: "post",
+       url: '<?= base_url() ?>cancel/getAddForm',
+       data: {
+         p_id: p_id
+       }
+     }).done(function(returnData) {
+       $('#mainModalTitle').html(returnData.title);
+       $('#mainModalBody').html(returnData.body);
+       $('#mainModalFooter').html(returnData.footer);
+       $('#mainModal').modal();
+     });
+   }
+   
+   function saveFormCancel(p_id) {
+    var formData = {};
+    formData['c_cl_id'] = $('#c_cl_id').val()
+    formData['c_detail'] = $('#c_detail').val()
+    formData['c_p_id'] = p_id
+    var count = 0;
+    if (!formData.c_detail) {
+      $('#detailMsg').text(' กรุณากรอกรายละเอียด');
+      $('#c_detail').focus();
+      $('#c_detail').addClass("is-invalid"); 
+      count++
+    } else {
+      $('#detailMsg').text(' ');
+      $('#c_detail').removeClass("is-invalid");
+      $('#c_detail').addClass("is-valid");
+
+    }
+    if (!formData.c_cl_id) {
+      $('#nameMsg').text(' กรุณาเลือกสาเหตุยุติโครงการ');
+      $('#c_cl_id').focus();
+      $('#c_cl_id').addClass("is-invalid"); 
+      count++
+    } else {
+      $('#nameMsg').text(' ');
+      $('#c_cl_id').removeClass("is-invalid");
+      $('#c_cl_id').addClass("is-valid");
+    }
+    if (count > 0) {
+      return false;
+    }
+
+    swal({
+      title: 'ยืนยันการยุติโครงการ',
+      text: 'ยุติโครงการใช่หรือไม่',
+      type: "warning",
+      showCancelButton: true,
+      showConfirmButton: true,
+      confirmButtonText: '<?= lang('bt_confirm')?>',
+      cancelButtonText: '<?= lang('bt_cancel')?>',
+    }).then(function(isConfirm) {
+      if (isConfirm.value) {
+        $.ajax({
+          method: "post",
+          url: '<?= base_url() ?>cancel/add',
+          data: {
+            formData: formData,
+          }
+        }).done(function(returnData) {
+          loadList();
+          if (returnData.status == 1) {
+            swal({
+              title: '<?= lang('md_vm-suc')?>',
+              text: returnData.msg,
+              type: "success",
+              showCancelButton: false,
+              showConfirmButton: false,
+              timer: 1000,
+            });
+            $('#mainModalTitle').html("");
+            $('#mainModalBody').html("");
+            $('#mainModalFooter').html("");
+            $('#mainModal').modal('hide');
+          } else {
+            swal({
+              title: '<?= lang('md_vm-fail')?>',
+              text: returnData.msg,
+              type: "error",
+              showCancelButton: false,
+              showConfirmButton: false,
+              timer: 1000,
+            });
+            $('#mainModalTitle').html("");
+            $('#mainModalBody').html("");
+            $('#mainModalFooter').html("");
+            $('#mainModal').modal('hide');
+          }
+        });
+      }
+    });
+  }
    function showPermissionForm(p_id) {
      $.ajax({
        method: "post",

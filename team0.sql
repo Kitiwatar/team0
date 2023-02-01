@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 25, 2023 at 04:14 PM
+-- Generation Time: Feb 01, 2023 at 03:14 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -32,6 +32,7 @@ CREATE TABLE `pms_cancel` (
   `c_detail` varchar(1000) NOT NULL COMMENT 'รายละเอียดการยุติโครงการ (ตัวอย่าง ลูกค้าไม่ต้องการ...)	',
   `c_createdate` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'วันที่ยุติโครงการ (ตัวอย่าง 2022-12-25 11:14:08)	',
   `c_cl_id` int(11) NOT NULL COMMENT 'ไอดีรายชื่อสาเหตุการยุติโครงการ (ตัวอย่าง 1)',
+  `c_p_id` int(11) NOT NULL COMMENT 'ไอดีโครงการ',
   `c_u_id` int(11) NOT NULL COMMENT 'ไอดีผู้ดำเนินการยุติโครงการ (ตัวอย่าง 1)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ตารางการยุติโครงการ';
 
@@ -45,7 +46,7 @@ CREATE TABLE `pms_cancellist` (
   `cl_id` int(11) NOT NULL COMMENT 'ไอดีสาเหตุยุติโครงการ (ตัวอย่าง 1)',
   `cl_name` varchar(100) NOT NULL COMMENT 'ชื่อสาเหตุยุติโครงการ (ตัวอย่าง ลูกค้ายกเลิก)',
   `cl_createdate` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'วันที่เพิ่ม (ตัวอย่าง 2022-12-25 11:14:08)	',
-  `cl_status` int(11) NOT NULL COMMENT 'สถานะของชื่อสาเหตุยุติโครงการ (0 ถูกลบ, 1 ปกติ)	',
+  `cl_status` int(11) NOT NULL DEFAULT 1 COMMENT 'สถานะของชื่อสาเหตุยุติโครงการ (0 ถูกลบ, 1 ปกติ)	',
   `cl_u_id` int(11) NOT NULL COMMENT 'ไอดีผู้เพิ่ม (ตัวอย่าง 1)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ตารางรายชื่อของสาเหตุยุติโครงการ';
 
@@ -79,38 +80,6 @@ CREATE TABLE `pms_log` (
   `l_u_id` int(11) NOT NULL COMMENT 'ไอดีผู้กระทำ (ตัวอย่าง 1)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ตารางบันทึกประวัติของระบบ';
 
---
--- Dumping data for table `pms_log`
---
-
-INSERT INTO `pms_log` (`l_id`, `l_action`, `l_table`, `l_data`, `l_command`, `l_createdate`, `l_u_id`) VALUES
-(809, 'add', 'pms_project', '{\"p_id\":\"new\",\"p_name\":\"ads\",\"p_detail\":\"asd\",\"p_customer\":\"ads\",\"p_address\":\"\",\"p_telcontact\":\"\",\"p_linecontact\":\"\",\"p_emailcontact\":\"\",\"p_othercontact\":\"\",\"p_createdate\":\"2023-01-10\"}', 'INSERT INTO `pms_project` (`p_id`, `p_name`, `p_detail`, `p_customer`, `p_address`, `p_telcontact`, `p_linecontact`, `p_emailcontact`, `p_othercontact`, `p_createdate`) VALUES (\'new\', \'ads\', \'asd\', \'ads\', \'\', \'\', \'\', \'\', \'\', \'2023-01-10\')', '2023-01-10 04:20:12', 11),
-(810, 'add', 'pms_permission', '{\"per_role\":1,\"per_p_id\":\"42\",\"per_u_id\":\"11\"}', 'INSERT INTO `pms_permission` (`per_role`, `per_p_id`, `per_u_id`) VALUES (1, \'42\', \'11\')', '2023-01-10 04:20:12', 11),
-(811, 'add', 'pms_permission', '{\"per_u_id\":\"12\",\"per_p_id\":\"42\",\"per_role\":2}', 'INSERT INTO `pms_permission` (`per_u_id`, `per_p_id`, `per_role`) VALUES (\'12\', \'42\', 2)', '2023-01-10 04:20:18', 11),
-(812, 'add', 'pms_permission', '{\"per_u_id\":\"13\",\"per_p_id\":\"42\",\"per_role\":2}', 'INSERT INTO `pms_permission` (`per_u_id`, `per_p_id`, `per_role`) VALUES (\'13\', \'42\', 2)', '2023-01-10 04:20:22', 11),
-(813, 'add', 'pms_project', '{\"p_id\":\"new\",\"p_name\":\"zxczxczxc\",\"p_detail\":\"ads\",\"p_customer\":\"asd\",\"p_address\":\"\",\"p_telcontact\":\"\",\"p_linecontact\":\"\",\"p_emailcontact\":\"\",\"p_othercontact\":\"\",\"p_createdate\":\"2021-01-10\"}', 'INSERT INTO `pms_project` (`p_id`, `p_name`, `p_detail`, `p_customer`, `p_address`, `p_telcontact`, `p_linecontact`, `p_emailcontact`, `p_othercontact`, `p_createdate`) VALUES (\'new\', \'zxczxczxc\', \'ads\', \'asd\', \'\', \'\', \'\', \'\', \'\', \'2021-01-10\')', '2023-01-10 04:40:51', 11),
-(814, 'add', 'pms_permission', '{\"per_role\":1,\"per_p_id\":\"43\",\"per_u_id\":\"11\"}', 'INSERT INTO `pms_permission` (`per_role`, `per_p_id`, `per_u_id`) VALUES (1, \'43\', \'11\')', '2023-01-10 04:40:51', 11),
-(815, 'add', 'pms_project', '{\"p_id\":\"new\",\"p_name\":\"ads\",\"p_detail\":\"asd\",\"p_customer\":\"asd\",\"p_address\":\"\",\"p_telcontact\":\"\",\"p_linecontact\":\"\",\"p_emailcontact\":\"\",\"p_othercontact\":\"\",\"p_createdate\":\"2022-01-10\"}', 'INSERT INTO `pms_project` (`p_id`, `p_name`, `p_detail`, `p_customer`, `p_address`, `p_telcontact`, `p_linecontact`, `p_emailcontact`, `p_othercontact`, `p_createdate`) VALUES (\'new\', \'ads\', \'asd\', \'asd\', \'\', \'\', \'\', \'\', \'\', \'2022-01-10\')', '2023-01-10 04:41:02', 11),
-(816, 'add', 'pms_permission', '{\"per_role\":1,\"per_p_id\":\"44\",\"per_u_id\":\"11\"}', 'INSERT INTO `pms_permission` (`per_role`, `per_p_id`, `per_u_id`) VALUES (1, \'44\', \'11\')', '2023-01-10 04:41:02', 11),
-(817, 'add', 'pms_project', '{\"p_id\":\"new\",\"p_name\":\"ads\",\"p_detail\":\"asd\",\"p_customer\":\"asd\",\"p_address\":\"\",\"p_telcontact\":\"\",\"p_linecontact\":\"\",\"p_emailcontact\":\"\",\"p_othercontact\":\"\",\"p_createdate\":\"2020-01-10\"}', 'INSERT INTO `pms_project` (`p_id`, `p_name`, `p_detail`, `p_customer`, `p_address`, `p_telcontact`, `p_linecontact`, `p_emailcontact`, `p_othercontact`, `p_createdate`) VALUES (\'new\', \'ads\', \'asd\', \'asd\', \'\', \'\', \'\', \'\', \'\', \'2020-01-10\')', '2023-01-10 04:41:11', 11),
-(818, 'add', 'pms_permission', '{\"per_role\":1,\"per_p_id\":\"45\",\"per_u_id\":\"11\"}', 'INSERT INTO `pms_permission` (`per_role`, `per_p_id`, `per_u_id`) VALUES (1, \'45\', \'11\')', '2023-01-10 04:41:11', 11),
-(819, 'update', 'pms_project', '{\"p_name\":\"zzzczxca\",\"p_detail\":\"asd\",\"p_customer\":\"asd\",\"p_address\":\"\",\"p_telcontact\":\"\",\"p_linecontact\":\"\",\"p_emailcontact\":\"\",\"p_othercontact\":\"\",\"p_createdate\":\"2020-01-10\"}', 'UPDATE `pms_project` SET `p_name` = \'zzzczxca\', `p_detail` = \'asd\', `p_customer` = \'asd\', `p_address` = \'\', `p_telcontact` = \'\', `p_linecontact` = \'\', `p_emailcontact` = \'\', `p_othercontact` = \'\', `p_createdate` = \'2020-01-10\'\nWHERE `p_id` = \'45\'', '2023-01-10 04:41:19', 11),
-(820, 'update', 'pms_project', '{\"p_name\":\"vvvv\",\"p_detail\":\"asd\",\"p_customer\":\"asd\",\"p_address\":\"\",\"p_telcontact\":\"\",\"p_linecontact\":\"\",\"p_emailcontact\":\"\",\"p_othercontact\":\"\",\"p_createdate\":\"2022-01-10\"}', 'UPDATE `pms_project` SET `p_name` = \'vvvv\', `p_detail` = \'asd\', `p_customer` = \'asd\', `p_address` = \'\', `p_telcontact` = \'\', `p_linecontact` = \'\', `p_emailcontact` = \'\', `p_othercontact` = \'\', `p_createdate` = \'2022-01-10\'\nWHERE `p_id` = \'44\'', '2023-01-10 04:41:24', 11),
-(821, 'update', 'pms_project', '{\"p_status\":\"3\",\"p_enddate\":\"2023-01-11 22:29:17\"}', 'UPDATE `pms_project` SET `p_status` = \'3\', `p_enddate` = \'2023-01-11 22:29:17\'\nWHERE `p_id` = \'42\'', '2023-01-11 15:29:17', 11),
-(822, 'update', 'pms_project', '{\"p_status\":2,\"p_enddate\":null}', 'UPDATE `pms_project` SET `p_status` = 2, `p_enddate` = NULL\nWHERE `p_id` = \'42\'', '2023-01-11 15:33:05', 11),
-(823, 'add', 'pms_project', '{\"p_id\":\"new\",\"p_name\":\"ffffff\",\"p_detail\":\"ffff\",\"p_customer\":\"fff\",\"p_address\":\"\",\"p_telcontact\":\"\",\"p_linecontact\":\"\",\"p_emailcontact\":\"\",\"p_othercontact\":\"\",\"p_createdate\":\"2023-01-11\"}', 'INSERT INTO `pms_project` (`p_id`, `p_name`, `p_detail`, `p_customer`, `p_address`, `p_telcontact`, `p_linecontact`, `p_emailcontact`, `p_othercontact`, `p_createdate`) VALUES (\'new\', \'ffffff\', \'ffff\', \'fff\', \'\', \'\', \'\', \'\', \'\', \'2023-01-11\')', '2023-01-11 15:33:44', 12),
-(824, 'add', 'pms_permission', '{\"per_role\":1,\"per_p_id\":\"46\",\"per_u_id\":\"12\"}', 'INSERT INTO `pms_permission` (`per_role`, `per_p_id`, `per_u_id`) VALUES (1, \'46\', \'12\')', '2023-01-11 15:33:44', 12),
-(825, 'update', 'pms_project', '{\"p_status\":\"3\",\"p_enddate\":\"2023-01-11 22:33:50\"}', 'UPDATE `pms_project` SET `p_status` = \'3\', `p_enddate` = \'2023-01-11 22:33:50\'\nWHERE `p_id` = \'46\'', '2023-01-11 15:33:50', 12),
-(826, 'update', 'pms_project', '{\"p_status\":2,\"p_enddate\":null}', 'UPDATE `pms_project` SET `p_status` = 2, `p_enddate` = NULL\nWHERE `p_id` = \'46\'', '2023-01-11 15:33:54', 12),
-(827, 'update', 'pms_project', '{\"p_status\":\"3\",\"p_enddate\":\"2023-01-11 22:35:17\"}', 'UPDATE `pms_project` SET `p_status` = \'3\', `p_enddate` = \'2023-01-11 22:35:17\'\nWHERE `p_id` = \'46\'', '2023-01-11 15:35:17', 12),
-(828, 'update', 'pms_project', '{\"p_status\":2,\"p_enddate\":null}', 'UPDATE `pms_project` SET `p_status` = 2, `p_enddate` = NULL\nWHERE `p_id` = \'46\'', '2023-01-11 15:35:26', 12),
-(829, 'add', 'pms_task', '{\"t_id\":\"new\",\"t_detail\":\"ฟหก\\n\",\"t_tl_id\":\"1\",\"t_p_id\":\"42\",\"t_createdate\":\"2023-01-11\",\"t_u_id\":\"11\"}', 'INSERT INTO `pms_task` (`t_id`, `t_detail`, `t_tl_id`, `t_p_id`, `t_createdate`, `t_u_id`) VALUES (\'new\', \'ฟหก\\n\', \'1\', \'42\', \'2023-01-11\', \'11\')', '2023-01-11 15:51:43', 11),
-(830, 'update', 'pms_project', '{\"p_status\":2}', 'UPDATE `pms_project` SET `p_status` = 2\nWHERE `p_id` = \'42\'', '2023-01-11 15:51:43', 11),
-(831, 'add', 'pms_project', '{\"p_id\":\"new\",\"p_name\":\"asdasd\",\"p_detail\":\"asd\",\"p_customer\":\"asd\",\"p_address\":\"\",\"p_telcontact\":\"\",\"p_linecontact\":\"\",\"p_emailcontact\":\"\",\"p_othercontact\":\"\",\"p_createdate\":\"2023-01-24\"}', 'INSERT INTO `pms_project` (`p_id`, `p_name`, `p_detail`, `p_customer`, `p_address`, `p_telcontact`, `p_linecontact`, `p_emailcontact`, `p_othercontact`, `p_createdate`) VALUES (\'new\', \'asdasd\', \'asd\', \'asd\', \'\', \'\', \'\', \'\', \'\', \'2023-01-24\')', '2023-01-24 15:02:39', 11),
-(832, 'add', 'pms_permission', '{\"per_role\":1,\"per_p_id\":\"1\",\"per_u_id\":\"11\"}', 'INSERT INTO `pms_permission` (`per_role`, `per_p_id`, `per_u_id`) VALUES (1, \'1\', \'11\')', '2023-01-24 15:02:39', 11),
-(833, 'add', 'pms_task', '{\"t_id\":\"new\",\"t_detail\":\"asdads\",\"t_tl_id\":\"1\",\"t_p_id\":\"1\",\"t_createdate\":\"2023-01-24\",\"t_u_id\":\"11\"}', 'INSERT INTO `pms_task` (`t_id`, `t_detail`, `t_tl_id`, `t_p_id`, `t_createdate`, `t_u_id`) VALUES (\'new\', \'asdads\', \'1\', \'1\', \'2023-01-24\', \'11\')', '2023-01-24 16:02:33', 11),
-(834, 'update', 'pms_project', '{\"p_status\":2}', 'UPDATE `pms_project` SET `p_status` = 2\nWHERE `p_id` = \'1\'', '2023-01-24 16:02:33', 11);
-
 -- --------------------------------------------------------
 
 --
@@ -125,13 +94,6 @@ CREATE TABLE `pms_permission` (
   `per_p_id` int(11) NOT NULL COMMENT 'ไอดีโครงการ (ตัวอย่าง 1)',
   `per_u_id` int(11) NOT NULL COMMENT 'ไอดีพนักงาน (ตัวอย่าง 1)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ตารางสิทธิ์ในโครงการ';
-
---
--- Dumping data for table `pms_permission`
---
-
-INSERT INTO `pms_permission` (`per_id`, `per_role`, `per_createdate`, `per_status`, `per_p_id`, `per_u_id`) VALUES
-(1, 1, '2023-01-24 15:02:39', 1, 1, 11);
 
 -- --------------------------------------------------------
 
@@ -155,13 +117,6 @@ CREATE TABLE `pms_project` (
   `p_status` int(11) NOT NULL DEFAULT 1 COMMENT 'สถานะโครงการ (น้อยกว่า 1 ถูกลบ, 1 รอดำเนินการ, 2 กำลังดำเนินการ, 3 สำเร็จ, 4 ยกเลิก)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ตารางโครงการ';
 
---
--- Dumping data for table `pms_project`
---
-
-INSERT INTO `pms_project` (`p_id`, `p_name`, `p_customer`, `p_telcontact`, `p_linecontact`, `p_emailcontact`, `p_othercontact`, `p_detail`, `p_address`, `p_createdate`, `p_enddate`, `p_countdown`, `p_status`) VALUES
-(1, 'asdasd', 'asd', '', '', '', '', 'asd', '', '2023-01-24', NULL, NULL, 2);
-
 -- --------------------------------------------------------
 
 --
@@ -178,13 +133,6 @@ CREATE TABLE `pms_task` (
   `t_u_id` int(11) NOT NULL COMMENT 'ไอดีพนักงาน (ตัวอย่าง 1)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ตารางกิจกรรม';
 
---
--- Dumping data for table `pms_task`
---
-
-INSERT INTO `pms_task` (`t_id`, `t_detail`, `t_createdate`, `t_status`, `t_tl_id`, `t_p_id`, `t_u_id`) VALUES
-(1, 'asdads', '2023-01-24', 1, 1, 1, 11);
-
 -- --------------------------------------------------------
 
 --
@@ -198,21 +146,6 @@ CREATE TABLE `pms_tasklist` (
   `tl_status` int(11) NOT NULL DEFAULT 1 COMMENT 'สถานะของชื่อกิจกรรม (0 ถูกลบ, 1 ปกติ)',
   `tl_u_id` int(11) NOT NULL COMMENT 'ไอดีพนักงาน (ตัวอย่าง 1)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ตารางรายชื่อกิจกรรม';
-
---
--- Dumping data for table `pms_tasklist`
---
-
-INSERT INTO `pms_tasklist` (`tl_id`, `tl_name`, `tl_createdate`, `tl_status`, `tl_u_id`) VALUES
-(1, 'เก็บความต้องการ', '2022-09-23 21:09:48', 1, 1),
-(2, 'เสนอราคา', '2022-09-23 21:10:06', 1, 1),
-(3, 'นำเสนองาน', '2022-09-23 21:11:16', 1, 1),
-(4, 'ประชุม', '2022-09-28 18:55:15', 1, 11),
-(5, 'ทดสอบระบบ', '2022-09-28 20:39:08', 1, 11),
-(6, 'ทดสอบ1', '2022-10-10 17:11:00', 0, 11),
-(7, 'ประชุม', '2022-12-01 15:06:46', 0, 11),
-(8, 'มะเขือ', '2022-12-01 15:28:01', 0, 11),
-(9, 'ฟ', '2022-12-01 15:29:39', 0, 11);
 
 -- --------------------------------------------------------
 
@@ -232,43 +165,6 @@ CREATE TABLE `pms_user` (
   `u_creator` int(11) NOT NULL COMMENT 'ผู้ที่ทำการเพิ่ม (ตัวอย่าง 1)',
   `u_role` int(11) NOT NULL COMMENT 'สิทธิ์ในการใช้งาน (น้อยกว่า 1 super admin, 1 ผู้ดูแลระบบ, 2 หัวหน้าโครงการ, 3 พนักงาน)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ตารางผู้ใช้';
-
---
--- Dumping data for table `pms_user`
---
-
-INSERT INTO `pms_user` (`u_id`, `u_email`, `u_password`, `u_firstname`, `u_lastname`, `u_tel`, `u_createdate`, `u_status`, `u_creator`, `u_role`) VALUES
-(1, 'secret@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'ปฏิภาณ', 'ปั้นสง่า', '0912345671', '2022-08-01 03:00:00', 1, 1, -1),
-(2, '63160018@go.buu.ac.th', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'ธนพงศ์', 'หงษ์บิน', '0989340452', '2022-08-01 03:00:00', 1, 1, -1),
-(3, '63160290@go.buu.ac.th', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'ปวันรัตน์', 'ตั้งประเสริฐ', '0675340120', '2022-08-01 03:00:00', 1, 1, -1),
-(4, '63160246@go.buu.ac.th', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'จิรเดช', 'ป้อมใหญ่', '0860136623', '2022-08-01 03:00:00', 1, 1, -1),
-(5, '63160239@go.buu.ac.th', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'ณัฐกิตติ์', 'ชัยกล้าหาญ', '0927373262', '2022-08-01 03:00:00', 1, 1, -1),
-(6, '63160258@go.buu.ac.th', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'มติมนต์', 'นรดี', '0912297285', '2022-08-01 03:00:00', 1, 1, -1),
-(7, '63160234@go.buu.ac.th', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'กิติวัฒน์', 'อรุญวงษ์', '0835297285', '2022-08-01 03:00:00', 1, 1, -1),
-(8, '63160238@go.buu.ac.th', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'ณฐกร', 'พงษ์สาริกิจ', '0978519188', '2022-08-01 03:00:00', 1, 1, -1),
-(9, '63160265@go.buu.ac.th', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'สิรภัทร', 'ตันเสวตวงษ์', '0870598760', '2022-08-01 03:00:00', 1, 1, -1),
-(10, '63160248@go.buu.ac.th', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'ปฏิภาณ', 'ปั้นสง่า', '0810584731', '2022-08-01 03:00:00', 1, 1, -1),
-(11, 'test@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'ขจรศักดิ์', 'ผักใบเขียว', '0838853168', '2022-08-01 03:00:00', 1, 1, 1),
-(12, 'nawarat.passakul@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'นวรัตน์', 'พาสกุล', '0822801109', '2022-08-01 03:00:00', 1, 1, 2),
-(13, 'sunisa.su@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'สุนิษา', 'สุพรรณภาคิน', '0687025049', '2022-08-01 03:00:00', 1, 1, 2),
-(14, 'rachapol@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'ธัชพล', 'พงศ์พิโรจ', '0848430664', '2022-08-01 03:00:00', 1, 1, 3),
-(15, 'ronnaporn.tada@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'รณพร', 'ธาดาวรวงศ์', '0644219211', '2022-08-01 03:00:00', 1, 1, 3),
-(16, 'phonlaphat.pi@gmail.com', 'f9194e73f9e9459e3450ea10a179cdf77aafa695beecd3b9344a98d111622243', 'พลภัทร', 'พิจิตเจริญวงศ์', '0832438221', '2022-08-01 03:00:00', 1, 1, 3),
-(17, 'yodsaphat2907@gmail.com', 'f9194e73f9e9459e3450ea10a179cdf77aafa695beecd3b9344a98d111622243', 'ยศพัฒน์', 'พิชิตชัย', '0617610871', '2022-08-01 03:00:00', 1, 1, 3),
-(18, 'bawornwit.ko@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'บวรวิทย์', 'คมปราชญ์', '0839386762', '2022-08-01 03:00:00', 1, 1, 3),
-(19, 'piyarom.sri@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'ปิยรมย์', 'ศรีวรรณวิไล', '0651338630', '2022-08-01 03:00:00', 1, 1, 3),
-(20, 'apple.kulanan@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'กุลนันท์', 'พงษ์ธนาพัฒน์', '0637237711', '2022-08-01 03:00:00', 1, 1, 2),
-(21, 'pongsit1010@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'พงษ์สิทธิ์', 'อุดมเสก', '0937237799', '2022-08-01 03:00:00', 1, 1, 3),
-(22, 'thanaphat0901@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'ธนภัทร', 'จรัสธรรม', '0836949645', '2022-08-01 03:00:00', 1, 1, 2),
-(23, 'napassorn.jan@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'นภัสสร', 'จันทรพร', '0906219227', '2022-08-01 03:00:00', 1, 1, 3),
-(24, 'sopol2406@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'โสพล', 'จันทรทรัพย์', '0816804298', '2022-08-01 03:00:00', 1, 1, 3),
-(25, 'suchada1512@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'สุชาดา', 'พินิจนันท์', '0652864431', '2022-08-01 03:00:00', 1, 1, 3),
-(26, 'sommat@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'สมมาตร', 'รักดี', '0612412412', '2022-09-11 14:07:28', 0, 11, 3),
-(27, 'ponganan@gmail.com', '7e77ef5235e0cfa21343ce5fc578ac8e91c1a30caa8407e2fcd501653b72d35e', 'พงษ์อนันต์', 'ตั้งตระกูลเจริญ', '0698812211', '2022-09-20 06:06:33', 1, 11, 3),
-(28, 'anriya@gmail.com', 'd2c727c5d4ee46d57a27a4a4018bf0aa804d8739f2847fe86e14f845d0870bef', 'อัญริญา', 'ธาดาวรวงศ์', '0891248453', '2022-09-20 06:28:25', 1, 1, 3),
-(29, 'test1@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'สมพงษ์', 'ใจดี', '0922222222', '2022-10-05 18:36:56', 1, 11, 3),
-(30, 'somrakjaidee@gmail.com', 'f9e8c94f5fbd0d2cb14ba84848d3431e8118d6c42911d5f2138a3804a697f631', 'สมรัก', 'ใจดี', '0912333333', '2022-12-07 14:50:26', 1, 11, 3),
-(31, 'somsri@gmail.com', '3f017cf319d70c23dab83ced4e51e506da6393dc72c302e3cd00dfb42ccc5d4b', 'สมศรี', 'ใจดี', '0811111111', '2022-12-28 17:29:33', 1, 11, 3);
 
 --
 -- Indexes for dumped tables
@@ -348,43 +244,43 @@ ALTER TABLE `pms_cancellist`
 -- AUTO_INCREMENT for table `pms_file`
 --
 ALTER TABLE `pms_file`
-  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีไฟล์ (ตัวอย่าง 1)', AUTO_INCREMENT=18;
+  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีไฟล์ (ตัวอย่าง 1)';
 
 --
 -- AUTO_INCREMENT for table `pms_log`
 --
 ALTER TABLE `pms_log`
-  MODIFY `l_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีบันทึก (ตัวอย่าง 1)', AUTO_INCREMENT=835;
+  MODIFY `l_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีบันทึก (ตัวอย่าง 1)';
 
 --
 -- AUTO_INCREMENT for table `pms_permission`
 --
 ALTER TABLE `pms_permission`
-  MODIFY `per_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีสิทธิ์ (ตัวอย่าง 1)', AUTO_INCREMENT=2;
+  MODIFY `per_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีสิทธิ์ (ตัวอย่าง 1)';
 
 --
 -- AUTO_INCREMENT for table `pms_project`
 --
 ALTER TABLE `pms_project`
-  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีโครงการ (ตัวอย่าง 1)', AUTO_INCREMENT=2;
+  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีโครงการ (ตัวอย่าง 1)';
 
 --
 -- AUTO_INCREMENT for table `pms_task`
 --
 ALTER TABLE `pms_task`
-  MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีกิจกรรม (ตัวอย่าง 1)', AUTO_INCREMENT=2;
+  MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีกิจกรรม (ตัวอย่าง 1)';
 
 --
 -- AUTO_INCREMENT for table `pms_tasklist`
 --
 ALTER TABLE `pms_tasklist`
-  MODIFY `tl_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีชื่อกิจกรรม (ตัวอย่าง 1)', AUTO_INCREMENT=10;
+  MODIFY `tl_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีชื่อกิจกรรม (ตัวอย่าง 1)';
 
 --
 -- AUTO_INCREMENT for table `pms_user`
 --
 ALTER TABLE `pms_user`
-  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีผู้ใช้ (ตัวอย่าง 1)', AUTO_INCREMENT=32;
+  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีผู้ใช้ (ตัวอย่าง 1)';
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

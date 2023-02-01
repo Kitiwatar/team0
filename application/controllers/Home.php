@@ -131,7 +131,7 @@ class Home extends CI_Controller
 		}
 		$data['listProject'] = $dataUser;
 		$data['listName'] = $dataName;
-		$json['html'] = $this->load->view('home/list', $data, TRUE);
+		$json['html'] = $this->load->view('home/listuser', $data, TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 

@@ -41,7 +41,7 @@ class Tasklist extends CI_Controller {
 		if(is_array($getData)) {
 			for($i=0; $i<count($getData); $i++) {
 				// $taskCheck[$i] = null;
-				$taskCheck[$i] = $this->genmod->getAll('pms_task', '*',array('t_tl_id'=>$getData[$i]->tl_id),'','','');
+				$taskCheck[$i] = $this->genmod->getAll('pms_task', '*',array('t_tl_id'=>$getData[$i]->tl_id,'t_status'=>1),'','','');
 			}
 		}
 		$data['taskCheck'] = $taskCheck;

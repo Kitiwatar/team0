@@ -107,11 +107,6 @@ date_default_timezone_set("Asia/Bangkok"); ?>
     let date = document.getElementById("p_createdate")
     date.focus()
   }
-
-
-  //let iframe = $('#p_address').val();
-  //if(iframe != ""){ $(".gmap_canvas").html(iframe); }
-
   $('#p_address').on('input', function() {
     let result = this.value.substr(0, 7);
     if (result == "<iframe") {

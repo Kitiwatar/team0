@@ -25,9 +25,23 @@
 <!-- Calendar JavaScript -->
 <script src="<?= base_url() ?>assets/node_modules/calendar/jquery-ui.min.js"></script>
 <script src="<?= base_url() ?>assets/node_modules/moment/moment.js"></script>
-<script src='<?= base_url() ?>assets/node_modules/calendar/dist/fullcalendar.min.js'></script>
+<script src='<?= base_url() ?>assets/node_modules/calendar/dist/fullcalendar.js'></script>
 <!-- <script src="<?= base_url() ?>assets/node_modules/calendar/dist/cal-init.js"></script> -->
 <script>
+      function viewTask(t_id) {
+    $.ajax({
+      method: "post",
+      url: 'tasks/getDetailForm',
+      data: {
+        t_id: t_id
+      }
+    }).done(function(returnData) {
+      $('#detailModalTitle').html(returnData.title);
+      $('#detailModalBody').html(returnData.body);
+      $('#detailModalFooter').html(returnData.footer);
+      $('#detailModal').modal();
+    });
+  }
     ! function($) {
         "use strict";
 
@@ -66,24 +80,27 @@
             /* on click on event */
             CalendarApp.prototype.onEventClick = function(calEvent, jsEvent, view) {
                 var $this = this;
-                var form = $("<form></form>");
-                form.append("<label>Change event name</label>");
-                form.append("<div class='input-group'><input class='form-control' type=text value='" + calEvent.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> Save</button></span></div>");
-                $this.$modal.modal({
-                    backdrop: 'static'
-                });
-                $this.$modal.find('.delete-event').show().end().find('.save-event').hide().end().find('.modal-body').empty().prepend(form).end().find('.delete-event').unbind('click').click(function() {
-                    $this.$calendarObj.fullCalendar('removeEvents', function(ev) {
-                        return (ev._id == calEvent._id);
-                    });
-                    $this.$modal.modal('hide');
-                });
-                $this.$modal.find('form').on('submit', function() {
-                    calEvent.title = form.find("input[type=text]").val();
-                    $this.$calendarObj.fullCalendar('updateEvent', calEvent);
-                    $this.$modal.modal('hide');
-                    return false;
-                });
+                let fc = document.getElementsByClassName('fc-day-grid-even');
+                console.log(fc)
+                // viewTask(1)
+                // var form = $("<form></form>");
+                // form.append("<label>Change event name</label>");
+                // form.append("<div class='input-group'><input class='form-control' type=text value='" + calEvent.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> Save</button></span></div>");
+                // $this.$modal.modal({
+                //     backdrop: 'static'
+                // });
+                // $this.$modal.find('.delete-event').show().end().find('.save-event').hide().end().find('.modal-body').empty().prepend(form).end().find('.delete-event').unbind('click').click(function() {
+                //     $this.$calendarObj.fullCalendar('removeEvents', function(ev) {
+                //         return (ev._id == calEvent._id);
+                //     });
+                //     $this.$modal.modal('hide');
+                // });
+                // $this.$modal.find('form').on('submit', function() {
+                //     calEvent.title = form.find("input[type=text]").val();
+                //     $this.$calendarObj.fullCalendar('updateEvent', calEvent);
+                //     $this.$modal.modal('hide');
+                //     return false;
+                // });
             },
             /* on select */
             CalendarApp.prototype.onSelect = function(start, end, allDay) {
@@ -149,7 +166,7 @@
             }
         /* Initializing */
         CalendarApp.prototype.init = function() {
-                this.enableDrag();
+                // this.enableDrag();
                 /*  Initialize the calendar  */
                 var date = new Date();
                 var d = date.getDate();
@@ -160,7 +177,7 @@
                 var defaultEvents = [
                     <?php if (is_array($getData)) {
                         foreach ($getData as $key => $value) {
-                            echo "{title: '" . $value->tl_name . "',start: '" . $value->t_createdate . "',className: 'bg-info'},";
+                            echo "{title: '" . $value->tl_name . "',start: '" . $value->t_createdate . "',className: 'bg-info ".$value->t_id."',t_id: ".$value->t_id.",editable:false},";
                         }
                     } ?>
                 ];
