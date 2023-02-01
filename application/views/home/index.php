@@ -652,6 +652,26 @@
     })
   }
 
+  function loadCancelList() {
+    $.ajax({
+      url: 'Home/getCancelRank',
+      method: 'post'
+    }).done(function(returnData) {
+      // console.log(returnData)
+      $('#listDiv2').html(returnData.html)
+    })
+  }
+
+  function loadToDoList() {
+    $.ajax({
+      url: 'Home/getToDoList',
+      method: 'post'
+    }).done(function(returnData) {
+      //  console.log(returnData)
+      $('#todolist').html(returnData.html)
+    })
+  }
+
   // End Function LoadList for Rank
 
   getProjectSummary();
@@ -660,6 +680,7 @@
   loadToDoList();
 
   refreshData();
+  loadCancelList();
 
   function refreshData() {
     var downloadTimer = setInterval(function() {
@@ -667,6 +688,7 @@
       loadRankList();
       // loadCauseList();
       loadToDoList();
+      loadCancelList();
     }, 1000 * 60 * 30);
   }
 

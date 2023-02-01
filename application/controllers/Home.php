@@ -134,7 +134,46 @@ class Home extends CI_Controller
 		$json['html'] = $this->load->view('home/listuser', $data, TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
+	public function getCancelRank() {
+		// Create by: Patiphan Pansanga, Kitiwat Arunwong 29-09-2565 get top five employee has most working
+		$allCancel = $this->genmod->getAll('pms_cancel', '*', '', 'c_createdate desc', '', '');
+		$dataName = array();
+		$dataCancel= array();
+		if (is_array($allCancel)) {
+			 $arrayJoin = array('pms_cancel' => 'pms_cancellist.cl_id=pms_cancel.c_id','pms_cancellist'=>'pms_cancel.c_id=pms_cancellist.cl_id');
+			foreach ($allCancel as $key => $value) {
+				$dataCancel[$key] = 0;
+				for($i=1; $i<=2; $i++) {
+					$cancellist = $this->genmod->getAll('pms_cancellist', '*', array('cl_id'=>$value->cl_id, 'cl_status'=>$i), '', $arrayJoin, '');
+					if(is_array($cancellist)) {
+						$dataCancel[$key] += count($cancellist);
+					} 
+				}
+	             			
+				$dataName[$key] = $value->c_detail;
+			}
+		}
+		for ($i = 0; $i <  count($dataCancel) - 1; $i++) {
+			// Last i elements are already
+			// in place
+			for ($j = 0; $j <  count($dataCancel) - $i - 1; $j++) {
+				if ($dataCancel[$j] < $dataCancelr[$j + 1]) {
+					// swap($dataUser[$j], $dataUser[$j + 1]);
+					$temp = $dataCancelr[$j];
+					$dataUser[$j] = $dataCancel[$j + 1];
+					$dataUser[$j + 1] = $temp;
 
+					$tempName = $dataName[$j];
+					$dataName[$j] = $dataName[$j + 1];
+					$dataName[$j + 1] = $tempName;
+				}
+			}
+		}
+		$data['listcancel'] = $allCancel;
+		$data['listName'] = $dataName;
+		$json['html'] = $this->load->view('home/listcancel', $data, TRUE);
+		$this->output->set_content_type('application/json')->set_output(json_encode($json));
+	}
 	public function getProjects() {
 		// Create by: Patiphan Pansanga, Kitiwat Arunwong 29-09-2565 view project by status name
 		$p_status = $this->input->post('p_status');
