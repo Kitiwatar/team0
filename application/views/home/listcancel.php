@@ -4,13 +4,12 @@
 		<div class="card">
 			<div class="card-body py-0">
 				<div class="table-responsive">
-					<table class="display table dt-responsive nowrap" id="tablerank">
+					<table class="display table dt-responsive nowrap" id="tableCancel">
 						<thead>
 							<tr>
-								<th class="text-center"><?= lang('tl_no.') ?></th>
-								<th><?= lang('tl_home_name') ?></th>
-								<th class="text-center"><?= lang('tl_home_amountworkpiece') ?></th>
-								<!-- <th class="text-center"><?= lang('tl_home_update') ?></th> -->
+								<th class="text-center">อันดับ</th>
+								<th class="text-center">สาเหตุการยกเลิก</th>
+								<th class="text-center">จำนวนทั่งหมด</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -19,8 +18,8 @@
 								<?php for ($i = 0; $i < 5; $i++) : ?>
 									<tr>
 										<td class="text-center"><?= $count++ ?></td>
-										<td><?= $listName[$i] ?></td>
-										<td class="text-center"><?= $listcancel[$i] ?></td>
+										<td><?= $listCancelName[$i]?></td>
+										<td class="text-center"><?= $listcancel[$i]?></td>
 										<!-- <td class="text-center"><?= thaiDate(date("Y-m-d")) ?></td> -->
 									</tr>
 								<?php endfor; ?>
@@ -34,7 +33,7 @@
 </div>
 
 <script>
-	$('#tablerank').DataTable({
+	$('#tableCancel').DataTable({
 		"dom": 't',
 		"order": [
 			[2, "desc"]

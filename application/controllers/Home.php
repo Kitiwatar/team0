@@ -1,5 +1,8 @@
 <?php
 // Create by : Patiphan Pansanga, Kitiwat Arunwong 07-09-2565 Project Summary
+
+use SebastianBergmann\Environment\Console;
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Home extends CI_Controller
@@ -136,44 +139,48 @@ class Home extends CI_Controller
 	}
 	public function getCancelRank() {
 		// Create by: Patiphan Pansanga, Kitiwat Arunwong 29-09-2565 get top five employee has most working
-		$allCancel = $this->genmod->getAll('pms_cancel', '*', '', 'c_createdate desc', '', '');
-		$dataName = array();
-		$dataCancel= array();
+		$allCancel = $this->genmod->getAll('pms_cancellist', '*', array('cl_status'=>1), 'cl_createdate desc', '', '');
+		$countCancel = array();
+		$NameCancel= array();
 		if (is_array($allCancel)) {
-			 $arrayJoin = array('pms_cancel' => 'pms_cancellist.cl_id=pms_cancel.c_id','pms_cancellist'=>'pms_cancel.c_id=pms_cancellist.cl_id');
+			 $arrayJoin = array('pms_cancel'=>'pms_cancellist.cl_id =pms_cancel.c_cl_id','pms_project' => 'pms_project.p_id=pms_cancel.c_p_id');
 			foreach ($allCancel as $key => $value) {
-				$dataCancel[$key] = 0;
-				for($i=1; $i<=2; $i++) {
-					$cancellist = $this->genmod->getAll('pms_cancellist', '*', array('cl_id'=>$value->cl_id, 'cl_status'=>$i), '', $arrayJoin, '');
-					if(is_array($cancellist)) {
-						$dataCancel[$key] += count($cancellist);
-					} 
+				// $dataCancel[$key] = 0;
+				// 		$cancellist = $this->genmod->getAll('pms_cancellist', '*', array('cl_id'=>$value->c_cl_id,'cl_status'=>$i), '', $arrayJoin, '');
+				// 		if(is_array($cancellist)) {
+				//  		$dataCancel[$key] += count($cancellist);
+				// 		} 
+				// 	 $dataName[$key] = $value->c_detail;
+				$countCancel[$key] = $this->genmod->countAll('pms_cancel',array('c_cl_id' =>$value->cl_id ));
+
+				$NameCancel[$key] = $value->cl_name;
 				}
-	             			
-				$dataName[$key] = $value->c_detail;
+				
+
 			}
-		}
-		for ($i = 0; $i <  count($dataCancel) - 1; $i++) {
+		
+		for ($i = 0; $i <  count($countCancel) - 1; $i++) {
 			// Last i elements are already
 			// in place
-			for ($j = 0; $j <  count($dataCancel) - $i - 1; $j++) {
-				if ($dataCancel[$j] < $dataCancelr[$j + 1]) {
+			for ($j = 0; $j <  count($countCancel) - $i - 1; $j++) {
+				if ($countCancel[$j] < $countCancel[$j + 1]) {
 					// swap($dataUser[$j], $dataUser[$j + 1]);
-					$temp = $dataCancelr[$j];
-					$dataUser[$j] = $dataCancel[$j + 1];
-					$dataUser[$j + 1] = $temp;
+					$temp = $countCancel[$j];
+					$dataCancel[$j] = $countCancel[$j + 1];
+					$dataCancel[$j + 1] = $temp;
 
-					$tempName = $dataName[$j];
-					$dataName[$j] = $dataName[$j + 1];
-					$dataName[$j + 1] = $tempName;
+					$tempName = $countCancel[$j];
+					$countCancel[$j] = $countCancel[$j + 1];
+					$countCancel[$j + 1] = $tempName;
 				}
 			}
 		}
-		$data['listcancel'] = $allCancel;
-		$data['listName'] = $dataName;
+		$data['listcancel'] =$dataCancel;
+		$data['listCancelName'] =$NameCancel;
 		$json['html'] = $this->load->view('home/listcancel', $data, TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
-	}
+		}
+
 	public function getProjects() {
 		// Create by: Patiphan Pansanga, Kitiwat Arunwong 29-09-2565 view project by status name
 		$p_status = $this->input->post('p_status');
