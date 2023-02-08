@@ -94,9 +94,9 @@
         .name:hover {
             color: #01d0f8;
         }
-        
     </style>
 </head>
+
 <body class="skin-blue fixed-layout" <?= isset($_SESSION['u_id']) ? 'onload="countDown()" ' . 'onclick="updateTimeout()"' : '' ?>>
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
@@ -216,31 +216,49 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li>
-                            <a class="waves-effect waves-dark" href="<?= base_url() ?>" aria-expanded="false">
-                                <i class="ti-bar-chart-alt" style="font-size: 18px;"></i><span class="hide-menu"><?= lang('dashboard') ?></span>
-                            </a>
-                        </li>
+
+                        <?php if (!isset($_SESSION['u_id'])) { ?>
+                            <li>
+                                <a class=" waves-effect waves-dark" href="<?= base_url() ?>" aria-expanded="false">
+                                    <i class="ti-bar-chart-alt" style="font-size: 18px;"></i><span class="hide-menu"><?= lang('dashboard') ?></span></a>
+                            </li>
+                        <?php } else { ?>
+                            <li>
+                                <a class="has-arrow waves-effect waves-dark" href="<?= base_url() ?>" aria-expanded="false">
+                                    <i class="ti-bar-chart-alt" style="font-size: 18px;"></i><span class="hide-menu"><?= lang('dashboard') ?></span></a>
+                                <?php if ($_SESSION['u_role'] <= 1) : ?>
+                                    <ul aria-expanded="false" class="collapse">
+                                        <li>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>Home/dashboard" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i>ส่วนบุคคล</a>
+                                        </li>
+                                        <li>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>Home/dashboard_admin" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i>ผู้ดูแลระบบ</a>
+                                        </li>
+                                    </ul>
+                                    <?php endif; ?>
+                            </li>
+                        <?php } ?>
+
                         <?php if (isset($_SESSION['u_id'])) : ?>
                             <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-doc" style="font-size: 20px;"></i><span class="hide-menu"><?= lang('project') ?></span></a>
-                                    <ul aria-expanded="false" class="collapse">
+                                <ul aria-expanded="false" class="collapse">
                                     <?php if ($_SESSION['u_role'] <= 1) : ?>
                                         <li>
-                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>projects/all" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('all_project') ?></a>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>projects/all" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i><?= lang('all_project') ?></a>
                                         </li>
-                                        <?php endif; ?>
-                                        <li>
-                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>projects" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('my_project') ?></a>
-                                        </li>
-                                        <?php if ($_SESSION['u_role'] <= 2) : ?>
+                                    <?php endif; ?>
+                                    <li>
+                                        <a class="waves-effect waves-dark" href="<?= base_url() ?>projects" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('my_project') ?></a>
+                                    </li>
+                                    <?php if ($_SESSION['u_role'] <= 2) : ?>
                                         <li>
                                             <a class="waves-effect waves-dark" href="<?= base_url() ?>projects/addProject" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('m_project_addproject') ?></a>
                                         </li>
-                                        <?php endif; ?>
-                                    </ul>
-                                </li>
+                                    <?php endif; ?>
+                                </ul>
+                            </li>
                             <?php if ($_SESSION['u_role'] <= 1) : ?>
-                                <li> 
+                                <li>
                                     <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-screen-tablet" style="font-size: 18px;"></i><span class="hide-menu"><?= lang('report') ?></span></a>
                                     <ul aria-expanded="false" class="collapse">
                                         <li>
@@ -251,7 +269,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li> 
+                                <li>
                                     <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-settings" style="font-size: 20px;"></i><span class="hide-menu"><?= lang('setting') ?></span></a>
                                     <ul aria-expanded="false" class="collapse">
                                         <li>
@@ -265,7 +283,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                
+
                             <?php endif; ?>
                             <?php if ($_SESSION['u_role'] < 1) : ?>
                                 <li>
@@ -275,7 +293,7 @@
                                 </li>
                             <?php endif; ?>
                         <?php endif; ?>
-                        <li> 
+                        <li>
                             <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-world" style="font-size: 18px;"></i><span class="hide-menu"><?= lang('lang') ?></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li>
@@ -400,13 +418,13 @@
     <div class="modal fade" id="mdModal" tabindex="-1" aria-labelledby="modalCenterTitle" aria-hidden="true" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered" role="document" id='modalSize'>
             <div class="modal-content">
-            
-                    
-               
+
+
+
                 <div class="modal-body" id="mdModalBody">
-                   
+
                 </div>
-                
+
             </div>
         </div>
     </div>

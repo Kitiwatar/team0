@@ -1,4 +1,3 @@
-<!-- Create by: Kitiwat Arunwong 24-09-2565 -->
 <style>
   .cardProject:hover {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -71,7 +70,7 @@
   function getProjectSummary() {
     //Start Get Project Summary
     $.ajax({
-      url: 'Home/getProjectSummary',
+      url: '<?= base_url() ?>Home/getProjectSummary',
       method: 'post'
     }).done(function(returnData) {
       $('.all').html(returnData.projectSum)
@@ -266,7 +265,7 @@
 
   function loadCauseList() {
     $.ajax({
-      url: 'Home/getCause',
+      url: '<?= base_url() ?>Home/getCause',
       method: 'post'
     }).done(function(returnData) {
       // console.log(returnData)
@@ -276,7 +275,7 @@
 
   function loadRankList() {
     $.ajax({
-      url: 'Home/getRank',
+      url: '<?= base_url() ?>Home/getRank',
       method: 'post'
     }).done(function(returnData) {
       // console.log(returnData)
@@ -286,7 +285,7 @@
 
   function loadToDoList() {
     $.ajax({
-      url: 'Home/getToDoList',
+      url: '<?= base_url() ?>Home/getToDoList',
       method: 'post'
     }).done(function(returnData) {
       //  console.log(returnData)
@@ -296,7 +295,7 @@
 
   function loadCancelList() {
     $.ajax({
-      url: 'Home/getCancelRank',
+      url: '<?= base_url() ?>Home/getCancelRank',
       method: 'post'
     }).done(function(returnData) {
       // console.log(returnData)
@@ -306,7 +305,7 @@
 
   function loadToDoList() {
     $.ajax({
-      url: 'Home/getToDoList',
+      url: '<?= base_url() ?>Home/getToDoList',
       method: 'post'
     }).done(function(returnData) {
       //  console.log(returnData)
@@ -384,4 +383,144 @@
   }
   refreshTime();
   //End Get Project Summary
+</script>
+<!------------------------------------------------------------------ Dashbaord For User ------------------------------------------------------------------>
+<?php if (isset($_SESSION['u_id'])) : ?>
+  <div class="row">
+    <div class="col-lg-4 col-md-12 col-sm-12">
+      <div class="card" style="height: 95%;">
+        <div class="card-body">
+          <div class="row">
+            <?php date_default_timezone_set("Asia/Bangkok"); ?>
+            <div class="col-lg-12 col-md-12 Date" style="font-size: 45px; font-weight:bold;">วันที่ <span id="dayNow"></span></div>
+            <div class="pb-4 col-lg-12 col-md-12" style="font-size: 45px; font-weight:bold;"><span id="monthNow"></span> <span id="yearNow"></span></div>
+            <div class="col-lg-12 col-md-12" style="font-size: 20px;">เวลาปัจจุบัน </div>
+            <?php if ($_SESSION['lang'] == "th") :  ?>
+              <div class="col-lg-12 col-md-12" style="font-size: 70px; font-weight:bold; color:#03A9F3;"><span id="timeNow"></span> น.</div>
+            <?php else : ?>
+              <div class="col-lg-12 col-md-12" style="font-size: 70px; font-weight:bold; color:#03A9F3;"><span id="timeNow"></span></div>
+            <?php endif; ?>
+            <div class="col-lg-3 col-md-3">
+              <i class="far fa-envelope" style="font-size: 70px;"></i>
+            </div>
+            <div class="col-lg-9 col-md-9">
+              <div style="font-size: 18px;">ข้อความจากระบบ </div>
+              <div style="font-size: 23px; font-weight:bold;">"สวัสดีคุณ <?= $_SESSION['u_firstname'] ?>"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8 col-md-12 col-sm-12">
+      <div class="card" style="height: 95%;" id="todolist">
+      </div>
+    </div>
+    <div class="col-lg-12 col-md-12 mt-3">
+      <div class="card p-2" style="background-color: #03A9F3;">
+        <div style="color:white;" class="fs-4 px-2">ภาพรวมโครงการที่มีส่วนเกี่ยวข้อง พ.ศ <?= $date = date('Y') + 543; ?></div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="col-lg-12 col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="fs-3">กราฟแสดงจำนวนโครงการที่มีส่วนเกี่ยวข้องตามสถานะ</div>
+            <div id="ResprojectChart" class="py-5 pe-3" style="width:100%; height:520px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="row">
+        <div class="col-lg-8 col-md-8">
+          <div class="card">
+            <div class="card-body">
+              <div class="fs-3"><?= lang('sp_home_responproject') ?></div>
+              <div class="row">
+                <div class="col-6">
+                  <h2 class="counter respon" style="font-size: 140px; color: #ED9B7E;"></h2>
+                </div>
+                <div class="col-6 text-end">
+                  <i class="fas fa-list rounded-circle p-5" style="color: green; font-size: 40px; color: white; background-color: #ED9B7E;"></i>
+                </div>
+                <div class="col-12">
+                  <button class="btn waves-effect waves-light brown-outline" onclick="viewProject(0,<?= $_SESSION['u_id'] ?>)"><?= lang('b_viewmore') ?></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <div class="card border ">
+            <div class="card-body">
+              <h3><i class="fas fa-list text-success"></i></h3>
+              <h2 class="counter text-success rp_success" style="font-size: 100px;"></h2>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 fs-5 text-success">
+                  <div><?= lang('h_project') ?></div>
+                  <div class="fw-bold"><?= lang('h_status') ?><?= lang('sp_home_finish') ?></div>
+                </div>
+                <div class="col-lg-12 col-md-12 text-end">
+                  <button class="btn waves-effect waves-light btn-outline-success" onclick="viewProject(3,<?= $_SESSION['u_id'] ?>)"><?= lang('b_viewmore') ?></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <div class="card border">
+            <div class="card-body">
+              <h3><i class="fas fa-list text-warning"></i></h3>
+              <h2 class="counter text-warning rp_pending" style="font-size: 100px;"></h2>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 fs-5 text-warning ">
+                  <div><?= lang('h_project') ?></div>
+                  <div class="fw-bold"><?= lang('h_status') ?><?= lang('sp_home_pendproject') ?></div>
+                </div>
+                <div class="col-lg-12 col-md-12 text-end">
+                  <button class="btn waves-effect waves-light btn-outline-warning" onclick="viewProject(1,<?= $_SESSION['u_id'] ?>)"><?= lang('b_viewmore') ?></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <div class="card border">
+            <div class="card-body">
+              <h3><i class="fas fa-list text-info"></i></h3>
+              <h2 class="counter text-info rp_progress" style="font-size: 100px;"></h2>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 fs-5 text-info">
+                  <div><?= lang('h_project') ?></div>
+                  <div class="fw-bold"><?= lang('h_status') ?><?= lang('sp_home_inprogress') ?></div>
+                </div>
+                <div class="col-lg-12 col-md-12 text-end">
+                  <button class="btn waves-effect waves-light btn-outline-info" onclick="viewProject(2,<?= $_SESSION['u_id'] ?>)"><?= lang('b_viewmore') ?></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <div class="card border">
+            <div class="card-body">
+              <h3><i class="fas fa-list text-danger"></i></h3>
+              <h2 class="counter text-danger rp_fail" style="font-size: 100px;"></h2>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 fs-5 text-danger">
+                  <div><?= lang('h_project') ?></div>
+                  <div class="fw-bold"><?= lang('h_status') ?><?= lang('sp_home_cancel') ?></div>
+                </div>
+                <div class="col-lg-12 col-md-12 text-end">
+                  <button class="btn waves-effect waves-light btn-outline-danger" onclick="viewProject(4,<?= $_SESSION['u_id'] ?>)"><?= lang('b_viewmore') ?></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?php endif; ?>
+    <script>
+  refreshTime();
 </script>

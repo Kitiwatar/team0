@@ -1,4 +1,3 @@
-<!-- Create by: Kitiwat Arunwong 24-09-2565 -->
 <style>
   .cardProject:hover {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -68,10 +67,10 @@
 <script src="<?= base_url() ?>assets/node_modules/echarts/echarts-all.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.3.1/dist/echarts.min.js"></script>
 <script>
-  function getProjectSummary() {
+   function getProjectSummary() {
     //Start Get Project Summary
     $.ajax({
-      url: 'Home/getProjectSummary',
+      url: '<?= base_url() ?>Home/getProjectSummary',
       method: 'post'
     }).done(function(returnData) {
       $('.all').html(returnData.projectSum)
@@ -266,7 +265,7 @@
 
   function loadCauseList() {
     $.ajax({
-      url: 'Home/getCause',
+      url: '<?= base_url() ?>Home/getCause',
       method: 'post'
     }).done(function(returnData) {
       // console.log(returnData)
@@ -276,7 +275,7 @@
 
   function loadRankList() {
     $.ajax({
-      url: 'Home/getRank',
+      url: '<?= base_url() ?>Home/getRank',
       method: 'post'
     }).done(function(returnData) {
       // console.log(returnData)
@@ -286,7 +285,7 @@
 
   function loadToDoList() {
     $.ajax({
-      url: 'Home/getToDoList',
+      url: '<?= base_url() ?>Home/getToDoList',
       method: 'post'
     }).done(function(returnData) {
       //  console.log(returnData)
@@ -296,7 +295,7 @@
 
   function loadCancelList() {
     $.ajax({
-      url: 'Home/getCancelRank',
+      url: '<?= base_url() ?>Home/getCancelRank',
       method: 'post'
     }).done(function(returnData) {
       // console.log(returnData)
@@ -306,7 +305,7 @@
 
   function loadToDoList() {
     $.ajax({
-      url: 'Home/getToDoList',
+      url: '<?= base_url() ?>Home/getToDoList',
       method: 'post'
     }).done(function(returnData) {
       //  console.log(returnData)
@@ -385,3 +384,99 @@
   refreshTime();
   //End Get Project Summary
 </script>
+
+<!------------------------------------------------------------------ Dashbaord For Aonnymous ------------------------------------------------------------------>
+<?php ?>
+
+<div class="row">
+  <div class="col-lg-12 col-md-12">
+    <div class="card p-2" style="background-color: #03A9F3;">
+      <div style="color:white;" class="fs-4 px-2">ภาพรวมโครงการทั้งหมด พ.ศ <?= $date = date('Y') + 543; ?></div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="fs-3">กราฟแสดงจำนวนโครงการทั้งหมดตามสถานะ</div>
+        <div id="AllprojectChart" class="py-5 pe-5" style="width:100%; height:555px;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-12">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="card">
+          <div class="card-body border-left-yellow">
+
+            <div class=" fs-3"><?= lang('sp_home_allproject') ?></div>
+            <div class="row">
+              <div class="col-6">
+                <h2 class="counter all" style="font-size: 140px; color: #A68DDE;"></h2>
+              </div>
+              <div class="col-6 text-end">
+                <i class="fas fa-list rounded-circle p-5" style="color: green; font-size: 40px; color: white; background-color: #A68DDE;"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <div class="card border ">
+          <div class="card-body">
+            <h3><i class="fas fa-list text-success"></i></h3>
+            <h2 class="counter text-success p_success"></h2>
+            <div class="row">
+              <div class="col-lg-12 col-md-12 fs-5 text-success">
+                <div><?= lang('h_project') ?></div>
+                <div class="fw-bold"><?= lang('h_status') ?><?= lang('sp_home_finish') ?></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <div class="card border">
+          <div class="card-body">
+            <h3><i class="fas fa-list text-warning"></i></h3>
+            <h2 class="counter text-warning p_pending"></h2>
+            <div class="row">
+              <div class="col-lg-12 col-md-12 fs-5 text-warning ">
+                <div><?= lang('h_project') ?></div>
+                <div class="fw-bold"><?= lang('h_status') ?><?= lang('sp_home_pendproject') ?></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <div class="card border">
+          <div class="card-body">
+            <h3><i class="fas fa-list text-info"></i></h3>
+            <h2 class="counter text-info p_progress"></h2>
+            <div class="row">
+              <div class="col-lg-12 col-md-12 fs-5 text-info">
+                <div><?= lang('h_project') ?></div>
+                <div class="fw-bold"><?= lang('h_status') ?><?= lang('sp_home_inprogress') ?></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <div class="card border">
+          <div class="card-body">
+            <h3><i class="fas fa-list text-danger"></i></h3>
+            <h2 class="counter text-danger p_fail"></h2>
+            <div class="row">
+              <div class="col-lg-12 col-md-12 fs-5 text-danger">
+                <div><?= lang('h_project') ?></div>
+                <div class="fw-bold"><?= lang('h_status') ?><?= lang('sp_home_cancel') ?></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<?php ?>
