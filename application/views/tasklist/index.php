@@ -54,25 +54,7 @@
          $('#tlnameMsg').text(returnData.msg);
          $('#tl_name').removeClass('is-invalid');
          
-         var mainMsg;
-         var detailMsg;
-         if (tl_id == "new") {
-           mainMsg = "ยืนยันการเพิ่มรายชื่อกิจกรรม";
-           detailMsg = "คุณต้องการเพิ่มรายชื่อกิจกรรมใช่หรือไม่";
-         } else {
-           mainMsg = "ยืนยันการแก้ไขรายชื่อกิจกรรม";
-           detailMsg = "คุณต้องการแก้ไขรายชื่อกิจกรรมใช่หรือไม่";
-         }
-         swal({
-           title: mainMsg,
-           text: detailMsg,
-           type: "warning",
-           showCancelButton: true,
-           showConfirmButton: true,
-           confirmButtonText: "ยืนยัน",
-           cancelButtonText: "ยกเลิก",
-         }).then(function(isConfirm) {
-           if (isConfirm.value) {
+       
              $.ajax({
                method: "post",
                url: 'tasklist/add',
@@ -110,8 +92,6 @@
              });
            }
          });
-       }
-     })
    }
 
   function edit(tl_id) {

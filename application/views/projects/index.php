@@ -112,27 +112,7 @@
 
     if (count > 0) {
       return false;
-    }
-
-    var mainMsg;
-    var detailMsg;
-    if (p_id == "new") {
-      mainMsg =  '<?= lang('md_ap_main-msg') ?>' ;
-      detailMsg = '<?= lang('md_ap_detail-msg') ?>';
-    } else {
-      mainMsg = '<?= lang('md_ep_main-msg')?>';
-      detailMsg = '<?= lang('md_ep_detail-msg') ?>';
-    }
-    swal({
-      title: mainMsg,
-      text: detailMsg,
-      type: "warning",
-      showCancelButton: true,
-      showConfirmButton: true,
-      confirmButtonText: '<?= lang('bt_confirm')?>',
-      cancelButtonText: '<?= lang('bt_cancel') ?>',
-    }).then(function(isConfirm) {
-      if (isConfirm.value) {
+    }     
         $.ajax({
           method: "post",
           url: hostname + 'projects/add',
@@ -175,8 +155,8 @@
             $('#mainModal').modal('hide');
           }
         });
-      }
-    });
+      
+   
   }
 
   function view(p_id) {

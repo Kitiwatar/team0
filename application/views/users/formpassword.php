@@ -107,16 +107,7 @@
             return false;
         }
 
-        swal({
-            title: "<?= lang('md_cpes_main-msg') ?>",
-            text: "<?= lang('md_cpes_detail-msg') ?>",
-            type: "warning",
-            showCancelButton: true,
-            showConfirmButton: true,
-            confirmButtonText: "ยืนยัน",
-            cancelButtonText: "ยกเลิก",
-        }).then(function(isConfirm) {
-            if (isConfirm.value) {
+      
                 $.ajax({
                     method: "post",
                     url: 'Users/updatePassword',
@@ -146,7 +137,5 @@
                         $('#mainModal').modal('hide');
                     }
                 });
-            }
-        });
     }
 </script>

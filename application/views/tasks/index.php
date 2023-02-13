@@ -414,25 +414,7 @@
       return false;
     }
 
-    var mainMsg;
-    var detailMsg;
-    if (p_id == "new") {
-      mainMsg = "ยืนยันการเพิ่มโครงการ";
-      detailMsg = "คุณต้องการเพิ่มโครงการในระบบใช่หรือไม่";
-    } else {
-      mainMsg = "ยืนยันการแก้ไขโครงการ";
-      detailMsg = "คุณต้องการแก้ไขโครงการในระบบใช่หรือไม่";
-    }
-    swal({
-      title: mainMsg,
-      text: detailMsg,
-      type: "warning",
-      showCancelButton: true,
-      showConfirmButton: true,
-      confirmButtonText: "ยืนยัน",
-      cancelButtonText: "ยกเลิก",
-    }).then(function(isConfirm) {
-      if (isConfirm.value) {
+
         $.ajax({
           method: "post",
           url: hostname + 'projects/add',
@@ -469,7 +451,5 @@
             $('#mainModal').modal('hide');
           }
         });
-      }
-    });
   }
 </script>

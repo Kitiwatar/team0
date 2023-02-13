@@ -76,27 +76,7 @@
 
     if (count > 0) {
       return false;
-    }
-
-    var mainMsg;
-    var detailMsg;
-    if (u_id == "new") {
-      mainMsg = "<?= lang('md_aes_main-msg') ?>";
-      detailMsg = "<?= lang('md_aes_detail-msg') ?>";
-    } else {
-      mainMsg = "<?= lang('md_ees_main-msg') ?>";
-      detailMsg = "<?= lang('md_ees_main-msg') ?>";
-    }
-    swal({
-      title: mainMsg,
-      text: detailMsg,
-      type: "warning",
-      showCancelButton: true,
-      showConfirmButton: true,
-      confirmButtonText: "<?= lang('bt_confirm') ?>",
-      cancelButtonText: '<?= lang('bt_cancel') ?>',
-    }).then(function(isConfirm) {
-      if (isConfirm.value) {
+    } 
         $.ajax({
           method: "post",
           url: 'users/add',
@@ -132,8 +112,6 @@
             loadList();
           }
         });
-      }
-    });
   }
 
   function view(u_id) {
@@ -185,16 +163,7 @@
       $('#errMsg').text('<?= lang('md_cp_rqf-cpnm') ?>');
       return false;
     }
-    swal({
-      title: "<?= lang('md_cpes_main-msg') ?>",
-      text: "<?= lang('md_cpes_detail-msg') ?>",
-      type: "warning",
-      showCancelButton: true,
-      showConfirmButton: true,
-      confirmButtonText: "<?= lang('bt_confirm') ?>",
-      cancelButtonText: "<?= lang('bt_cancel') ?>",
-    }).then(function(isConfirm) {
-      if (isConfirm.value) {
+ 
         $.ajax({
           method: "post",
           url: 'users/updatePassword',
@@ -229,8 +198,6 @@
           }
         });
         loadList();
-      }
-    });
   }
 
   function changePassword(u_id) {
