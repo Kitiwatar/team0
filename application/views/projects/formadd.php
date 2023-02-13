@@ -89,8 +89,9 @@ date_default_timezone_set("Asia/Bangkok"); ?>
               <label for="p_othercontact" class="form-label"><?= lang('md_ap-other') ?>:</label>
               <textarea class="form-control" name="inputValue[]" rows="5" id="p_othercontact" placeholder="<?= lang('md_ap_ph-other') ?>" <?= isset($detail) ? "disabled" : '' ?>><?= isset($getData) ? $getData->p_othercontact : '' ?></textarea>
             </div>
+
             <div class="mapouter">
-              <div class="gmap_canvas" <?= isset($getData) ? 'style="display:block"' : '' ?>>
+            <div class="gmap_canvas" <?= isset($getData) ? 'style="display:block"' : '' ?>>
                 <?= isset($getData) ? $getData->p_address : '' ?>
               </div>
             </div>
@@ -120,6 +121,8 @@ date_default_timezone_set("Asia/Bangkok"); ?>
     }
     $(".gmap_canvas").html($(this).val());
   });
+  
+  
   $('#p_createdate').on('input', function() {
     if (this.value.match(/[^0-9-]/)) {
       $('#createdateMsg').text(' <?= lang('md_rqf_sd-f')  ?>');
