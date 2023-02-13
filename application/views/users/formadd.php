@@ -62,6 +62,7 @@
               <font id="emailMsg" class="small text-danger"></font>
             </div>
           </div>
+          <?= !isset($getData) ? '<span>หมายเหตุ : ระบบจะใช้เบอร์มือถือเป็นรหัสผ่านเริ่มต้นของผู้ใช้งาน</span>' : '' ?>
         </div>
       </form>
     </div>

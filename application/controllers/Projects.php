@@ -38,6 +38,7 @@ class Projects extends CI_Controller{
 	}
 
 	public function getAllProject() {
+		// Create by: Patiphan Pansanga 28-12-2565 get all project for admin
 		$data['tableName'] = lang('all_project');
 		$arrayJoin = array('pms_project' => 'pms_project.p_id=pms_permission.per_p_id','pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
 		$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('per_role'=>1), 'p_createdate desc', $arrayJoin, '');
@@ -58,7 +59,7 @@ class Projects extends CI_Controller{
 	}
 
 	public function get() {
-		// Create by: Jiradat Pomyai 19-09-2565
+		// Create by: Jiradat Pomyai 19-09-2565 get project
 		$data['tableName'] = lang('th_project_pj-responsible');
 		$arrayJoin = array('pms_project' => 'pms_project.p_id=pms_permission.per_p_id','pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
 		$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('per_u_id'=>$_SESSION['u_id']), 'p_createdate desc', $arrayJoin, '');
@@ -90,7 +91,7 @@ class Projects extends CI_Controller{
 				return;
 			}
 		}
-		if($formData['p_id'] == 'new') {	
+		if($formData['p_id'] == 'new') { // โครงการถูกเพิ่มมาใหม่
 			$this->genmod->add('pms_project',$formData);
 			$project = $this->genmod->getLastProject();
 			$arrayPermission['per_role'] = 1;
@@ -98,7 +99,7 @@ class Projects extends CI_Controller{
 			$arrayPermission['per_u_id'] = $_SESSION['u_id'];
 			$this->genmod->add('pms_permission',$arrayPermission);
 			$json = ['status'=> 1, 'msg'=>lang('md_vm_ct-save')];				
-		} else {		
+		} else { // แก้ไขโครงการ
 			$p_id = $formData['p_id'];
 			unset($formData['p_id']);
 			$this->genmod->update('pms_project', $formData, array('p_id'=>$p_id));
@@ -107,12 +108,12 @@ class Projects extends CI_Controller{
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
-	public function addProject() {
+	public function addProject() { 
 		// Create by: Patiphan Pansanga 23-12-2565 add project page
 		$values['pageTitle'] = lang('md_tl_a-ap');
 		$values['breadcrumb'] = lang('md_tl_a-ap');
 		$values['addForm'] = 1;
-		$values['pageContent'] = $this->load->view('projects/index', $values, TRUE);
+		$values['pageContent'] = $this->load->view('projects/index', $values, TRUE); // หน้าจอเพิ่มโครงการ
 		$this->load->view('main', $values);
 	}
 

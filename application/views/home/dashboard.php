@@ -357,28 +357,55 @@
     return i;
   }
 
+  function formatAMPM(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
+  }
+
 
   function refreshTime() {
-    var monthNamesThai = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤษจิกายน", "ธันวาคม"];
+    var monthsThai = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤษจิกายน", "ธันวาคม"];
+    var monthsEng = ["January","February","March","April","May","June","July","August","September","October","November","December"];
     var today = new Date();
     var h = today.getHours();
     var m = today.getMinutes();
     h = checkLessThanTen(h);
     m = checkLessThanTen(m);
-    document.getElementById('timeNow').innerHTML = h + ":" + m;
-    document.getElementById('dayNow').innerHTML = today.getDate();
-    document.getElementById('monthNow').innerHTML = monthNamesThai[today.getMonth()];
-    document.getElementById('yearNow').innerHTML = today.getFullYear() + 543;
+    <?php if($_SESSION['lang'] == "th") { ?>
+      document.getElementById('dayNow').innerHTML = "วันที่ " + today.getDate();
+        document.getElementById('timeNow').innerHTML = h + ":" + m;
+        document.getElementById('monthNow').innerHTML = monthsThai[today.getMonth()];
+        document.getElementById('yearNow').innerHTML = today.getFullYear() + 543;
+      <?php } else { ?>
+        document.getElementById('dayNow').innerHTML = today.getDate();
+        document.getElementById('timeNow').innerHTML = formatAMPM(new Date);
+        document.getElementById('monthNow').innerHTML = monthsEng[today.getMonth()];
+        document.getElementById('yearNow').innerHTML = today.getFullYear();
+      <?php } ?>
+    
     var downloadTimer = setInterval(function() {
       var today = new Date();
       var h = today.getHours();
       var m = today.getMinutes();
       h = checkLessThanTen(h);
       m = checkLessThanTen(m);
-      document.getElementById('timeNow').innerHTML = h + ":" + m;
-      document.getElementById('dayNow').innerHTML = today.getDate();
-      document.getElementById('monthNow').innerHTML = monthNamesThai[today.getMonth()];
-      document.getElementById('yearNow').innerHTML = today.getFullYear() + 543;
+      <?php if($_SESSION['lang'] == "th") { ?>
+        document.getElementById('dayNow').innerHTML = "วันที่ " + today.getDate();
+        document.getElementById('timeNow').innerHTML = h + ":" + m;
+        document.getElementById('monthNow').innerHTML = monthsThai[today.getMonth()];
+        document.getElementById('yearNow').innerHTML = today.getFullYear() + 543;
+      <?php } else { ?>
+        document.getElementById('dayNow').innerHTML = today.getDate();
+        document.getElementById('timeNow').innerHTML = formatAMPM(new Date);
+        document.getElementById('monthNow').innerHTML = monthsEng[today.getMonth()];
+        document.getElementById('yearNow').innerHTML = today.getFullYear();
+      <?php } ?>
     }, 1000);
   }
   refreshTime();
@@ -387,25 +414,26 @@
 <!------------------------------------------------------------------ Dashbaord For User ------------------------------------------------------------------>
 <?php if (isset($_SESSION['u_id'])) : ?>
   <div class="row">
-    <div class="col-lg-4 col-md-12 col-sm-12">
+  <div class="col-lg-4 col-md-12 col-sm-12">
       <div class="card" style="height: 95%;">
         <div class="card-body">
           <div class="row">
             <?php date_default_timezone_set("Asia/Bangkok"); ?>
-            <div class="col-lg-12 col-md-12 Date" style="font-size: 45px; font-weight:bold;">วันที่ <span id="dayNow"></span></div>
-            <div class="pb-4 col-lg-12 col-md-12" style="font-size: 45px; font-weight:bold;"><span id="monthNow"></span> <span id="yearNow"></span></div>
-            <div class="col-lg-12 col-md-12" style="font-size: 20px;">เวลาปัจจุบัน </div>
+            <div class="col-lg-12 col-md-12 fw-bold fs-3"><span class="Date" > <span id="dayNow"></span></span> <span id="monthNow"></span> <span id="yearNow"></span></div>
             <?php if ($_SESSION['lang'] == "th") :  ?>
-              <div class="col-lg-12 col-md-12" style="font-size: 70px; font-weight:bold; color:#03A9F3;"><span id="timeNow"></span> น.</div>
+              <div class="col-lg-12 col-md-12 fw-bold fs-3">เวลาปัจจุบัน <span id="timeNow" style="color:#03A9F3;"></span> น.</div>
             <?php else : ?>
-              <div class="col-lg-12 col-md-12" style="font-size: 70px; font-weight:bold; color:#03A9F3;"><span id="timeNow"></span></div>
+              <div class="col-lg-12 col-md-12 fw-bold fs-3">Time <span id="timeNow" style="color:#03A9F3;"></span></div>
             <?php endif; ?>
-            <div class="col-lg-3 col-md-3">
-              <i class="far fa-envelope" style="font-size: 70px;"></i>
-            </div>
-            <div class="col-lg-9 col-md-9">
-              <div style="font-size: 18px;">ข้อความจากระบบ </div>
-              <div style="font-size: 23px; font-weight:bold;">"สวัสดีคุณ <?= $_SESSION['u_firstname'] ?>"</div>
+            <div class="col">
+              <table>
+                <tr>
+                  <td rowspan="2" style="font-size: 60px;"><i class="far fa-envelope"></i></td>
+                  <td class="fs-5 px-3"><?= lang('system_message') ?><br> <span class="fw-bold fs-4">"สวัสดีคุณ <?= $_SESSION['u_firstname'] ?>"</span></td>
+                </tr>
+                <tr>
+                </tr>
+              </table>
             </div>
           </div>
         </div>

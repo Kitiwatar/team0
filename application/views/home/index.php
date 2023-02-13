@@ -338,7 +338,7 @@
   function viewProject(p_status, u_id) {
     $.ajax({
       method: "post",
-      url: '<?= base_url() ?>home/getProjects',
+      url: hostname + 'home/getProjects',
       data: {
         p_status: p_status,
         u_id: u_id
@@ -358,28 +358,54 @@
     return i;
   }
 
+  function formatAMPM(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
+  }
 
   function refreshTime() {
-    var monthNamesThai = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤษจิกายน", "ธันวาคม"];
+    var monthsThai = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤษจิกายน", "ธันวาคม"];
+    var monthsEng = ["January","February","March","April","May","June","July","August","September","October","November","December"];
     var today = new Date();
     var h = today.getHours();
     var m = today.getMinutes();
     h = checkLessThanTen(h);
     m = checkLessThanTen(m);
-    document.getElementById('timeNow').innerHTML = h + ":" + m;
-    document.getElementById('dayNow').innerHTML = today.getDate();
-    document.getElementById('monthNow').innerHTML = monthNamesThai[today.getMonth()];
-    document.getElementById('yearNow').innerHTML = today.getFullYear() + 543;
+    <?php if($_SESSION['lang'] == "th") { ?>
+      document.getElementById('dayNow').innerHTML = "วันที่ " + today.getDate();
+        document.getElementById('timeNow').innerHTML = h + ":" + m;
+        document.getElementById('monthNow').innerHTML = monthsThai[today.getMonth()];
+        document.getElementById('yearNow').innerHTML = today.getFullYear() + 543;
+      <?php } else { ?>
+        document.getElementById('dayNow').innerHTML = today.getDate();
+        document.getElementById('timeNow').innerHTML = formatAMPM(new Date);
+        document.getElementById('monthNow').innerHTML = monthsEng[today.getMonth()];
+        document.getElementById('yearNow').innerHTML = today.getFullYear();
+      <?php } ?>
+    
     var downloadTimer = setInterval(function() {
       var today = new Date();
       var h = today.getHours();
       var m = today.getMinutes();
       h = checkLessThanTen(h);
       m = checkLessThanTen(m);
-      document.getElementById('timeNow').innerHTML = h + ":" + m;
-      document.getElementById('dayNow').innerHTML = today.getDate();
-      document.getElementById('monthNow').innerHTML = monthNamesThai[today.getMonth()];
-      document.getElementById('yearNow').innerHTML = today.getFullYear() + 543;
+      <?php if($_SESSION['lang'] == "th") { ?>
+        document.getElementById('dayNow').innerHTML = "วันที่ " + today.getDate();
+        document.getElementById('timeNow').innerHTML = h + ":" + m;
+        document.getElementById('monthNow').innerHTML = monthsThai[today.getMonth()];
+        document.getElementById('yearNow').innerHTML = today.getFullYear() + 543;
+      <?php } else { ?>
+        document.getElementById('dayNow').innerHTML = today.getDate();
+        document.getElementById('timeNow').innerHTML = formatAMPM(new Date);
+        document.getElementById('monthNow').innerHTML = monthsEng[today.getMonth()];
+        document.getElementById('yearNow').innerHTML = today.getFullYear();
+      <?php } ?>
     }, 1000);
   }
   refreshTime();

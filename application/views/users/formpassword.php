@@ -6,19 +6,19 @@
                 <div class="card-body">
                     <?php if (isset($personPassword)) { ?>
                         <div class="form-group">
-                            <label for="curPwd" class="form-label"><?= lang('md_cp_psc') ?></label>
-                            <input type="password" class="form-control" name="inputValue[]" id="curPwd" onkeyup="checkCurrentPassword()" placeholder="<?= lang('md_cp_ph-psc') ?>">
+                            <label for="curPwd" class="form-label"><?= lang('md_cp_ph-psc') ?></label>
+                            <input type="password" class="form-control" name="inputValue[]" id="curPwd" onkeyup="checkCurrentPassword()" placeholder="<?= lang('md_cp_psc') ?>">
                             <font id="curPwdMsg" class="small text-danger"></font>
                         </div>
                     <?php } ?>
                     <div class="form-group">
-                        <label for="pwd" class="form-label"><?= lang('md_cp_psn') ?></label>
-                        <input type="password" class="form-control" name="inputValue[]" id="pwd" onkeyup="checkConfirmPassword()" placeholder="<?= lang('md_cp_ph-psn') ?>">
+                        <label for="pwd" class="form-label"><?= lang('md_cp_ph-psn') ?></label>
+                        <input type="password" class="form-control" name="inputValue[]" id="pwd" onkeyup="checkConfirmPassword()" placeholder="<?= lang('md_cp_psn') ?>">
                         <font id="pwdMsg" class="small text-danger"></font>
                     </div>
                     <div class="form-group">
-                        <label for="cfPwd" class="form-label"><?= lang('md_cp_psng') ?></label>
-                        <input type="password" class="form-control" name="inputValue[]" id="cfPwd" onkeyup="checkConfirmPassword()"  placeholder="<?= lang('md_cp_ph-psng') ?>">
+                        <label for="cfPwd" class="form-label"><?= lang('md_cp_ph-psng') ?></label>
+                        <input type="password" class="form-control" name="inputValue[]" id="cfPwd" onkeyup="checkConfirmPassword()"  placeholder="<?= lang('md_cp_psng') ?>">
                         <font id="cfPwdMsg" class="small text-danger"></font>
                     </div>
                     <div class="form-check">

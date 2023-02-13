@@ -286,7 +286,8 @@
          },
        ],
        label: {
-        show: false,
+        show: true,
+         formatter: '{c} <?= lang('h_project') ?> ({d}%) ',
         //  formatter: '{c} <?= lang('h_project') ?>\n ({d}%) ',
        }
      }]

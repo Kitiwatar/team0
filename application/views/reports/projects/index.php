@@ -8,7 +8,7 @@
     console.log($('#begindate').val())
     console.log($('#enddate').val())
     $.ajax({
-      url: '<?= base_url() ?>reports/getProjects',
+      url: hostname + 'reports/getProjects',
       method: 'post',
       data: {
         begindate: $('#begindate').val(),

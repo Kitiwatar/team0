@@ -6,7 +6,7 @@
 
   function loadList() {
     $.ajax({
-      url: '<?= base_url() ?>reports/getusers',
+      url: hostname + 'reports/getusers',
       method: 'post',
     }).done(function(returnData) {
       $('#listDiv').html(returnData.html)
@@ -16,7 +16,7 @@
   function viewProjects(u_id) {
     $.ajax({
       method: "post",
-      url: '<?= base_url() ?>reports/getUserProject',
+      url: hostname + 'reports/getUserProject',
       data: {
         u_id: u_id
       }

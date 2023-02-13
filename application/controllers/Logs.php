@@ -20,7 +20,7 @@ class Logs extends CI_Controller {
 		$this->genlib->checkLogin();
 		$data = $this->genmod->getOne('pms_user', '*', array('u_id'=>$_SESSION['u_id']));
 		$this->genlib->updateSession($data);
-		if($_SESSION['u_role'] > 1) {
+		if($_SESSION['u_role'] >= 1) {
 			redirect(base_url());
 		}
 	}

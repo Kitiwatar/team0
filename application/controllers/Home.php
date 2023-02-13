@@ -28,18 +28,8 @@ class Home extends CI_Controller
 		}
 	}
 
-	// public function index()
-	//  {
-	// 	//Create by: Kitiwat Arunwong 09-09-2565 show dashboard
-	// 	$values['pageTitle'] = lang('Home');
-	// 	$values['breadcrumb'] = lang('dashboard');
-	// 	$values['pageContent'] = $this->load->view('home/index', '', TRUE);
-	// 	index_dashboard();
-	// 	$this->load->view('main', $values);
-	// }
-
-	public function index()
-	{
+	public function index() {
+		// Create by: Natakorn Phongsarikit 01-02-2566 index
 		if (!isset($_SESSION['u_role'])) {
 			$values['pageContent'] = $this->load->view('home/dashboard_Aonnymous', '', TRUE);
 		} else if($_SESSION['u_role']>= 2) {
@@ -112,14 +102,14 @@ class Home extends CI_Controller
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 	public function dashboard() {
-		// Create by: Jiradat Pomyai 19-09-2565 index page
+		// Create by: Create by: Natakorn Phongsarikit 01-02-2566 dashboard 
 		$values['pageTitle'] = "แดชบอร์ดส่วนบุคคล";
 		$values['breadcrumb'] = "แดชบอร์ดส่วนบุคคล";
 		$values['pageContent'] = $this->load->view('home/dashboard', $values, TRUE);
 		$this->load->view('main', $values);
 	}
 	public function dashboard_admin() {
-		// Create by: Jiradat Pomyai 19-09-2565 index page
+		// Create by: Create by: Natakorn Phongsarikit 01-02-2566 dashboard for admin
 		$values['pageTitle'] ="แดชบอร์ดผู้ดูแลระบบ";
 		$values['breadcrumb'] = "แดชบอร์ดผู้ดูแลระบบ";
 		$values['pageContent'] = $this->load->view('home/dashboard_admin', $values, TRUE);
@@ -131,7 +121,7 @@ class Home extends CI_Controller
 		// Create by: Jiradat Pomyai 03-01-2566 to do list
 		date_default_timezone_set("Asia/Bangkok");
 		$arrayJoin = array('pms_tasklist' => 'pms_task.t_tl_id=pms_tasklist.tl_id', 'pms_project' => 'pms_project.p_id=pms_task.t_p_id');
-		$data['listtodo'] = $this->genmod->getAll('pms_task', '*', array('t_u_id' => $_SESSION['u_id'], 't_createdate' => date("Y-m-d")), '', $arrayJoin, '');
+		$data['listtodo'] = $this->genmod->getAll('pms_task', '*', array('t_u_id' => $_SESSION['u_id'], 'DATE(t_createdate)' => date("Y-m-d")), '', $arrayJoin, '');
 		$json['html'] = $this->load->view('home/todolist', $data, TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
@@ -155,12 +145,9 @@ class Home extends CI_Controller
 				$dataName[$key] = $value->u_firstname . " " . $value->u_lastname;
 			}
 		}
-		for ($i = 0; $i < count($dataUser) - 1; $i++) {
-			// Last i elements are already
-			// in place
+		for ($i = 0; $i < count($dataUser) - 1; $i++) { // sort ข้อมูลจากมากไปน้อย
 			for ($j = 0; $j < count($dataUser) - $i - 1; $j++) {
 				if ($dataUser[$j] < $dataUser[$j + 1]) {
-					// swap($dataUser[$j], $dataUser[$j + 1]);
 					$temp = $dataUser[$j];
 					$dataUser[$j] = $dataUser[$j + 1];
 					$dataUser[$j + 1] = $temp;
@@ -178,37 +165,25 @@ class Home extends CI_Controller
 	}
 	public function getCancelRank()
 	{
-		// Create by: Patiphan Pansanga, Kitiwat Arunwong 29-09-2565 get top five employee has most working
+		// Create by: Natakorn Phongsarikit 01-02-2566 get top five cancel list
 		$allCancel = $this->genmod->getAll('pms_cancellist', '*', array('cl_status' => 1), 'cl_createdate desc', '', '');
 		$countCancel = array();
 		$NameCancel = array();
+		$dataCancel = array();
 		if (is_array($allCancel)) {
-			$arrayJoin = array('pms_cancel' => 'pms_cancellist.cl_id =pms_cancel.c_cl_id', 'pms_project' => 'pms_project.p_id=pms_cancel.c_p_id');
+			$arrayJoin = array('pms_cancel'=>'pms_cancellist.cl_id =pms_cancel.c_cl_id','pms_project' => 'pms_project.p_id=pms_cancel.c_p_id');
 			foreach ($allCancel as $key => $value) {
-				// $dataCancel[$key] = 0;
-				// 		$cancellist = $this->genmod->getAll('pms_cancellist', '*', array('cl_id'=>$value->c_cl_id,'cl_status'=>$i), '', $arrayJoin, '');
-				// 		if(is_array($cancellist)) {
-				//  		$dataCancel[$key] += count($cancellist);
-				// 		} 
-				// 	 $dataName[$key] = $value->c_detail;
-				$countCancel[$key] = $this->genmod->countAll('pms_cancel', array('c_cl_id' => $value->cl_id));
-
+				$countCancel[$key] = $this->genmod->countAll('pms_cancel',array('c_cl_id' =>$value->cl_id ));
 				$NameCancel[$key] = $value->cl_name;
-			}
-
-
+			}	
 		}
-
-		for ($i = 0; $i < count($countCancel) - 1; $i++) {
-			// Last i elements are already
-			// in place
+		
+		for ($i = 0; $i <  count($countCancel) - 1; $i++) { // sort ข้อมูลจากมากไปน้อย
 			for ($j = 0; $j < count($countCancel) - $i - 1; $j++) {
 				if ($countCancel[$j] < $countCancel[$j + 1]) {
-					// swap($dataUser[$j], $dataUser[$j + 1]);
 					$temp = $countCancel[$j];
 					$dataCancel[$j] = $countCancel[$j + 1];
 					$dataCancel[$j + 1] = $temp;
-
 					$tempName = $countCancel[$j];
 					$countCancel[$j] = $countCancel[$j + 1];
 					$countCancel[$j + 1] = $tempName;
@@ -251,7 +226,6 @@ class Home extends CI_Controller
 				$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('per_u_id' => $u_id), 'p_createdate desc', $arrayJoin, '');
 			}
 		}
-
 
 		$data['arrayStatus'] = $this->genlib->getProjectStatus();
 		$lastTask = array();

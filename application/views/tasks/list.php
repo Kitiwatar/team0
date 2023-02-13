@@ -98,7 +98,7 @@
        if (isConfirm.value) {
          $.ajax({
            method: "post",
-           url: '<?= base_url() ?>projects/endProject',
+           url: hostname + 'projects/endProject',
            data: {
              p_id: p_id,
              p_status: p_status
@@ -143,7 +143,7 @@
        if (isConfirm.value) {
          $.ajax({
            method: "post",
-           url: '<?= base_url() ?>projects/restoreProject',
+           url: hostname + 'projects/restoreProject',
            data: {
              p_id: p_id
            }
@@ -191,7 +191,7 @@
    function showCancelForm(p_id) {
      $.ajax({
        method: "post",
-       url: '<?= base_url() ?>cancel/getAddForm',
+       url: hostname + 'cancel/getAddForm',
        data: {
          p_id: p_id
        }
@@ -246,7 +246,7 @@
       if (isConfirm.value) {
         $.ajax({
           method: "post",
-          url: '<?= base_url() ?>cancel/add',
+          url: hostname + 'cancel/add',
           data: {
             formData: formData,
           }
@@ -286,7 +286,7 @@
    function showPermissionForm(p_id) {
      $.ajax({
        method: "post",
-       url: '<?= base_url() ?>permissions/getAddForm',
+       url: hostname + 'permissions/getAddForm',
        data: {
          p_id: p_id
        }

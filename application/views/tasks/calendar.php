@@ -1,26 +1,9 @@
-<div class="card">
-    <div class="card-body">
-        <div class="tab-pane p-20" id="messages2" role="tabpanel">
-            <div class="modal fade" id="calendarModal" tabindex="-1" aria-labelledby="modalCenterTitle" aria-hidden="true" data-keyboard="false">
-                <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document" id='modalSize'>
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="calendarModalTitle">ปฏิทินโครงการ</h5>
-                            <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true"></button>
-                        </div>
-                        <div class="modal-body" id="calendarModalBody">
-                            <div class="card-body b-l calender-sidebar">
-                                <div id="calendar"></div>
-                            </div>
-                        </div>
-                        <div class="modal-footer" id="calendarModalFooter">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="tab-pane p-20" id="messages2" role="tabpanel">
+    <div class="card-body b-l calender-sidebar">
+        <div id="calendar"></div>
     </div>
 </div>
+
 
 <!-- Calendar JavaScript -->
 <script src="<?= base_url() ?>assets/node_modules/calendar/jquery-ui.min.js"></script>
@@ -28,21 +11,20 @@
 <script src='<?= base_url() ?>assets/node_modules/calendar/dist/fullcalendar.js'></script>
 <!-- <script src="<?= base_url() ?>assets/node_modules/calendar/dist/cal-init.js"></script> -->
 <script>
-      function viewTask(t_id) {
-    $.ajax({
-      method: "post",
-      url: 'tasks/getDetailForm',
-      data: {
-        t_id: t_id
-      }
-    }).done(function(returnData) {
-      $('#detailModalTitle').html(returnData.title);
-      $('#detailModalBody').html(returnData.body);
-      $('#detailModalFooter').html(returnData.footer);
-      $('#detailModal').modal();
-    });
-  }
-    ! function($) {
+    function viewTask(t_id) {
+        $.ajax({
+            method: "post",
+            url: 'tasks/getDetailForm',
+            data: {
+                t_id: t_id
+            }
+        }).done(function(returnData) {
+            $('#detailModalTitle').html(returnData.title);
+            $('#detailModalBody').html(returnData.body);
+            $('#detailModalFooter').html(returnData.footer);
+            $('#detailModal').modal();
+        });
+    }! function($) {
         "use strict";
 
         var CalendarApp = function() {
@@ -177,7 +159,7 @@
                 var defaultEvents = [
                     <?php if (is_array($getData)) {
                         foreach ($getData as $key => $value) {
-                            echo "{title: '" . $value->tl_name . "',start: '" . $value->t_createdate . "',className: 'bg-info ".$value->t_id."',t_id: ".$value->t_id.",editable:false},";
+                            echo "{title: '" . substr($value->t_createtime, 0, 5) . " น. - " . $value->tl_name . "',start: '" . $value->t_createdate . "',className: 'bg-info " . $value->t_id . "',t_id: " . $value->t_id . ",editable:false},";
                         }
                     } ?>
                 ];

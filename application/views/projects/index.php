@@ -3,18 +3,21 @@
 
 <script>
   let countSec = 0;
-  <?php if(!isset($addForm)) { ?>
-    loadList();
-  <?php } else { ?>
+  <?php if(isset($addForm)) { ?>
     showAddForm();
+  <?php } else { ?>
+    loadList();
   <?php }?>
 
   function loadList() {
+    var path;
     <?php if(isset($all)) { ?>
-      let url = '<?= base_url()."/projects/getAllProject" ?>'
+      path = 'projects/getAllProject'
     <?php } else { ?>
-      let url = '<?= base_url()."/projects/get" ?>'
+      path = 'projects/get'
     <?php } ?>
+    var url = hostname + path
+    console.log(url)
     $.ajax({
       url: url,
       method: 'post'
@@ -26,7 +29,7 @@
 
   function showAddForm() {
     $.ajax({
-      url: '<?= base_url() ?>projects/getAddForm',
+      url: hostname + 'projects/getAddForm',
       method: 'post'
     }).done(function(returnData) {
       let html = '<div class="card"><h2 class="card-title m-3">'+returnData.title+'</h2>'+ returnData.body +'<div class="text-end mb-4 mx-4">'+returnData.footer+'</div></div>'
@@ -132,7 +135,7 @@
       if (isConfirm.value) {
         $.ajax({
           method: "post",
-          url: '<?= base_url() ?>projects/add',
+          url: hostname + 'projects/add',
           data: formData
         }).done(function(returnData) {
           if (returnData.status == 1) {
@@ -153,7 +156,7 @@
               loadList();
             <?php } else { ?>
               setTimeout(function() {
-                location.replace('<?= base_url() ?>projects');
+                location.replace(hostname + 'projects');
               }, 1000);
             <?php }?>
           } else {
@@ -179,7 +182,7 @@
   function view(p_id) {
     $.ajax({
       method: "post",
-      url: '<?= base_url() ?>projects/getDetailForm',
+      url: hostname + 'projects/getDetailForm',
       data: {
         p_id: p_id
       }
@@ -195,7 +198,7 @@
     $('#detailModal').modal('hide');
     $.ajax({
       method: "post",
-      url: '<?= base_url() ?>projects/getEditForm',
+      url: hostname + 'projects/getEditForm',
       data: {
         p_id: p_id
       }
@@ -230,7 +233,7 @@
       if (isConfirm.value) {
         $.ajax({
           method: "POST",
-          url: '<?= base_url() ?>projects/updateStatus',
+          url: hostname + 'projects/updateStatus',
           data: {
             p_id: p_id,
             p_status: p_status

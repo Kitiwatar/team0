@@ -1,9 +1,9 @@
 <?php
-// Create by: Patiphan Pansanga 15-09-2565 permission management
+// Create by:Create by: Natakorn Phongsarikit 01-02-25665 cancel management
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Cancel extends CI_Controller{
     public function __construct() {
-		// Create by: Patiphan Pansanga 14-09-2565
+		// Create by: Create by: Natakorn Phongsarikit 01-02-2566
 		parent::__construct();
 		if(isset($_SESSION['lang'])) {
 			if($_SESSION['lang'] == "th") {
@@ -21,7 +21,7 @@ class Cancel extends CI_Controller{
 	}
 
 	public function add() {
-		// Create by: Patiphan Pansanga 14-10-2565 add task in database
+		// Create by: Natakorn Phongsarikit 01-02-2566 add cancel log in database
 		$this->genlib->ajaxOnly();
 		$formData = $this->input->post('formData');
 		$dataRequires = array('c_detail','c_cl_id','c_p_id');
@@ -43,7 +43,7 @@ class Cancel extends CI_Controller{
 	}
 
 	public function getAddForm() {
-		// Create by: Patiphan Pansanga 14-09-2565 get add form
+		// Create by: Natakorn Phongsarikit 01-02-2566 get add form
 		$p_id = $this->input->post('p_id');
         $data['getData'] = $this->genmod->getAll('pms_cancellist', '*', array('cl_status' => 1));
 		$json['title'] = "ยุติโครงการ";

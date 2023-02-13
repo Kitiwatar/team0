@@ -4,7 +4,7 @@
       <button class="nav-link active" id="task-tab" onclick="showTab('task')">หน้าหลัก</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="calendar-tab" onclick="showTab('calendar')">ปฏิทินโครงการ</button>
+      <button class="nav-link" id="calendarData-tab" onclick="showTab('calendarData')">ปฏิทินโครงการ</button>
     </li>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="permission-tab" onclick="showTab('permission')">พนักงานในโครงการ</button>
@@ -19,12 +19,13 @@
         </div>
       </div>
     </div>
-    <div class="tab-pane fade" id="calendar" role="tabpanel" aria-labelledby="profile-tab">
-      
-      <div class="card">
-        <div class="card-body">
+    <div class="tab-pane fade" id="calendarData" role="tabpanel" aria-labelledby="calendar-tab">
+      <div class="card pt-0">
+        <div class="card-body p-0">
         <?= $calendarContent ?>
-        <a type="button" class="btn waves-effect waves-light btn-dark" href="<?= base_url() ?>"><i class="mdi mdi-arrow-left"></i>  <?= lang('b_project_back') ?> </a>
+        <div class="p-3">        
+          <a type="button" class="btn waves-effect waves-light btn-dark" href="<?= base_url() ?>"><i class="mdi mdi-arrow-left"></i>  <?= lang('b_project_back') ?> </a>
+        </div>
         </div>
       </div>
     </div>
@@ -42,8 +43,8 @@
   function showTab(id) {
     $('#task').removeClass("active").removeClass("show")
     $('#task-tab').removeClass("active")
-    $('#calendar').removeClass("active").removeClass("show")
-    $('#calendar-tab').removeClass("active")
+    $('#calendarData').removeClass("active").removeClass("show")
+    $('#calendarData-tab').removeClass("active")
     $('#permission').removeClass("active").removeClass("show")
     $('#permission-tab').removeClass("active")
     $('#' + id).addClass("active show");
@@ -52,6 +53,7 @@
   }
 
   function loadCalendar() {
+    $('.calendarData').addClass('p-5')
     $('.fc-month-button').click();
   }
 </script>

@@ -1,9 +1,9 @@
-<!-- Create by: Natakorn Phongsarikit 15-09-2565 -->
+<!-- Create by: Natakorn Phongsarikit 01-02-2566 -->
 <div class="row">
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h2 class='card-title'><?= lang('tp_user_tl-name') ?></h2>
+        <h2 class='card-title'><?= lang('cancel_list') ?></h2>
         <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มสาเหตุการยุติโครงการ</button>
         <div class="table-responsive my-2">
           <table class="display table dt-responsive nowrap">

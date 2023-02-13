@@ -32,7 +32,7 @@
       if (isConfirm.value) {
         $.ajax({
           method: "post",
-          url: '<?= base_url() ?>permissions/remove',
+          url: hostname + 'permissions/remove',
           data: {
             u_id: u_id,
             p_id: p_id
@@ -65,21 +65,16 @@
 
 
   function saveFormSubmit(t_id) {
-    // $('#fMsg').addClass('text-warning');
-    // $('#fMsg').text('กำลังดำเนินการ ...');
     var formData = {};
     formData['t_id'] = t_id;
     formData['t_detail'] = $('#t_detail').val()
-    // formData['t_createdate'] = $('#t_createdate').val()
+    t_createtime = $('#t_createtime').val()
     formData['t_tl_id'] = $('#t_tl_id').val()
     formData['t_p_id'] = $('#t_p_id').val()
     var dateInput = $('#t_createdate').val()
     if(dateInput.length == 10) {
-      // darr = dateInput.split("-");
-      // var dobj = new Date(parseInt(darr[2]),parseInt(darr[1])-1,parseInt(darr[0]));
       var bangkokDate = dateInput.toLocaleString("en-US", {timeZone: "Asia/Bangkok"})
-      // formData['p_createdate'] = dobj.toISOString().split("T")[0]
-      formData['t_createdate'] = bangkokDate.substring(6, 10) + "-" + bangkokDate.substring(3, 5) + "-" + bangkokDate.substring(0, 2);
+      formData['t_createdate'] = bangkokDate.substring(6, 10) + "-" + bangkokDate.substring(3, 5) + "-" + bangkokDate.substring(0, 2) + " " + t_createtime;
     } else {
       formData['t_createdate'] = "";
     }
@@ -97,11 +92,17 @@
       if (checkbox.checked)
         fileRemove.push(checkbox.value)
     }
-    // console.log(fileNames);
     var count = 0;
+    if (!t_createtime) {
+      $('#createtimeMsg').text(' <?= lang('md_at_rqf_imt') ?>');
+      count++
+    } else {
+      $('#createtimeMsg').text(' ');
+      $('#t_createtime').removeClass("is-invalid");
+      $('#t_createtime').addClass("is-valid");
+    }
     if (!formData.t_createdate) {
       $('#createdateMsg').text(' <?= lang('md_at_rqf_imd') ?>');
-      // $('#p_createdate').focus();
       count++
     } else {
       $('#createdateMsg').text(' ');
@@ -133,28 +134,28 @@
       return false;
     }
 
-    var mainMsg;
-    var detailMsg;
-    if (t_id == "new") {
-      mainMsg = '<?= lang('md_at_main-msg') ?>';
-      detailMsg =  '<?= lang('md_at_detail-msg') ?>';
-    } else {
-      mainMsg = '<?= lang('md_et_main-msg') ?>';
-      detailMsg = '<?= lang('md_et_detail-msg') ?>';
-    }
-    swal({
-      title: mainMsg,
-      text: detailMsg,
-      type: "warning",
-      showCancelButton: true,
-      showConfirmButton: true,
-      confirmButtonText: '<?= lang('bt_confirm')?>',
-      cancelButtonText: '<?= lang('bt_cancel')?>',
-    }).then(function(isConfirm) {
-      if (isConfirm.value) {
+    // var mainMsg;
+    // var detailMsg;
+    // if (t_id == "new") {
+    //   mainMsg = '<?= lang('md_at_main-msg') ?>';
+    //   detailMsg =  '<?= lang('md_at_detail-msg') ?>';
+    // } else {
+    //   mainMsg = '<?= lang('md_et_main-msg') ?>';
+    //   detailMsg = '<?= lang('md_et_detail-msg') ?>';
+    // }
+    // swal({
+    //   title: mainMsg,
+    //   text: detailMsg,
+    //   type: "warning",
+    //   showCancelButton: true,
+    //   showConfirmButton: true,
+    //   confirmButtonText: '<?= lang('bt_confirm')?>',
+    //   cancelButtonText: '<?= lang('bt_cancel')?>',
+    // }).then(function(isConfirm) {
+    //   if (isConfirm.value) {
         $.ajax({
           method: "post",
-          url: '<?= base_url() ?>tasks/add',
+          url: hostname + 'tasks/add',
           data: {
             formData: formData,
             fileAdd: fileAdd,
@@ -171,7 +172,6 @@
               showConfirmButton: false,
               timer: 1000,
             });
-            // $('#projectsForm')[0].reset();
             $('#mainModalTitle').html("");
             $('#mainModalBody').html("");
             $('#mainModalFooter').html("");
@@ -185,7 +185,6 @@
               showConfirmButton: false,
               timer: 1000,
             });
-            // $('#projectsForm')[0].reset();
             $('#mainModalTitle').html("");
             $('#mainModalBody').html("");
             $('#mainModalFooter').html("");
@@ -193,8 +192,8 @@
           }
         });
       }
-    });
-  }
+  //   });
+  // }
 
   function view(t_id) {
     $.ajax({
@@ -322,7 +321,7 @@
   function viewProject(p_id) {
     $.ajax({
       method: "post",
-      url: '<?= base_url() ?>projects/getDetailForm',
+      url: hostname + 'projects/getDetailForm',
       data: {
         p_id: p_id
       }
@@ -338,7 +337,7 @@
     $('#detailModal').modal('hide');
     $.ajax({
       method: "post",
-      url: '<?= base_url() ?>projects/getEditForm',
+      url: hostname + 'projects/getEditForm',
       data: {
         p_id: p_id
       }
@@ -436,7 +435,7 @@
       if (isConfirm.value) {
         $.ajax({
           method: "post",
-          url: '<?= base_url() ?>projects/add',
+          url: hostname + 'projects/add',
           data: formData
         }).done(function(returnData) {
           if (returnData.status == 1) {

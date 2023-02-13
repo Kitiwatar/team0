@@ -60,7 +60,7 @@
 		user.innerHTML = `<button class="btn btn-danger" onclick="deletePermission(` + u_id + `,` + p_id + `)"> <?= lang('md_ap_delete') ?> </button>`
 		$.ajax({
 			method: "post",
-			url: '<?= base_url() ?>permissions/add',
+			url: hostname + 'permissions/add',
 			data: {
 				u_id: u_id,
 				p_id: p_id
@@ -94,7 +94,7 @@
 		user.innerHTML = `<button class="btn btn-success" onclick="addPermission(` + u_id + `,` + p_id + `)"><?= lang('md_ap_add') ?></button>`
 		$.ajax({
 			method: "post",
-			url: '<?= base_url() ?>permissions/remove',
+			url: hostname + 'permissions/remove',
 			data: {
 				u_id: u_id,
 				p_id: p_id

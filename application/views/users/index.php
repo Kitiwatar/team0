@@ -27,8 +27,6 @@
   }
 
   function saveFormSubmit(u_id) {
-    // $('#fMsg').addClass('text-warning');
-    // $('#fMsg').text('กำลังดำเนินการ ...');
     var formData = {};
     formData['u_id'] = u_id;
     formData['u_firstname'] = $('#u_firstname').val()
@@ -36,11 +34,6 @@
     formData['u_email'] = $('#u_email').val()
     formData['u_tel'] = $('#u_tel').val()
     formData['u_role'] = $('#u_role').val()
-    // $('[name^="inputValue"]').each(function() {
-    //   formData[this.id] = this.value;
-    // });
-
-    // console.log(formData);
 
     var count = 0;
     var regex = /\d+/g;
@@ -175,15 +168,12 @@
   }
 
   function submitPwdForm(u_id) {
-    // $('#fMsg').addClass('text-warning');
-    // $('#fMsg').text('กำลังดำเนินการ ...');
     var formData = {};
     formData['u_id'] = u_id;
     $('[name^="inputValue"]').each(function() {
       formData[this.id] = this.value;
     });
 
-    // console.log(formData);
     if (!formData.pwd || !formData.cfPwd) {
       $('#errMsg').addClass('text-danger');
       $('#errMsg').text('<?= lang('md_cp_rqf') ?>');
@@ -270,7 +260,6 @@
       cancelButtonText: "<font style='color:black'>" + "ยกเลิก" + "</font>",
     }).then(function(isConfirm) {
       if (isConfirm.value) {
-        // console.log($('#roleInput' + u_id).val())
         $.ajax({
           method: "post",
           url: 'users/updateRole',

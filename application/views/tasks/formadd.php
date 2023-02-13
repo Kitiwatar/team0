@@ -28,18 +28,29 @@
             <textarea class="form-control" name="inputValue[]" rows="3" id="t_detail" <?= isset($detail) ? "disabled" : '' ?> placeholder="<?= lang('md_at_ph-dtl') ?>"><?= isset($getData) ? $getData->t_detail : '' ?></textarea>
             <font id="detailMsg" class="small text-danger"></font>
           </div>
-          <div class="form-group">
-            <label for="p_createdate" class="form-label"><?= lang('md_at-imd') ?><?= isset($detail) ? '' : $required ?></label>
-            <div class="input-group date" data-provide="datepicker" data-date-format="dd-mm-yyyy">
-              <?php if (isset($getData)) : $newDate = date("d-m-Y", strtotime($getData->t_createdate));
-              endif; ?>
-              <input type="text" class="form-control" id="t_createdate" name="inputValue[]" value="<?= isset($getData) ? $newDate : '' ?>" <?= isset($detail) ? "disabled" : '' ?> placeholder="<?= lang('md_at_ph-ps') ?> (<?= date("d-m-Y") ?>)" maxlength="10" minlength="10" autocomplete="off" required>
-              <div class="input-group-addon">
-                <span class="glyphicon glyphicon-calendar"></span>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="p_createdate" class="form-label"><?= lang('md_at-imd') ?><?= isset($detail) ? '' : $required ?></label>
+                <div class="input-group date" data-provide="datepicker" data-date-format="dd-mm-yyyy">
+                  <?php if (isset($getData)) : $newDate = date("d-m-Y", strtotime($getData->t_createdate));
+                  endif; ?>
+                  <input type="text" class="form-control" id="t_createdate" name="inputValue[]" value="<?= isset($getData) ? $newDate : '' ?>" <?= isset($detail) ? "disabled" : '' ?> placeholder="<?= lang('md_at_ph-ps') ?> (<?= date("d-m-Y") ?>)" maxlength="10" minlength="10" autocomplete="off" required>
+                  <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                  </div>
+                  <span class="input-group-text fs-5" onclick="pickDate()" style="cursor: pointer;"><i class="mdi mdi-calendar-range"></i></span>
+                </div>
+                <font id="createdateMsg" class="small text-danger"></font>
               </div>
-              <span class="input-group-text fs-5" onclick="pickDate()" style="cursor: pointer;"><i class="mdi mdi-calendar-range"></i></span>
             </div>
-            <font id="createdateMsg" class="small text-danger"></font>
+            <div class="col-6">
+              <div class="form-group">
+                <label class="form-label"><?= lang('md_at-time') ?><?= isset($detail) ? '' : $required ?></label>
+                <input type="time" class="form-control" id="t_createtime" name="inputValue[]" value="<?= isset($getData) ? substr($getData->t_createdate,11) : '' ?>" <?= isset($detail) ? "disabled" : '' ?>>
+                <font id="createtimeMsg" class="small text-danger"></font>
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label class="form-label"><?= lang('md_at-ad') ?></label>
@@ -146,7 +157,7 @@
 
   $("#t_createdate").on('change', function() {
     this.value = this.value.replace(/[^0-9]-/g, '');
-    if($("#t_createdate").val() == "" || $("#t_createdate").val().length < 10) {
+    if ($("#t_createdate").val() == "" || $("#t_createdate").val().length < 10) {
       $('#t_createdate').removeClass("is-valid");
       $('#t_createdate').addClass("is-invalid");
     } else {
@@ -154,5 +165,4 @@
       $('#t_createdate').addClass("is-valid");
     }
   });
-
 </script>

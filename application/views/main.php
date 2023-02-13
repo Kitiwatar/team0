@@ -96,6 +96,9 @@
         }
     </style>
 </head>
+<script>
+    var hostname = location.protocol + '//' + window.location.hostname + ":" + location.port + "/team0/";
+</script>
 
 <body class="skin-blue fixed-layout" <?= isset($_SESSION['u_id']) ? 'onload="countDown()" ' . 'onclick="updateTimeout()"' : '' ?>>
     <!-- ============================================================== -->
@@ -157,11 +160,22 @@
                             </form>
                         </li> -->
                     </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-link px-2">
+                            <?php if ($_SESSION['lang'] == "th") { ?>
+                                <div style="cursor:pointer;" class="fw-bold fs-5" onclick="changeLang('en')">EN</div>
+                            <?php } else { ?>
+                                <div style="cursor:pointer;" class="fw-bold fs-5" onclick="changeLang('th')">TH</div>
+                            <?php } ?>
+                        </li>
+                        <li class="nav-link pe-0">
+                            <div class="fw-bold fs-5">|</div>
+                        </li>
+                    </ul>
                     <!-- ============================================================== -->
                     <!-- User profile and search -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav my-lg-0">
-
                         <!-- ============================================================== -->
                         <!-- User Profile -->
                         <!-- ============================================================== -->
@@ -229,32 +243,32 @@
                                 <?php if ($_SESSION['u_role'] <= 1) : ?>
                                     <ul aria-expanded="false" class="collapse">
                                         <li>
-                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>Home/dashboard" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i>ส่วนบุคคล</a>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>Home/dashboard" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> ส่วนบุคคล</a>
                                         </li>
                                         <li>
-                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>Home/dashboard_admin" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i>ผู้ดูแลระบบ</a>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>Home/dashboard_admin" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> ผู้ดูแลระบบ</a>
                                         </li>
                                     </ul>
-                                    <?php endif; ?>
+                                <?php endif; ?>
                             </li>
                         <?php } ?>
 
                         <?php if (isset($_SESSION['u_id'])) : ?>
-                            <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-doc" style="font-size: 20px;"></i><span class="hide-menu"><?= lang('project') ?></span></a>
+                            <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-doc" style="font-size: 20px;"></i><span class="hide-menu"> <?= lang('project') ?></span></a>
                                 <ul aria-expanded="false" class="collapse">
-                                    <?php if ($_SESSION['u_role'] <= 1) : ?>
-                                        <li>
-                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>projects/all" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i><?= lang('all_project') ?></a>
-                                        </li>
-                                    <?php endif; ?>
-                                    <li>
-                                        <a class="waves-effect waves-dark" href="<?= base_url() ?>projects" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('my_project') ?></a>
-                                    </li>
                                     <?php if ($_SESSION['u_role'] <= 2) : ?>
                                         <li>
                                             <a class="waves-effect waves-dark" href="<?= base_url() ?>projects/addProject" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('m_project_addproject') ?></a>
                                         </li>
                                     <?php endif; ?>
+                                    <?php if ($_SESSION['u_role'] <= 1) : ?>
+                                        <li>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>projects/all" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('all_project') ?></a>
+                                        </li>
+                                    <?php endif; ?>
+                                    <li>
+                                        <a class="waves-effect waves-dark" href="<?= base_url() ?>projects" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('my_project') ?></a>
+                                    </li>
                                 </ul>
                             </li>
                             <?php if ($_SESSION['u_role'] <= 1) : ?>
@@ -292,18 +306,12 @@
                                     </a>
                                 </li>
                             <?php endif; ?>
+                            <li style="bottom: 0; position: fixed;">
+                                <a class="waves-effect waves-dark my-0" href="<?= base_url() ?>login/logout" aria-expanded="false">
+                                    <i class="fas fa-sign-out-alt" style="font-size: 20px;"></i><span class="hide-menu"> <?= lang('logout') ?></span>
+                                </a>
+                            </li>
                         <?php endif; ?>
-                        <li>
-                            <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-world" style="font-size: 18px;"></i><span class="hide-menu"><?= lang('lang') ?></span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li>
-                                    <a class="waves-effect waves-dark" href="javascript:void(0)" onclick="changeLang('th')" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> ภาษาไทย</a>
-                                </li>
-                                <li>
-                                    <a class="waves-effect waves-dark" href="javascript:void(0)" onclick="changeLang('en')" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> English</a>
-                                </li>
-                            </ul>
-                        </li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -415,7 +423,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="mdModal" tabindex="-1" aria-labelledby="modalCenterTitle" aria-hidden="true" data-keyboard="false">
+    <div class="modal fade" id="mdModal" data-backdrop="static" tabindex="-1" aria-labelledby="modalCenterTitle" aria-hidden="true" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered" role="document" id='modalSize'>
             <div class="modal-content">
 
@@ -433,10 +441,11 @@
 
 </html>
 <script>
+    // console.log(hostname)
     function getLoginForm() {
         $.ajax({
             method: "post",
-            url: '<?= base_url() ?>login/getLoginForm',
+            url: hostname + 'login/getLoginForm',
             data: {
                 person: 'yes'
             }
@@ -451,7 +460,7 @@
     function viewPersonDetail() {
         $.ajax({
             method: "post",
-            url: '<?= base_url() ?>users/getDetailForm',
+            url: hostname + 'users/getDetailForm',
             data: {
                 person: 'yes'
             }
@@ -466,7 +475,7 @@
     function changePersonPassword() {
         $.ajax({
             method: "post",
-            url: '<?= base_url() ?>users/getPasswordForm',
+            url: hostname + 'users/getPasswordForm',
             data: {
                 person: 'yes'
             }
@@ -487,7 +496,7 @@
 
     function changeLang(lang) {
         $.ajax({
-            url: '<?= base_url() ?>home/changeLang',
+            url: hostname + 'home/changeLang',
             method: 'post',
             data: {
                 lang: lang
@@ -501,7 +510,7 @@
 
     function clearSession() {
         $.ajax({
-            url: '<?= base_url() ?>login/logout',
+            url: hostname + 'login/logout',
             method: 'post'
         }).done(function(returnData) {
             swal({
@@ -521,7 +530,7 @@
     function countDown() {
         var downloadTimer = setInterval(function() {
             $.ajax({
-                url: '<?= base_url() ?>login/checkTimeout',
+                url: hostname + 'login/checkTimeout',
                 method: 'post'
             }).done(function(returnData) {
                 if (returnData.status == 1) {
@@ -560,7 +569,7 @@
 
     function updateTimeout() {
         $.ajax({
-            url: '<?= base_url() ?>login/updateTimeout',
+            url: hostname + 'login/updateTimeout',
             method: 'post'
         }).done(function(returnData) {
             // console.log(returnData.time)

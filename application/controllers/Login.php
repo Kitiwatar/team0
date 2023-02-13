@@ -21,7 +21,7 @@ class Login extends CI_Controller {
 
 	public function getLoginForm() {
 		// Create by: Jiradat Pomyai 15-12-2565 get login form
-		$json['body'] = $this->load->view('login', '' ,true);
+		$json['body'] = $this->load->view('login', '' ,true); // เรียก form login
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 
@@ -35,13 +35,13 @@ class Login extends CI_Controller {
 			return;
 		}
 	
-		$passwordHash = hash('sha256', $formData['u_password']);
+		$passwordHash = hash('sha256', $formData['u_password']); // hash password ที่ user กรอกเข้ามา
 
-		$data = $this->genmod->getOne('pms_user', '*', array('u_email' => $formData['u_email']));
+		$data = $this->genmod->getOne('pms_user', '*', array('u_email' => $formData['u_email'])); // ค้นหาข้อมูลจาก database
 
 		if(isset($data->u_id)) {
-			if($data->u_password == $passwordHash) {
-				if($data->u_status != 0) {
+			if($data->u_password == $passwordHash) { // check password
+				if($data->u_status != 0) { // ถ้าสถานะ user ไม่ถูกระงับอยู่ในขณะนั้น
 					date_default_timezone_set("Asia/Bangkok");
 					$_SESSION['u_id'] = $data->u_id;
 					$_SESSION['u_fullname'] = $data->u_firstname . " " . $data->u_lastname;
@@ -64,6 +64,7 @@ class Login extends CI_Controller {
     }
 
 	public function updateTimeout() {
+		// Create by: Patiphan Pansanga 18-12-2565 update session timeout when user click something in body html
 		date_default_timezone_set("Asia/Bangkok");
 		$_SESSION['timeout'] = date('Y-m-d H:i:s', strtotime('1 hour'));
 		$json = ['status'=> 1, 'time'=>$_SESSION['timeout']];	

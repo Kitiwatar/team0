@@ -44,6 +44,12 @@ $lang['b_login'] = "Log in";
 //++ Home ++//
 $lang['h_project'] = "Project";
 $lang['h_status'] = "";
+$lang['todo'] = "Todo-List";
+$lang['no_todo'] = "No Work Now";
+$lang['system_message'] = "System Message";
+$lang['overview_relate'] = "Overview of related projects";
+$lang['overview_all'] = "Overview of all projects";
+$lang['cancel_rank'] = "Top 5 Cancel Project Reason";
 // Button
 $lang['b_viewmore']= "More...";
 
@@ -253,6 +259,7 @@ $lang['md_rqf_em-f'] = "Can only specify symbols - . _ . @ ,character a-z , and 
 $lang['md_at-tl'] = "Project TaskList"; // header
 $lang['md_at-dtl'] = "Detail Of Task"; // header
 $lang['md_at-imd'] = "Implementation date"; // header
+$lang['md_at-time'] = "Implementation time"; // header
 $lang['md_at-ad'] = "Task Adder"; // header
 $lang['md_at-dc'] = "Related documentst"; // header
 $lang['md_at_bt-dc'] = "Add Related documentst"; // header
@@ -271,6 +278,7 @@ $lang['md_dt_main-msg'] = "Confirm deleting a task";
 $lang['md_dt_detail-msg'] = "Do you want to delete this task ?";
 $lang['md_dt_vm-msg'] = "Successfully deleted the task.";
 $lang['md_at_rqf_imd'] = "Please specify an action date.";
+$lang['md_at_rqf_imt'] = "Please specify an action time.";
 $lang['md_at_rqf_td'] = "Please specify task detail.";
 $lang['md_at_rqf_tl'] = "Please select tasklist.";
 
@@ -387,3 +395,5 @@ $lang['tt_tl_cn-dtl'] = "This tasklist cannot be deleted. because this tasklist 
 //==>> ToolTips Logs List <<==//
 $lang['tt_log_vinfo'] = "View Information";
 
+//Cancel List
+$lang['cancel_list'] = "Cancel List";
