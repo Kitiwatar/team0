@@ -427,12 +427,27 @@
             <?php endif; ?>
             <div class="col">
               <table>
+              <?php
+              if(is_array($getData)){
+                  foreach ($getData as $key => $value) { ?>
                 <tr>
                   <td rowspan="2" style="font-size: 60px;"><i class="far fa-envelope"></i></td>
-                  <td class="fs-5 px-3"><?= lang('system_message') ?><br> <span class="fw-bold fs-4">"สวัสดีคุณ <?= $_SESSION['u_firstname'] ?>"</span></td>
+                  <td class="fs-5 px-3"><?= lang('system_message') ?><br> <span class="fw-bold fs-4">'<?=$value->an_text?>'</span></td>
                 </tr>
                 <tr>
                 </tr>
+                <?php
+                  }}else{
+                    ?>
+                   <tr>
+                  <td rowspan="2" style="font-size: 60px;"><i class="far fa-envelope"></i></td>
+                  <td class="fs-5 px-3"><?= lang('system_message') ?><br> <span class="fw-bold fs-4">'สวัสดี คุณ<?=$_SESSION['u_firstname']?>'</span></td>
+                </tr>
+                <tr>
+                </tr>
+                    <?php
+                  }
+                  ?>
               </table>
             </div>
           </div>

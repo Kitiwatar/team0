@@ -295,6 +295,9 @@
                                         <li>
                                             <a class="waves-effect waves-dark" href="<?= base_url() ?>cancellist" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> จัดการสาเหตุยุติโครงการ</a>
                                         </li>
+                                        <li>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>announ" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> ประกาศจากระบบ</a>
+                                        </li>
                                     </ul>
                                 </li>
 
