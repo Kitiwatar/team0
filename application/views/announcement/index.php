@@ -54,25 +54,6 @@
          $('#clnameMsg').text(returnData.msg);
          $('#cl_name').removeClass('is-invalid');
          
-         var mainMsg;
-         var detailMsg;
-         if (an_id == "new") {
-           mainMsg = "ยืนยันการเพิ่มข้อความ";
-           detailMsg = "คุณต้องการเพิ่มข้อความหรือไม่";
-         } else {
-           mainMsg = "ยืนยันการแก้ไขข้อความ";
-           detailMsg = "คุณต้องการแก้ไขข้อความใช่หรือไม่";
-         }
-         swal({
-           title: mainMsg,
-           text: detailMsg,
-           type: "warning",
-           showCancelButton: true,
-           showConfirmButton: true,
-           confirmButtonText: "ยืนยัน",
-           cancelButtonText: "ยกเลิก",
-         }).then(function(isConfirm) {
-           if (isConfirm.value) {
              $.ajax({
                method: "post",
                url: 'announ/add',
@@ -111,8 +92,6 @@
            }
          });
        }
-     })
-   }
 
   function edit(an_id) {
     $.ajax({

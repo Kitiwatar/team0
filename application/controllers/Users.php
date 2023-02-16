@@ -113,7 +113,8 @@ class Users extends CI_Controller {
 
 	public function getDetailForm() {
 		// Create by: Jiradat Pomyai 14-09-2565 get form detail user
-		if($this->input->post('person')!=null){
+		$isPersonal = $this->input->post('person');
+		if($isPersonal != null){
 			$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>($_SESSION['u_id'])));
 		}
 		else{

@@ -139,12 +139,8 @@ class Projects extends CI_Controller{
 
 	public function getDetailForm() {
 		// Create by: Jiradat Pomyai 01-10-2565 get form detail projects
-		if($this->input->post('p_id') != null) {
-			$arrayJoin = array('pms_permission' => 'pms_project.p_id=pms_permission.per_p_id','pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
-			$data['getData'] = $this->genmod->getOne('pms_project', '*', array('p_id'=>$this->input->post('p_id'), 'per_role'=>1), '', $arrayJoin, '');
-		} else {
-			return;
-		}
+		$arrayJoin = array('pms_permission' => 'pms_project.p_id=pms_permission.per_p_id','pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
+		$data['getData'] = $this->genmod->getOne('pms_project', '*', array('p_id'=>$this->input->post('p_id'), 'per_role'=>1), '', $arrayJoin, '');
 		$data['detail'] = "yes";
 		$json['title'] = lang('md_tl_v-pj');
 		$json['body'] = $this->load->view('projects/formadd', $data ,true);

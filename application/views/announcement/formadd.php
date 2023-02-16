@@ -7,7 +7,7 @@
         <div class="card-body">
           <div class="form-group">
             <label for="an_text" class="form-label">ประกาศจากระบบ</label>
-            <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->an_text : '' ?>" id="an_text" placeholder="<?= lang('md_at_ph-tl') ?>">
+            <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->an_text : '' ?>" id="an_text" placeholder="โปรดกรอกประกาศ">
             <font id="an_eMsg" class="small text-danger"></font>
           </div>
         </div>

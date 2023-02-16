@@ -44,8 +44,6 @@ class Home extends CI_Controller
 		$this->load->view('main', $values);
 	}
 
-
-
 	public function changeLang()
 	{
 		// Create by: Patiphan Pansanga 24-11-2565 change language
@@ -65,14 +63,11 @@ class Home extends CI_Controller
 		$data = array();
 		date_default_timezone_set("Asia/Bangkok");
 		$data[0] = 0;
-		for ($i = 1; $i <= 4; $i++) {
-			if ($i <= 2) {
-				$data[$i] = $this->genmod->countAll('pms_project', array('p_status' => $i), '');
-			} else {
-				$data[$i] = $this->genmod->countAll('pms_project', array('p_status' => $i, 'YEAR(p_enddate)' => date("Y")), '');
-			}
-			$data[0] += $data[$i];
-		}
+		$data[1] = $this->genmod->countAll('pms_project', array('p_status' => 1), '');
+		$data[2] = $this->genmod->countAll('pms_project', array('p_status' => 2), '');
+		$data[3] = $this->genmod->countAll('pms_project', array('p_status' => 3, 'YEAR(p_enddate)' => date("Y")), '');
+		$data[4] = $this->genmod->countAll('pms_project', array('p_status' => 4, 'YEAR(p_enddate)' => date("Y")), '');
+		$data[0] += ($data[1] + $data[2] + $data[3] + $data[4]);
 
 		if (isset($_SESSION['u_id'])) {
 			$arrayJoin = array('pms_project' => 'pms_project.p_id=pms_permission.per_p_id');
@@ -140,11 +135,13 @@ class Home extends CI_Controller
 			$arrayJoin = array('pms_project' => 'pms_project.p_id=pms_permission.per_p_id', 'pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
 			foreach ($allUser as $key => $value) {
 				$dataUser[$key] = 0;
-				for ($i = 1; $i <= 2; $i++) {
-					$permissionNow = $this->genmod->getAll('pms_permission', '*', array('per_u_id' => $value->u_id, 'p_status' => $i), '', $arrayJoin, '');
-					if (is_array($permissionNow)) {
-						$dataUser[$key] += count($permissionNow);
-					}
+				$permissionNow = $this->genmod->getAll('pms_permission', '*', array('per_u_id' => $value->u_id, 'p_status' => 1), '', $arrayJoin, '');
+				if (is_array($permissionNow)) {
+					$dataUser[$key] += count($permissionNow);
+				}
+				$permissionNow = $this->genmod->getAll('pms_permission', '*', array('per_u_id' => $value->u_id, 'p_status' => 2), '', $arrayJoin, '');
+				if (is_array($permissionNow)) {
+					$dataUser[$key] += count($permissionNow);
 				}
 				$dataName[$key] = $value->u_firstname . " " . $value->u_lastname;
 			}
@@ -175,7 +172,6 @@ class Home extends CI_Controller
 		$NameCancel = array();
 		$dataCancel = array();
 		if (is_array($allCancel)) {
-			$arrayJoin = array('pms_cancel'=>'pms_cancellist.cl_id =pms_cancel.c_cl_id','pms_project' => 'pms_project.p_id=pms_cancel.c_p_id');
 			foreach ($allCancel as $key => $value) {
 				$countCancel[$key] = $this->genmod->countAll('pms_cancel',array('c_cl_id' =>$value->cl_id ));
 				$NameCancel[$key] = $value->cl_name;

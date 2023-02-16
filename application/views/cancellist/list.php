@@ -70,8 +70,8 @@
     dom: 'Bftlp',
      buttons: [{
          extend: 'excel',
-         filename: 'รายชื่อกิจกรรม',
-         title: 'รายชื่อกิจกรรม',
+         filename: 'รายชื่อสาเหตุยุติโครงการ',
+         title: 'รายชื่อสาเหตุยุติโครงการ',
          exportOptions: {
            columns: [0, 1, 2, 3]
          },
@@ -88,8 +88,8 @@
        { // กำหนดพิเศษเฉพาะปุ่ม pdf
          extend: 'pdf', // ปุ่มสร้าง pdf ไฟล์
          text: 'PDF', // ข้อความที่แสดง
-         filename: 'รายชื่อกิจกรรม',
-         title: 'รายชื่อกิจกรรม',
+         filename: 'รายชื่อสาเหตุยุติโครงการ',
+         title: 'รายชื่อสาเหตุยุติโครงการ',
          pageSize: 'A4', // ขนาดหน้ากระดาษเป็น A4
          exportOptions: {
            columns: [0, 1, 2, 3]

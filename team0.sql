@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 13, 2023 at 03:47 PM
+-- Generation Time: Feb 16, 2023 at 02:41 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -20,6 +20,20 @@ SET time_zone = "+00:00";
 --
 -- Database: `team0`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pms_announcement`
+--
+
+CREATE TABLE `pms_announcement` (
+  `an_id` int(11) NOT NULL COMMENT 'ไอดีประกาศ (ตัวอย่าง 1)',
+  `an_text` varchar(255) NOT NULL COMMENT 'ประกาศ (ตัวอย่าง วันนี้มีประชุมนะ)',
+  `an_createdate` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'วันที่เพิ่มประกาศ (ตัวอย่าง 2023-02-14 \r\n 10:20:33)',
+  `an_status` int(11) NOT NULL DEFAULT 1 COMMENT 'สถานะประกาศ (0 ถูกลบ, 1 แสดงประกาศ, 2 ซ่อนประกาศ)',
+  `an_u_id` int(11) NOT NULL COMMENT 'ไอดีคนเพิ่มประกาศ (ตัวอย่าง 1)'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ตารางประกาศ';
 
 -- --------------------------------------------------------
 
@@ -208,6 +222,12 @@ INSERT INTO `pms_user` (`u_id`, `u_email`, `u_password`, `u_firstname`, `u_lastn
 --
 
 --
+-- Indexes for table `pms_announcement`
+--
+ALTER TABLE `pms_announcement`
+  ADD PRIMARY KEY (`an_id`);
+
+--
 -- Indexes for table `pms_cancel`
 --
 ALTER TABLE `pms_cancel`
@@ -264,6 +284,12 @@ ALTER TABLE `pms_user`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `pms_announcement`
+--
+ALTER TABLE `pms_announcement`
+  MODIFY `an_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีประกาศ (ตัวอย่าง 1)';
 
 --
 -- AUTO_INCREMENT for table `pms_cancel`

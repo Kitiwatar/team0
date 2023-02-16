@@ -2,7 +2,7 @@
 // Create by: Natakorn Phongsarikit 15-09-2565 cancellist management
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class announ extends CI_Controller {
+class Announ extends CI_Controller {
 
 	public function __construct() {
 		// Create by: Create by: Natakorn Phongsarikit 01-02-2566 construct
@@ -86,7 +86,7 @@ class announ extends CI_Controller {
 
 	public function getEditForm() {
 		// Create by: Create by: Natakorn Phongsarikit 01-02-2566 get form edit cancel
-		$json['title'] = lang('md_tl_e-tl');
+		$json['title'] = "แก้ไขประกาศ";
 		$data['getData'] = $this->genmod->getOne('pms_announcement', '*', array('an_id'=>$this->input->post('an_id')));
 		$json['body'] = $this->load->view('announcement/formadd',$data ,true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit('.$this->input->post('an_id').');">'. lang('bt_save') .'</button>

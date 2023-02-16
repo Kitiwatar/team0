@@ -80,11 +80,13 @@ class Reports extends CI_Controller{
 			$arrayJoin = array('pms_project' => 'pms_project.p_id=pms_permission.per_p_id','pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
 			foreach ($users as $key => $value) {
 				$projectCount[$key] = 0;
-				for($i=1; $i<=2; $i++) {
-					$permissionNow = $this->genmod->getAll('pms_permission', '*', array('per_u_id'=>$value->u_id, 'p_status'=>$i), '', $arrayJoin, '');
-					if(is_array($permissionNow)) {
-						$projectCount[$key] += count($permissionNow);
-					} 
+				$permissionNow = $this->genmod->getAll('pms_permission', '*', array('per_u_id'=>$value->u_id, 'p_status'=>1), '', $arrayJoin, '');
+				if(is_array($permissionNow)) {
+					$projectCount[$key] += count($permissionNow);
+				} 
+				$permissionNow = $this->genmod->getAll('pms_permission', '*', array('per_u_id'=>$value->u_id, 'p_status'=>2), '', $arrayJoin, '');
+				if(is_array($permissionNow)) {
+					$projectCount[$key] += count($permissionNow);
 				}
 			}
 		}

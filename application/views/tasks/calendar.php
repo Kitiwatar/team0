@@ -159,7 +159,7 @@
                 var defaultEvents = [
                     <?php if (is_array($getData)) {
                         foreach ($getData as $key => $value) {
-                            echo "{title: '" . substr($value->t_createtime, 0, 5) . " น. - " . $value->tl_name . "',start: '" . $value->t_createdate . "',className: 'bg-info " . $value->t_id . "',t_id: " . $value->t_id . ",editable:false},";
+                            echo "{title: '" . substr($value->t_createdate, 11, 5) . " น. - " . $value->tl_name . "',start: '" . substr($value->t_createdate, 0, 10) . "',className: 'bg-info " . $value->t_id . "',t_id: " . $value->t_id . ",editable:false},";
                         }
                     } ?>
                 ];
