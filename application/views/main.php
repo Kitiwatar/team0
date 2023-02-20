@@ -230,17 +230,15 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-
                         <?php if (!isset($_SESSION['u_id'])) { ?>
                             <li>
                                 <a class=" waves-effect waves-dark" href="<?= base_url() ?>" aria-expanded="false">
                                     <i class="ti-bar-chart-alt" style="font-size: 18px;"></i><span class="hide-menu"><?= lang('dashboard') ?></span></a>
                             </li>
-                        <?php } else { ?>
+                        <?php } else if($_SESSION['u_role'] <= 1) { ?>
                             <li>
                                 <a class="has-arrow waves-effect waves-dark" href="<?= base_url() ?>" aria-expanded="false">
                                     <i class="ti-bar-chart-alt" style="font-size: 18px;"></i><span class="hide-menu"><?= lang('dashboard') ?></span></a>
-                                <?php if ($_SESSION['u_role'] <= 1) : ?>
                                     <ul aria-expanded="false" class="collapse">
                                         <li>
                                             <a class="waves-effect waves-dark" href="<?= base_url() ?>Home/dashboard" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> ส่วนบุคคล</a>
@@ -249,7 +247,11 @@
                                             <a class="waves-effect waves-dark" href="<?= base_url() ?>Home/dashboard_admin" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> ผู้ดูแลระบบ</a>
                                         </li>
                                     </ul>
-                                <?php endif; ?>
+                            </li>
+                        <?php } else { ?>
+                            <li>
+                                <a class=" waves-effect waves-dark" href="<?= base_url() ?>" aria-expanded="false">
+                                    <i class="ti-bar-chart-alt" style="font-size: 18px;"></i><span class="hide-menu"><?= lang('dashboard') ?></span></a>
                             </li>
                         <?php } ?>
 

@@ -7,7 +7,7 @@
         <div class="card-body">
           <div class="form-group">
             <label for="cl_name" class="form-label">ชื่อสาเหตุการยุติโครงการ</label>
-            <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->cl_name : '' ?>" id="cl_name" placeholder="<?= lang('md_at_ph-tl') ?>">
+            <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->cl_name : '' ?>" id="cl_name" placeholder="โปรดกรอกรายชื่อสาเหตุการยุติโครงการ">
             <font id="clnameMsg" class="small text-danger"></font>
           </div>
         </div>

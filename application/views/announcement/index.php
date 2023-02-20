@@ -106,6 +106,7 @@
       $('#mainModal').modal();
     });
   }
+
   function changeStatus2(an_id, an_status) {
     var status = document.getElementById("status" + an_id)
     if (an_status == 1) {
@@ -147,28 +148,13 @@
 
   }
 
-
-
-
-
-
-
-
-
-  function changeStatus(an_id, an_status) {
+  function deleteAnnoun(an_id) {
     var mainMsg;
     var detailMsg;
-    if (an_status == 1) {
-      mainMsg = '<?=  "ยืนยันการลบข้อความจากระบบ"?>';
-      detailMsg = '<?="คุณต้องการลบข้อความจากระบบใช่หรือไม่" ?>';
-    }else if (an_status == 2) {
-      mainMsg = '<?= "ยืนยันการประกาศข้อความจากระบบ"?>';
-      detailMsg = '<?="คุณต้องการประกาศข้อความจากระบบใช่หรือไม่" ?>';
-    } 
-     else {
-      mainMsg = "ยืนยันการกู้คืนข้อความจากระบบ";
-      detailMsg = "คุณต้องการกู้คืนข้อความจากระบบใช่หรือไม่";
-    }
+    mainMsg = '<?=  "ยืนยันการลบข้อความจากระบบ"?>';
+    detailMsg = '<?="คุณต้องการลบข้อความจากระบบใช่หรือไม่" ?>';
+    an_status = 0;
+    
     swal({
       title: mainMsg,
       text: detailMsg,

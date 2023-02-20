@@ -363,7 +363,7 @@
     var ampm = hours >= 12 ? 'pm' : 'am';
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'
-    minutes = minutes < 10 ? '0'+minutes : minutes;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
     var strTime = hours + ':' + minutes + ' ' + ampm;
     return strTime;
   }
@@ -371,31 +371,31 @@
 
   function refreshTime() {
     var monthsThai = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤษจิกายน", "ธันวาคม"];
-    var monthsEng = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    var monthsEng = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var today = new Date();
     var h = today.getHours();
     var m = today.getMinutes();
     h = checkLessThanTen(h);
     m = checkLessThanTen(m);
-    <?php if($_SESSION['lang'] == "th") { ?>
+    <?php if ($_SESSION['lang'] == "th") { ?>
       document.getElementById('dayNow').innerHTML = "วันที่ " + today.getDate();
-        document.getElementById('timeNow').innerHTML = h + ":" + m;
-        document.getElementById('monthNow').innerHTML = monthsThai[today.getMonth()];
-        document.getElementById('yearNow').innerHTML = today.getFullYear() + 543;
-      <?php } else { ?>
-        document.getElementById('dayNow').innerHTML = today.getDate();
-        document.getElementById('timeNow').innerHTML = formatAMPM(new Date);
-        document.getElementById('monthNow').innerHTML = monthsEng[today.getMonth()];
-        document.getElementById('yearNow').innerHTML = today.getFullYear();
-      <?php } ?>
-    
+      document.getElementById('timeNow').innerHTML = h + ":" + m;
+      document.getElementById('monthNow').innerHTML = monthsThai[today.getMonth()];
+      document.getElementById('yearNow').innerHTML = today.getFullYear() + 543;
+    <?php } else { ?>
+      document.getElementById('dayNow').innerHTML = today.getDate();
+      document.getElementById('timeNow').innerHTML = formatAMPM(new Date);
+      document.getElementById('monthNow').innerHTML = monthsEng[today.getMonth()];
+      document.getElementById('yearNow').innerHTML = today.getFullYear();
+    <?php } ?>
+
     var downloadTimer = setInterval(function() {
       var today = new Date();
       var h = today.getHours();
       var m = today.getMinutes();
       h = checkLessThanTen(h);
       m = checkLessThanTen(m);
-      <?php if($_SESSION['lang'] == "th") { ?>
+      <?php if ($_SESSION['lang'] == "th") { ?>
         document.getElementById('dayNow').innerHTML = "วันที่ " + today.getDate();
         document.getElementById('timeNow').innerHTML = h + ":" + m;
         document.getElementById('monthNow').innerHTML = monthsThai[today.getMonth()];
@@ -414,12 +414,12 @@
 <!------------------------------------------------------------------ Dashbaord For User ------------------------------------------------------------------>
 <?php if (isset($_SESSION['u_id'])) : ?>
   <div class="row">
-  <div class="col-lg-4 col-md-12 col-sm-12">
+    <div class="col-lg-4 col-md-12 col-sm-12">
       <div class="card" style="height: 95%;">
         <div class="card-body">
           <div class="row">
             <?php date_default_timezone_set("Asia/Bangkok"); ?>
-            <div class="col-lg-12 col-md-12 fw-bold fs-3"><span class="Date" > <span id="dayNow"></span></span> <span id="monthNow"></span> <span id="yearNow"></span></div>
+            <div class="col-lg-12 col-md-12 fw-bold fs-3"><span class="Date"> <span id="dayNow"></span></span> <span id="monthNow"></span> <span id="yearNow"></span></div>
             <?php if ($_SESSION['lang'] == "th") :  ?>
               <div class="col-lg-12 col-md-12 fw-bold fs-3">เวลาปัจจุบัน <span id="timeNow" style="color:#03A9F3;"></span> น.</div>
             <?php else : ?>
@@ -427,27 +427,28 @@
             <?php endif; ?>
             <div class="col">
               <table>
-              <?php
-              if(is_array($getData)){
-                  foreach ($getData as $key => $value) { ?>
-                <tr>
-                  <td rowspan="2" style="font-size: 60px;"><i class="far fa-envelope"></i></td>
-                  <td class="fs-5 px-3"><?= lang('system_message') ?><br> <span class="fw-bold fs-4">'<?=$value->an_text?>'</span></td>
-                </tr>
-                <tr>
-                </tr>
                 <?php
-                  }}else{
-                    ?>
-                   <tr>
-                  <td rowspan="2" style="font-size: 60px;"><i class="far fa-envelope"></i></td>
-                  <td class="fs-5 px-3"><?= lang('system_message') ?><br> <span class="fw-bold fs-4">'สวัสดี คุณ<?=$_SESSION['u_firstname']?>'</span></td>
-                </tr>
-                <tr>
-                </tr>
-                    <?php
+                if (is_array($getData)) {
+                  foreach ($getData as $key => $value) { ?>
+                    <tr>
+                      <td rowspan="2" style="font-size: 60px;"><i class="far fa-envelope"></i></td>
+                      <td class="fs-5 px-3"><?= lang('system_message') ?><br> <span class="fw-bold fs-4">'<?= $value->an_text ?>'</span></td>
+                    </tr>
+                    <tr>
+                    </tr>
+                  <?php
                   }
+                } else {
                   ?>
+                  <tr>
+                    <td rowspan="2" style="font-size: 60px;"><i class="far fa-envelope"></i></td>
+                    <td class="fs-5 px-3"><?= lang('system_message') ?><br> <span class="fw-bold fs-4">'สวัสดี คุณ<?= $_SESSION['u_firstname'] ?>'</span></td>
+                  </tr>
+                  <tr>
+                  </tr>
+                <?php
+                }
+                ?>
               </table>
             </div>
           </div>
@@ -563,7 +564,8 @@
         </div>
       </div>
     </div>
-    <?php endif; ?>
-    <script>
+  </div>
+<?php endif; ?>
+<script>
   refreshTime();
 </script>

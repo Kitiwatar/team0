@@ -8,7 +8,7 @@
         <div class="form-group">
             <label for="c_cl_id" class="form-label">สาเหตุการยุติโครงการ<?= isset($detail) ? '' : $required ?></label>
             <select class="form-select" name="inputValue[]" id="c_cl_id">
-              <option selected disabled value=""><?= lang('md_at_ph-t') ?></option>
+              <option selected disabled value="">เลือกสาเหตุการยุติโครงการ</option>
               <?php foreach ($getData as $key => $value) { ?>
                     <option value="<?= $value->cl_id ?>"><?= $value->cl_name ?></option>
               <?php } ?>
@@ -16,7 +16,7 @@
             <font id="nameMsg" class="small text-danger"></font>
           </div>
           <div class="form-group">
-            <label for="c_detail" class="form-label"><?= lang('md_at-dtl') ?><?= isset($detail) ? '' : $required ?></label>
+            <label for="c_detail" class="form-label">รายละเอียดการยุติโครงการ<?= isset($detail) ? '' : $required ?></label>
             <textarea class="form-control" name="inputValue[]" rows="3" id="c_detail"></textarea>
             <font id="detailMsg" class="small text-danger"></font>
           </div>

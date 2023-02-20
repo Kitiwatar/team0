@@ -1,4 +1,13 @@
 <!-- Create by: Patiphan Pansanga 14-10-2565 -->
+<style>
+  input[type="time"] {
+    position: relative;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+    display: none;
+}
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css" rel="stylesheet">
 <?php $required = '<span class="text-danger">*</span>'; ?>
 <div class="row">
@@ -45,9 +54,12 @@
               </div>
             </div>
             <div class="col-6">
-              <div class="form-group">
-                <label class="form-label"><?= lang('md_at-time') ?><?= isset($detail) ? '' : $required ?></label>
-                <input type="time" class="form-control" id="t_createtime" name="inputValue[]" value="<?= isset($getData) ? substr($getData->t_createdate,11) : '' ?>" <?= isset($detail) ? "disabled" : '' ?>>
+            <div class="form-group">
+            <label class="form-label"><?= lang('md_at-time') ?><?= isset($detail) ? '' : $required ?></label>
+                <div class="input-group">
+                <input type="time" step="300" class="form-control" id="t_createtime" name="inputValue[]" value="<?= isset($getData) ? substr($getData->t_createdate,11) : '' ?>" <?= isset($detail) ? "disabled" : '' ?>>
+                  <span class="input-group-text fs-5" onclick="pickTime()" style="cursor: pointer;"><i class="mdi mdi-clock"></i></span>
+                </div>
                 <font id="createtimeMsg" class="small text-danger"></font>
               </div>
             </div>
@@ -101,11 +113,14 @@
   </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
-
 <script>
   function pickDate() {
-    let date = document.getElementById("t_createdate")
-    date.showPicker()
+    let elm = document.getElementById("t_createdate")
+    elm.focus();
+  }
+  function pickTime() {
+    let elm = document.getElementById("t_createtime")
+    elm.showPicker()
   }
   $('#uploadBtn').click(function(e) {
     e.preventDefault();
