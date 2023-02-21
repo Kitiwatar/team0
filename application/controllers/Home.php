@@ -170,28 +170,34 @@ class Home extends CI_Controller
 		$allCancel = $this->genmod->getAll('pms_cancellist', '*', array('cl_status' => 1), 'cl_createdate desc', '', '');
 		$countCancel = array();
 		$NameCancel = array();
-		$dataCancel = array();
+
 		if (is_array($allCancel)) {
 			foreach ($allCancel as $key => $value) {
 				$countCancel[$key] = $this->genmod->countAll('pms_cancel',array('c_cl_id' =>$value->cl_id ));
 				$NameCancel[$key] = $value->cl_name;
 			}	
 		}
-		
-		for ($i = 0; $i <  count($countCancel) - 1; $i++) { // sort ข้อมูลจากมากไปน้อย
-			for ($j = 0; $j < count($countCancel) - $i - 1; $j++) {
-				if ($countCancel[$j] < $countCancel[$j + 1]) {
-					$temp = $countCancel[$j];
-					$dataCancel[$j] = $countCancel[$j + 1];
-					$dataCancel[$j + 1] = $temp;
-					$tempName = $countCancel[$j];
-					$countCancel[$j] = $countCancel[$j + 1];
-					$countCancel[$j + 1] = $tempName;
+
+		if(count($countCancel) > 1) {
+			for ($i = 0; $i <  count($countCancel) - 1; $i++) { // sort ข้อมูลจากมากไปน้อย
+				for ($j = 0; $j < count($countCancel) - $i - 1; $j++) {
+					if ($countCancel[$j] < $countCancel[$j + 1]) {
+						$temp = $countCancel[$j];
+						$countCancel[$j] = $countCancel[$j + 1];
+						$countCancel[$j + 1] = $temp;
+						$tempName = $NameCancel[$j];
+						$NameCancel[$j] = $NameCancel[$j + 1];
+						$NameCancel[$j + 1] = $tempName;
+					}
 				}
 			}
+			$data['listcancel'] = $countCancel;
+			$data['listCancelName'] = $NameCancel;
+		} else {
+			$data['listcancel'] = $countCancel;
+			$data['listCancelName'] = $NameCancel;
 		}
-		$data['listcancel'] = $dataCancel;
-		$data['listCancelName'] = $NameCancel;
+		
 		$json['html'] = $this->load->view('home/listcancel', $data, TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}

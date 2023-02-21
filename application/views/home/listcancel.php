@@ -8,7 +8,7 @@
 						<thead>
 							<tr>
 								<th class="text-center">อันดับ</th>
-								<th class="text-center">สาเหตุการยุติ</th>
+								<th>สาเหตุการยุติ</th>
 								<th class="text-center">จำนวนทั้งหมด</th>
 							</tr>
 						</thead>
@@ -16,7 +16,7 @@
 							<?php if (is_array($listcancel)) : $count = 1; ?>
 								<?php date_default_timezone_set("Asia/Bangkok"); ?>
 								<?php for ($i = 0; $i < 5; $i++) :
-									if (isset($listcancel[$i])) { ?>
+									if (isset($listcancel[$i]) && $listcancel[$i] > 0) { ?>
 										<tr>
 											<td class="text-center"><?= $count++ ?></td>
 											<td><?= $listCancelName[$i] ?></td>
