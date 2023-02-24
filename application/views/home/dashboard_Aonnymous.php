@@ -408,7 +408,7 @@
         <div class="card">
           <div class="card-body border-left-yellow">
 
-            <div class=" fs-3"><?= lang('sp_home_allproject') ?></div>
+            <div class=" fs-3" style="font-weight: bold;"><?= lang('sp_home_allproject') ?></div>
             <div class="row">
               <div class="col-6">
                 <h2 class="counter all" style="font-size: 140px; color: #A68DDE;"></h2>
