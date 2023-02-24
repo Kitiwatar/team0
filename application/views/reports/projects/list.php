@@ -52,18 +52,18 @@
      <?php $icons = array("mdi mdi-library-books", "far fa-edit", "mdi mdi-bookmark-check fs-1", "mdi mdi-emoticon-sad fs-1") ?>
      <?php $colors = array("#FEC107", "#03A9F3", "#57BF95", "#E46A76") ?>
      <?php for ($i = 0; $i < 4; $i++) { ?>
-       <div class="card border mb-1">
-         <div class="card-body">
-           <table class="table fs-3 p-0">
-             <tr class="p-0">
-               <td class="p-0"><i class="<?= $icons[$i] ?>" style="color: <?= $colors[$i] ?>;"></i></td>
-               <td class="p-0 text-end" style="color: <?= $colors[$i] ?>;"><?= $projectCount[$i] ?></td>
+       <div class="card mb-1" style="border-left: 10px solid; border-color:<?= $colors[$i] ?>;">
+         <div class="card-body pb-0 mb-0">
+           <table class="table fs-4 p-0 b-0 m-0" >
+             <tr class="p-0"  >
+              <td class="p-0 " style="border:none;">จำนวนโครงการที่<?= $projectStatus[$i + 1] ?> 
+              <br>
+              <span style="font-size: 90px; margin-right: 70px; padding-bottom:0px"><?= $projectCount[$i] ?></span>
+              <span style="padding:0px">โครงการ</span>
+            </td>
+              <td class="p-0 text-end" style="color:<?= $colors[$i] ?>; border:none;"><i class="<?= $icons[$i]?>" ></i></td>
              </tr>
            </table>
-           <span class="text-muted fs-5"><?= $projectStatus[$i + 1] ?></span><span class="float-end text-muted" style="font-size: 12px"></span>
-           <div class="progress mt-3">
-             <div class="progress-bar" role="progressbar" style="width: 100%; height: 6px; background-color: <?= $colors[$i] ?>;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-           </div>
          </div>
        </div>
      <?php } ?>
