@@ -166,6 +166,8 @@
             },
           ],
           label: {
+            show: true,
+             formatter: '{b} \n ({d}%) ',
           }
         }]
       };

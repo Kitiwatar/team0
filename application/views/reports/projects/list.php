@@ -1,13 +1,23 @@
  <!-- Create by: Patiphan Pansanga, Jiradat Pomyai 19-09-2565 -->
+<style>
+i.circle {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    padding: 0.5em 0.6em;
+    margin: 10px;
+}
+</style>
  <div class="row">
-   <div class="col-lg-7 col-md-7 col-sm-12">
+   <div class="col-lg-6 col-md-6 col-sm-12">
      <div class="card">
        <div class="card-body">
-         <h2 class='card-title'><?= lang('rp_project') ?></h2>
+         <h2 class='card-title'>กราฟ<?= lang('rp_project') ?></h2>
+          <span style="color:#6C757D;">กราฟวงกลมแสดงสถานะโครงการที่อยู่ในระบบ</span>
          <table>
            <tr>
              <td>ปีที่เริ่มโครงการ </td>
-             <td>
+             <td >
                <select class="form-select" name="begindate" id="begindate" onchange="changeYear()">
                  <?php if ($begindate == 0) {
                     echo '<option selected value="0">ทั้งหมด</option>';
@@ -45,11 +55,12 @@
            </tr>
          </table>
        </div>
-       <div id="projectChart" style="width:100%; height:450px;" class="mt-4 mb-3"></div>
+       <div id="projectChart" style="width:100%; height:555px;" class="mt-4 mb-3"></div>
      </div>
    </div>
-   <div class="col-lg-5 col-md-5 col-sm-12">
-     <?php $icons = array("mdi mdi-library-books", "far fa-edit", "mdi mdi-bookmark-check fs-1", "mdi mdi-emoticon-sad fs-1") ?>
+   <div class="col-lg-6 col-md-6 col-sm-12" >
+     <?php $icons = array("fas fa-file-alt", "far fa-edit ", "fa fa-file-powerpoint ", " far fa-file-excel ") ?>
+     <?php $btn = array("btn-outline-warning", "btn-outline-info ", "btn-outline-success ", "btn-outline-danger") ?>
      <?php $colors = array("#FEC107", "#03A9F3", "#57BF95", "#E46A76") ?>
      <?php for ($i = 0; $i < 4; $i++) { ?>
        <div class="card mb-1" style="border-left: 10px solid; border-color:<?= $colors[$i] ?>;">
@@ -61,7 +72,14 @@
               <span style="font-size: 90px; margin-right: 70px; padding-bottom:0px"><?= $projectCount[$i] ?></span>
               <span style="padding:0px">โครงการ</span>
             </td>
-              <td class="p-0 text-end" style="color:<?= $colors[$i] ?>; border:none;"><i class="<?= $icons[$i]?>" ></i></td>
+              <td class="p-0 text-center " style="border:none; ">
+                 <i class=" <?= $icons[$i]?> circle" style="font-size: 50px; background-color: <?= $colors[$i] ?>;; color:white; "></i>
+                 
+                 <br>
+                 <div class="col-12">
+                    <button class="btn waves-effect waves-light <?= $btn[$i] ?>" onclick="viewProject(<?= $i+1?>,0)"><?= lang('b_viewmore') ?></button>
+                  </div>
+              </td>
              </tr>
            </table>
          </div>
@@ -237,7 +255,7 @@
        orient: 'horizontal',
       //  orient: orientPosition,
        x: 'center',
-       y: 'top',
+       y: 'bottom',
       //  x: xPosition,
       //  y: yPosition,
        data: ['<?= lang('sp_home_finish') ?>', '<?= lang('sp_home_cancel') ?>', '<?= lang('sp_home_pendproject') ?>', '<?= lang('sp_home_inprogress') ?>']
@@ -287,7 +305,7 @@
        ],
        label: {
         show: true,
-         formatter: '{c} <?= lang('h_project') ?> ({d}%) ',
+         formatter: '{b} \n ({d}%) ',
         //  formatter: '{c} <?= lang('h_project') ?>\n ({d}%) ',
        }
      }]
@@ -302,4 +320,20 @@
      }
      $(window).on("resize", resize), $(".sidebartoggler").on("click", resize)
    });
+
+   function viewProject(p_status, u_id) {
+    $.ajax({
+      method: "post",
+      url: '<?= base_url() ?>home/getProjects',
+      data: {
+        p_status: p_status,
+        u_id: u_id
+      }
+    }).done(function(returnData) {
+      $('#detailModalTitle').html(returnData.title);
+      $('#detailModalBody').html(returnData.body);
+      $('#detailModalFooter').html("");
+      $('#detailModal').modal();
+    });
+  }
  </script>

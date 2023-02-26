@@ -165,7 +165,8 @@
               },
             ],
             label: {
-              formatter: '{c} <?= lang('h_project') ?>\n ({d}%) ',
+              show: true,
+              formatter: '{b} \n ({d}%) ',
             }
           }]
         };
@@ -242,7 +243,8 @@
             },
           ],
           label: {
-            formatter: '{c} <?= lang('h_project') ?>\n ({d}%) ',
+            show: true,
+         formatter: '{b} \n ({d}%) ',
           }
         }]
       };
