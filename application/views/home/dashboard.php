@@ -165,7 +165,8 @@
               },
             ],
             label: {
-              formatter: '{c} <?= lang('h_project') ?>\n ({d}%) ',
+              show: true,
+              formatter: '{b} \n ({d}%) ',
             }
           }]
         };
@@ -242,7 +243,8 @@
             },
           ],
           label: {
-            formatter: '{c} <?= lang('h_project') ?>\n ({d}%) ',
+            show: true,
+            formatter: '{b} \n ({d}%) ',
           }
         }]
       };
@@ -479,7 +481,7 @@
         <div class="col-lg-8 col-md-8">
           <div class="card">
             <div class="card-body">
-              <div class="fs-3"><?= lang('sp_home_responproject') ?></div>
+              <div class="fs-3" style="font-weight: bold;"><?= lang('sp_home_responproject') ?></div>
               <div class="row">
                 <div class="col-6">
                   <h2 class="counter respon" style="font-size: 140px; color: #ED9B7E;"></h2>
