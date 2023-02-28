@@ -136,7 +136,7 @@
                             <!-- dark Logo text -->
                             <img src="<?= base_url() ?>assets/images/logo-text.png" alt="homepage" class="dark-logo" />
                             <!-- Light Logo text -->
-                            <img src="<?= base_url() ?>assets/images/pms-logo-text.png" width="140" height="21" class="light-logo" alt="homepage" />
+                            <img src="<?= base_url() ?>assets/images/pms-logo-text.png" width="140" height="31" class="light-logo" alt="homepage" />
                         </span>
                     </a>
                 </div>
