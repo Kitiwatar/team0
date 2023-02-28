@@ -57,7 +57,7 @@
                    <tr id="<?= "project".$value->p_id ?>">
                      <td class="text-center"><?= $count++ ?></td>
                      <?php if($value->p_status >= 1) { ?>
-                     <td class="name" style="cursor:pointer; font-weight: 900;" onclick="linkPage('<?= base_url().'tasks?p_id='.$value->p_id ?>')"><?= $value->p_name ?></td>
+                     <td class="name"><a href="<?= base_url().'tasks?p_id='.$value->p_id ?>" class="name" style="cursor:pointer; font-weight: 900;" ><?= $value->p_name ?></a></td>
                      <?php } else { ?>
                       <td><?= $value->p_name ?></td>
                      <?php } ?>
