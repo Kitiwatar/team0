@@ -52,6 +52,17 @@
     font-size: 25px;
     box-shadow: 0 0 2rem 0 rgba(136, 152, 170, .15) !important;
   }
+
+  .text-slide {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  div.carousel-inner {
+    text-align: left;
+
+  }
 </style>
 
 <!-- Flot Charts JavaScript -->
@@ -427,31 +438,43 @@
             <?php else : ?>
               <div class="col-lg-12 col-md-12 fw-bold fs-3">Time <span id="timeNow" style="color:#03A9F3;"></span></div>
             <?php endif; ?>
-            <div class="col">
-              <table>
-                <?php
-                if (is_array($getData)) {
-                  foreach ($getData as $key => $value) { ?>
-                    <tr>
-                      <td rowspan="2" style="font-size: 60px;"><i class="far fa-envelope"></i></td>
-                      <td class="fs-5 px-3"><?= lang('system_message') ?><br> <span class="fw-bold fs-4">'<?= $value->an_text ?>'</span></td>
-                    </tr>
-                    <tr>
-                    </tr>
-                  <?php
-                  }
-                } else {
-                  ?>
-                  <tr>
-                    <td rowspan="2" style="font-size: 60px;"><i class="far fa-envelope"></i></td>
-                    <td class="fs-5 px-3"><?= lang('system_message') ?><br> <span class="fw-bold fs-4">'สวัสดี คุณ<?= $_SESSION['u_firstname'] ?>'</span></td>
-                  </tr>
-                  <tr>
-                  </tr>
-                <?php
-                }
-                ?>
-              </table>
+            <?php
+            if (is_array($getData)) {
+              foreach ($getData as $key => $value) {
+                $text[] = $value->an_text;
+            ?>
+            <?php
+              }
+            }
+
+            ?>
+            <div class="col mt-2" style="height: 95%;">
+              <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="row">
+                    <div class="col-2">
+                      <div style="font-size: 60px;" class="far fa-envelope"></div>
+                    </div>
+                    <div class="col-10 ps-4">
+                      <div style="font-size: 22.86px;"><?= lang('system_message') ?><br></div>
+                      <div class="carousel-item active" style="font-size: 20px;" data-bs-interval="3000">
+                        <div class="text-slide">"สวัสดี คุณ<?= $_SESSION['u_firstname'] ?>"</div>
+                      </div>
+                      <?php if (is_array($getData)) : ?>
+                        <?php for ($i = 0; $i < count($text); $i++) : ?>
+                          <div class="carousel-item" style="font-size: 20px;" data-bs-interval="3000">
+                            <div class="text-slide" style="font-size: 20px;">"<?= $text[$i] ?>"</div>
+                          </div>
+                        <?php endfor; ?>
+                      <?php endif ?>
+                    </div>
+                  </div>
+                </div>
+                <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+                  <span class="carousel-control-next" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -568,6 +591,11 @@
     </div>
   </div>
 <?php endif; ?>
+<script>
+  $('.carousel').carousel({
+    interval: 3000 // Change the number to set the delay between slides (in milliseconds)
+  })
+</script>
 <script>
   refreshTime();
 </script>

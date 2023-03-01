@@ -88,6 +88,9 @@
                  $('#mainModal').modal('hide');
                  loadList();
                }
+               if(an_text.length>50){
+                
+               }
              });
            }
          });
