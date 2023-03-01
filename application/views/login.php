@@ -1,20 +1,29 @@
 <div class="form-group ">
-        <button type="button"  class="btn-close float-end" data-dismiss="modal" aria-hidden="true"></button>
 </div>
 <div class="card-body text-black">
     <form id="loginForm">
-        <div class="card p-0 rounded" style="background-color: #03a9f3;   text-align: center; margin-top: -20px;">
-        
-            <div class="card-body collapse show p-0">
-            
-                <h4 class="card-title p-0">
-                    <span>
-                        <!-- dark Logo text -->
-                        <img src="<?= base_url() ?>assets/images/pms-logo.png" width="70" height="80"   alt="homepage" class="dark-logo" />
-                        <!-- Light Logo text -->
-                        <img src="<?= base_url() ?>assets/images/pms-logo-text.png" width="140" height="21" class="light-logo" alt="homepage" />
-                    </span>
-                </h4>
+        <div class="row" style="margin-top: -20px;">
+            <div class="col-10 p-0">
+                <div class="card p-0 rounded" style="background-color: #03a9f3; text-align: center; height: 80%;">
+                    <div class="card-body collapse show p-0">
+                        <h4 class="card-title p-0">
+                            <span>
+                                <!-- dark Logo text -->
+                                <img src="<?= base_url() ?>assets/images/pms-logo.png" height="80" alt="homepage" class="dark-logo" />
+                                <!-- Light Logo text -->
+                                <img src="<?= base_url() ?>assets/images/pms-logo-text.png" height="50" class="light-logo" alt="homepage" />
+                            </span>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col ps-2 pe-0">
+                <!-- <div class="rounded" style="background-color: #03a9f3; text-align: center; margin-top: -20px; height: 100%;" data-dismiss="modal" aria-hidden="true">
+                    <h4>
+                        <i class="mdi mdi-close"></i>
+                    </h4>
+                </div> -->
+                <button type="button" class="btn btn-danger" style="height: 80%; width: 100%;" data-dismiss="modal" aria-hidden="true"><i class="mdi mdi-close fs-2"></i></button>
             </div>
         </div>
         <p id="alert" class="text-center text-danger"></p>

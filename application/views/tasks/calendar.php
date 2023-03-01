@@ -10,6 +10,8 @@
 <script src="<?= base_url() ?>assets/node_modules/moment/moment.js"></script>
 <script src='<?= base_url() ?>assets/node_modules/calendar/dist/fullcalendar.js'></script>
 <!-- <script src="<?= base_url() ?>assets/node_modules/calendar/dist/cal-init.js"></script> -->
+<script src='<?= base_url() ?>assets/node_modules/calendar/dist/lang/th.js'></script>
+
 <script>
     function viewTask(t_id) {
         $.ajax({
@@ -24,18 +26,19 @@
             $('#detailModalFooter').html(returnData.footer);
             $('#detailModal').modal();
         });
-    }! function($) {
+    }
+    ! function($) {
         "use strict";
 
         var CalendarApp = function() {
             this.$body = $("body")
             this.$calendar = $('#calendar'),
-                this.$event = ('#calendar-events div.calendar-events'),
-                this.$categoryForm = $('#add-new-event form'),
-                this.$extEvents = $('#calendar-events'),
-                this.$modal = $('#my-event'),
-                this.$saveCategoryBtn = $('.save-category'),
-                this.$calendarObj = null
+            this.$event = ('#calendar-events div.calendar-events'),
+            this.$categoryForm = $('#add-new-event form'),
+            this.$extEvents = $('#calendar-events'),
+            this.$modal = $('#my-event'),
+            this.$saveCategoryBtn = $('.save-category'),
+            this.$calendarObj = null
         };
 
 
@@ -64,25 +67,6 @@
                 var $this = this;
                 let fc = document.getElementsByClassName('fc-day-grid-even');
                 console.log(fc)
-                // viewTask(1)
-                // var form = $("<form></form>");
-                // form.append("<label>Change event name</label>");
-                // form.append("<div class='input-group'><input class='form-control' type=text value='" + calEvent.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> Save</button></span></div>");
-                // $this.$modal.modal({
-                //     backdrop: 'static'
-                // });
-                // $this.$modal.find('.delete-event').show().end().find('.save-event').hide().end().find('.modal-body').empty().prepend(form).end().find('.delete-event').unbind('click').click(function() {
-                //     $this.$calendarObj.fullCalendar('removeEvents', function(ev) {
-                //         return (ev._id == calEvent._id);
-                //     });
-                //     $this.$modal.modal('hide');
-                // });
-                // $this.$modal.find('form').on('submit', function() {
-                //     calEvent.title = form.find("input[type=text]").val();
-                //     $this.$calendarObj.fullCalendar('updateEvent', calEvent);
-                //     $this.$modal.modal('hide');
-                //     return false;
-                // });
             },
             /* on select */
             CalendarApp.prototype.onSelect = function(start, end, allDay) {
@@ -164,45 +148,6 @@
                     } ?>
                 ];
 
-                // var defaultEvents =  [{
-                //         title: 'Released Ample Admin!',
-                //         start: new Date($.now() + 506800000),
-                //         className: 'bg-info'
-                //     }, {
-                //         title: 'This is today check date',
-                //         start: today,
-                //         end: today,
-                //         className: 'bg-danger'
-                //     }, {
-                //         title: 'This is your birthday',
-                //         start: new Date($.now() + 848000000),
-                //         className: 'bg-info'
-                //     },{
-                //         title: 'your meeting with john',
-                //         start: new Date($.now() - 1099000000),
-                //         end:  new Date($.now() - 919000000),
-                //         className: 'bg-warning'
-                //     },{
-                //         title: 'your meeting with john',
-                //         start: new Date($.now() - 1199000000),
-                //         end: new Date($.now() - 1199000000),
-                //         className: 'bg-purple'
-                //     },{
-                //         title: 'your meeting with john',
-                //         start: new Date($.now() - 399000000),
-                //         end: new Date($.now() - 219000000),
-                //         className: 'bg-info'
-                //     },  
-                //       {
-                //         title: 'Hanns birthday',
-                //         start: new Date($.now() + 868000000),
-                //         className: 'bg-danger'
-                //     },{
-                //         title: 'Like it?',
-                //         start: new Date($.now() + 348000000),
-                //         className: 'bg-success'
-                //     }];
-
                 var $this = this;
                 $this.$calendarObj = $this.$calendar.fullCalendar({
                     slotDuration: '00:15:00',
@@ -211,12 +156,13 @@
                     maxTime: '19:00:00',
                     defaultView: 'month',
                     handleWindowResize: true,
-
+                    // lang: 'th',
                     header: {
-                        left: 'prev,next today',
+                        left: 'prev,next',
+                        // left: 'prev,next today',
                         center: 'title',
-                        right: 'month,agendaWeek,agendaDay'
-                        // right: 'month'
+                        // right: 'month,agendaWeek,agendaDay'
+                        right: 'month'
                     },
                     events: defaultEvents,
                     editable: true,
@@ -249,6 +195,7 @@
 
             //init CalendarApp
             $.CalendarApp = new CalendarApp, $.CalendarApp.Constructor = CalendarApp
+
 
     }(window.jQuery),
 
