@@ -50,12 +50,19 @@
            </tr>
          </thead>
          <tbody>
-           <?php if (is_array($getData)) : $count = 1 ?>
+           <?php if (is_array($getData)) : $count = 1;
+           date_default_timezone_set("Asia/Bangkok");
+           $now = date("Y-m-d H:i:s");
+            ?>
              <?php foreach ($getData as $key => $value) : ?>
                <tr>
                  <td class="text-center"><?= $count++ ?></td>
                  <td style="cursor:pointer; font-weight: 900;" class="name" onclick="view(<?= $value->t_id ?>)"><?= $value->tl_name ?></td>
-                 <td><?= thaiDate($value->t_createdate) ?></td>
+                 <?php if($value->t_createdate > $now) { ?>
+                 <td onclick="showTab('calendarData')" class="name" style="cursor: pointer;"><?= thaiDate($value->t_createdate) ?></td>
+                 <?php } else { ?>
+                  <td><?= thaiDate($value->t_createdate) ?></td>
+                  <?php } ?>
                  <td><?= $value->u_firstname . ' ' . $value->u_lastname ?></td>
                  <td class="text-center">
                    <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->t_id ?>)" title="<?= lang('tt_pt_vtask') ?>"><i class="fas fa-search"></i></button>

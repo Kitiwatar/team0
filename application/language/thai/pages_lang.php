@@ -111,7 +111,7 @@ $lang['tl_project_actionbutton'] = "ปุ่มดำเนินการ";
 $lang['tl_project_pj-numbershow'] = "แสดง";
 $lang['tl_project_pj-list'] = "รายการ";
 $lang['tl_project_at-nametask'] = "ชื่อกิจกรรม";
-$lang['tl_project_at-implementationdate'] = "วันที่ดำเนินการ";
+$lang['tl_project_at-implementationdate'] = "วันที่ดำเนินการ / กำหนดการ";
 $lang['tl_project_at-operator'] = "ผู้เพิ่ม";
 // button
 $lang['b_project_previous'] = "ก่อนหน้า";
