@@ -3,7 +3,7 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h2 class='card-title'>รายงานพนักงาน</h2>
+        <h2 class='card-title'><?= lang('rp_user') ?></h2>
         <div class="table-responsive my-2">
           <table class="display table dt-responsive nowrap">
             <thead>
@@ -26,11 +26,11 @@
                     <td class="align-middle text-center"><?= $projectCount[$key] ?></td>
                     <td class="align-middle text-center">
                       <?php if ($projectCount[$key] > 0) { ?>
-                        <button class="btn btn-sm btn-info" title="ดูรายชื่อโครงการของพนักงาน" onclick="viewProjects(<?= $value->u_id ?>)">
+                        <button class="btn btn-sm btn-info" title="<?= lang('v-emp') ?>" onclick="viewProjects(<?= $value->u_id ?>)">
                           <i class="mdi mdi-file-document"></i>
                         </button>
                       <?php } else { ?>
-                        <button type="button" style="cursor:no-drop" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="พนักงานไม่มีโครงการที่รับผิดชอบอยู่ในขณะนี้"><i class="mdi mdi-file-document" style="color: grey;"></i></button>
+                        <button type="button" style="cursor:no-drop" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="<?= lang('v-emp-c') ?>"><i class="mdi mdi-file-document" style="color: grey;"></i></button>
                       <?php } ?>
                     </td>
                   </tr>

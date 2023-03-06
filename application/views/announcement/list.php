@@ -3,17 +3,17 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h2 class='card-title'><?= "ข้อความประกาศจากระบบ"?></h2>
-        <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มข้อความประกาศ</button>
+        <h2 class='card-title'><?=lang('ms-announcement')?></h2>
+        <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> <?= lang('ad-announcement') ?></button>
         <div class="table-responsive my-2">
           <table class="display table dt-responsive nowrap">
             <thead>
               <tr>
                 <th class="text-center"><?= lang('tl_no.') ?></th>
-                <th>ประกาศจากระบบ</th>
-                <th>วันที่เพิ่ม</th>
+                <th><?= lang('announcement') ?></th>
+                <th><?= lang('add_date') ?></th>
                 <th><?= lang('tl_project_at-operator') ?></th>
-                <th class="text-center"><?= "สถานะการประกาศ"?></th>
+                <th class="text-center"><?= lang("pr-status")?></th>
                 <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
               </tr>
             </thead>
@@ -28,8 +28,8 @@
                     <td><?= $value->u_firstname?> <?= $value->u_lastname?> 
                     <td class="align-middle"><div class="form-check form-switch d-flex justify-content-center"><input type="checkbox" style="cursor: pointer;" class="form-check-input" title="<?= lang('tt_es_muser') ?>" onchange="changeStatus2(<?= $value->an_id ?>,<?= $value->an_status ?>)" id="status<?= $value->an_id ?>"<?= ($value->an_status == 1) ? ' checked>' : ">" ?></div></td>
                     <td class="text-center">
-                      <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->an_id ?>)" title="แก้ไข"><i class="mdi mdi-pencil"></i></button>
-                      <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="ลบ" onclick="deleteAnnoun(<?= $value->an_id ?>,<?= $value->an_status ?>)"><i class="mdi mdi-delete"></i></button>
+                      <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->an_id ?>)" title="<?= lang('eda_button') ?>"><i class="mdi mdi-pencil"></i></button>
+                      <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="<?= lang('dea_button') ?>" onclick="deleteAnnoun(<?= $value->an_id ?>,<?= $value->an_status ?>)"><i class="mdi mdi-delete"></i></button>
                     </td>
                   </tr>
                 <?php endforeach; ?>

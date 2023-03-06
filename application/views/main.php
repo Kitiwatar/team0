@@ -295,10 +295,10 @@
                                             <a class="waves-effect waves-dark" href="<?= base_url() ?>tasklist" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('taskList') ?></a>
                                         </li>
                                         <li>
-                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>cancellist" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> จัดการสาเหตุยุติโครงการ</a>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>cancellist" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('m-cancel_list') ?></a>
                                         </li>
                                         <li>
-                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>announ" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> ประกาศจากระบบ</a>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>announ" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('m-announcement') ?></a>
                                         </li>
                                     </ul>
                                 </li>

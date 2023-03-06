@@ -51,7 +51,7 @@ class Cancellist extends CI_Controller {
 
  	public function getAddForm() {
 		// Create by: Create by: Natakorn Phongsarikit 01-02-2566 get form for add task
-		$json['title'] = lang('md_tl_a-tl');
+		$json['title'] = lang('ad-cancel');
 		$json['body'] = $this->load->view('cancellist/formadd', '', true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit(\'new\');">'.lang('bt_save') .'</button>
 		<button type="button" class="btn btn-danger" onclick="closeModal(\'เพิ่มรายชื่อยุติโครงการ\')">'.lang('bt_cancel') .'</button>';
@@ -118,7 +118,7 @@ class Cancellist extends CI_Controller {
 		$this->genlib->ajaxOnly();
 		$checkData = $this->genmod->getOne('pms_cancellist', '*', array('cl_name'=>$this->input->post('cl_name'), 'cl_status'=>1));
 		if(isset($checkData->cl_name)) {
-			$json = ['status'=> 0, 'msg'=>"มีรายชื่อกิจกรรมนี้อยู่แล้ว"];
+			$json = ['status'=> 0, 'msg'=> lang("ad_cancel-sm")];
 		} else {
 			$json = ['status'=> 1, 'msg'=>""];
 		}

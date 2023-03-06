@@ -8,8 +8,8 @@
              <thead>
                <tr>
                  <th class="text-center"><?= lang('tl_no.') ?></th>
-                 <th><?= lang('tl_project_pj-name') ?></th>
-                 <th>วันที่เริ่มโครงการ</th>
+                 <th><?= lang('tl_project_pj-name') ?></th> 
+                 <th><?= lang('gd_project_pj-startdate') ?></th>
                  <th><?= lang('tl_project_pj-status') ?></th>
                </tr>
              </thead>

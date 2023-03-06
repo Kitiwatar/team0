@@ -17,7 +17,7 @@
             <th><?= lang('gd_project_em-permission') ?></th>
             <?php if ($_SESSION['u_id'] == $user[0]->u_id || $_SESSION['u_role'] < 2 && $projectData->p_status < 3) { ?>
               <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
-            <?php } ?>
+            <?php } ?> 
           </tr>
         </thead>
         <?php if (is_array($user)) : $count = 1; ?>

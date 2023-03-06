@@ -316,14 +316,14 @@
       <!-- สำหรับพนักงานระดับ 2 กับผู้ดูแลระบบ -->
       <div class="col-lg-12 col-md-12">
         <div class="card p-2" style="background-color: #03A9F3;">
-          <div style="color:white;" class="fs-4 px-2">ภาพรวมโครงการทั้งหมด พ.ศ <?= $date = date('Y') + 543; ?></div>
+          <div style="color:white;" class="fs-4 px-2"><?= lang('overview_all') ?><?= $date = date('Y') + 543; ?></div>
         </div>
       </div>
       <div class="col-lg-6 col-md-12">
         <div class="col-lg-12 col-md-12">
           <div class="card">
             <div class="card-body">
-              <div class="fs-3">กราฟแสดงจำนวนโครงการทั้งหมดตามสถานะ</div>
+              <div class="fs-3"><?= lang('overview_Cstatus') ?></div>
               <div id="AllprojectChart" class="py-5 pe-3" style="width:100%; height:520px;"></div>
             </div>
           </div>
@@ -424,7 +424,7 @@
       <!-- อันดับสาเหตุยุติโครงการ -->
       <div class="col-lg-6 col-md-12">
         <div class="card" style="height: 395px;">
-          <div class="p-2 fs-4" style="background-color: #03A9F3; color: white;">อันดับสาเหตุการยุติโครงการ 5 อันดับ</div>
+          <div class="p-2 fs-4" style="background-color: #03A9F3; color: white;"><?= lang('cancel_rank') ?></div>
           <div id="listDiv2"></div>
         </div>
       </div>

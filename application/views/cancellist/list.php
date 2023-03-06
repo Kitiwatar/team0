@@ -4,14 +4,14 @@
     <div class="card">
       <div class="card-body">
         <h2 class='card-title'><?= lang('cancel_list') ?></h2>
-        <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มสาเหตุการยุติโครงการ</button>
+        <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i><?= lang('ad-cancel') ?></button>
         <div class="table-responsive my-2">
           <table class="display table dt-responsive nowrap">
             <thead>
               <tr>
                 <th class="text-center"><?= lang('tl_no.') ?></th>
-                <th>รายชื่อสาเหตุการยุติโครงการ</th>
-                <th>วันที่เพิ่ม</th>
+                <th><?= lang('name_cancel') ?></th>
+                <th><?= lang('add_date') ?></th>
                 <th><?= lang('tl_project_at-operator') ?></th>
                 <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
               </tr>
@@ -26,9 +26,9 @@
                     <td><?= thaiDateTime($value->cl_createdate)." น."?></td>
                     <td><?= $value->u_firstname ?> <?= $value->u_lastname ?></td>
                     <td class="text-center">
-                      <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->cl_id ?>)" title="แก้ไข"><i class="mdi mdi-pencil"></i></button>
+                      <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->cl_id ?>)" title="<?= lang('ed_button') ?>"><i class="mdi mdi-pencil"></i></button>
                       <?php if ($cancelCheck[$key] == null) { ?>
-                        <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="ลบ" onclick="changeStatus(<?= $value->cl_id ?>,<?= $value->cl_status ?>)"><i class="mdi mdi-delete"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="<?= lang('de_button') ?>" onclick="changeStatus(<?= $value->cl_id ?>,<?= $value->cl_status ?>)"><i class="mdi mdi-delete"></i></button>
                       <?php } else { ?>
                         <button type="button" style="cursor:no-drop" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="ไม่สามารถลบได้"><i class="mdi mdi-delete" style="color: grey;"></i></button>
                       <?php } ?>

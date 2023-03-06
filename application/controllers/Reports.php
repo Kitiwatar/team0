@@ -22,8 +22,8 @@ class Reports extends CI_Controller{
 
     public function projects() {
 		// Create by: Patiphan Pansanga 19-12-2565 show report of project
-        $values['pageTitle'] = "รายงานโครงการ";
-		$values['breadcrumb'] = "รายงานโครงการ";
+        $values['pageTitle'] = lang('rp_project');
+		$values['breadcrumb'] = lang('rp_project');
 		$values['pageContent'] = $this->load->view('reports/projects/index', $values, TRUE);
 		$this->load->view('main', $values);
     }
@@ -66,8 +66,8 @@ class Reports extends CI_Controller{
 
 	public function users() {
 		// Create by: Patiphan Pansanga 19-12-2565 show report of user
-        $values['pageTitle'] = "รายงานพนักงาน";
-		$values['breadcrumb'] = "รายงานพนักงาน";
+        $values['pageTitle'] = lang('rp_user');
+		$values['breadcrumb'] = lang('rp_user');
 		$values['pageContent'] = $this->load->view('reports/users/index', $values, TRUE);
 		$this->load->view('main', $values);
     }
@@ -114,7 +114,7 @@ class Reports extends CI_Controller{
 		$formData = $this->input->post();
 		$arrayJoin = array('pms_permission' => 'pms_project.p_id=pms_permission.per_p_id','pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
 		$data['projectData'] = $this->genmod->getAll('pms_project', '*', array('per_u_id'=>$formData['u_id']), 'p_createdate desc', $arrayJoin, '');
-		$json['title'] = "รายชื่อโครงการของ ".$data['projectData'][0]->u_firstname." ".$data['projectData'][0]->u_lastname;
+		$json['title'] = lang('listPro').$data['projectData'][0]->u_firstname." ".$data['projectData'][0]->u_lastname;
 		$json['body'] = $this->load->view('reports/users/listProject', $data, TRUE);
 		$json['footer'] = '<button type="button" class="btn btn-secondary" style="background-color: grey; color:white;" data-dismiss="modal" aria-hidden="true">'.lang('md_ap_close').'</button>';
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));

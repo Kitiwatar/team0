@@ -2,10 +2,15 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 //++ Table ++//
 $lang['tl_no.'] = "No.";
+//++ Cause Close Project ++//
+$lang['cause'] = "Cause";
+$lang['Amount'] = "Amount";
 //++ End ++//
 
 //++ Main ++//
 $lang['Home'] = 'Home';
+$lang['Calendar'] = 'Calendar';
+$lang['Em-inp'] = 'Employee In Project';
 // menu sidebar
 $lang['dashboard'] = 'Dashboard';
 $lang['project'] = 'Projects';
@@ -47,8 +52,9 @@ $lang['h_status'] = "";
 $lang['todo'] = "Todo-List";
 $lang['no_todo'] = "No Work Now";
 $lang['system_message'] = "System Message";
-$lang['overview_relate'] = "Overview of related projects";
-$lang['overview_all'] = "Overview of all projects";
+$lang['overview_relate'] = "Overview of related projects B.E. ";
+$lang['overview_Cstatus'] = "The graph shows the number of projects responding by status";
+$lang['overview_all'] = "Overview of all projects B.E. ";
 $lang['cancel_rank'] = "Top 5 Cancel Project Reason";
 // Button
 $lang['b_viewmore']= "More...";
@@ -358,8 +364,19 @@ $lang['md_log_calldate'] = "Called Date";
 $lang['md_log_operator'] = "Operator";
 
 // REPORT
-$lang['rp_project'] = "Projects Report";
-$lang['rp_user'] = "Users Report";
+$lang['rp_project-g'] = "Projects report graph";
+$lang['rp_project'] = "Project report";
+$lang['rp_user'] = "User report";
+$lang['pc-s'] = "A pie chart shows the project status in the system";
+$lang['v-emp'] = "View project of this employee";
+$lang['v-emp-c'] = "The employee has no projects currently responsible for it.";
+$lang['start_project'] = "Project start year";
+$lang['end_project'] = "Project end year";
+$lang['num-project'] = "Number Of Project ";
+$lang['st-project'] = "Start Project Day";
+$lang['et-project'] = "End Project Day";
+$lang['listPro'] = "List Project Of ";
+$lang['all'] = "All";
 
 //==>> ToolTips Project List <<==//
 $lang['tt_pj_mproject'] = "Manage project task";
@@ -394,6 +411,38 @@ $lang['tt_tl_cn-dtl'] = "This tasklist cannot be deleted. because this tasklist 
 
 //==>> ToolTips Logs List <<==//
 $lang['tt_log_vinfo'] = "View Information";
-
+// Cancel Project
+$lang['p-cancel-cause'] = "Cause for cancel this project";
+$lang['p-cause-detail'] = "Detail of this cancel";
+$lang['ch-cause-detail'] = "Select cancel list";
+$lang['cancel-project'] = "Cancel Project";
 //Cancel List
-$lang['cancel_list'] = "Cancel List";
+$lang['m-cancel_list'] = "Cancel Cause";
+$lang['cancel_list'] = "Cause Of Cancel List";
+$lang['name_cancel'] = "Cause Of Cancel";
+$lang['add_date'] = "Add Date";
+$lang['ad-cancel'] = "Add cause of cancel";
+$lang['ph-ad_cancel'] = "Please enter cause of cancel";
+$lang['ad_cancel-sm'] = "Already create this cause";
+$lang['ed_button'] = "Edit this cause";
+$lang['de_button'] = "Delete this cause";
+// Modal
+$lang['main-cancel'] = "Confirm Delete Cause Of Cancel ";
+$lang['detail-cancel'] = "Do you want to delete this cause ?";
+//Announcement List
+$lang['m-announcement'] = "System announcement";
+$lang['announcement'] = "System announcements";
+$lang['ms-announcement'] = "System announcements";
+$lang['pr-status'] = "Status of Announcement";
+$lang['ad-announcement'] = "Add system announcement";
+$lang['ph-ad_an'] = "Please enter the new announcement";
+$lang['ed-announcement'] = "Edite system announcement";
+$lang['eda_button'] = "Edit this announcement";
+$lang['dea_button'] = "Delete this announcement";
+// Toggle
+$lang['active'] = "Announcement";
+$lang['no-active'] = "Hide announcement";
+$lang['de-active'] = "Delete successfull";
+// Modal
+$lang['main-announcement'] = "Confirm delete system announcement";
+$lang['detail-announcement'] = "Do you want to delete this announcement ?";

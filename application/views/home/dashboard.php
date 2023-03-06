@@ -486,14 +486,14 @@
     </div>
     <div class="col-lg-12 col-md-12 mt-3">
       <div class="card p-2" style="background-color: #03A9F3;">
-        <div style="color:white;" class="fs-4 px-2">ภาพรวมโครงการที่มีส่วนเกี่ยวข้อง พ.ศ <?= $date = date('Y') + 543; ?></div>
+        <div style="color:white;" class="fs-4 px-2"><?= lang('overview_relate') ?> <?= $date = date('Y') + 543; ?></div>
       </div>
     </div>
     <div class="col-lg-6 col-md-12 col-sm-12">
       <div class="col-lg-12 col-md-12">
         <div class="card">
           <div class="card-body">
-            <div class="fs-3">กราฟแสดงจำนวนโครงการที่มีส่วนเกี่ยวข้องตามสถานะ</div>
+            <div class="fs-3"><?= lang('overview_Cstatus') ?></div>
             <div id="ResprojectChart" class="py-5 pe-3" style="width:100%; height:520px;"></div>
           </div>
         </div>

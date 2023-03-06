@@ -61,7 +61,7 @@
              }).done(function(returnData) {
                if (returnData.status == 1) {
                  swal({
-                   title: "สำเร็จ",
+                   title: "<?= lang('md_vm-suc')?>",
                    text: returnData.msg,
                    type: "success",
                    showCancelButton: false,
@@ -75,7 +75,7 @@
                  loadList();
                } else {
                  swal({
-                   title: "ล้มเหลว",
+                   title: "<?= lang('md_vm-fail')?>",
                    text: returnData.msg,
                    type: "error",
                    showCancelButton: false,
@@ -130,7 +130,7 @@
       if (returnData.status == 1) {
         loadList();
         $.toast({
-          heading: '<?= "สำเร็จ" ?>',
+          heading: '<?= lang('md_vm-suc')?>',
           text: returnData.msg,
           position: 'top-right',
           icon: 'success',
@@ -139,7 +139,7 @@
         });
       } else {
         $.toast({
-          heading: '<?= "ล้มเหลว"?>',
+          heading: '<?= lang('md_vm-fail')?>',
           text: returnData.msg,
           position: 'top-right',
           icon: 'error',
@@ -154,8 +154,8 @@
   function deleteAnnoun(an_id) {
     var mainMsg;
     var detailMsg;
-    mainMsg = '<?=  "ยืนยันการลบข้อความจากระบบ"?>';
-    detailMsg = '<?="คุณต้องการลบข้อความจากระบบใช่หรือไม่" ?>';
+    mainMsg = '<?=  lang('main-announcement') ?>';
+    detailMsg = '<?= lang('detail-announcement') ?>';
     an_status = 0;
     
     swal({

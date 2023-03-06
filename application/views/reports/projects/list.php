@@ -18,15 +18,15 @@
    <div class="col-lg-7 col-md-7 col-sm-12 pb-5">
      <div class="card" style="height: 100%;">
        <div class="card-body">
-         <h2 class='card-title'>กราฟ<?= lang('rp_project') ?></h2>
-         <span style="color:#6C757D;">กราฟวงกลมแสดงสถานะโครงการที่อยู่ในระบบ</span>
+         <h2 class='card-title'><?= lang('rp_project-g') ?></h2>
+         <span style="color:#6C757D;"><?= lang('pc-s') ?></span>
          <table>
            <tr>
-             <td>ปีที่เริ่มโครงการ </td>
+             <td><?= lang('start_project') ?> </td>
              <td>
                <select class="form-select" name="begindate" id="begindate" onchange="changeYear()">
                  <?php if ($begindate == 0) {
-                    echo '<option selected value="0">ทั้งหมด</option>';
+                    echo '<option selected value="0">'. lang('all').'</option>';
                   } else {
                     echo '<option value="0">ทั้งหมด</option>';
                   }
@@ -40,11 +40,11 @@
                   ?>
                </select>
              </td>
-             <td class="ps-3">ปีที่สิ้นสุดโครงการ </td>
+             <td class="ps-3"><?= lang('end_project') ?> </td>
              <td>
                <select class="form-select" name="enddate" id="enddate" onchange="changeYear()">
                  <?php if ($enddate == 0) {
-                    echo '<option selected value="0">ทั้งหมด</option>';
+                    echo '<option selected value="0">'. lang('all').'</option>';
                   } else {
                     echo '<option value="0">ทั้งหมด</option>';
                   }
@@ -73,10 +73,10 @@
          <div class="card-body pb-0 mb-0">
            <div class="d-flex align-items-center">
              <div class="col-9">
-               <div style="font-size:24px;border:none; ">จำนวนโครงการที่<?= $projectStatus[$i + 1] ?>
+               <div style="font-size:24px;border:none; "><?= lang('num-project') ?><?= $projectStatus[$i + 1] ?>
                  <br>
                  <span style="font-size: 90px; margin-right: 20px; padding-bottom:0px"><?= $projectCount[$i] ?></span>
-                 <span style="font-size:20px;padding:0px">โครงการ</span>
+                 <span style="font-size:20px;padding:0px"><?= lang('project') ?></span>
                </div>
              </div>
                <div class="col-3 colum-flex">
@@ -115,8 +115,8 @@
                  <tr>
                    <th class="text-center"><?= lang('tl_no.') ?></th>
                    <th><?= lang('tl_project_pj-name') ?></th>
-                   <th>วันที่เริ่มโครงการ</th>
-                   <th>วันที่สิ้นสุดโครงการ</th>
+                   <th><?= lang('st-project') ?></th>
+                   <th><?= lang('et-project') ?></th>
                    <th><?= lang('tl_project_pj-status') ?></th>
                  </tr>
                </thead>
