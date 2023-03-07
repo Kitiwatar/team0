@@ -144,7 +144,7 @@ class Projects extends CI_Controller{
 		$data['detail'] = "yes";
 		$json['title'] = lang('md_tl_v-pj');
 		$json['body'] = $this->load->view('projects/formadd', $data ,true);
-		if($_SESSION['u_role'] < 2 || $_SESSION['u_id'] == $data['getData']->per_u_id && ($data['getData']->p_status == 1 || $data['getData']->p_status == 2)) {
+		if(($_SESSION['u_role'] < 2 || $_SESSION['u_id'] == $data['getData']->per_u_id) && ($data['getData']->p_status == 1 || $data['getData']->p_status == 2)) {
 			$json['footer'] = '<button type="button" class="btn btn-warning" onclick="editProject(' . $this->input->post('p_id') . ')" title="'. lang('tt_pj_eproject').'">'.lang("bt_edit").'</button>';
 		} else {
 			$json['footer'] = '';
