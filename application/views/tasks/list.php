@@ -3,7 +3,7 @@
    <div class="card-body">
      <div class="row">
        <div class="col">
-         <h1 class='fs-1 mt-0' style="cursor: pointer; color:black; line-height: 80%;" onclick="viewProject(<?= $projectData->p_id ?>)"><?= isset($projectData) ? $projectData->p_name : '' ?></้>
+         <h1 class='fs-1 mt-0' style="color:black; line-height: 80%;"><?= isset($projectData) ? $projectData->p_name : '' ?></h1>
        </div>
      </div>
      <table class="mt-2">

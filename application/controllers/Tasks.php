@@ -212,8 +212,8 @@ class Tasks extends CI_Controller{
 		$data['detail'] = "yes";
 		$json['title'] = lang('md_tl_v-pt');
 		$json['body'] = $this->load->view('tasks/formadd', $data ,true);
-		if($data['getData']->p_status < 3) {
-			if($_SESSION['u_id'] == $data['getData']->t_u_id || $_SESSION['u_id'] <= 2) {
+		if($data['getData']->p_status < 3 && $data['getData']->p_status > 0) {
+			if($_SESSION['u_id'] == $data['getData']->t_u_id || $_SESSION['u_role'] < 2) {
 				$json['footer'] = '<button type="button" class="btn btn-warning" onclick="edit(' . $this->input->post('t_id') . ')" title="'. lang('tt_pt_etask').'">'.lang('bt_edit').'</button>';
 			} else {
 				$json['footer'] = '';
