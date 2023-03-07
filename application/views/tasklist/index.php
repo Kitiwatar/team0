@@ -33,7 +33,7 @@
      formData['tl_name'] = $('#tl_name').val()
      if (!formData.tl_name) {
        $('#tlnameMsg').addClass('text-danger');
-       $('#tlnameMsg').text('กรุณากรอกชื่อกิจกรรม');
+       $('#tlnameMsg').text('<?= lang('md_atl_rqf') ?>');
        !formData.tl_name ? $('#tl_name').focus() : '';
        return false;
      } else {
@@ -116,8 +116,8 @@
       mainMsg = '<?= lang('md_dtl_main-msg') ?>';
       detailMsg = '<?= lang('md_dtl_detail-msg') ?>';
     } else {
-      mainMsg = "ยืนยันการกู้คืนรายการกิจกรรม";
-      detailMsg = "คุณต้องการกู้คืนรายการกิจกรรมใช่หรือไม่";
+      mainMsg = "<?= lang('md_rtl_main-msg') ?>";
+      detailMsg = "<?= lang('md_rtl_main-msg') ?>";
     }
     swal({
       title: mainMsg,

@@ -65,7 +65,7 @@ date_default_timezone_set("Asia/Bangkok"); ?>
                 <font id="createdateMsg" class="small text-danger"></font>
               </div>
             </div>
-            <label class="form-label " style="font-weight: bold;">ช่องทางติดต่อลูกค้า</label>
+            <label class="form-label " style="font-weight: bold;"><?= lang('md_ap-cct') ?></label>
             <div class="form-group col-lg-3 col-md-3 col-sm-12">
               <label for="p_telcontact" class="form-label"><?= lang('md_ap-tln') ?>:</label>
               <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_telcontact : '' ?>" maxlength="10" id="p_telcontact" placeholder="<?= lang('md_ap_ph-tln') ?>" <?= isset($detail) ? "disabled" : '' ?>>

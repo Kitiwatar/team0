@@ -102,15 +102,15 @@ class Home extends CI_Controller
 		// Create by: Create by: Natakorn Phongsarikit 01-02-2566 dashboard 
 		$arrayJoin = array('pms_user'=>'pms_announcement.an_u_id=pms_user.u_id');
 		$values['getData'] = $this->genmod->getAll('pms_announcement', '*',array('an_status'=>1),'an_createdate desc',$arrayJoin,'');
-		$values['pageTitle'] = "แดชบอร์ดส่วนบุคคล";
-		$values['breadcrumb'] = "แดชบอร์ดส่วนบุคคล";
+		$values['pageTitle'] = lang('pp_home');
+		$values['breadcrumb'] = lang('pp_home');
 		$values['pageContent'] = $this->load->view('home/dashboard', $values, TRUE);
 		$this->load->view('main', $values);
 	}
 	public function dashboard_admin() {
 		// Create by: Create by: Natakorn Phongsarikit 01-02-2566 dashboard for admin
-		$values['pageTitle'] ="แดชบอร์ดผู้ดูแลระบบ";
-		$values['breadcrumb'] = "แดชบอร์ดผู้ดูแลระบบ";
+		$values['pageTitle'] =lang('admin_home');
+		$values['breadcrumb'] = lang('admin_home');
 		$values['pageContent'] = $this->load->view('home/dashboard_admin', $values, TRUE);
 		$this->load->view('main', $values);
 	}

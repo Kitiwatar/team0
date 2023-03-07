@@ -49,6 +49,8 @@ $lang['b_login'] = "Log in";
 //++ Home ++//
 $lang['h_project'] = "Project";
 $lang['h_status'] = "";
+$lang['admin_home'] = "Admin dashboard";
+$lang['pp_home'] = "Personal dashboard";
 $lang['todo'] = "Todo-List";
 $lang['no_todo'] = "No Work Now";
 $lang['system_message'] = "System Message";
@@ -200,7 +202,7 @@ $lang['bt_cancel'] = "Cancel";
 $lang['bt_edit'] = "Edit";
 //-- ADD PROJECT
 $lang['md_ap-pn'] = "Project Name"; // header
-$lang['md_ap-pm'] = "Project Manager";  // header
+$lang['md_ap-pm'] = "Main Of Responsible";  // header
 $lang['md_ap-dt'] = "Details Of Project" ;// header
 $lang['md_ap-ctn'] = "Customer Name" ;// header
 $lang['md_ap-ps'] = "Project Start Date" ;// header
@@ -209,7 +211,7 @@ $lang['md_ap-tln'] = "Telephone Number";// header
 $lang['md_ap-line'] = "Line";// header
 $lang['md_ap-email'] = "Email";// header
 $lang['md_ap-other'] = "Other Contact";// header
-$lang['md_ap-address'] = "Address"; // header
+$lang['md_ap-address'] = "Iframe"; // header
 $lang['md_ap_ph-pn'] = 'Enter the name of the project (Project Monitoring System)'; // Placeholder
 $lang['md_ap_ph-dt'] = 'Enter the detail of the project (Project Monitoring System Is ...)'; // Placeholder
 $lang['md_ap_ph-ps'] = 'Day-Month-Year '; // Placeholder
