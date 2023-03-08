@@ -346,7 +346,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="<?= base_url() ?>"><?= lang('Home') ?></a></li>
                                 <?php if (isset($subBreadcrumb)) : ?>
-                                    <?= $subBreadcrumb ?>
+                                    <li class="breadcrumb-item"><a id="subBreadcrumb" href="<?= base_url() ?><?= $subBreadcrumbPath ?>"><?= $subBreadcrumb ?></a></li>
                                 <?php endif; ?>
                                 <?php if (isset($breadcrumb)) : ?>
                                     <li class="breadcrumb-item active"><?= $breadcrumb ?></li>

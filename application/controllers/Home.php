@@ -34,12 +34,10 @@ class Home extends CI_Controller
 		$data['getData'] = $this->genmod->getAll('pms_announcement', '*',array('an_status'=>1),'an_createdate desc',$arrayJoin,'');
 		if (!isset($_SESSION['u_role'])) {
 			$values['pageContent'] = $this->load->view('home/dashboard_Aonnymous',$data, TRUE);
-		} else if($_SESSION['u_role']>= 2) {
-			$values['pageContent'] = $this->load->view('home/dashboard',$data, TRUE);
-		} else if ($_SESSION['u_role'] <= 2) {
-			$values['pageContent'] = $this->load->view('home/dashboard',$data, TRUE);
-		}
-		$values['pageTitle'] = lang('Home');
+		} else {
+			redirect(base_url("home/dashboard"));
+		} 
+		$values['pageTitle'] = lang('dashboard');
 		$values['breadcrumb'] = lang('dashboard');
 		$this->load->view('main', $values);
 	}
@@ -173,7 +171,7 @@ class Home extends CI_Controller
 
 		if (is_array($allCancel)) {
 			foreach ($allCancel as $key => $value) {
-				$countCancel[$key] = $this->genmod->countAll('pms_cancel',array('c_cl_id' =>$value->cl_id ));
+				$countCancel[$key] = $this->genmod->countAll('pms_cancel',array('c_cl_id' =>$value->cl_id));
 				$NameCancel[$key] = $value->cl_name;
 			}	
 		}
@@ -208,10 +206,10 @@ class Home extends CI_Controller
 		// Create by: Patiphan Pansanga, Kitiwat Arunwong 29-09-2565 view project by status name
 		$p_status = $this->input->post('p_status');
 		$u_id = $this->input->post('u_id');
-		$arrayStatus = array(lang('pbt_pj-all'), lang('pbt_pj-pending'), lang('pbt_pj-inprogress'), lang('pbt_pj-finish'), lang('pbt_pj-cancel'));
 		$arrayJoin = array('pms_project' => 'pms_project.p_id=pms_permission.per_p_id', 'pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
 		date_default_timezone_set("Asia/Bangkok");
 		if ($u_id == 0) {
+			$arrayStatus = array(lang('pbt_pj-all'), lang('pbt_pj-pending'), lang('pbt_pj-inprogress'), lang('pbt_pj-finish'), lang('pbt_pj-cancel'));
 			if ($p_status > 0) {
 				if ($p_status > 2) {
 					$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('p_status' => $p_status, 'per_role' => 1, 'YEAR(p_enddate)' => date("Y")), 'p_createdate desc', $arrayJoin, '');
@@ -222,6 +220,7 @@ class Home extends CI_Controller
 				$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('per_role' => 1), 'p_createdate desc', $arrayJoin, '');
 			}
 		} else {
+			$arrayStatus = array(lang('sp_home_responproject'), lang('pbt_pj-pending'), lang('pbt_pj-inprogress'), lang('pbt_pj-finish'), lang('pbt_pj-cancel'));
 			if ($p_status > 0) {
 				if ($p_status > 2) {
 					$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('p_status' => $p_status, 'per_u_id' => $u_id, 'YEAR(p_enddate)' => date("Y")), 'p_createdate desc', $arrayJoin, '');

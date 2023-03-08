@@ -8,7 +8,7 @@ $lang['Amount'] = "Amount";
 //++ End ++//
 
 //++ Main ++//
-$lang['Home'] = 'Home';
+$lang['Home'] = 'Dashboard';
 $lang['Calendar'] = 'Calendar';
 $lang['Em-inp'] = 'Employee In Project';
 // menu sidebar

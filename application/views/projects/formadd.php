@@ -2,7 +2,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css" rel="stylesheet">
 <style>
   .datepicker {
-    position: fixed !important;
+    /* position: fixed !important; */
   }
 
   .form-group {
@@ -108,6 +108,7 @@ date_default_timezone_set("Asia/Bangkok"); ?>
     let date = document.getElementById("p_createdate")
     date.focus()
   }
+
   $('#p_address').on('input', function() {
     let result = this.value.substr(0, 7);
     if (result == "<iframe") {
@@ -115,13 +116,17 @@ date_default_timezone_set("Asia/Bangkok"); ?>
         $('.gmap_canvas').removeClass("gmap_canvaS");
       } else {
         $('.gmap_canvas').addClass("gmap_canvaS");
+        $(".gmap_canvas").html($(this).val());
       }
     } else {
       $('.gmap_canvas').removeClass("gmap_canvaS");
     }
-    $(".gmap_canvas").html($(this).val());
+    
   });
   
+  $('#p_createdate').on('change', function() {
+    $('.datepicker').hide();
+  });
   
   $('#p_createdate').on('input', function() {
     if (this.value.match(/[^0-9-]/)) {

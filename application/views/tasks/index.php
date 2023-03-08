@@ -7,6 +7,14 @@
     let getUrl = window.location.href;
     let url = new URL(getUrl);
     let p_id = url.searchParams.get("p_id");
+    var oldURL = document.referrer;
+    if(oldURL.search("all") == -1) {
+      $("#subBreadcrumb").html("<?= lang('th_project_pj-responsible') ?>")
+      $("#subBreadcrumb").attr("href", hostname + "projects")
+    } else {
+      $("#subBreadcrumb").html("<?= lang('all_project') ?>")
+      $("#subBreadcrumb").attr("href", hostname + "projects/all")
+    }
     $.ajax({
       url: "tasks/get",
       method: 'post',
@@ -134,25 +142,6 @@
       return false;
     }
 
-    // var mainMsg;
-    // var detailMsg;
-    // if (t_id == "new") {
-    //   mainMsg = '<?= lang('md_at_main-msg') ?>';
-    //   detailMsg =  '<?= lang('md_at_detail-msg') ?>';
-    // } else {
-    //   mainMsg = '<?= lang('md_et_main-msg') ?>';
-    //   detailMsg = '<?= lang('md_et_detail-msg') ?>';
-    // }
-    // swal({
-    //   title: mainMsg,
-    //   text: detailMsg,
-    //   type: "warning",
-    //   showCancelButton: true,
-    //   showConfirmButton: true,
-    //   confirmButtonText: '<?= lang('bt_confirm')?>',
-    //   cancelButtonText: '<?= lang('bt_cancel')?>',
-    // }).then(function(isConfirm) {
-    //   if (isConfirm.value) {
         $.ajax({
           method: "post",
           url: hostname + 'tasks/add',
@@ -192,8 +181,7 @@
           }
         });
       }
-  //   });
-  // }
+
 
   function view(t_id) {
     $.ajax({
@@ -210,20 +198,7 @@
     });
   }
 
-  $('.fc-content').click(function(e) {
-    e.preventDefault();
-    console.log($('.fc-content'))
-    // $.ajax({
-    //   method: "post",
-    //   url: 'users/getAddForm'
-    // }).done(function(returnData) {
-    //   $('#mainModalTitle').html(returnData.title);
-    //   $('#mainModalBody').html(returnData.body);
-    //   $('#mainModalFooter').html(returnData.footer);
-    //   $('#mainModal').modal();
-    // });
-  });
-
+ 
   function edit(t_id) {
     $('#detailModal').modal('hide');
     $.ajax({

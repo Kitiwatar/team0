@@ -13,7 +13,8 @@ $lang['Amount'] = "จำนวนทั้งหมด";
 //++ End ++//
 
 //++ Main ++//
-$lang['Home'] = 'หน้าหลัก';
+
+$lang['Home'] = 'แดชบอร์ด';
 $lang['Calendar'] = 'ปฏิทิน';
 $lang['Em-inp'] = 'พนักงานในโครงการ';
 // menu side bar

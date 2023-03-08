@@ -85,24 +85,6 @@
                   <button class="mb-1 btn waves-effect waves-light <?= $btn[$i] ?>" onclick="viewProject(<?= $i + 1 ?>,0)"><?= lang('b_viewmore') ?></button>
                </div>
              </div>
-
-             <!-- <table class="table fs-4 p-0 b-0 m-0" >
-             <tr class="p-0"  >
-              <td  style="border:none; margin">จำนวนโครงการที่<?= $projectStatus[$i + 1] ?> 
-              <br>
-              <span style="font-size: 90px; margin-right: 70px; padding-bottom:0px"><?= $projectCount[$i] ?></span>
-              <span style="padding:0px">โครงการ</span>
-            </td>
-              <td class="p-0 text-center " style="border:none; ">
-                 <i class=" <?= $icons[$i] ?> circle" style="font-size: 40px; background-color: <?= $colors[$i] ?>;; color:white; "></i>
-                 
-                 <br>
-                 <div class="col-12">
-                    <button class="btn waves-effect waves-light <?= $btn[$i] ?>" onclick="viewProject(<?= $i + 1 ?>,0)"><?= lang('b_viewmore') ?></button>
-                  </div>
-              </td>
-             </tr>
-           </table> -->
            </div>
          </div>
        <?php } ?>
@@ -110,7 +92,7 @@
        <div class="col-12">
          <div class="card px-3">
            <div class="table-responsive my-3">
-             <table class="display table dt-responsive nowrap" id="table">
+             <table class="display table dt-responsive nowrap" id="tableproject">
                <thead>
                  <tr>
                    <th class="text-center"><?= lang('tl_no.') ?></th>
@@ -158,96 +140,106 @@
        </div>
    </div>
    <script>
-     $('#table').DataTable({
-       dom: 'Bftlp',
-       buttons: [{
-           extend: 'excel',
-           filename: "รายชื่อโครงการ",
-           title: "รายชื่อโครงการ",
-           exportOptions: {
-             columns: [0, 1, 2, 3, 4]
-           },
-           customize: function(xlsx) {
-             var sheet = xlsx.xl['styles.xml'];
-             var fontSize = sheet.getElementsByTagName('sz');
-             var fontName = sheet.getElementsByTagName('name');
-             for (i = 0; i < fontSize.length; i++) {
-               fontSize[i].setAttribute("val", "16")
-               fontName[i].setAttribute("val", "TH Sarabun New")
-             }
-           }
-         },
-         { // กำหนดพิเศษเฉพาะปุ่ม pdf
-           extend: 'pdf', // ปุ่มสร้าง pdf ไฟล์
-           text: 'PDF', // ข้อความที่แสดง
-           filename: "รายชื่อโครงการ",
-           title: "รายชื่อโครงการ",
-           pageSize: 'A4', // ขนาดหน้ากระดาษเป็น A4
-           exportOptions: {
-             columns: [0, 1, 2, 3, 4]
-           },
-           customize: function(pdf) { // ส่วนกำหนดเพิ่มเติม ส่วนนี้จะใช้จัดการกับ pdfmake
-             // กำหนด style หลัก
-             pdf.content[1].layout = {
-               hLineWidth: function(i, node) {
-                 return 1;
-               },
-               vLineWidth: function(i, node) {
-                 return 1;
-               },
-               hLineColor: function(i, node) {
-                 return 'black';
-               },
-               vLineColor: function(i, node) {
-                 return 'black';
-               }
-             };
-             pdf.styles = {
-               tableHeader: {
-                 alignment: 'center',
-                 fillColor: 'white',
-                 bold: 1,
-               }
-             };
-             pdf.defaultStyle = {
-               font: 'THSarabun',
-               fontSize: 16
-             };
-             pdf.styles.title = {
-               alignment: 'center',
-               fontSize: '20',
-               bold: !0,
-             };
-             // กำหนดความกว้างของ header แต่ละคอลัมน์หัวข้อ
-             pdf.content[1].table.widths = [40, 150, 150, 150];
-             pdf.styles.tableHeader.fontSize = 16; // กำหนดขนาด font ของ header
-             var rowCount = pdf.content[1].table.body.length; // หาจำนวนแถวทั้งหมดในตาราง
-             // วนลูปเพื่อกำหนดค่าแต่ละคอลัมน์ เช่นการจัดตำแหน่ง
-             for (i = 1; i < rowCount; i++) { // i เริ่มที่ 1 เพราะ i แรกเป็นแถวของหัวข้อ
-               pdf.content[1].table.body[i][0].alignment = 'center'; // คอลัมน์แรกเริ่มที่ 0
-             };
-           }
-         }, // สิ้นสุดกำหนดพิเศษปุ่ม pdf
-       ],
-       "language": {
-         "oPaginate": {
-           "sPrevious": "<?= lang('b_project_previous') ?>",
-           "sNext": "<?= lang('b_project_next') ?>"
-         },
-         "sInfo": "<?= lang('tl_project_pj-numbershow') ?> _START_ ถึง _END_ จาก _TOTAL_ <?= lang('tl_project_pj-list') ?>",
-         "sInfoEmpty": "<?= lang('tl_project_pj-numbershow') ?> 0 ถึง 0 จาก 0 <?= lang('tl_project_pj-list') ?>",
-         "sLengthMenu": "<?= lang('tl_project_pj-numbershow') ?> _MENU_ <?= lang('tl_project_pj-list') ?>",
-         "sSearch": "<?= lang('in_project_search') ?> ",
-         "sInfoFiltered": "(กรองจากทั้งหมด _MAX_ รายการ)",
-         "sZeroRecords": "<?= lang('in_project_zerorecords') ?>"
-       }
-     });
-     $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn waves-effect waves-light btn-info mx-1');
-     $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').removeClass("dt-button");
-     $('.buttons-excel').html('<i class="mdi mdi-file-excel-box"></i> Excel');
-     $('.buttons-pdf').html('<i class="mdi mdi-file-pdf-box"></i> PDF');
 
-     $('[data-toggle="tooltip"]').tooltip();
+pdfMake.fonts = {
+     THSarabun: {
+       normal: 'THSarabun.ttf',
+       bold: 'THSarabun-Bold.ttf',
+       italics: 'THSarabun-Italic.ttf',
+       bolditalics: 'THSarabun-BoldItalic.ttf'
+     }
+   }
+   var table = $('#tableproject').DataTable({
+    dom: 'Bftlp',
+     buttons: [{
+         extend: 'excel',
+         filename: "รายงานโครงการ",
+         title: "รายงานโครงการ",
+         exportOptions: {
+           columns: [0, 1, 2, 3, 4]
+         },
+         customize: function(xlsx) {
+           var sheet = xlsx.xl['styles.xml'];
+           var fontSize = sheet.getElementsByTagName('sz');
+           var fontName = sheet.getElementsByTagName('name');
+           for (i = 0; i < fontSize.length; i++) {
+            fontSize[i].setAttribute("val", "16")
+            fontName[i].setAttribute("val", "TH Sarabun New")
+           }
+         }
+       },
+       { // กำหนดพิเศษเฉพาะปุ่ม pdf
+         extend: 'pdf', // ปุ่มสร้าง pdf ไฟล์
+         text: 'PDF', // ข้อความที่แสดง
+         filename: "รายงานโครงการ",
+         title: "รายงานโครงการ",
+         pageSize: 'A4', // ขนาดหน้ากระดาษเป็น A4
+         exportOptions: {
+           columns: [0, 1, 2, 3, 4]
+         },
+         customize: function(pdf) { // ส่วนกำหนดเพิ่มเติม ส่วนนี้จะใช้จัดการกับ pdfmake
+           // กำหนด style หลัก
+           pdf.content[1].layout = {
+             hLineWidth: function(i, node) {
+               return 1;
+             },
+             vLineWidth: function(i, node) {
+               return 1;
+             },
+             hLineColor: function(i, node) {
+               return 'black';
+             },
+             vLineColor: function(i, node) {
+               return 'black';
+             }
+           };
+           pdf.styles = {
+             tableHeader: {
+               alignment: 'center',
+               fillColor: 'white',
+               bold: 1,
+             }
+           };
+           pdf.defaultStyle = {
+             font: 'THSarabun',
+             fontSize: 16
+           };
+           pdf.styles.title = {
+             alignment: 'center',
+             fontSize: '20',
+             bold: !0,
+           };
+           // กำหนดความกว้างของ header แต่ละคอลัมน์หัวข้อ
+           pdf.content[1].table.widths = [40, 150, 90, 100, 100];
+           pdf.styles.tableHeader.fontSize = 16; // กำหนดขนาด font ของ header
+           var rowCount = pdf.content[1].table.body.length; // หาจำนวนแถวทั้งหมดในตาราง
+           // วนลูปเพื่อกำหนดค่าแต่ละคอลัมน์ เช่นการจัดตำแหน่ง
+           for (i = 1; i < rowCount; i++) { // i เริ่มที่ 1 เพราะ i แรกเป็นแถวของหัวข้อ
+             pdf.content[1].table.body[i][0].alignment = 'center'; // คอลัมน์แรกเริ่มที่ 0
+           };
+         }
+       }, // สิ้นสุดกำหนดพิเศษปุ่ม pdf
+     ],
+     "language": {
+       "oPaginate": {
+         "sPrevious": "<?= lang('b_project_previous') ?>",
+         "sNext": "<?= lang('b_project_next') ?>"
+       },
+       "sInfo": "<?= lang('tl_project_pj-numbershow') ?> _START_ ถึง _END_ จาก _TOTAL_ <?= lang('tl_project_pj-list') ?>",
+       "sInfoEmpty": "<?= lang('tl_project_pj-numbershow') ?> 0 ถึง 0 จาก 0 <?= lang('tl_project_pj-list') ?>",
+       "sLengthMenu": "<?= lang('tl_project_pj-numbershow') ?> _MENU_ <?= lang('tl_project_pj-list') ?>",
+       "sSearch": "<?= lang('in_project_search') ?> ",
+       "sInfoFiltered": "(กรองจากทั้งหมด _MAX_ รายการ)",
+       "sZeroRecords": "<?= lang('in_project_zerorecords') ?>"
+     }
+   });
+   $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn waves-effect waves-light btn-info mx-1');
+   $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').removeClass("dt-button");
+   $('.buttons-excel').html('<i class="mdi mdi-file-excel-box"></i> Excel');
+   $('.buttons-pdf').html('<i class="mdi mdi-file-pdf-box"></i> PDF');   
+
+   $('[data-toggle="tooltip"]').tooltip();
+
      if (typeof orientPosition !== 'undefined') {
        let orientPosition = "";
        let xPosition;

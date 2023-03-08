@@ -40,6 +40,13 @@ class Tasks extends CI_Controller{
 		
 		$values['pageTitle'] = $project->p_name;
 		$values['breadcrumb'] = $project->p_name;
+		if($_SESSION['u_role'] < 2) {
+			$values['subBreadcrumb'] = lang('all_project');
+			$values['subBreadcrumbPath'] = "projects/all";
+		} else {
+			$values['subBreadcrumb'] = lang('th_project_pj-responsible');
+			$values['subBreadcrumbPath'] = "projects";
+		}
 		$values['p_id'] = $p_id;
 		$values['pageContent'] = $this->load->view('tasks/index', $values, TRUE);
 		$this->load->view('main', $values);

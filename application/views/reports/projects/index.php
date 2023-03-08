@@ -5,8 +5,6 @@
   loadList();
 
   function loadList() {
-    console.log($('#begindate').val())
-    console.log($('#enddate').val())
     $.ajax({
       url: hostname + 'reports/getProjects',
       method: 'post',

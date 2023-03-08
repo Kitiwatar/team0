@@ -127,6 +127,10 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     $('#files').click();
   });
 
+  $('#t_createdate').on('change', function() {
+    $('.datepicker').hide();
+  });
+
   function remove(name) {
     let listRemove = document.getElementById("listRemove");
     listRemove.innerHTML += `<input type="checkbox" name="fileRemove" value="` + name + `" checked>`
