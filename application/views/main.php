@@ -196,7 +196,7 @@
                                                     } ?>
                                                 </span>
                                             </td>
-                                            <td class="p-0"><img src="https://synergysoft.co.th/images/2022/06/30/user.png" alt="user" class=""></td>
+                                            <td class="p-0"><img src="<?= base_url() ?>assets/images/iconuser.png" alt="user" class=""></td>
                                         </tr>
                                     </table>
                                 </a>
