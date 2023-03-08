@@ -59,7 +59,7 @@ $lang['system_message'] = "System Message";
 $lang['overview_relate'] = "Overview of related projects B.E. ";
 $lang['overview_Cstatus'] = "The graph shows the number of projects responding by status";
 $lang['overview_all'] = "Overview of all projects B.E. ";
-$lang['cancel_rank'] = "Top 5 Cancel Project Reason";
+$lang['cancel_rank'] = "Top 5 Cancel Project Reason B.E. ";
 // Button
 $lang['b_viewmore']= "More...";
 
@@ -71,7 +71,7 @@ $lang['sp_home_inprogress'] = "In Progress";
 $lang['sp_home_finish'] = "Finish";
 $lang['sp_home_cancel'] = "Cancel";
 // Ranke
-$lang['tl_home_listofrank'] = "List Of Employees With The Highest Job Responsibilities ";
+$lang['tl_home_listofrank'] = "Current List Of Employees With The Highest Job Responsibilities ";
 $lang['tl_home_amountworkpiece'] = "Amount of Workpiece";
 $lang['tl_home_name'] = "Name of Employee";
 $lang['tl_home_update'] = "Update Date";

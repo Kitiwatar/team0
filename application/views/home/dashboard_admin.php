@@ -424,7 +424,7 @@
       <!-- อันดับสาเหตุยุติโครงการ -->
       <div class="col-lg-6 col-md-12">
         <div class="card" style="height: 395px;">
-          <div class="p-2 fs-4" style="background-color: #03A9F3; color: white;"><?= lang('cancel_rank') ?></div>
+          <div class="p-2 fs-4" style="background-color: #03A9F3; color: white;"><?= lang('cancel_rank') ?><?= $date = date('Y') + 543; ?></div>
           <div id="listDiv2"></div>
         </div>
       </div>
