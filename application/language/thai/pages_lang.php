@@ -152,7 +152,7 @@ $lang['tp_user-status'] = "สถานะ";
 //++ End ++//
 
 //++ Tasklist ++//
-$lang['b_user_addtasklist'] = "เพิ่มรายชื่อกิจกรรม";
+$lang['b_user_addtasklist'] = "เพิ่มรายการกิจกรรม";
 // table topic data
 $lang['tb_topic_dt-name'] = "รายการกิจกรรม";
 // Topic 
@@ -194,7 +194,7 @@ $lang['md_tl_e-em'] = "แก้ไขข้อมูลพนักงาน"; 
 $lang['md_tl_v-em'] = "ข้อมูลพนักงาน"; // Title for View Employee Info 
 $lang['md_tl_e-pt'] = "แก้ไขข้อมูลกิจกรรม"; // Title for Task Info 
 $lang['md_tl_v-pt'] = "ข้อมูลกิจกรรม"; // Title for Task Info 
-$lang['md_tl_a-tl'] = "เพิ่มรายชื่อกิจกรรมใหม่"; // Title for add new tasklist  
+$lang['md_tl_a-tl'] = "เพิ่มรายการกิจกรรมใหม่"; // Title for add new tasklist  
 $lang['md_tl_e-tl'] = "แก้ไขข้อมูลรายชื่อกิจกรรม"; // Title for Edit tasklist Info 
 // BUTTON
 $lang["bt_save"] = "บันทึก";

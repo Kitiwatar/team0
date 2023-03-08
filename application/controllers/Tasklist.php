@@ -56,7 +56,7 @@ class Tasklist extends CI_Controller
 	public function getAddForm()
 	{
 		// Create by: Natakorn Phongsarikit 15-09-2565 get form for add task
-		$json['title'] = lang('md_tl_a-tl');
+		$json['title'] = lang('md_tl_a-tl').' <span class="text-danger" style="font-size:12px;">(* '.lang('md_tl_a-req').' )</span>';
 		$json['body'] = $this->load->view('tasklist/formadd', '', true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit(\'new\');">' . lang('bt_save') . '</button>
 		<button type="button" class="btn btn-danger" onclick="closeModal(\'เพิ่มรายชื่อกิจกรรม\')">' . lang('bt_cancel') . '</button>';
