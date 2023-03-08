@@ -263,7 +263,7 @@
           // var rows = table.rows( '#project'+id ).remove().draw();
         } else {
           let newTime = new Date(seconds * 1000).toISOString().slice(11, 16);
-          restore[i].innerHTML = "<?= lang('md_rp') ?>" +" <span style='font-size:16px;'>" + newTime + "</span> ชม.";
+          restore[i].innerHTML = "<?= lang('md_rp') ?> " + newTime + " ชม.";
           console.log(newTime)
         }
       }
