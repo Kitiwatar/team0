@@ -241,10 +241,10 @@
                                     <i class="ti-bar-chart-alt" style="font-size: 18px;"></i><span class="hide-menu"><?= lang('dashboard') ?></span></a>
                                     <ul aria-expanded="false" class="collapse">
                                         <li>
-                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>Home/dashboard" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> ส่วนบุคคล</a>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>Home/dashboard" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('pp') ?></a>
                                         </li>
                                         <li>
-                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>Home/dashboard_admin" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> ผู้ดูแลระบบ</a>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>Home/dashboard_admin" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('admin') ?></a>
                                         </li>
                                     </ul>
                             </li>

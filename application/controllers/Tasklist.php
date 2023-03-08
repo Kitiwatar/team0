@@ -94,7 +94,7 @@ class Tasklist extends CI_Controller
 	public function getEditForm()
 	{
 		// Create by: Natakorn Phongsarikit 15-09-2565 get form edit task
-		$json['title'] = lang('md_tl_e-tl');
+		$json['title'] = lang('md_tl_e-tl').' <span class="text-danger" style="font-size:12px;">(* '.lang('md_tl_a-req').' )</span>';
 		$data['getData'] = $this->genmod->getOne('pms_tasklist', '*', array('tl_id' => $this->input->post('tl_id')));
 		$json['body'] = $this->load->view('tasklist/formadd', $data, true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit(' . $this->input->post('tl_id') . ');">' . lang('bt_save') . '</button>
