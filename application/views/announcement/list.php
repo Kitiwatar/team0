@@ -13,7 +13,7 @@
                 <th><?= lang('announcement') ?></th>
                 <th><?= lang('add_date') ?></th>
                 <th><?= lang('tl_project_at-operator') ?></th>
-                <th class="text-center"><?= lang("pr-status")?></th>
+                <th class="text-center"><?= lang("an-status")?></th>
                 <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
               </tr>
             </thead>

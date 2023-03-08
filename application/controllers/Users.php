@@ -50,7 +50,7 @@ class Users extends CI_Controller {
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
-		$json['title'] = '<h1><b>'.lang('md_tl_a-aes').'</b></h1>เพิ่มพนักงานใหม่ของบริษัทได้ที่นี่ <span class="text-danger" style="font-size:12px;">(* '.lang('md_tl_a-req').')</span>';
+		$json['title'] = '<h1><b>'.lang('md_tl_a-aes').'</b></h1>เพิ่มพนักงานใหม่ของบริษัทได้ที่นี่ <span class="text-danger" style="font-size:12px;">(* '.lang('md_tl_a-req').' )</span>';
 		$data['arrayRole'] = $this->genlib->getUserRole();
 		$json['body'] = $this->load->view('users/formadd', $data ,true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit(\'new\');">'.lang('bt_save').'</button>
@@ -102,7 +102,7 @@ class Users extends CI_Controller {
 		if($_SESSION['u_role'] > 1) {
 			redirect(base_url());
 		}
-		$json['title'] = lang('md_tl_e-em').'<span class="text-danger" style="font-size:12px;"> (* '.lang('md_tl_a-req').')</span>';
+		$json['title'] = lang('md_tl_e-em').'<span class="text-danger" style="font-size:12px;"> (* '.lang('md_tl_a-req').' )</span>';
 		$data['arrayRole'] = $this->genlib->getUserRole();
 		$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
 		$json['body'] = $this->load->view('users/formadd', $data ,true);
