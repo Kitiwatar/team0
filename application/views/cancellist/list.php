@@ -4,7 +4,7 @@
     <div class="card">
       <div class="card-body">
         <h2 class='card-title'><?= lang('cancel_list') ?></h2>
-        <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i><?= lang('ad-cancel') ?></button>
+        <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> <?= lang('ad-cancel') ?></button>
         <div class="table-responsive my-2">
           <table class="display table dt-responsive nowrap">
             <thead>
