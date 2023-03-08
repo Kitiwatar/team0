@@ -92,7 +92,7 @@
        <div class="col-12">
          <div class="card px-3">
            <div class="table-responsive my-3">
-             <table class="display table dt-responsive nowrap" id="tableproject">
+             <table class="display table dt-responsive nowrap" id="table_reportproject">
                <thead>
                  <tr>
                    <th class="text-center"><?= lang('tl_no.') ?></th>
@@ -149,7 +149,7 @@ pdfMake.fonts = {
        bolditalics: 'THSarabun-BoldItalic.ttf'
      }
    }
-   var table = $('#tableproject').DataTable({
+   $('#table_reportproject').DataTable({
     dom: 'Bftlp',
      buttons: [{
          extend: 'excel',
