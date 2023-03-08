@@ -171,7 +171,7 @@ class Home extends CI_Controller
 
 		if (is_array($allCancel)) {
 			foreach ($allCancel as $key => $value) {
-				$countCancel[$key] = $this->genmod->countAll('pms_cancel',array('c_cl_id' =>$value->cl_id));
+				$countCancel[$key] = $this->genmod->countAll('pms_cancel',array('c_cl_id' =>$value->cl_id,'YEAR(c_createdate)'=>date("Y")));
 				$NameCancel[$key] = $value->cl_name;
 			}	
 		}
