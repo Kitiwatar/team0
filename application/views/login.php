@@ -14,7 +14,6 @@
                 <button type="button" class="btn btn-danger" style="height: 80%; width: 100%;" data-dismiss="modal" aria-hidden="true"><i class="mdi mdi-close fs-2"></i></button>
             </div>
         </div>
-        <p id="alert" class="text-center text-danger"></p>
         <div class="form-group ">
             <p><?= lang('Email') ?></p>
             <div class="input-group input-group-lg">
@@ -33,6 +32,7 @@
             <label class="form-check-label" for="checkBoxPwd"><?= lang('md_cp-cb') ?></label>
         </div>
         <button type="submit" id="loginBtn" style="width: 100%;" class="btn btn-info btn-lg btn-block fs-3"><?= lang('b_login') ?></button>
+        <p id="alert" class="text-center text-danger mt-2"> </p>
     </form>
 </div>
 <script>
@@ -63,7 +63,7 @@
             if (returnData.status == 1) {
                 location.replace("home");
             } else {
-                $('#alert').html(returnData.msg);
+                $('#alert').text(returnData.msg);
             }
         });
     });

@@ -1,24 +1,25 @@
 <!-- Create by: Natakorn Phongsarikit, Patiphan Pansanga 07-09-2565-->
- <div class="row">
+<?php $required = '<span class="text-danger">*</span>'; ?>
+<div class="row">
     <div class="col-12">
         <div class="card">
             <form class="" id="pwdForm" autocomplete="off">
                 <div class="card-body">
                     <?php if (isset($personPassword)) { ?>
                         <div class="form-group">
-                            <label for="curPwd" class="form-label"><?= lang('md_cp_ph-psc') ?></label>
-                            <input type="password" class="form-control" name="inputValue[]" id="curPwd" onkeyup="checkCurrentPassword()" placeholder="<?= lang('md_cp_psc') ?>">
+                            <label for="curPwd" class="form-label"><?= lang('md_cp_ph-psc') ?><?= isset($detail) ? '' : $required ?></label>
+                            <input type="password" class="form-control" name="inputValue[]" id="curPwd" onblur="checkCurrentPassword()" placeholder="<?= lang('md_cp_psc') ?>">
                             <font id="curPwdMsg" class="small text-danger"></font>
                         </div>
                     <?php } ?>
                     <div class="form-group">
-                        <label for="pwd" class="form-label"><?= lang('md_cp_ph-psn') ?></label>
-                        <input type="password" class="form-control" name="inputValue[]" id="pwd" onkeyup="checkConfirmPassword()" placeholder="<?= lang('md_cp_psn') ?>">
-                        <font id="pwdMsg" class="small text-danger"></font>
+                        <label for="pwd" class="form-label"><?= lang('md_cp_ph-psn') ?><?= isset($detail) ? '' : $required ?></label>
+                        <input type="password" class="form-control" name="inputValue[]" id="pwd" placeholder="<?= lang('md_cp_psn') ?>">
+                        <!-- <font id="pwdMsg" class="small text-danger"></font> -->
                     </div>
                     <div class="form-group">
-                        <label for="cfPwd" class="form-label"><?= lang('md_cp_ph-psng') ?></label>
-                        <input type="password" class="form-control" name="inputValue[]" id="cfPwd" onkeyup="checkConfirmPassword()"  placeholder="<?= lang('md_cp_psng') ?>">
+                        <label for="cfPwd" class="form-label"><?= lang('md_cp_ph-psng') ?><?= isset($detail) ? '' : $required ?></label>
+                        <input type="password" class="form-control" name="inputValue[]" id="cfPwd" onblur="checkConfirmPassword()" placeholder="<?= lang('md_cp_psng') ?>">
                         <font id="cfPwdMsg" class="small text-danger"></font>
                     </div>
                     <div class="form-check">
@@ -34,7 +35,7 @@
     function checkCurrentPassword() {
         $.ajax({
             method: "post",
-            url: 'Users/checkCurrentPassword',
+            url: hostname + 'Users/checkCurrentPassword',
             data: {
                 pwd: $('#curPwd').val()
             }
@@ -49,7 +50,7 @@
 
     function checkConfirmPassword() {
         if ($('#pwd').val() != $('#cfPwd').val()) {
-            $('#pwdMsg').text('<?= lang('md_cp_rqf-npnm') ?>');
+            // $('#pwdMsg').text('<?= lang('md_cp_rqf-npnm') ?>');
             $('#cfPwdMsg').text('<?= lang('md_cp_rqf-npnm') ?>');
         } else {
             $('#pwdMsg').text(' ');
@@ -81,7 +82,7 @@
         });
         $.ajax({
             method: "post",
-            url: 'Users/checkCurrentPassword',
+            url: hostname + 'Users/checkCurrentPassword',
             data: {
                 pwd: $('#curPwd').val()
             }
@@ -107,35 +108,35 @@
             return false;
         }
 
-      
-                $.ajax({
-                    method: "post",
-                    url: 'Users/updatePassword',
-                    data: formData
-                }).done(function(returnData) {
-                    if (returnData.status == 1) {
-                        swal({
-                            title: "<?= lang('md_vm-suc') ?>",
-                            text: returnData.msg,
-                            type: "success",
-                            showCancelButton: false,
-                            showConfirmButton: false,
-                            timer: 2000,
-                        });
-                        $('#pwdForm')[0].reset();
-                        $('#mainModal').modal('hide');
-                    } else {
-                        swal({
-                            title: "<?= lang('md_vm-fail') ?>",
-                            text: returnData.msg,
-                            type: "error",
-                            showCancelButton: false,
-                            showConfirmButton: false,
-                            timer: 2000,
-                        });
-                        $('#pwdForm')[0].reset();
-                        $('#mainModal').modal('hide');
-                    }
+
+        $.ajax({
+            method: "post",
+            url: 'Users/updatePassword',
+            data: formData
+        }).done(function(returnData) {
+            if (returnData.status == 1) {
+                swal({
+                    title: "<?= lang('md_vm-suc') ?>",
+                    text: returnData.msg,
+                    type: "success",
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    timer: 2000,
                 });
+                $('#pwdForm')[0].reset();
+                $('#mainModal').modal('hide');
+            } else {
+                swal({
+                    title: "<?= lang('md_vm-fail') ?>",
+                    text: returnData.msg,
+                    type: "error",
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+                $('#pwdForm')[0].reset();
+                $('#mainModal').modal('hide');
+            }
+        });
     }
 </script>

@@ -255,7 +255,7 @@
       type: "warning",
       showCancelButton: true,
       showConfirmButton: true,
-      confirmButtonText: '<?= lang('bt_save')?>',
+      confirmButtonText: '<?= lang('bt_confirm')?>',
       cancelButtonColor: "#E4E4E4",
       cancelButtonText: "<font style='color:black'>" + "ยกเลิก" + "</font>",
     }).then(function(isConfirm) {

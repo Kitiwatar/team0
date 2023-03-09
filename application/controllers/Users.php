@@ -139,7 +139,7 @@ class Users extends CI_Controller {
 		// Create by: Natakorn Phongsarikit 14-09-2565 get form password
 		if($this->input->post('person')!=null) { 
 			$data['personPassword'] = "yes";
-			$json['title'] = lang('md_tl_e-ps') ." ". $_SESSION['u_fullname'];
+			$json['title'] = lang('md_tl_e-ps') ." ". $_SESSION['u_fullname'].'<span class="text-danger" style="font-size:12px;"> (* '.lang('md_tl_a-req').' )</span>';
 			$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>($_SESSION['u_id'])));
 			$json['footer'] = '<span id="errMsg"></span><button type="button" class="btn btn-success" onclick="submitPersonPassword()">'.lang('bt_save') .'</button>
 			<button type="button" class="btn btn-danger" onclick="closeModal(\'เปลี่ยนรหัสผ่าน\')">'.lang('bt_cancel') .'</button>';
@@ -148,7 +148,7 @@ class Users extends CI_Controller {
 				redirect(base_url());
 			}
 			$data['getData'] = $this->genmod->getOne('pms_user', '*', array('u_id'=>$this->input->post('u_id')));
-			$json['title'] = lang('md_tl_e-ps') ." ". $data['getData']->u_firstname . " " . $data['getData']->u_lastname;
+			$json['title'] = lang('md_tl_e-ps') ." ". $data['getData']->u_firstname . " " . $data['getData']->u_lastname.'<span class="text-danger" style="font-size:12px;"> (* '.lang('md_tl_a-req').' )</span>';
 			$json['footer'] = '<span id="errMsg"></span><button type="button" class="btn btn-success" onclick="submitPwdForm('.$this->input->post('u_id').');">'.lang('bt_save') .'</button>
 			<button type="button" class="btn btn-danger" onclick="closeModal(\'เปลี่ยนรหัสผ่าน\')">'.lang('bt_cancel') .'</button>';
 		}

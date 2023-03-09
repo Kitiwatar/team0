@@ -6,7 +6,7 @@
       <form class="" id="formaannouce" autocomplete="off">
         <div class="card-body">
           <div class="form-group">
-            <label for="an_text" class="form-label"><?=lang('announcement') ?></label>
+            <label for="an_text" class="form-label"><?=lang('announcement') ?><?= isset($detail) ? '' : $required ?></label>
             <input type="text" class="form-control" name="inputValue[]"  value="<?= isset($getData) ? $getData->an_text : '' ?>" id="an_text" maxlength="30" placeholder="<?= lang('ph-ad_an') ?>">
             <font id="an_eMsg" class="small text-danger"></font>
           </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2023 at 02:41 PM
+-- Generation Time: Mar 09, 2023 at 03:58 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -30,7 +30,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `pms_announcement` (
   `an_id` int(11) NOT NULL COMMENT 'ไอดีประกาศ (ตัวอย่าง 1)',
   `an_text` varchar(255) NOT NULL COMMENT 'ประกาศ (ตัวอย่าง วันนี้มีประชุมนะ)',
-  `an_createdate` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'วันที่เพิ่มประกาศ (ตัวอย่าง 2023-02-14 \r\n 10:20:33)',
+  `an_begindate` date NOT NULL COMMENT 'วันที่เริ่มประกาศ (ตัวอย่าง 2023-02-14)',
+  `an_enddate` date NOT NULL COMMENT 'วันที่สิ้นสุดประกาศ (2023-02-23)',
   `an_status` int(11) NOT NULL DEFAULT 1 COMMENT 'สถานะประกาศ (0 ถูกลบ, 1 แสดงประกาศ, 2 ซ่อนประกาศ)',
   `an_u_id` int(11) NOT NULL COMMENT 'ไอดีคนเพิ่มประกาศ (ตัวอย่าง 1)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ตารางประกาศ';
