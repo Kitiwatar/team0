@@ -36,7 +36,7 @@ class Announ extends CI_Controller {
 	public function get() {
 		// Create by: Create by: Natakorn Phongsarikit 01-02-2566 get announ
 		$arrayJoin = array('pms_user'=>'pms_announcement.an_u_id=pms_user.u_id');
-		$getData = $this->genmod->getAll('pms_announcement', '*','','an_createdate desc',$arrayJoin,'');
+		$getData = $this->genmod->getAll('pms_announcement', '*','','an_begindate desc',$arrayJoin,'');
 		$anon = array();
 		if(is_array($getData)) {
 			for($i=0; $i<count($getData); $i++) {
