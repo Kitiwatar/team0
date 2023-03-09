@@ -222,7 +222,7 @@
           loadList();
           if (returnData.status == 1) {
             swal({
-              title: '<?= lang('md_v,-suc')?>',
+              title: '<?= lang('md_vm-suc')?>',
               text: returnData.msg,
               type: "success",
               showCancelButton: false,
@@ -231,7 +231,7 @@
             });
           } else {
             swal({
-              title: '<?= lang('md_v,-fail')?>',
+              title: '<?= lang('md_vm-fail')?>',
               text: returnData.msg,
               type: "error",
               showCancelButton: false,

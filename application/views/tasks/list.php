@@ -43,8 +43,8 @@
          <thead>
            <tr>
              <th class="text-center"><?= lang('tl_project_pj-no') ?></th>
-             <th><?= lang("tl_project_at-nametask") ?></th>
-             <th><?= lang('tl_project_at-implementationdate') ?></th>
+             <th><span class="m-2"><?= lang("tl_project_at-nametask") ?></span><i class="mdi mdi-information-outline" style="color:#C5C5C5;" title="สามารถคลิก เพื่อดูรายละเอียดกิจกรรม"></i></th>
+             <th><span class="m-2"><?= lang('tl_project_at-implementationdate') ?></span><i class="mdi mdi-information-outline" style="color:#C5C5C5;" title="สามารถคลิก เพื่อไปหน้าปฏิทินได้"></i></th>
              <th><?= lang('tl_project_at-operator') ?></th>
              <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
            </tr>
