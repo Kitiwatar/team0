@@ -445,6 +445,8 @@ $lang['ph-ad_an'] = "Please enter the new announcement";
 $lang['ed-announcement'] = "Edite system announcement";
 $lang['eda_button'] = "Edit this announcement";
 $lang['dea_button'] = "Delete this announcement";
+$lang['start-date'] = "Start date";
+$lang['end-date'] = "End date";
 // Toggle
 $lang['active'] = "Announcement";
 $lang['no-active'] = "Hide announcement";

@@ -9,8 +9,9 @@
           <table class="display table dt-responsive nowrap">
             <thead>
               <tr>
-                <th><?= lang('add_date') ?></th>
                 <th><?= lang('announcement') ?></th>
+                <th><?= lang('start-date') ?></th>
+                <th><?= lang('end-date') ?></th>
                 <th><?= lang('tl_project_at-operator') ?></th>
                 <th class="text-center"><?= lang("an-status")?></th>
                 <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
@@ -21,7 +22,7 @@
                 <?php foreach ($getData as $key => $value) :?>
                 <?php if($value->an_status == 0) : continue; endif; ?>
                   <tr>
-                  <td><?= date("d-m-", strtotime($value->an_begindate)) ?><?= ($_SESSION['lang'] == "th") ? (date("Y", strtotime($value->an_begindate)) + 543) : date("Y", strtotime($value->an_begindate)); ?></td>
+                  <!-- <td><?= date("d-m-", strtotime($value->an_begindate)) ?><?= ($_SESSION['lang'] == "th") ? (date("Y", strtotime($value->an_begindate)) + 543) : date("Y", strtotime($value->an_begindate)); ?></td> -->
                     <td><?= $value->an_text ?></td>
                     <td><?= $value->an_begindate?></td>
                     <td><?= $value->an_enddate?></td>

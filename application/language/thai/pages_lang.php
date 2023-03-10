@@ -438,10 +438,14 @@ $lang['ph-ad_an'] = "โปรดกรอกประกาศ";
 $lang['ed-announcement'] = "แก้ไขข้อความประกาศจากระบบ";
 $lang['eda_button'] = "แก้ไขประกาศจากระบบ";
 $lang['dea_button'] = "ลบประกาศจากระบบ";
+$lang['start-date'] = "วันที่แสดงประกาศ";
+$lang['end-date'] = "วันที่สิ้นสุดประกาศ";
+
 // Toggle
 $lang['active'] = "ประกาศข้อความ";
 $lang['no-active'] = "ซ่อนประกาศ";
 $lang['de-active'] = "ลบสำเร็จ";
+
 
 // Modal
 $lang['main-announcement'] = "ยืนยันการลบข้อความจากระบบ";

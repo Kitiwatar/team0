@@ -219,6 +219,9 @@
          }
        }, // สิ้นสุดกำหนดพิเศษปุ่ม pdf
      ],
+     "order": [
+			[0, "desc"]
+		],
      "language": {
        "oPaginate": {
          "sPrevious": "<?= lang('b_project_previous') ?>",

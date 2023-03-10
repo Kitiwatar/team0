@@ -131,6 +131,32 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     $('.datepicker').hide();
   });
 
+  $('#t_createtime').on('change', function() {
+    if ($("#t_createtime").val() == "") {
+      $('#t_createtime').removeClass("is-valid");
+      $('#t_createtime').addClass("is-invalid");
+    } else {
+      $('#t_createtime').removeClass("is-invalid");
+      $('#t_createtime').addClass("is-valid");
+      $('#createtimeMsg').html('');
+    }
+  });
+
+  $('#t_tl_id').on('change', function() {
+    $('#nameMsg').hide();
+  });
+
+  $('#t_detail').on('input', function() {
+    if ($("#t_detail").val() == "") {
+      $('#t_detail').removeClass("is-valid");
+      $('#t_detail').addClass("is-invalid");
+    } else {
+      $('#t_detail').removeClass("is-invalid");
+      $('#t_detail').addClass("is-valid");
+      $('#detailMsg').html('');
+    }
+  });
+
   function remove(name) {
     let listRemove = document.getElementById("listRemove");
     listRemove.innerHTML += `<input type="checkbox" name="fileRemove" value="` + name + `" checked>`
@@ -182,6 +208,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     } else {
       $('#t_createdate').removeClass("is-invalid");
       $('#t_createdate').addClass("is-valid");
+      $('#createdateMsg').html('');
     }
   });
 </script>
