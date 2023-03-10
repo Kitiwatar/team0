@@ -34,6 +34,7 @@
     formData['u_email'] = $('#u_email').val()
     formData['u_tel'] = $('#u_tel').val()
     formData['u_role'] = $('#u_role').val()
+    formData['u_position'] = $('#u_position').val()
 
     var count = 0;
     var regex = /\d+/g;
@@ -72,6 +73,13 @@
       count++
     } else {
       $('#fnameMsg').text(' ');
+    }
+    if (!formData.u_position) {
+      $('#posMsg').text(' <?= lang('md_aes_upo_rqf') ?>');
+      $('#u_position').focus();
+      count++
+    } else {
+      $('#posMsg').text(' ');
     }
 
     if (count > 0) {
