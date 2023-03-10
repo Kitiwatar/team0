@@ -9,21 +9,19 @@
           <table class="display table dt-responsive nowrap">
             <thead>
               <tr>
-                <th class="text-center"><?= lang('tl_no.') ?></th>
+              <th><?= lang('gd_dateadded') ?></th>
                 <th><?= lang('tb_topic_dt-name') ?></th>
-                <th><?= lang('gd_dateadded') ?></th>
                 <th><?= lang('tl_project_at-operator') ?></th>
                 <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
               </tr>
             </thead>
             <tbody>
-              <?php if (is_array($getData)) : $count = 1;?>
+              <?php if (is_array($getData)) : ?>
                 <?php foreach ($getData as $key => $value) :?>
                 <?php if($value->tl_status == 0) : continue; endif; ?>
                   <tr>
-                    <td class="text-center"><?= $count++ ?></td> 
+                  <td><?= ($_SESSION['lang'] == "th") ? (date("Y", strtotime($value->tl_createdate)) + 543) : date("Y", strtotime($value->tl_createdate)); ?><?= date("-m-d", strtotime($value->tl_createdate)) ?></td>
                     <td><?= $value->tl_name ?></td>
-                    <td><?= thaiDateTime($value->tl_createdate)." น."?></td>
                     <td><?= $value->u_firstname ?> <?= $value->u_lastname ?></td>
                     <td class="text-center">
                       <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->tl_id ?>)" title="<?= lang('tt_tl_etl') ?>"><i class="mdi mdi-pencil"></i></button>
@@ -137,6 +135,10 @@
          }
        }, // สิ้นสุดกำหนดพิเศษปุ่ม pdf
     ],
+    columnDefs: [{
+      orderable: false,
+      targets: -1
+    }],
     "language": {
        "oPaginate": {
          "sPrevious": "<?= lang('b_project_previous') ?>",

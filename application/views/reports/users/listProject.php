@@ -7,14 +7,13 @@
            <table class="display table dt-responsive nowrap" id="table">
              <thead>
                <tr>
-                 <th class="text-center"><?= lang('tl_no.') ?></th>
+               <th><?= lang('gd_project_pj-startdate') ?></th>
                  <th><?= lang('tl_project_pj-name') ?></th> 
-                 <th><?= lang('gd_project_pj-startdate') ?></th>
                  <th><?= lang('tl_project_pj-status') ?></th>
                </tr>
              </thead>
              <tbody>
-               <?php if (is_array($projectData)) : $count = 1;
+               <?php if (is_array($projectData)) :
                $statusColor = array(1 => "badge rounded-pill bg-warning", 2 => "badge rounded-pill bg-info", 3 => "badge rounded-pill bg-success", 4 => "badge rounded-pill bg-danger");
                $statusName = array(1 => lang('sp_home_pendproject'), 2 => lang('sp_home_inprogress'), 3 => lang('sp_home_finish'), 4 => lang('sp_home_cancel'));
                ?>
@@ -22,9 +21,8 @@
                   if($value->p_status < 1 || $value->p_status > 2) : continue; endif;
                   ?>
                    <tr id="<?= "project" . $value->p_id ?>">
-                     <td class="text-center"><?= $count++ ?></td>
+                   <td><?= date("d-m-", strtotime($value->p_createdate)) ?><?= ($_SESSION['lang'] == "th") ? (date("Y", strtotime($value->p_createdate)) + 543) : date("Y", strtotime($value->p_createdate)); ?></td>
                      <td><?= $value->p_name ?></td>
-                     <td><?= $value->p_createdate ?></td>
                      <td>
                        <?php 
                         echo "<span  class = ' " . $statusColor[$value->p_status] . "'>" . $statusName[$value->p_status] . "</span>";

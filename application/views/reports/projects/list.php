@@ -6,12 +6,13 @@
      height: 80px;
      padding: 0.5em 0.6em;
    }
-   .colum-flex{
-    justify-content: center;
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    margin-bottom: 10px;
+
+   .colum-flex {
+     justify-content: center;
+     display: flex;
+     flex-flow: column;
+     align-items: center;
+     margin-bottom: 10px;
    }
  </style>
  <div class="row">
@@ -26,7 +27,7 @@
              <td>
                <select class="form-select" name="begindate" id="begindate" onchange="changeYear()">
                  <?php if ($begindate == 0) {
-                    echo '<option selected value="0">'. lang('all').'</option>';
+                    echo '<option selected value="0">' . lang('all') . '</option>';
                   } else {
                     echo '<option value="0">ทั้งหมด</option>';
                   }
@@ -44,7 +45,7 @@
              <td>
                <select class="form-select" name="enddate" id="enddate" onchange="changeYear()">
                  <?php if ($enddate == 0) {
-                    echo '<option selected value="0">'. lang('all').'</option>';
+                    echo '<option selected value="0">' . lang('all') . '</option>';
                   } else {
                     echo '<option value="0">ทั้งหมด</option>';
                   }
@@ -79,69 +80,67 @@
                  <span style="font-size:20px;padding:0px"><?= lang('project') ?></span>
                </div>
              </div>
-               <div class="col-3 colum-flex">
-                 <i class=" <?= $icons[$i] ?> circle" style="font-size: 40px; background-color: <?= $colors[$i] ?>;; color:white; "></i>
-                 <br>
-                  <button class="mb-1 btn waves-effect waves-light <?= $btn[$i] ?>" onclick="viewProject(<?= $i + 1 ?>,0)"><?= lang('b_viewmore') ?></button>
-               </div>
+             <div class="col-3 colum-flex">
+               <i class=" <?= $icons[$i] ?> circle" style="font-size: 40px; background-color: <?= $colors[$i] ?>;; color:white; "></i>
+               <br>
+               <button class="mb-1 btn waves-effect waves-light <?= $btn[$i] ?>" onclick="viewProject(<?= $i + 1 ?>,0)"><?= lang('b_viewmore') ?></button>
              </div>
            </div>
          </div>
-       <?php } ?>
        </div>
-       <div class="col-12">
-         <div class="card px-3">
-           <div class="table-responsive my-3">
-             <table class="display table dt-responsive nowrap" id="table_reportproject">
-               <thead>
-                 <tr>
-                   <th class="text-center"><?= lang('tl_no.') ?></th>
-                   <th><?= lang('tl_project_pj-name') ?></th>
-                   <th><?= lang('st-project') ?></th>
-                   <th><?= lang('et-project') ?></th>
-                   <th><?= lang('tl_project_pj-status') ?></th>
-                 </tr>
-               </thead>
-               <tbody>
-                 <?php if (is_array($projectData)) : $count = 1 ?>
-                   <?php foreach ($projectData as $key => $value) : ?>
-                     <?php if ($value->p_status < 1) : continue;
-                      endif; ?>
-                     <tr id="<?= "project" . $value->p_id ?>">
-                       <td class="text-center"><?= $count++ ?></td>
-                       <td><?= $value->p_name ?></td>
-                       <td><?= $value->p_createdate ?></td>
-                       <td><?php if ($value->p_enddate != null) {
-                              echo $value->p_enddate;
-                            } else {
-                              echo "-";
-                            } ?></td>
-                       <td>
-                         <?php $statusColor = array(1 => "badge rounded-pill bg-warning", 2 => "badge rounded-pill bg-info", 3 => "badge rounded-pill bg-success", 4 => "badge rounded-pill bg-danger");
-                          $statusName = array(1 => lang('sp_home_pendproject'), 2 => lang('sp_home_inprogress'), 3 => lang('sp_home_finish'), 4 => lang('sp_home_cancel'));
-                          if ($value->p_status > 0) {
-                            echo "<span  class = ' " . $statusColor[$value->p_status] . "'>" . $statusName[$value->p_status] . "</span>";
-                          } else {
-                            echo "<span  class = 'badge rounded-pill bg-dark'>ถูกลบ</span>";
-                          }
-                          ?>
-                       </td>
-
-                     </tr>
-                   <?php endforeach; ?>
-                 <?php endif; ?>
-               </tbody>
-             </table>
-             <a type="button" class="btn waves-effect waves-light btn-dark" href="<?= base_url() ?>"><i class="mdi mdi-arrow-left"></i> <?= lang('b_project_back') ?></a>
-
-           </div>
-
-         </div>
-       </div>
+     <?php } ?>
    </div>
-   <script>
+   <div class="col-12">
+     <div class="card px-3">
+       <div class="table-responsive my-3">
+         <h3 class="card-title"><?= lang('all_project') ?></h3>
+         <table class="display table dt-responsive nowrap" id="table_reportproject">
+           <thead>
+             <tr>
+               <th><?= lang('st-project') ?></th>
+               <th><?= lang('et-project') ?></th>
+               <th><?= lang('tl_project_pj-name') ?></th>
+               <th><?= lang('tl_project_pj-status') ?></th>
+             </tr>
+           </thead>
+           <tbody>
+             <?php if (is_array($projectData)) : $count = 1 ?>
+               <?php foreach ($projectData as $key => $value) : ?>
+                 <?php if ($value->p_status < 1) : continue;
+                  endif; ?>
+                 <tr id="<?= "project" . $value->p_id ?>">
+                   <td><?= ($_SESSION['lang'] == "th") ? (date("Y", strtotime($value->p_createdate)) + 543) : date("Y", strtotime($value->p_createdate)); ?><?= date("-m-d", strtotime($value->p_createdate)) ?></td>
+                   <?php if ($value->p_enddate != null) { ?>
+                     <td><?= ($_SESSION['lang'] == "th") ? (date("Y", strtotime($value->p_enddate)) + 543) : date("Y", strtotime($value->p_enddate)); ?><?= date("-m-d", strtotime($value->p_enddate)) ?></td>
+                   <?php } else { ?>
+                     <td>-</td>
+                   <?php } ?>
+                   <td><?= $value->p_name ?></td>
+                   <td>
+                     <?php $statusColor = array(1 => "badge rounded-pill bg-warning", 2 => "badge rounded-pill bg-info", 3 => "badge rounded-pill bg-success", 4 => "badge rounded-pill bg-danger");
+                      $statusName = array(1 => lang('sp_home_pendproject'), 2 => lang('sp_home_inprogress'), 3 => lang('sp_home_finish'), 4 => lang('sp_home_cancel'));
+                      if ($value->p_status > 0) {
+                        echo "<span  class = ' " . $statusColor[$value->p_status] . "'>" . $statusName[$value->p_status] . "</span>";
+                      } else {
+                        echo "<span  class = 'badge rounded-pill bg-dark'>ถูกลบ</span>";
+                      }
+                      ?>
+                   </td>
 
-pdfMake.fonts = {
+                 </tr>
+               <?php endforeach; ?>
+             <?php endif; ?>
+           </tbody>
+         </table>
+         <a type="button" class="btn waves-effect waves-light btn-dark" href="<?= base_url() ?>"><i class="mdi mdi-arrow-left"></i> <?= lang('b_project_back') ?></a>
+
+       </div>
+
+     </div>
+   </div>
+ </div>
+ <script>
+   pdfMake.fonts = {
      THSarabun: {
        normal: 'THSarabun.ttf',
        bold: 'THSarabun-Bold.ttf',
@@ -150,7 +149,7 @@ pdfMake.fonts = {
      }
    }
    $('#table_reportproject').DataTable({
-    dom: 'Bftlp',
+     dom: 'Bftlp',
      buttons: [{
          extend: 'excel',
          filename: "รายงานโครงการ",
@@ -163,8 +162,8 @@ pdfMake.fonts = {
            var fontSize = sheet.getElementsByTagName('sz');
            var fontName = sheet.getElementsByTagName('name');
            for (i = 0; i < fontSize.length; i++) {
-            fontSize[i].setAttribute("val", "16")
-            fontName[i].setAttribute("val", "TH Sarabun New")
+             fontSize[i].setAttribute("val", "16")
+             fontName[i].setAttribute("val", "TH Sarabun New")
            }
          }
        },
@@ -236,117 +235,117 @@ pdfMake.fonts = {
    $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn waves-effect waves-light btn-info mx-1');
    $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').removeClass("dt-button");
    $('.buttons-excel').html('<i class="mdi mdi-file-excel-box"></i> Excel');
-   $('.buttons-pdf').html('<i class="mdi mdi-file-pdf-box"></i> PDF');   
+   $('.buttons-pdf').html('<i class="mdi mdi-file-pdf-box"></i> PDF');
 
    $('[data-toggle="tooltip"]').tooltip();
 
-     if (typeof orientPosition !== 'undefined') {
-       let orientPosition = "";
-       let xPosition;
-       let yPosition;
-     }
+   if (typeof orientPosition !== 'undefined') {
+     let orientPosition = "";
+     let xPosition;
+     let yPosition;
+   }
 
-     var width = (window.innerWidth > 0) ? window.innerWidth : this.screen.width;
-     if (width < 1170) {
-       orientPosition = "horizontal"
-       xPosition = "center"
-       yPosition = "top"
-     } else {
-       orientPosition = "vertical"
-       xPosition = "right"
-       yPosition = "center"
-     }
-     var pieChart = echarts.init(document.getElementById("projectChart"));
-     // specify chart configuration item and data
-     option = {
+   var width = (window.innerWidth > 0) ? window.innerWidth : this.screen.width;
+   if (width < 1170) {
+     orientPosition = "horizontal"
+     xPosition = "center"
+     yPosition = "top"
+   } else {
+     orientPosition = "vertical"
+     xPosition = "right"
+     yPosition = "center"
+   }
+   var pieChart = echarts.init(document.getElementById("projectChart"));
+   // specify chart configuration item and data
+   option = {
 
-       tooltip: {
-         trigger: 'item',
-         formatter: " {b}<br/> {c} <?= lang('h_project') ?> ({d}%)"
-       },
-       legend: {
-         orient: 'horizontal',
-         //  orient: orientPosition,
-         x: 'center',
-         y: 'bottom',
-         //  x: xPosition,
-         //  y: yPosition,
-         data: ['<?= lang('sp_home_finish') ?>', '<?= lang('sp_home_cancel') ?>', '<?= lang('sp_home_pendproject') ?>', '<?= lang('sp_home_inprogress') ?>']
-       },
-       toolbox: {
-         show: true,
-         feature: {
-           dataView: {
-             show: false,
-             readOnly: true
-           },
-           magicType: {
-             type: 'pie'
-           },
-           // restore: {
-           //     show: true
-           // },
-           saveAsImage: {
-             show: false
-           }
-         }
-       },
-       color: ["#FEC107", "#03A9F3", "#57BF95", "#FF6666"],
-       // calculable : true,
-       series: [{
-         type: 'pie',
-         radius: ['40%', '80%'],
-         labelLine: {
-           length: 20
+     tooltip: {
+       trigger: 'item',
+       formatter: " {b}<br/> {c} <?= lang('h_project') ?> ({d}%)"
+     },
+     legend: {
+       orient: 'horizontal',
+       //  orient: orientPosition,
+       x: 'center',
+       y: 'bottom',
+       //  x: xPosition,
+       //  y: yPosition,
+       data: ['<?= lang('sp_home_finish') ?>', '<?= lang('sp_home_cancel') ?>', '<?= lang('sp_home_pendproject') ?>', '<?= lang('sp_home_inprogress') ?>']
+     },
+     toolbox: {
+       show: true,
+       feature: {
+         dataView: {
+           show: false,
+           readOnly: true
          },
-         data: [{
-             value: <?= $projectCount[0] ?>,
-             name: '<?= lang('sp_home_pendproject') ?>'
-           },
-           {
-             value: <?= $projectCount[1] ?>,
-             name: '<?= lang('sp_home_inprogress') ?>'
-           },
-           {
-             value: <?= $projectCount[2] ?>,
-             name: '<?= lang('sp_home_finish') ?>'
-           },
-           {
-             value: <?= $projectCount[3] ?>,
-             name: '<?= lang('sp_home_cancel') ?>'
-           },
-         ],
-         label: {
-           show: true,
-           formatter: '{b} \n ({d}%) ',
-           //  formatter: '{c} <?= lang('h_project') ?>\n ({d}%) ',
+         magicType: {
+           type: 'pie'
+         },
+         // restore: {
+         //     show: true
+         // },
+         saveAsImage: {
+           show: false
          }
-       }]
-     };
-
-     // use configuration item and data specified to show chart
-     pieChart.setOption(option, true), $(function() {
-       function resize() {
-         setTimeout(function() {
-           pieChart.resize()
-         }, 100)
        }
-       $(window).on("resize", resize), $(".sidebartoggler").on("click", resize)
-     });
+     },
+     color: ["#FEC107", "#03A9F3", "#57BF95", "#FF6666"],
+     // calculable : true,
+     series: [{
+       type: 'pie',
+       radius: ['40%', '80%'],
+       labelLine: {
+         length: 20
+       },
+       data: [{
+           value: <?= $projectCount[0] ?>,
+           name: '<?= lang('sp_home_pendproject') ?>'
+         },
+         {
+           value: <?= $projectCount[1] ?>,
+           name: '<?= lang('sp_home_inprogress') ?>'
+         },
+         {
+           value: <?= $projectCount[2] ?>,
+           name: '<?= lang('sp_home_finish') ?>'
+         },
+         {
+           value: <?= $projectCount[3] ?>,
+           name: '<?= lang('sp_home_cancel') ?>'
+         },
+       ],
+       label: {
+         show: true,
+         formatter: '{b} \n ({d}%) ',
+         //  formatter: '{c} <?= lang('h_project') ?>\n ({d}%) ',
+       }
+     }]
+   };
 
-     function viewProject(p_status, u_id) {
-       $.ajax({
-         method: "post",
-         url: '<?= base_url() ?>home/getProjects',
-         data: {
-           p_status: p_status,
-           u_id: u_id
-         }
-       }).done(function(returnData) {
-         $('#detailModalTitle').html(returnData.title);
-         $('#detailModalBody').html(returnData.body);
-         $('#detailModalFooter').html("");
-         $('#detailModal').modal();
-       });
+   // use configuration item and data specified to show chart
+   pieChart.setOption(option, true), $(function() {
+     function resize() {
+       setTimeout(function() {
+         pieChart.resize()
+       }, 100)
      }
-   </script>
+     $(window).on("resize", resize), $(".sidebartoggler").on("click", resize)
+   });
+
+   function viewProject(p_status, u_id) {
+     $.ajax({
+       method: "post",
+       url: '<?= base_url() ?>home/getProjects',
+       data: {
+         p_status: p_status,
+         u_id: u_id
+       }
+     }).done(function(returnData) {
+       $('#detailModalTitle').html(returnData.title);
+       $('#detailModalBody').html(returnData.body);
+       $('#detailModalFooter').html("");
+       $('#detailModal').modal();
+     });
+   }
+ </script>

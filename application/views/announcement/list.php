@@ -9,9 +9,8 @@
           <table class="display table dt-responsive nowrap">
             <thead>
               <tr>
-                <th class="text-center"><?= lang('tl_no.') ?></th>
-                <th><?= lang('announcement') ?></th>
                 <th><?= lang('add_date') ?></th>
+                <th><?= lang('announcement') ?></th>
                 <th><?= lang('tl_project_at-operator') ?></th>
                 <th class="text-center"><?= lang("an-status")?></th>
                 <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
@@ -22,9 +21,8 @@
                 <?php foreach ($getData as $key => $value) :?>
                 <?php if($value->an_status == 0) : continue; endif; ?>
                   <tr>
-                    <td class="text-center"><?= $count++ ?></td> 
+                  <td><?= date("d-m-", strtotime($value->an_begindate)) ?><?= ($_SESSION['lang'] == "th") ? (date("Y", strtotime($value->an_begindate)) + 543) : date("Y", strtotime($value->an_begindate)); ?></td>
                     <td><?= $value->an_text ?></td>
-                    <td><?= thaiDateTime($value->an_createdate)." น."?></td>
                     <td><?= $value->u_firstname?> <?= $value->u_lastname?> 
                     <td class="align-middle"><div class="form-check form-switch d-flex justify-content-center"><input type="checkbox" style="cursor: pointer;" class="form-check-input" title="<?= lang('tt_es_muser') ?>" onchange="changeStatus2(<?= $value->an_id ?>,<?= $value->an_status ?>)" id="status<?= $value->an_id ?>"<?= ($value->an_status == 1) ? ' checked>' : ">" ?></div></td>
                     <td class="text-center">
@@ -135,6 +133,10 @@
          }
        }, // สิ้นสุดกำหนดพิเศษปุ่ม pdf
     ],
+    columnDefs: [{
+      orderable: false,
+      targets: -1
+    }],
     "language": {
        "oPaginate": {
          "sPrevious": "<?= lang('b_project_previous') ?>",

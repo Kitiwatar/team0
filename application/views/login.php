@@ -32,8 +32,8 @@
             <label class="form-check-label" for="checkBoxPwd"><?= lang('md_cp-cb') ?></label>
         </div>
         <button type="submit" id="loginBtn" style="width: 100%;" class="btn btn-info btn-lg btn-block fs-3"><?= lang('b_login') ?></button>
-        <p id="alert" class="text-center text-danger mt-2"> </p>
     </form>
+    <div id="alert" class="text-center text-danger mt-2">&nbsp;</div>
 </div>
 <script>
     $(document).ready(function() {
@@ -52,6 +52,12 @@
     });
     $('#loginForm').submit(function(e) {
         e.preventDefault();
+        $("#loginBtn").html('<div class="spinner-border text-light" role="status"><span class="sr-only">Loading...</span></div>')
+        if($('#u_email').val() == "" || $('#u_password').val() == "") {
+            $('#alert').text("<?= lang('l_result-blank') ?>");
+            $("#loginBtn").html("<?= lang('b_login') ?>");
+            return;
+        }
         $.ajax({
             method: "post",
             url: 'login/checkLogin',
@@ -61,8 +67,10 @@
             },
         }).done(function(returnData) {
             if (returnData.status == 1) {
+                $('#alert').html("&nbsp;");
                 location.replace("home");
             } else {
+                $("#loginBtn").html("<?= lang('b_login') ?>");
                 $('#alert').text(returnData.msg);
             }
         });

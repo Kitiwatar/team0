@@ -42,9 +42,8 @@
        <table class="display table dt-responsive nowrap" id="table">
          <thead>
            <tr>
-             <th class="text-center"><?= lang('tl_project_pj-no') ?></th>
-             <th><?= lang("tl_project_at-nametask") ?></th>
              <th><?= lang('tl_project_at-implementationdate') ?></th>
+             <th><?= lang("tl_project_at-nametask") ?></th>
              <th><?= lang('tl_project_at-operator') ?></th>
              <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
            </tr>
@@ -56,13 +55,12 @@
             ?>
              <?php foreach ($getData as $key => $value) : ?>
                <tr>
-                 <td class="text-center"><?= $count++ ?></td>
-                 <td style="cursor:pointer; font-weight: 900;" class="name" onclick="view(<?= $value->t_id ?>)"><?= $value->tl_name ?></td>
                  <?php if($value->t_createdate > $now) { ?>
-                 <td onclick="showTab('calendarData')" class="name" style="cursor: pointer;"><?= thaiDate($value->t_createdate) ?></td>
+                 <td onclick="showTab('calendarData')" class="name" style="cursor: pointer;"><?= ($_SESSION['lang'] == "th") ? (date("Y", strtotime($value->t_createdate)) + 543) : date("Y", strtotime($value->t_createdate)); ?><?= date("-m-d", strtotime($value->t_createdate)) ?></td>
                  <?php } else { ?>
-                  <td><?= thaiDate($value->t_createdate) ?></td>
+                  <td><?= ($_SESSION['lang'] == "th") ? (date("Y", strtotime($value->t_createdate)) + 543) : date("Y", strtotime($value->t_createdate)); ?><?= date("-m-d", strtotime($value->t_createdate)) ?></td>
                   <?php } ?>
+                  <td style="cursor:pointer; font-weight: 900;" class="name" onclick="view(<?= $value->t_id ?>)"><?= $value->tl_name ?></td>
                  <td><?= $value->u_firstname . ' ' . $value->u_lastname ?></td>
                  <td class="text-center">
                    <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->t_id ?>)" title="<?= lang('tt_pt_vtask') ?>"><i class="fas fa-search"></i></button>
@@ -384,6 +382,10 @@
          }
        }, // สิ้นสุดกำหนดพิเศษปุ่ม pdf
      ],
+     columnDefs: [{
+      orderable: false,
+      targets: -1
+    }],
      "language": {
        "oPaginate": {
          "sPrevious": "<?= lang('b_project_previous') ?>",

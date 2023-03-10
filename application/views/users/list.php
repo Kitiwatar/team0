@@ -9,25 +9,20 @@
           <table class="display table dt-responsive nowrap">
             <thead>
               <tr>
-                <th class="text-center"><?= lang('tl_project_pj-no') ?></th>
-                <th><?= lang('gd_project_em-fullname') ?></th>
-                <!-- <th><?= lang('gd_project_em-email') ?></th> -->
-                <!-- <th><?= lang('gd_project_em-phone') ?></th> -->
-                <th><?= lang('md_aes_upm') ?></th>
                 <th><?= lang('gd_dateadded') ?></th>
+                <th><?= lang('gd_project_em-fullname') ?></th>
+                <th><?= lang('md_aes_upm') ?></th>
                 <th class="text-center"><?= lang('tp_user-status') ?></th>
                 <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
               </tr>
             </thead>
             <tbody>
-              <?php if (is_array($getData)) : $count = 1; ?>
+              <?php if (is_array($getData)) :  ?>
                 <?php foreach ($getData as $key => $value) : ?>
                   <?php if ($value->u_role > 0) : ?>
                     <tr>
-                      <td class="align-middle text-center"><?= $count++ ?></td>
+                      <td class="align-middle"><?= ($_SESSION['lang'] == "th") ? (date("Y", strtotime($value->u_createdate)) + 543) : date("Y", strtotime($value->u_createdate)); ?><?= date("-d-m", strtotime($value->u_createdate)) ?></td>
                       <td class="align-middle name" onclick="view(<?= $value->u_id ?>)" style="cursor:pointer; font-weight: 900;"><?= $value->u_firstname ?> <?= $value->u_lastname ?></td>
-                      <!-- <td class="align-middle"><?= $value->u_email ?></td> -->
-                      <!-- <td class="align-middle"><?= $value->u_tel ?></td> -->
                       <td><select class="form-control form-select" <?= ($value->u_status == 0) ? 'disabled' : '' ?> id="roleInput<?= $value->u_id ?>" onfocus="showRole(<?= $value->u_id ?>,<?= $value->u_role ?>)" onchange="changeRole(<?= $value->u_id ?>)">
                           <?php
                           foreach ($arrayRole as $key => $role) {
@@ -38,7 +33,6 @@
                           ?>
                         </select>
                       </td>
-                      <td class="align-middle"><?= thaiDateTime($value->u_createdate) . " น." ?></td>
                       <td class="align-middle">
                         <div class="form-check form-switch d-flex justify-content-center"><input type="checkbox" style="cursor: pointer;" class="form-check-input" title="<?= lang('tt_es_muser') ?>" onchange="changeStatus(<?= $value->u_id ?>,<?= $value->u_status ?>)" id="status<?= $value->u_id ?>" <?= ($value->u_status == 1) ? ' checked>' : ">" ?></div>
                       </td>

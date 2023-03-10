@@ -39,6 +39,8 @@ $lang['Password'] = "Password";
 $lang['l_result-pw'] = "Password incorrect.";
 $lang['l_result-nf'] = "Not found this User.";
 $lang['l_result-usem'] = "This User got suspended please contact to admin.";
+$lang['l_result-blank'] = "Please enter email and password";
+
 // placeholder
 $lang['p_login_email'] = "Enter Email";
 $lang['p_login_password'] = "Enter Password";
