@@ -10,7 +10,7 @@
             <thead>
               <tr>
                 <th class="text-center"><?= lang('tl_project_pj-no') ?></th>
-                <th><?= lang('gd_project_em-fullname') ?></th>
+                <th><span class="m-2"><?= lang('gd_project_em-fullname') ?> </span><i class="mdi mdi-information-outline" style="color:#C5C5C5;" title="สามารถคลิกที่ชื่อ เพื่อดูรายละเอียดพนักงานได้"></i></th>
                 <!-- <th><?= lang('gd_project_em-email') ?></th> -->
                 <!-- <th><?= lang('gd_project_em-phone') ?></th> -->
                 <th><?= lang('md_aes_upm') ?></th>

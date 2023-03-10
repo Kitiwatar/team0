@@ -7,7 +7,7 @@
 					<table class="display table dt-responsive nowrap" id="tableCancel">
 						<thead>
 							<tr>
-								<th class="text-center"><?= lang('tl_no.') ?></th>
+								<th class="text-center"><?= lang('tl_rk.') ?></th>
 								<th><?= lang('cause') ?></th>
 								<th class="text-center"><?= lang('Amount') ?></th>
 							</tr>

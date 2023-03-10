@@ -313,7 +313,7 @@
                             <?php endif; ?>
                             <li style="bottom: 0; position: fixed;">
                                 <a class="waves-effect waves-dark my-0" href="<?= base_url() ?>login/logout" aria-expanded="false">
-                                    <i class="fas fa-sign-out-alt" style="font-size: 20px;"></i><span class="hide-menu"> <?= lang('logout') ?></span>
+                                    <i class="fas fa-sign-out-alt" style="font-size: 14px;"></i><span class="hide-menu"> <?= lang('logout') ?></span>
                                 </a>
                             </li>
                         <?php endif; ?>
