@@ -9,9 +9,8 @@
           <table class="display table dt-responsive nowrap">
             <thead>
               <tr>
-                <th class="text-center"><?= lang('tl_no.') ?></th>
-                <th><?= lang('name_cancel') ?></th>
                 <th><?= lang('add_date') ?></th>
+                <th><?= lang('name_cancel') ?></th>
                 <th><?= lang('tl_project_at-operator') ?></th>
                 <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
               </tr>
@@ -21,9 +20,8 @@
                 <?php foreach ($getData as $key => $value) :?>
                 <?php if($value->cl_status == 0) : continue; endif; ?>
                   <tr>
-                    <td class="text-center"><?= $count++ ?></td> 
+                  <td><?= ($_SESSION['lang'] == "th") ? (date("Y", strtotime($value->cl_createdate)) + 543) : date("Y", strtotime($value->cl_createdate)); ?><?= date("-m-d", strtotime($value->cl_createdate)) ?></td>
                     <td><?= $value->cl_name ?></td>
-                    <td><?= thaiDateTime($value->cl_createdate)." น."?></td>
                     <td><?= $value->u_firstname ?> <?= $value->u_lastname ?></td>
                     <td class="text-center">
                       <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->cl_id ?>)" title="<?= lang('ed_button') ?>"><i class="mdi mdi-pencil"></i></button>
@@ -137,6 +135,10 @@
          }
        }, // สิ้นสุดกำหนดพิเศษปุ่ม pdf
     ],
+    columnDefs: [{
+      orderable: false,
+      targets: -1
+    }],
     "language": {
        "oPaginate": {
          "sPrevious": "<?= lang('b_project_previous') ?>",

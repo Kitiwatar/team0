@@ -8,9 +8,8 @@
           <table class="display table dt-responsive nowrap">
             <thead>
               <tr>
-                <th class="text-center"><?= lang('tl_project_pj-no') ?></th>
-                <th><?= lang('gd_project_em-fullname') ?></th>
-                <th class="text-center"><?= lang('tl_home_amountworkpiece') ?></th>
+              <th><?= lang('gd_project_em-fullname') ?></th>
+              <th class="text-center"><?= lang('tl_home_amountworkpiece') ?></th>
                 <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
               </tr>
             </thead>
@@ -21,9 +20,8 @@
                     continue;
                   } ?>
                   <tr>
-                    <td class="align-middle text-center"><?= $count++ ?></td>
-                    <td class="align-middle"><?= $value->u_firstname . " " . $value->u_lastname ?></td>
-                    <td class="align-middle text-center"><?= $projectCount[$key] ?></td>
+                  <td class="align-middle"><?= $value->u_firstname . " " . $value->u_lastname ?></td>
+                  <td class="align-middle text-center"><?= $projectCount[$key] ?></td>
                     <td class="align-middle text-center">
                       <?php if ($projectCount[$key] > 0) { ?>
                         <button class="btn btn-sm btn-info" title="<?= lang('v-emp') ?>" onclick="viewProjects(<?= $value->u_id ?>)">
@@ -128,6 +126,13 @@
         }
       }, // สิ้นสุดกำหนดพิเศษปุ่ม pdf
     ],
+    columnDefs: [{
+      orderable: false,
+      targets: -1
+    }],
+    order: [
+			[1, "desc"]
+		],
     "language": {
       "oPaginate": {
         "sPrevious": "<?= lang('b_project_previous') ?>",

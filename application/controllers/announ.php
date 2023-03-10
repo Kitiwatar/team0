@@ -62,7 +62,7 @@ class Announ extends CI_Controller {
 		// Create by: Create by: Natakorn Phongsarikit 01-02-2566 add announcement  to database
 		$this->genlib->ajaxOnly();
 		$formData = $this->input->post();
-		$dataRequires = array('an_id','an_text');
+		$dataRequires = array('an_id','an_text','an_begindate','an_enddate');
 		foreach ($dataRequires as $value) {
 			if(!isset($formData[$value])) {
 				$json = ['status'=> 0, 'msg'=>lang('md_vm_ad-fail')];

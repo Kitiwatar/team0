@@ -127,6 +127,38 @@ date_default_timezone_set("Asia/Bangkok"); ?>
   $('#p_createdate').on('change', function() {
     $('.datepicker').hide();
   });
+
+  $('#p_name').on('input', function() {
+    if($('#p_name').val() == "") {
+      $('#nameMsg').text(' <?= lang('md_rqf_pn') ?>');
+    } else {
+      $('#nameMsg').text(' ');
+    }
+  });
+
+  $('#p_customer').on('input', function() {
+    if($('#p_customer').val() == "") {
+      $('#customerMsg').text(' <?= lang('md_rqf_cm') ?>');
+    } else {
+      $('#customerMsg').text(' ');
+    }
+  });
+
+  $('#p_detail').on('input', function() {
+    if($('#p_detail').val() == "") {
+      $('#detailMsg').text(' <?= lang('md_rqf_pd') ?>');
+    } else {
+      $('#detailMsg').text(' ');
+    }
+  });
+
+  $('#p_createdate').on('change', function() {
+    if($('#p_createdate').val() == "") {
+      $('#createdateMsg').text(' <?= lang('md_rqf_sd') ?>');
+    } else {
+      $('#createdateMsg').text(' ');
+    }
+  });
   
   $('#p_createdate').on('input', function() {
     if (this.value.match(/[^0-9-]/)) {

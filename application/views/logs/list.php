@@ -55,6 +55,10 @@
 
   $('.table').DataTable({
     "dom": 'ftlp',
+    columnDefs: [{
+      orderable: false,
+      targets: -1
+    }],
     "language": {
        "oPaginate": {
          "sPrevious": "<?= lang('b_project_previous') ?>",

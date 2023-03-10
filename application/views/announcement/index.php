@@ -31,28 +31,47 @@
      var formData = {};
      formData['an_id'] = an_id;
      formData['an_text'] = $('#an_text').val()
+    //  formData['an_begindate'] = $('#an_begindate').val()
+    //  formData['an_enddate'] = $('#an_enddate').val()
+     var dateInput = $('#an_begindate').val()
+    if(dateInput.length == 10) {
+      var bangkokDate = dateInput.toLocaleString("en-US", {timeZone: "Asia/Bangkok"})
+      formData['an_begindate'] = bangkokDate.substring(6, 10) + "-" + bangkokDate.substring(3, 5) + "-" + bangkokDate.substring(0, 2);
+    } else {
+      formData['an_begindate'] = "";
+    }
+    var dateInput1 = $('#an_enddate').val()
+    if(dateInput1.length == 10) {
+      var bangkokDate1 = dateInput1.toLocaleString("en-US", {timeZone: "Asia/Bangkok"})
+      formData['an_enddate'] = bangkokDate1.substring(6, 10) + "-" + bangkokDate1.substring(3, 5) + "-" + bangkokDate1.substring(0, 2);
+    } else {
+      formData['an_enddate'] = "";
+    }
+    console.log(formData)
      if (!formData.an_text) {
        $('#clnameMsg').addClass('text-danger');
        $('#clnameMsg').text('กรุณาข้อความ');
        !formData.an_text? $('#an_text').focus() : '';
+       !formData.an_begindate? $('#an_begindate').focus() : '';
+       !formData.an_enddate? $('#an_enddate').focus() : '';
        return false;
      } else {
        $('#amnameMsg').text(' ');
      }
-     $.ajax({
-       url: 'announ/checkRepeat',
-       data: {
-         an_text: formData['an_text']
-       },
-       method: 'post'
-     }).done(function(returnData) {
-       if (returnData.status == 0) {
-         $('#clnameMsg').text(returnData.msg);
-         $('#cl_text').addClass('is-invalid');
-         return;
-       } else {
-         $('#clnameMsg').text(returnData.msg);
-         $('#cl_name').removeClass('is-invalid');
+    // $.ajax({
+    //    url: 'announ/checkRepeat',
+    //   data: {
+    //    an_text: formData['an_text'],
+    //   },
+    //   method: 'post'
+    //  }).done(function(returnData) {
+    //    if (returnData.status == 0) {
+    //      $('#clnameMsg').text(returnData.msg);
+    //      $('#cl_text').addClass('is-invalid');
+    //      return;
+    //    } else {
+    //      $('#clnameMsg').text(returnData.msg);
+    //      $('#cl_name').removeClass('is-invalid');
          
              $.ajax({
                method: "post",
@@ -88,13 +107,10 @@
                  $('#mainModal').modal('hide');
                  loadList();
                }
-               if(an_text.length>50){
-                
-               }
              });
            }
-         });
-       }
+      //    });
+      //  }
 
   function edit(an_id) {
     $.ajax({
@@ -210,6 +226,6 @@
         })
       }
     })
-
   }
+
 </script>
