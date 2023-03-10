@@ -141,9 +141,9 @@ $lang['pbt_pj-inprogress'] = "Project In Progress";
 
 //++ User ++//
 // ==>> ROLE <<==//
-$lang['u_role-em1'] = "Employee Level 1";
-$lang['u_role-em2'] = "Employee Level 2";
-$lang['u_role-am'] = "Admin";
+$lang['u_role-em1'] = "Staff";
+$lang['u_role-em2'] = "Admin";
+$lang['u_role-am'] = "Super admin";
 // Topic 
 $lang['tp_user_em-name'] = "List Of Employee";
 // Button

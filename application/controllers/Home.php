@@ -31,7 +31,17 @@ class Home extends CI_Controller
 	public function index() {
 		// Create by: Natakorn Phongsarikit 01-02-2566 index
 		$arrayJoin = array('pms_user'=>'pms_announcement.an_u_id=pms_user.u_id');
-		$data['getData'] = $this->genmod->getAll('pms_announcement', '*',array('an_status'=>1),'an_begindate desc',$arrayJoin,'');
+		$temp = $this->genmod->getAll('pms_announcement', '*',array('an_status'=>1),'an_begindate desc',$arrayJoin,'');
+		$count=0;
+		if(is_array($temp)) {
+			for($i=0; $i<count($temp); $i++) {
+				// $temp = $this->genmod->getAll('pms_announcement', '*',array('an_status'=>1),'an_begindate desc',$arrayJoin,'');
+				if($temp[$i]->an_begindate<=date('Y-m-d')&&$temp[$i]->an_enddate>=date('Y-m-d')){
+					$data['getData'][$count++]=$temp[$i];
+				}
+
+			}
+		}
 		if (!isset($_SESSION['u_role'])) {
 			$values['pageContent'] = $this->load->view('home/dashboard_Aonnymous',$data, TRUE);
 		} else {
@@ -99,7 +109,20 @@ class Home extends CI_Controller
 	public function dashboard() {
 		// Create by: Create by: Natakorn Phongsarikit 01-02-2566 dashboard 
 		$arrayJoin = array('pms_user'=>'pms_announcement.an_u_id=pms_user.u_id');
-		$values['getData'] = $this->genmod->getAll('pms_announcement', '*',array('an_status'=>1),'an_begindate desc',$arrayJoin,'');
+		// $values['getData'] = $this->genmod->getAll('pms_announcement', '*',array('an_status'=>1),'an_begindate desc',$arrayJoin,'');
+		$temp = $this->genmod->getAll('pms_announcement', '*',array('an_status'=>1),'an_begindate desc',$arrayJoin,'');
+		$count=0;
+		$data = array();
+		if(is_array($temp)) {
+			for($i=0; $i<count($temp); $i++) {
+				// $temp = $this->genmod->getAll('pms_announcement', '*',array('an_status'=>1),'an_begindate desc',$arrayJoin,'');
+				if($temp[$i]->an_begindate<=date('Y-m-d')&&$temp[$i]->an_enddate>=date('Y-m-d')){
+					$data[$count++]=$temp[$i];
+				}
+
+			}
+		}
+		$values['getData'] = $data;
 		$values['pageTitle'] = lang('pp_home');
 		$values['breadcrumb'] = lang('pp_home');
 		$values['pageContent'] = $this->load->view('home/dashboard', $values, TRUE);

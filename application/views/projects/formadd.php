@@ -48,7 +48,7 @@ date_default_timezone_set("Asia/Bangkok"); ?>
             <div class="form-group col-lg-6 col-md-6 col-sm-12">
               <div class="form-group">
                 <label for="p_manager" class="form-label"><?= lang('md_ap-pm') ?></label>
-                <input type="text" class="form-control" name="inputValue[]" id="p_manager" placeholder="<?= isset($getData) ? $getData->u_firstname . " " . $getData->u_lastname : $_SESSION['u_fullname'];  ?>" disabled>
+                <input type="text" class="form-control" name="inputValue[]" id="p_manager" placeholder="<?=  isset($getData) ? $getData->u_firstname . " " . $getData->u_lastname : $_SESSION['u_fullname'];  ?>" disabled>
                 <font id="projectmanagerMsg" class="small text-danger"></font>
               </div>
               <div class="form-group">
@@ -56,7 +56,7 @@ date_default_timezone_set("Asia/Bangkok"); ?>
                 <div class="input-group date" data-provide="datepicker" data-date-format="dd-mm-yyyy">
                   <?php if (isset($getData)) : $newDate = date("d-m-Y", strtotime($getData->p_createdate));
                   endif; ?>
-                  <input type="text" class="form-control" id="p_createdate" name="inputValue[]" value="<?= isset($getData) ? $newDate : '' ?>" <?= isset($detail) ? "disabled" : '' ?> placeholder="<?= lang('md_ap_ph-ps') ?> (<?= date("d-m-Y") ?>)" maxlength="10" minlength="10" autocomplete="off" required>
+                  <input type="text" class="form-control" id="p_createdate" name="inputValue[]" value="<?= isset($getData) ? $newDate : '' ?>" <?= isset($detail) ? "disabled" : '' ?> placeholder="<?=  lang('md_ap_ph-ps') ?> (<?= date("d-m-Y") ?>)" maxlength="10" minlength="10" autocomplete="off" required>
                   <div class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                   </div>
@@ -68,26 +68,26 @@ date_default_timezone_set("Asia/Bangkok"); ?>
             <label class="form-label " style="font-weight: bold;"><?= lang('md_ap-cct') ?></label>
             <div class="form-group col-lg-3 col-md-3 col-sm-12">
               <label for="p_telcontact" class="form-label"><?= lang('md_ap-tln') ?>:</label>
-              <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_telcontact : '' ?>" maxlength="10" id="p_telcontact" placeholder="<?= lang('md_ap_ph-tln') ?>" <?= isset($detail) ? "disabled" : '' ?>>
+              <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_telcontact : '' ?>" maxlength="10" id="p_telcontact" placeholder="<?= isset($detail) ? '-'   : lang('md_ap_ph-tln') ?> " <?= isset($detail) ? "disabled" : '' ?>>
               <font id="telMsg" class="small text-danger"></font>
             </div>
             <div class="form-group col-lg-3 col-md-3 col-sm-12 m-0">
               <label class="form-label"><label for="p_linecontact" class="form-label"><?= lang('md_ap-line') ?>:</label>
-                <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_linecontact : '' ?>" id="p_linecontact" placeholder="<?= lang('md_ap_ph-line') ?>" <?= isset($detail) ? "disabled" : '' ?>>
+                <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_linecontact : '' ?>" id="p_linecontact" placeholder="<?= isset($detail) ? '-'   : lang('md_ap_ph-line') ?>" <?= isset($detail) ? "disabled" : '' ?>>
                 <font id="lineMsg" class="small text-danger"></font>
               </div>
             <div class="form-group col-lg-6 col-md-6 col-sm-12">
               <label for="p_emailcontact" class="form-label"><?= lang('md_ap-email') ?>:</label>
-              <input type="email" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_emailcontact : '' ?>" id="p_emailcontact" placeholder="<?= lang('md_ap_ph-email') ?>" <?= isset($detail) ? "disabled" : '' ?>>
+              <input type="email" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->p_emailcontact : '' ?>" id="p_emailcontact" placeholder="<?= isset($detail) ? '-'   : lang('md_ap_ph-email') ?>" <?= isset($detail) ? "disabled" : '' ?>>
               <font id="emailMsg" class="small text-danger"></font>
             </div>
             <div class="form-group col-lg-6 col-md-6 col-sm-12">
               <label for="p_address" class="form-label"><?= lang('md_ap-address') ?>:</label>
-              <textarea class="form-control" name="inputValue[]" rows="5" id="p_address" placeholder="<?= lang('md_ap_ph-other') ?>" <?= isset($detail) ? "disabled" : '' ?>><?= isset($getData) ? $getData->p_address : '' ?></textarea>
+              <textarea class="form-control" name="inputValue[]" rows="5" id="p_address" placeholder="<?= isset($detail) ? '-'   : lang('md_ap_ph-other') ?>" <?= isset($detail) ? "disabled" : '' ?>><?= isset($getData) ? $getData->p_address : '' ?></textarea>
             </div>
             <div class="form-group col-lg-6 col-md-6 col-sm-12">
               <label for="p_othercontact" class="form-label"><?= lang('md_ap-other') ?>:</label>
-              <textarea class="form-control" name="inputValue[]" rows="5" id="p_othercontact" placeholder="<?= lang('md_ap_ph-other') ?>" <?= isset($detail) ? "disabled" : '' ?>><?= isset($getData) ? $getData->p_othercontact : '' ?></textarea>
+              <textarea class="form-control" name="inputValue[]" rows="5" id="p_othercontact" placeholder="<?= isset($detail) ? '-'   : lang('md_ap_ph-other') ?>" <?= isset($detail) ? "disabled" : '' ?>><?= isset($getData) ? $getData->p_othercontact : '' ?></textarea>
             </div>
 
             <div class="mapouter">

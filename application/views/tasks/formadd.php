@@ -71,7 +71,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
         </div>
       </form>
       <div class="mx-4">
-        <h4><?= lang('md_at-dc') ?></h4>
+        <h4><span class="m-2"><?= lang('md_at-dc') ?></span><i class="mdi mdi-information-outline" style="color:#C5C5C5;" title="สามารถเพิ่มไฟล์ได้ตามนี้ (รูปภาพ ,excel ,pdf ,text ,word ,powerpoint) และขนาดไฟล์ต้องไม่เกิน 5 MB"></i></h4>
         <div class="col-md-6 <?= isset($detail) ? "d-none" : '' ?>">
           <button type="button" class="btn btn-success" id="uploadBtn"><i class="mdi mdi-plus-circle-outline"></i> <?= lang('md_at_bt-dc') ?></button>
           <input type="file" name="files" id="files" class="d-none" accept=".doc,.docx,application/msword, .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/vnd.ms-powerpoint, 
