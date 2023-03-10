@@ -49,7 +49,6 @@
     formData['p_detail'] = $('#p_detail').val()
     formData['p_customer'] = $('#p_customer').val()
     formData['p_address'] = $('#p_address').val()
-    
     formData['p_telcontact'] = $('#p_telcontact').val()
     formData['p_linecontact'] = $('#p_linecontact').val()
     formData['p_emailcontact'] = $('#p_emailcontact').val()
