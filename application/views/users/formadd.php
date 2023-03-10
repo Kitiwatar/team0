@@ -16,7 +16,7 @@
               <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->u_lastname : '' ?>" id="u_lastname" placeholder="<?= lang('md_aes_ph-uln') ?>" <?= isset($detail) ? "disabled" : '' ?> >
               <font id="lnameMsg" class="small text-danger"></font>
             </div>
-            <div class="form-group col-lg-4 col-md-4 col-sm-12">
+            <div class="form-group col-lg-3 col-md-3 col-sm-12">
               <label for="u_role" class="form-label"><?= lang('md_aes_upm') ?><?= isset($detail) ? '' : $required ?></label>
               <?php if(!isset($detail)) { ?>
               <style>select:invalid { color: gainsboro; }</style>
@@ -56,13 +56,18 @@
               <input type="text" class="form-control" name="inputValue[]" maxlength="10" value="<?= isset($getData) ? $getData->u_tel : '' ?>" id="u_tel" placeholder="<?= lang('md_aes_ph-upn') ?>" <?= isset($detail) ? "disabled" : '' ?> >
               <font id="telMsg" class="small text-danger"></font>
             </div>
-            <div class="form-group col-lg-5 col-md-5 col-sm-12">
+            <div class="form-group col-lg-3 col-md-3 col-sm-12">
               <label for="u_email" class="form-label"><?= lang('md_aes_uem') ?><?= isset($detail) ? '' : $required ?></label>
               <input type="email" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->u_email : '' ?>" id="u_email" placeholder="<?= lang('md_aes_ph-uem') ?>" <?= isset($detail) ? "disabled" : '' ?> >
               <font id="emailMsg" class="small text-danger"></font>
             </div>
+            <div class="form-group col-lg-3 col-md-3 col-sm-12">
+              <label for="u_position" class="form-label"><?= lang('md_aes_upo') ?><?= isset($detail) ? '' : $required ?></label>
+              <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->u_position : '' ?>" id="u_position" placeholder="<?= isset($detail) ? '-' : lang('md_aes_ph-upo') ?>" <?= isset($detail) ? "disabled" : '' ?> >
+              <font id="posMsg" class="small text-danger"></font>
+            </div>
           </div>
-          <?= !isset($getData) ? '<span>หมายเหตุ : ระบบจะใช้เบอร์มือถือเป็นรหัสผ่านเริ่มต้นของผู้ใช้งาน</span>' : '' ?>
+          <?= !isset($getData) ? '<span>'.lang('md_aes_note').'</span>' : '' ?>
         </div>
       </form>
     </div>

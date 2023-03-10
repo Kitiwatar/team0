@@ -185,6 +185,7 @@ $lang['md_vm_ct-edit'] = "Successfully Edited The Information." ;
 //--Ttitle
 $lang['md_tl_a-ap'] = "Add The New Project"; // Title add new project
 $lang['md_tl_a-aes'] = "Add Employee In System"; // Title adding employee in system
+$lang['md_tl_an-aes'] = "Add New Employee Here"; // Title adding employee in system
 $lang['md_tl_a-pt'] = "Add The New Task"; // Title for add new Project task
 $lang['md_tl_a-em'] = "Add Employee To This Project"; // Title Employee to handle this project
 $lang['md_tl_a-req'] = "All fields are required"; // Title required
@@ -305,15 +306,19 @@ $lang['md_aes_ufn'] = "Firstname"; // header User Firstname
 $lang['md_aes_uln'] = "Lastname"; // header User Lastname
 $lang['md_aes_uem'] = "Email"; // header User Email
 $lang['md_aes_upn'] = "Telephone Number"; // header User Telephone Number
-$lang['md_aes_upm'] = "Permission for system use"; // header Which permission for use system
+$lang['md_aes_upm'] = "Permission"; // header Which permission for use system
+$lang['md_aes_upo'] = "Position"; // header User Position
 $lang['md_aes_ph-ufn'] = "Enter the firstname of employee (Somsak)"; // Placeholder
 $lang['md_aes_ph-uln'] = "Enter the lastname of employee (Ruckngan)"; // Placeholder
+$lang['md_aes_ph-upo'] = "Enter position of employee (IT support)"; // Placeholder
 $lang['md_aes_ph-uem'] = 'Enter Email of employee (example@gmail.com)'; // Placeholder
 $lang['md_aes_ph-upn'] = 'Enter a 10-digit phone number for contacting employee (0987654321)'; // Placeholder
 $lang['md_aes_ph-upm'] = 'Select permission of system use for employee  '; // Placeholder
 $lang['md_aes_upm_rqf'] = "Please select employee privileges.";
 $lang['md_aes_ufn_rqf'] = "Please specify employee firstname. ";
+$lang['md_aes_upo_rqf'] = "Please specify employee position";
 $lang['md_aes_uln_rqf'] = "Please specify employee lastname. ";
+$lang['md_aes_note'] = "Note : The system will use the mobile number as the user's default password.";
 
 
 //- Verify modal of User moudule
