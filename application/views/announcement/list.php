@@ -22,7 +22,6 @@
                 <?php foreach ($getData as $key => $value) :?>
                 <?php if($value->an_status == 0) : continue; endif; ?>
                   <tr>
-                  <!-- <td><?= date("d-m-", strtotime($value->an_begindate)) ?><?= ($_SESSION['lang'] == "th") ? (date("Y", strtotime($value->an_begindate)) + 543) : date("Y", strtotime($value->an_begindate)); ?></td> -->
                     <td><?= $value->an_text ?></td>
                     <td><?= $value->an_begindate?></td>
                     <td><?= $value->an_enddate?></td>
@@ -140,6 +139,9 @@
       orderable: false,
       targets: -1
     }],
+    "order": [
+			[1, "desc"]
+		],
     "language": {
        "oPaginate": {
          "sPrevious": "<?= lang('b_project_previous') ?>",

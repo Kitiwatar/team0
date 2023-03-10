@@ -33,17 +33,17 @@ class Home extends CI_Controller
 		$arrayJoin = array('pms_user'=>'pms_announcement.an_u_id=pms_user.u_id');
 		$temp = $this->genmod->getAll('pms_announcement', '*',array('an_status'=>1),'an_begindate desc',$arrayJoin,'');
 		$count=0;
-		if(is_array($temp)) {
-			for($i=0; $i<count($temp); $i++) {
+		// if(is_array($temp)) {
+			// for($i=0; $i<count($temp); $i++) {
 				// $temp = $this->genmod->getAll('pms_announcement', '*',array('an_status'=>1),'an_begindate desc',$arrayJoin,'');
-				if($temp[$i]->an_begindate<=date('Y-m-d')&&$temp[$i]->an_enddate>=date('Y-m-d')){
-					$data['getData'][$count++]=$temp[$i];
-				}
+		// 		if($temp[$i]->an_begindate<=date('Y-m-d')&&$temp[$i]->an_enddate>=date('Y-m-d')){
+		// 			$data['getData'][$count++]=$temp[$i];
+		// 		}
 
-			}
-		}
+		// 	}
+		// }
 		if (!isset($_SESSION['u_role'])) {
-			$values['pageContent'] = $this->load->view('home/dashboard_Aonnymous',$data, TRUE);
+			$values['pageContent'] = $this->load->view('home/dashboard_Aonnymous','', TRUE);
 		} else {
 			redirect(base_url("home/dashboard"));
 		} 
