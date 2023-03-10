@@ -21,7 +21,7 @@
                 <?php foreach ($getData as $key => $value) : ?>
                   <?php if ($value->u_role > 0) : ?>
                     <tr>
-                      <td class="align-middle"><?= ($_SESSION['lang'] == "th") ? (date("Y", strtotime($value->u_createdate)) + 543) : date("Y", strtotime($value->u_createdate)); ?><?= date("-d-m", strtotime($value->u_createdate)) ?></td>
+                      <td class="align-middle"><?= ($_SESSION['lang'] == "th") ? (date("Y", strtotime($value->u_createdate)) + 543) : date("Y", strtotime($value->u_createdate)); ?><?= date("-m-d", strtotime($value->u_createdate)) ?></td>
                       <td class="align-middle name" onclick="view(<?= $value->u_id ?>)" style="cursor:pointer; font-weight: 900;"><?= $value->u_firstname ?> <?= $value->u_lastname ?></td>
                       <td><select class="form-control form-select" <?= ($value->u_status == 0) ? 'disabled' : '' ?> id="roleInput<?= $value->u_id ?>" onfocus="showRole(<?= $value->u_id ?>,<?= $value->u_role ?>)" onchange="changeRole(<?= $value->u_id ?>)">
                           <?php
@@ -163,6 +163,9 @@
       orderable: false,
       targets: -1
     }],
+    order: [
+			[0, "desc"]
+		], 
     "language": {
       "oPaginate": {
         "sPrevious": "<?= lang('b_project_previous') ?>",
