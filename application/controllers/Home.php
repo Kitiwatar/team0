@@ -31,15 +31,23 @@ class Home extends CI_Controller
 	public function index() {
 		// Create by: Natakorn Phongsarikit 01-02-2566 index
 		$arrayJoin = array('pms_user'=>'pms_announcement.an_u_id=pms_user.u_id');
-		$data['getData'] = $this->genmod->getAll('pms_announcement', '*',array('an_status'=>1),'an_createdate desc',$arrayJoin,'');
+		$temp = $this->genmod->getAll('pms_announcement', '*',array('an_status'=>1),'an_begindate desc',$arrayJoin,'');
+		$count=0;
+		// if(is_array($temp)) {
+			// for($i=0; $i<count($temp); $i++) {
+				// $temp = $this->genmod->getAll('pms_announcement', '*',array('an_status'=>1),'an_begindate desc',$arrayJoin,'');
+		// 		if($temp[$i]->an_begindate<=date('Y-m-d')&&$temp[$i]->an_enddate>=date('Y-m-d')){
+		// 			$data['getData'][$count++]=$temp[$i];
+		// 		}
+
+		// 	}
+		// }
 		if (!isset($_SESSION['u_role'])) {
-			$values['pageContent'] = $this->load->view('home/dashboard_Aonnymous',$data, TRUE);
-		} else if($_SESSION['u_role']>= 2) {
-			$values['pageContent'] = $this->load->view('home/dashboard',$data, TRUE);
-		} else if ($_SESSION['u_role'] <= 2) {
-			$values['pageContent'] = $this->load->view('home/dashboard',$data, TRUE);
-		}
-		$values['pageTitle'] = lang('Home');
+			$values['pageContent'] = $this->load->view('home/dashboard_Aonnymous','', TRUE);
+		} else {
+			redirect(base_url("home/dashboard"));
+		} 
+		$values['pageTitle'] = lang('dashboard');
 		$values['breadcrumb'] = lang('dashboard');
 		$this->load->view('main', $values);
 	}
@@ -101,16 +109,29 @@ class Home extends CI_Controller
 	public function dashboard() {
 		// Create by: Create by: Natakorn Phongsarikit 01-02-2566 dashboard 
 		$arrayJoin = array('pms_user'=>'pms_announcement.an_u_id=pms_user.u_id');
-		$values['getData'] = $this->genmod->getAll('pms_announcement', '*',array('an_status'=>1),'an_createdate desc',$arrayJoin,'');
-		$values['pageTitle'] = "แดชบอร์ดส่วนบุคคล";
-		$values['breadcrumb'] = "แดชบอร์ดส่วนบุคคล";
+		// $values['getData'] = $this->genmod->getAll('pms_announcement', '*',array('an_status'=>1),'an_begindate desc',$arrayJoin,'');
+		$temp = $this->genmod->getAll('pms_announcement', '*',array('an_status'=>1),'an_begindate desc',$arrayJoin,'');
+		$count=0;
+		$data = array();
+		if(is_array($temp)) {
+			for($i=0; $i<count($temp); $i++) {
+				// $temp = $this->genmod->getAll('pms_announcement', '*',array('an_status'=>1),'an_begindate desc',$arrayJoin,'');
+				if($temp[$i]->an_begindate<=date('Y-m-d')&&$temp[$i]->an_enddate>=date('Y-m-d')){
+					$data[$count++]=$temp[$i];
+				}
+
+			}
+		}
+		$values['getData'] = $data;
+		$values['pageTitle'] = lang('pp_home');
+		$values['breadcrumb'] = lang('pp_home');
 		$values['pageContent'] = $this->load->view('home/dashboard', $values, TRUE);
 		$this->load->view('main', $values);
 	}
 	public function dashboard_admin() {
 		// Create by: Create by: Natakorn Phongsarikit 01-02-2566 dashboard for admin
-		$values['pageTitle'] ="แดชบอร์ดผู้ดูแลระบบ";
-		$values['breadcrumb'] = "แดชบอร์ดผู้ดูแลระบบ";
+		$values['pageTitle'] =lang('admin_home');
+		$values['breadcrumb'] = lang('admin_home');
 		$values['pageContent'] = $this->load->view('home/dashboard_admin', $values, TRUE);
 		$this->load->view('main', $values);
 	}
@@ -173,7 +194,7 @@ class Home extends CI_Controller
 
 		if (is_array($allCancel)) {
 			foreach ($allCancel as $key => $value) {
-				$countCancel[$key] = $this->genmod->countAll('pms_cancel',array('c_cl_id' =>$value->cl_id ));
+				$countCancel[$key] = $this->genmod->countAll('pms_cancel',array('c_cl_id' =>$value->cl_id,'YEAR(c_createdate)'=>date("Y")));
 				$NameCancel[$key] = $value->cl_name;
 			}	
 		}
@@ -208,10 +229,10 @@ class Home extends CI_Controller
 		// Create by: Patiphan Pansanga, Kitiwat Arunwong 29-09-2565 view project by status name
 		$p_status = $this->input->post('p_status');
 		$u_id = $this->input->post('u_id');
-		$arrayStatus = array(lang('pbt_pj-all'), lang('pbt_pj-pending'), lang('pbt_pj-inprogress'), lang('pbt_pj-finish'), lang('pbt_pj-cancel'));
 		$arrayJoin = array('pms_project' => 'pms_project.p_id=pms_permission.per_p_id', 'pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
 		date_default_timezone_set("Asia/Bangkok");
 		if ($u_id == 0) {
+			$arrayStatus = array(lang('pbt_pj-all'), lang('pbt_pj-pending'), lang('pbt_pj-inprogress'), lang('pbt_pj-finish'), lang('pbt_pj-cancel'));
 			if ($p_status > 0) {
 				if ($p_status > 2) {
 					$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('p_status' => $p_status, 'per_role' => 1, 'YEAR(p_enddate)' => date("Y")), 'p_createdate desc', $arrayJoin, '');
@@ -222,6 +243,7 @@ class Home extends CI_Controller
 				$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('per_role' => 1), 'p_createdate desc', $arrayJoin, '');
 			}
 		} else {
+			$arrayStatus = array(lang('sp_home_responproject'), lang('pbt_pj-pending'), lang('pbt_pj-inprogress'), lang('pbt_pj-finish'), lang('pbt_pj-cancel'));
 			if ($p_status > 0) {
 				if ($p_status > 2) {
 					$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('p_status' => $p_status, 'per_u_id' => $u_id, 'YEAR(p_enddate)' => date("Y")), 'p_createdate desc', $arrayJoin, '');

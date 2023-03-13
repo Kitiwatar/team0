@@ -4,14 +4,13 @@
     <div class="card">
       <div class="card-body">
         <h2 class='card-title'><?= lang('cancel_list') ?></h2>
-        <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มสาเหตุการยุติโครงการ</button>
+        <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> <?= lang('ad-cancel') ?></button>
         <div class="table-responsive my-2">
           <table class="display table dt-responsive nowrap">
             <thead>
               <tr>
-                <th class="text-center"><?= lang('tl_no.') ?></th>
-                <th>รายชื่อสาเหตุการยุติโครงการ</th>
-                <th>วันที่เพิ่ม</th>
+                <th><?= lang('add_date') ?></th>
+                <th><?= lang('name_cancel') ?></th>
                 <th><?= lang('tl_project_at-operator') ?></th>
                 <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
               </tr>
@@ -21,14 +20,13 @@
                 <?php foreach ($getData as $key => $value) :?>
                 <?php if($value->cl_status == 0) : continue; endif; ?>
                   <tr>
-                    <td class="text-center"><?= $count++ ?></td> 
+                  <td><?= ($_SESSION['lang'] == "th") ? (date("Y", strtotime($value->cl_createdate)) + 543) : date("Y", strtotime($value->cl_createdate)); ?><?= date("-m-d", strtotime($value->cl_createdate)) ?></td>
                     <td><?= $value->cl_name ?></td>
-                    <td><?= thaiDateTime($value->cl_createdate)." น."?></td>
                     <td><?= $value->u_firstname ?> <?= $value->u_lastname ?></td>
                     <td class="text-center">
-                      <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->cl_id ?>)" title="แก้ไข"><i class="mdi mdi-pencil"></i></button>
+                      <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->cl_id ?>)" title="<?= lang('ed_button') ?>"><i class="mdi mdi-pencil"></i></button>
                       <?php if ($cancelCheck[$key] == null) { ?>
-                        <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="ลบ" onclick="changeStatus(<?= $value->cl_id ?>,<?= $value->cl_status ?>)"><i class="mdi mdi-delete"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="<?= lang('de_button') ?>" onclick="changeStatus(<?= $value->cl_id ?>,<?= $value->cl_status ?>)"><i class="mdi mdi-delete"></i></button>
                       <?php } else { ?>
                         <button type="button" style="cursor:no-drop" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="ไม่สามารถลบได้"><i class="mdi mdi-delete" style="color: grey;"></i></button>
                       <?php } ?>
@@ -73,7 +71,7 @@
          filename: 'รายชื่อสาเหตุยุติโครงการ',
          title: 'รายชื่อสาเหตุยุติโครงการ',
          exportOptions: {
-           columns: [0, 1, 2, 3]
+           columns: [0, 1, 2]
          },
          customize: function(xlsx) {
            var sheet = xlsx.xl['styles.xml'];
@@ -92,7 +90,7 @@
          title: 'รายชื่อสาเหตุยุติโครงการ',
          pageSize: 'A4', // ขนาดหน้ากระดาษเป็น A4
          exportOptions: {
-           columns: [0, 1, 2, 3]
+           columns: [0, 1, 2]
          },
          customize: function(pdf) { // ส่วนกำหนดเพิ่มเติม ส่วนนี้จะใช้จัดการกับ pdfmake
            // กำหนด style หลัก
@@ -127,7 +125,7 @@
              bold: !0,
            };
            // กำหนดความกว้างของ header แต่ละคอลัมน์หัวข้อ
-           pdf.content[1].table.widths = [40, 150, 150, 150];
+           pdf.content[1].table.widths = [90, 150, 150];
            pdf.styles.tableHeader.fontSize = 16; // กำหนดขนาด font ของ header
            var rowCount = pdf.content[1].table.body.length; // หาจำนวนแถวทั้งหมดในตาราง
            // วนลูปเพื่อกำหนดค่าแต่ละคอลัมน์ เช่นการจัดตำแหน่ง
@@ -137,6 +135,13 @@
          }
        }, // สิ้นสุดกำหนดพิเศษปุ่ม pdf
     ],
+    columnDefs: [{
+      orderable: false,
+      targets: -1
+    }],
+    order: [
+			[0, "desc"]
+		], 
     "language": {
        "oPaginate": {
          "sPrevious": "<?= lang('b_project_previous') ?>",

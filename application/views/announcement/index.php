@@ -31,28 +31,62 @@
      var formData = {};
      formData['an_id'] = an_id;
      formData['an_text'] = $('#an_text').val()
+    //  formData['an_begindate'] = $('#an_begindate').val()
+    //  formData['an_enddate'] = $('#an_enddate').val()
+     var dateInput = $('#an_begindate').val()
+    if(dateInput.length == 10) {
+      var bangkokDate = dateInput.toLocaleString("en-US", {timeZone: "Asia/Bangkok"})
+      formData['an_begindate'] = bangkokDate.substring(6, 10) + "-" + bangkokDate.substring(3, 5) + "-" + bangkokDate.substring(0, 2);
+    } else {
+      formData['an_begindate'] = "";
+    }
+    var dateInput1 = $('#an_enddate').val()
+    if(dateInput1.length == 10) {
+      var bangkokDate1 = dateInput1.toLocaleString("en-US", {timeZone: "Asia/Bangkok"})
+      formData['an_enddate'] = bangkokDate1.substring(6, 10) + "-" + bangkokDate1.substring(3, 5) + "-" + bangkokDate1.substring(0, 2);
+    } else {
+      formData['an_enddate'] = "";
+    }
+    count = 0;
+    // console.log(formData)
      if (!formData.an_text) {
        $('#clnameMsg').addClass('text-danger');
        $('#clnameMsg').text('กรุณาข้อความ');
-       !formData.an_text? $('#an_text').focus() : '';
-       return false;
+       count++;
      } else {
-       $('#amnameMsg').text(' ');
+       $('#clnameMsg').text(' ');
      }
-     $.ajax({
-       url: 'announ/checkRepeat',
-       data: {
-         an_text: formData['an_text']
-       },
-       method: 'post'
-     }).done(function(returnData) {
-       if (returnData.status == 0) {
-         $('#clnameMsg').text(returnData.msg);
-         $('#cl_text').addClass('is-invalid');
-         return;
-       } else {
-         $('#clnameMsg').text(returnData.msg);
-         $('#cl_name').removeClass('is-invalid');
+     if (!formData.an_enddate) {
+       $('#enddateMsg').addClass('text-danger');
+       $('#enddateMsg').text('กรุณาระบุวันที่สิ้นสุด');
+       count++;
+     } else {
+       $('#enddateMsg').text(' ');
+     }
+     if (!formData.an_begindate) {
+       $('#begindateMsg').addClass('text-danger');
+       $('#begindateMsg').text('กรุณาระบุวันที่เริ่มต้นแสดงข้อความ');
+       count++;
+     } else {
+       $('#begindateMsg').text(' ');
+     }
+     if(count != 0) {
+      return;
+     }
+    // $.ajax({
+    //    url: 'announ/checkRepeat',
+    //   data: {
+    //    an_text: formData['an_text'],
+    //   },
+    //   method: 'post'
+    //  }).done(function(returnData) {
+    //    if (returnData.status == 0) {
+    //      $('#clnameMsg').text(returnData.msg);
+    //      $('#cl_text').addClass('is-invalid');
+    //      return;
+    //    } else {
+    //      $('#clnameMsg').text(returnData.msg);
+    //      $('#cl_name').removeClass('is-invalid');
          
              $.ajax({
                method: "post",
@@ -61,7 +95,7 @@
              }).done(function(returnData) {
                if (returnData.status == 1) {
                  swal({
-                   title: "สำเร็จ",
+                   title: "<?= lang('md_vm-suc')?>",
                    text: returnData.msg,
                    type: "success",
                    showCancelButton: false,
@@ -75,7 +109,7 @@
                  loadList();
                } else {
                  swal({
-                   title: "ล้มเหลว",
+                   title: "<?= lang('md_vm-fail')?>",
                    text: returnData.msg,
                    type: "error",
                    showCancelButton: false,
@@ -88,13 +122,10 @@
                  $('#mainModal').modal('hide');
                  loadList();
                }
-               if(an_text.length>50){
-                
-               }
              });
            }
-         });
-       }
+      //    });
+      //  }
 
   function edit(an_id) {
     $.ajax({
@@ -130,7 +161,7 @@
       if (returnData.status == 1) {
         loadList();
         $.toast({
-          heading: '<?= "สำเร็จ" ?>',
+          heading: '<?= lang('md_vm-suc')?>',
           text: returnData.msg,
           position: 'top-right',
           icon: 'success',
@@ -139,7 +170,7 @@
         });
       } else {
         $.toast({
-          heading: '<?= "ล้มเหลว"?>',
+          heading: '<?= lang('md_vm-fail')?>',
           text: returnData.msg,
           position: 'top-right',
           icon: 'error',
@@ -154,8 +185,8 @@
   function deleteAnnoun(an_id) {
     var mainMsg;
     var detailMsg;
-    mainMsg = '<?=  "ยืนยันการลบข้อความจากระบบ"?>';
-    detailMsg = '<?="คุณต้องการลบข้อความจากระบบใช่หรือไม่" ?>';
+    mainMsg = '<?=  lang('main-announcement') ?>';
+    detailMsg = '<?= lang('detail-announcement') ?>';
     an_status = 0;
     
     swal({
@@ -210,6 +241,6 @@
         })
       }
     })
-
   }
+
 </script>

@@ -1,13 +1,13 @@
 <div class="bd-example">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
-      <button class="nav-link active" id="task-tab" onclick="showTab('task')">หน้าหลัก</button>
+      <button class="nav-link active" id="task-tab" onclick="showTab('task')"><?= lang('Home') ?></button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="calendarData-tab" onclick="showTab('calendarData')">ปฏิทินโครงการ</button>
+      <button class="nav-link" id="calendarData-tab" onclick="showTab('calendarData')"><?= lang('Calendar') ?></button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="permission-tab" onclick="showTab('permission')">พนักงานในโครงการ</button>
+      <button class="nav-link" id="permission-tab" onclick="showTab('permission')"><?= lang('Em-inp') ?></button>
     </li>
   </ul>
   <div class="tab-content" id="myTabContent">

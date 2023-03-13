@@ -3,17 +3,17 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h2 class='card-title'><?= "ข้อความประกาศจากระบบ"?></h2>
-        <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> เพิ่มข้อความประกาศ</button>
+        <h2 class='card-title'><?=lang('ms-announcement')?></h2>
+        <button type="button" class="btn btn-success" id="addBtn" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> <?= lang('ad-announcement') ?></button>
         <div class="table-responsive my-2">
           <table class="display table dt-responsive nowrap">
             <thead>
               <tr>
-                <th class="text-center"><?= lang('tl_no.') ?></th>
-                <th>ประกาศจากระบบ</th>
-                <th>วันที่เพิ่ม</th>
+                <th><?= lang('announcement') ?></th>
+                <th><?= lang('start-date') ?></th>
+                <th><?= lang('end-date') ?></th>
                 <th><?= lang('tl_project_at-operator') ?></th>
-                <th class="text-center"><?= "สถานะการประกาศ"?></th>
+                <th class="text-center"><?= lang("an-status")?></th>
                 <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
               </tr>
             </thead>
@@ -22,14 +22,14 @@
                 <?php foreach ($getData as $key => $value) :?>
                 <?php if($value->an_status == 0) : continue; endif; ?>
                   <tr>
-                    <td class="text-center"><?= $count++ ?></td> 
                     <td><?= $value->an_text ?></td>
-                    <td><?= thaiDateTime($value->an_createdate)." น."?></td>
+                    <td><?= $value->an_begindate?></td>
+                    <td><?= $value->an_enddate?></td>
                     <td><?= $value->u_firstname?> <?= $value->u_lastname?> 
                     <td class="align-middle"><div class="form-check form-switch d-flex justify-content-center"><input type="checkbox" style="cursor: pointer;" class="form-check-input" title="<?= lang('tt_es_muser') ?>" onchange="changeStatus2(<?= $value->an_id ?>,<?= $value->an_status ?>)" id="status<?= $value->an_id ?>"<?= ($value->an_status == 1) ? ' checked>' : ">" ?></div></td>
                     <td class="text-center">
-                      <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->an_id ?>)" title="แก้ไข"><i class="mdi mdi-pencil"></i></button>
-                      <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="ลบ" onclick="deleteAnnoun(<?= $value->an_id ?>,<?= $value->an_status ?>)"><i class="mdi mdi-delete"></i></button>
+                      <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->an_id ?>)" title="<?= lang('eda_button') ?>"><i class="mdi mdi-pencil"></i></button>
+                      <button type="button" class="btn btn-danger btn-sm" name="del" id="del" title="<?= lang('dea_button') ?>" onclick="deleteAnnoun(<?= $value->an_id ?>,<?= $value->an_status ?>)"><i class="mdi mdi-delete"></i></button>
                     </td>
                   </tr>
                 <?php endforeach; ?>
@@ -125,16 +125,24 @@
              bold: !0,
            };
            // กำหนดความกว้างของ header แต่ละคอลัมน์หัวข้อ
-           pdf.content[1].table.widths = [40, 150, 150, 150];
+           pdf.content[1].table.widths = [150, 100, 100, 120];
            pdf.styles.tableHeader.fontSize = 16; // กำหนดขนาด font ของ header
            var rowCount = pdf.content[1].table.body.length; // หาจำนวนแถวทั้งหมดในตาราง
            // วนลูปเพื่อกำหนดค่าแต่ละคอลัมน์ เช่นการจัดตำแหน่ง
            for (i = 1; i < rowCount; i++) { // i เริ่มที่ 1 เพราะ i แรกเป็นแถวของหัวข้อ
-             pdf.content[1].table.body[i][0].alignment = 'center'; // คอลัมน์แรกเริ่มที่ 0
+             pdf.content[1].table.body[i][1].alignment = 'center'; // คอลัมน์แรกเริ่มที่ 0
+             pdf.content[1].table.body[i][2 ].alignment = 'center';
            };
          }
        }, // สิ้นสุดกำหนดพิเศษปุ่ม pdf
     ],
+    columnDefs: [{
+      orderable: false,
+      targets: -1
+    }],
+    "order": [
+			[1, "desc"]
+		],
     "language": {
        "oPaginate": {
          "sPrevious": "<?= lang('b_project_previous') ?>",

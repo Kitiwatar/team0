@@ -3,7 +3,7 @@
    <div class="card-body">
      <div class="row">
        <div class="col">
-         <h1 class='fs-1 mt-0' style="cursor: pointer; color:black; line-height: 80%;" onclick="viewProject(<?= $projectData->p_id ?>)"><?= isset($projectData) ? $projectData->p_name : '' ?></้>
+         <h1 class='fs-1 mt-0' style="color:black; line-height: 80%;"><?= isset($projectData) ? $projectData->p_name : '' ?></h1>
        </div>
      </div>
      <table class="mt-2">
@@ -42,9 +42,8 @@
        <table class="display table dt-responsive nowrap" id="table">
          <thead>
            <tr>
-             <th class="text-center"><?= lang('tl_project_pj-no') ?></th>
-             <th><?= lang("tl_project_at-nametask") ?></th>
-             <th><?= lang('tl_project_at-implementationdate') ?></th>
+             <th><span class="m-2"><?= lang('tl_project_at-implementationdate') ?></span><i class="mdi mdi-information-outline" style="color:#C5C5C5;" title="สามารถคลิก เพื่อไปหน้าปฏิทินได้"></i></th>
+             <th><span class="m-2"><?= lang("tl_project_at-nametask") ?></span><i class="mdi mdi-information-outline" style="color:#C5C5C5;" title="สามารถคลิก เพื่อดูรายละเอียดกิจกรรม"></i></th>
              <th><?= lang('tl_project_at-operator') ?></th>
              <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
            </tr>
@@ -56,13 +55,12 @@
             ?>
              <?php foreach ($getData as $key => $value) : ?>
                <tr>
-                 <td class="text-center"><?= $count++ ?></td>
-                 <td style="cursor:pointer; font-weight: 900;" class="name" onclick="view(<?= $value->t_id ?>)"><?= $value->tl_name ?></td>
                  <?php if($value->t_createdate > $now) { ?>
-                 <td onclick="showTab('calendarData')" class="name" style="cursor: pointer;"><?= thaiDate($value->t_createdate) ?></td>
+                 <td onclick="showTab('calendarData')" class="name" style="cursor: pointer;"><?= ($_SESSION['lang'] == "th") ? (date("Y", strtotime($value->t_createdate)) + 543) : date("Y", strtotime($value->t_createdate)); ?><?= date("-m-d", strtotime($value->t_createdate)) ?></td>
                  <?php } else { ?>
-                  <td><?= thaiDate($value->t_createdate) ?></td>
+                  <td><?= ($_SESSION['lang'] == "th") ? (date("Y", strtotime($value->t_createdate)) + 543) : date("Y", strtotime($value->t_createdate)); ?><?= date("-m-d", strtotime($value->t_createdate)) ?></td>
                   <?php } ?>
+                  <td style="cursor:pointer; font-weight: 900;" class="name" onclick="view(<?= $value->t_id ?>)"><?= $value->tl_name ?></td>
                  <td><?= $value->u_firstname . ' ' . $value->u_lastname ?></td>
                  <td class="text-center">
                    <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->t_id ?>)" title="<?= lang('tt_pt_vtask') ?>"><i class="fas fa-search"></i></button>
@@ -339,7 +337,7 @@
          title: 'กิจกรรมโครงการ' + document.title,
          pageSize: 'A4', // ขนาดหน้ากระดาษเป็น A4
          exportOptions: {
-           columns: [0, 1, 2, 3]
+           columns: [0, 1, 2]
          },
          customize: function(pdf) { // ส่วนกำหนดเพิ่มเติม ส่วนนี้จะใช้จัดการกับ pdfmake
            // กำหนด style หลัก
@@ -374,7 +372,7 @@
              bold: !0,
            };
            // กำหนดความกว้างของ header แต่ละคอลัมน์หัวข้อ
-           pdf.content[1].table.widths = [40, 150, 150, 150];
+           pdf.content[1].table.widths = [150, 180, 150];
            pdf.styles.tableHeader.fontSize = 16; // กำหนดขนาด font ของ header
            var rowCount = pdf.content[1].table.body.length; // หาจำนวนแถวทั้งหมดในตาราง
            // วนลูปเพื่อกำหนดค่าแต่ละคอลัมน์ เช่นการจัดตำแหน่ง
@@ -383,6 +381,13 @@
            };
          }
        }, // สิ้นสุดกำหนดพิเศษปุ่ม pdf
+     ],
+     columnDefs: [{
+      orderable: false,
+      targets: -1
+    }],
+    order: [
+       [0, "desc"]
      ],
      "language": {
        "oPaginate": {
@@ -397,7 +402,6 @@
        "sZeroRecords": "<?= lang('in_project_zerorecords') ?>"
      }
    });
-
 
    $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn waves-effect waves-light btn-info mx-1');
    $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').removeClass("dt-button");

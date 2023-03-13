@@ -6,8 +6,8 @@
       <form class="" id="formcancellist" autocomplete="off">
         <div class="card-body">
           <div class="form-group">
-            <label for="cl_name" class="form-label">ชื่อสาเหตุการยุติโครงการ</label>
-            <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->cl_name : '' ?>" id="cl_name" placeholder="โปรดกรอกรายชื่อสาเหตุการยุติโครงการ">
+            <label for="cl_name" class="form-label"><?= lang('name_cancel')?><?= isset($detail) ? '' : $required ?></label>
+            <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->cl_name : '' ?>" id="cl_name" placeholder="<?=lang('ph-ad_cancel') ?>">
             <font id="clnameMsg" class="small text-danger"></font>
           </div>
         </div>

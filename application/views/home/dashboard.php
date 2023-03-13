@@ -439,13 +439,14 @@
               <div class="col-lg-12 col-md-12 fw-bold fs-3">Time <span id="timeNow" style="color:#03A9F3;"></span></div>
             <?php endif; ?>
             <?php
-            if (is_array($getData)) {
-              foreach ($getData as $key => $value) {
-                $text[] = $value->an_text;
+            // if ($getData != null) {
+              // for ($i=0; $i<count($getData); $i++) {
+                // $text[] = $value->an_text;
+                // echo $value[$i]->an_text;
             ?>
             <?php
-              }
-            }
+              // }
+            // }
 
             ?>
             <div class="col mt-2" style="height: 95%;">
@@ -461,9 +462,9 @@
                         <div class="text-slide">"สวัสดี คุณ<?= $_SESSION['u_firstname'] ?>"</div>
                       </div>
                       <?php if (is_array($getData)) : ?>
-                        <?php for ($i = 0; $i < count($text); $i++) : ?>
+                        <?php for ($i = 0; $i < count($getData); $i++) : ?>
                           <div class="carousel-item" style="font-size: 20px;" data-bs-interval="3000">
-                            <div class="text-slide" style="font-size: 20px;">"<?= $text[$i] ?>"</div>
+                            <div class="text-slide" style="font-size: 20px;">"<?= $getData[$i]->an_text ?>"</div>
                           </div>
                         <?php endfor; ?>
                       <?php endif ?>
@@ -486,14 +487,14 @@
     </div>
     <div class="col-lg-12 col-md-12 mt-3">
       <div class="card p-2" style="background-color: #03A9F3;">
-        <div style="color:white;" class="fs-4 px-2">ภาพรวมโครงการที่มีส่วนเกี่ยวข้อง พ.ศ <?= $date = date('Y') + 543; ?></div>
+        <div style="color:white;" class="fs-4 px-2"><?= lang('overview_relate') ?> <?= $date = date('Y') + 543; ?></div>
       </div>
     </div>
     <div class="col-lg-6 col-md-12 col-sm-12">
       <div class="col-lg-12 col-md-12">
         <div class="card">
           <div class="card-body">
-            <div class="fs-3">กราฟแสดงจำนวนโครงการที่มีส่วนเกี่ยวข้องตามสถานะ</div>
+            <div class="fs-3"><?= lang('overview_Cstatus') ?></div>
             <div id="ResprojectChart" class="py-5 pe-3" style="width:100%; height:520px;"></div>
           </div>
         </div>

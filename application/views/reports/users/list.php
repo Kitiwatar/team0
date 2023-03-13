@@ -3,14 +3,13 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h2 class='card-title'>รายงานพนักงาน</h2>
+        <h2 class='card-title'><?= lang('rp_user') ?></h2>
         <div class="table-responsive my-2">
           <table class="display table dt-responsive nowrap">
             <thead>
               <tr>
-                <th class="text-center"><?= lang('tl_project_pj-no') ?></th>
-                <th><?= lang('gd_project_em-fullname') ?></th>
-                <th class="text-center"><?= lang('tl_home_amountworkpiece') ?></th>
+              <th><?= lang('gd_project_em-fullname') ?></th>
+              <th class="text-center"><?= lang('tl_home_amountworkpiece') ?></th>
                 <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
               </tr>
             </thead>
@@ -21,16 +20,15 @@
                     continue;
                   } ?>
                   <tr>
-                    <td class="align-middle text-center"><?= $count++ ?></td>
-                    <td class="align-middle"><?= $value->u_firstname . " " . $value->u_lastname ?></td>
-                    <td class="align-middle text-center"><?= $projectCount[$key] ?></td>
+                  <td class="align-middle"><?= $value->u_firstname . " " . $value->u_lastname ?></td>
+                  <td class="align-middle text-center"><?= $projectCount[$key] ?></td>
                     <td class="align-middle text-center">
                       <?php if ($projectCount[$key] > 0) { ?>
-                        <button class="btn btn-sm btn-info" title="ดูรายชื่อโครงการของพนักงาน" onclick="viewProjects(<?= $value->u_id ?>)">
+                        <button class="btn btn-sm btn-info" title="<?= lang('v-emp') ?>" onclick="viewProjects(<?= $value->u_id ?>)">
                           <i class="mdi mdi-file-document"></i>
                         </button>
                       <?php } else { ?>
-                        <button type="button" style="cursor:no-drop" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="พนักงานไม่มีโครงการที่รับผิดชอบอยู่ในขณะนี้"><i class="mdi mdi-file-document" style="color: grey;"></i></button>
+                        <button type="button" style="cursor:no-drop" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="<?= lang('v-emp-c') ?>"><i class="mdi mdi-file-document" style="color: grey;"></i></button>
                       <?php } ?>
                     </td>
                   </tr>
@@ -63,7 +61,7 @@
         filename: 'จำนวนโครงการปัจจุบันของพนักงาน',
         title: 'จำนวนโครงการปัจจุบันของพนักงาน',
         exportOptions: {
-          columns: [0, 1, 2]
+          columns: [0, 1]
         },
         customize: function(xlsx) {
           var sheet = xlsx.xl['styles.xml'];
@@ -82,7 +80,7 @@
         title: 'จำนวนโครงการปัจจุบันของพนักงาน',
         pageSize: 'A4', // ขนาดหน้ากระดาษเป็น A4
         exportOptions: {
-          columns: [0, 1, 2]
+          columns: [0, 1]
         },
         customize: function(pdf) { // ส่วนกำหนดเพิ่มเติม ส่วนนี้จะใช้จัดการกับ pdfmake
           // กำหนด style หลัก
@@ -117,17 +115,23 @@
             bold: !0,
           };
           // กำหนดความกว้างของ header แต่ละคอลัมน์หัวข้อ
-          pdf.content[1].table.widths = [40, 300, 150];
+          pdf.content[1].table.widths = [200, 100];
           pdf.styles.tableHeader.fontSize = 16; // กำหนดขนาด font ของ header
           var rowCount = pdf.content[1].table.body.length; // หาจำนวนแถวทั้งหมดในตาราง
           // วนลูปเพื่อกำหนดค่าแต่ละคอลัมน์ เช่นการจัดตำแหน่ง
           for (i = 1; i < rowCount; i++) { // i เริ่มที่ 1 เพราะ i แรกเป็นแถวของหัวข้อ
-            pdf.content[1].table.body[i][0].alignment = 'center'; // คอลัมน์แรกเริ่มที่ 0
-            pdf.content[1].table.body[i][2].alignment = 'center';
+            pdf.content[1].table.body[i][1].alignment = 'center'; // คอลัมน์แรกเริ่มที่ 0
           };
         }
       }, // สิ้นสุดกำหนดพิเศษปุ่ม pdf
     ],
+    columnDefs: [{
+      orderable: false,
+      targets: -1
+    }],
+    order: [
+			[1, "desc"]
+		],
     "language": {
       "oPaginate": {
         "sPrevious": "<?= lang('b_project_previous') ?>",

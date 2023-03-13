@@ -34,6 +34,7 @@
     formData['u_email'] = $('#u_email').val()
     formData['u_tel'] = $('#u_tel').val()
     formData['u_role'] = $('#u_role').val()
+    formData['u_position'] = $('#u_position').val()
 
     var count = 0;
     var regex = /\d+/g;
@@ -73,45 +74,52 @@
     } else {
       $('#fnameMsg').text(' ');
     }
+    if (!formData.u_position) {
+      $('#posMsg').text(' <?= lang('md_aes_upo_rqf') ?>');
+      $('#u_position').focus();
+      count++
+    } else {
+      $('#posMsg').text(' ');
+    }
 
     if (count > 0) {
       return false;
-    } 
-        $.ajax({
-          method: "post",
-          url: 'users/add',
-          data: formData
-        }).done(function(returnData) {
-          if (returnData.status == 1) {
-            swal({
-              title: '<?= lang('md_vm-suc') ?>',
-              text: returnData.msg,
-              type: "success",
-              showCancelButton: false,
-              showConfirmButton: false,
-              timer: 1000,
-            });
-            $('#fMsg').addClass('text-success');
-            $('#fMsg').text(returnData.msg);
-            $('#usersForm')[0].reset();
-            $('#mainModal').modal('hide');
-            loadList();
-          } else {
-            swal({
-              title: '<?= lang('md_vm-fail') ?>',
-              text: returnData.msg,
-              type: "error",
-              showCancelButton: false,
-              showConfirmButton: false,
-              timer: 1000,
-            });
-            $('#fMsg').addClass('text-success');
-            $('#fMsg').text(returnData.msg);
-            $('#usersForm')[0].reset();
-            $('#mainModal').modal('hide');
-            loadList();
-          }
+    }
+    $.ajax({
+      method: "post",
+      url: 'users/add',
+      data: formData
+    }).done(function(returnData) {
+      if (returnData.status == 1) {
+        swal({
+          title: '<?= lang('md_vm-suc') ?>',
+          text: returnData.msg,
+          type: "success",
+          showCancelButton: false,
+          showConfirmButton: false,
+          timer: 1000,
         });
+        $('#fMsg').addClass('text-success');
+        $('#fMsg').text(returnData.msg);
+        $('#usersForm')[0].reset();
+        $('#mainModal').modal('hide');
+        loadList();
+      } else {
+        swal({
+          title: '<?= lang('md_vm-fail') ?>',
+          text: returnData.msg,
+          type: "error",
+          showCancelButton: false,
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        $('#fMsg').addClass('text-success');
+        $('#fMsg').text(returnData.msg);
+        $('#usersForm')[0].reset();
+        $('#mainModal').modal('hide');
+        loadList();
+      }
+    });
   }
 
   function view(u_id) {
@@ -163,41 +171,41 @@
       $('#errMsg').text('<?= lang('md_cp_rqf-cpnm') ?>');
       return false;
     }
- 
-        $.ajax({
-          method: "post",
-          url: 'users/updatePassword',
-          data: formData
-        }).done(function(returnData) {
-          if (returnData.status == 1) {
-            swal({
-              title: '<?= lang('md_vm-suc') ?>',
-              text: returnData.msg,
-              type: "success",
-              showCancelButton: false,
-              showConfirmButton: false,
-              timer: 1000,
-            });
-            $('#fMsg').addClass('text-success');
-            $('#fMsg').text(returnData.msg);
-            $('#pwdForm')[0].reset();
-            $('#mainModal').modal('hide');
-          } else {
-            swal({
-              title: '<?= lang('md_vm-fail') ?>',
-              text: returnData.msg,
-              type: "error",
-              showCancelButton: false,
-              showConfirmButton: false,
-              timer: 1000,
-            });
-            $('#fMsg').addClass('text-success');
-            $('#fMsg').text(returnData.msg);
-            $('#pwdForm')[0].reset();
-            $('#mainModal').modal('hide');
-          }
+
+    $.ajax({
+      method: "post",
+      url: 'users/updatePassword',
+      data: formData
+    }).done(function(returnData) {
+      if (returnData.status == 1) {
+        swal({
+          title: '<?= lang('md_vm-suc') ?>',
+          text: returnData.msg,
+          type: "success",
+          showCancelButton: false,
+          showConfirmButton: false,
+          timer: 1000,
         });
-        loadList();
+        $('#fMsg').addClass('text-success');
+        $('#fMsg').text(returnData.msg);
+        $('#pwdForm')[0].reset();
+        $('#mainModal').modal('hide');
+      } else {
+        swal({
+          title: '<?= lang('md_vm-fail') ?>',
+          text: returnData.msg,
+          type: "error",
+          showCancelButton: false,
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        $('#fMsg').addClass('text-success');
+        $('#fMsg').text(returnData.msg);
+        $('#pwdForm')[0].reset();
+        $('#mainModal').modal('hide');
+      }
+    });
+    loadList();
   }
 
   function changePassword(u_id) {

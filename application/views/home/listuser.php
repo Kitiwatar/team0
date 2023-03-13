@@ -7,7 +7,7 @@
 					<table class="display table dt-responsive nowrap" id="tablerank">
 						<thead>
 							<tr>
-								<th class="text-center"><?= lang('tl_no.') ?></th>
+								<th class="text-center"><?= lang('tl_rk.') ?></th>
 								<th><?= lang('tl_home_name') ?></th>
 								<th class="text-center"><?= lang('tl_home_amountworkpiece') ?></th>
 							</tr>

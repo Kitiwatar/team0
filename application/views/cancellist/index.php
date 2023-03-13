@@ -33,7 +33,7 @@
      formData['cl_name'] = $('#cl_name').val()
      if (!formData.cl_name) {
        $('#clnameMsg').addClass('text-danger');
-       $('#clnameMsg').text('กรุณากรอกชื่อกิจกรรม');
+       $('#clnameMsg').text('<?= lang('ph-ad_cancel') ?>');
        !formData.cl_name ? $('#cl_name').focus() : '';
        return false;
      } else {
@@ -61,7 +61,7 @@
          }).done(function(returnData) {
            if (returnData.status == 1) {
              swal({
-               title: "สำเร็จ",
+               title: "<?= lang('md_vm-suc') ?>",
                text: returnData.msg,
                type: "success",
                showCancelButton: false,
@@ -75,7 +75,7 @@
              loadList();
            } else {
              swal({
-               title: "ล้มเหลว",
+               title: "<?= lang('md_vm-fail') ?>",
                text: returnData.msg,
                type: "error",
                showCancelButton: false,
@@ -111,8 +111,8 @@
    function changeStatus(cl_id, cl_status) {
      var mainMsg;
      var detailMsg;
-     mainMsg = 'ยืนยันการลบสาเหตุการยุติโครงการ';
-     detailMsg = 'คุณต้องการลบสาเหตุการยุติโครงการใช่หรือไม่';
+     mainMsg = '<?= lang('main-cancel') ?>';
+     detailMsg = '<?= lang('detail-cancel') ?>';
 
      swal({
        title: mainMsg,

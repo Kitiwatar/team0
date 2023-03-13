@@ -196,7 +196,7 @@
                                                     } ?>
                                                 </span>
                                             </td>
-                                            <td class="p-0"><img src="https://synergysoft.co.th/images/2022/06/30/user.png" alt="user" class=""></td>
+                                            <td class="p-0"><img src="<?= base_url() ?>assets/images/iconuser.png" alt="user" class=""></td>
                                         </tr>
                                     </table>
                                 </a>
@@ -241,10 +241,10 @@
                                     <i class="ti-bar-chart-alt" style="font-size: 18px;"></i><span class="hide-menu"><?= lang('dashboard') ?></span></a>
                                     <ul aria-expanded="false" class="collapse">
                                         <li>
-                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>Home/dashboard" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> ส่วนบุคคล</a>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>Home/dashboard" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('pp') ?></a>
                                         </li>
                                         <li>
-                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>Home/dashboard_admin" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> ผู้ดูแลระบบ</a>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>Home/dashboard_admin" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('admin') ?></a>
                                         </li>
                                     </ul>
                             </li>
@@ -295,10 +295,10 @@
                                             <a class="waves-effect waves-dark" href="<?= base_url() ?>tasklist" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('taskList') ?></a>
                                         </li>
                                         <li>
-                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>cancellist" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> จัดการสาเหตุยุติโครงการ</a>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>cancellist" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('m-cancel_list') ?></a>
                                         </li>
                                         <li>
-                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>announ" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> ประกาศจากระบบ</a>
+                                            <a class="waves-effect waves-dark" href="<?= base_url() ?>announ" aria-expanded="false"><i class="icon-control-play" style="font-size: 12px;"></i> <?= lang('m-announcement') ?></a>
                                         </li>
                                     </ul>
                                 </li>
@@ -313,7 +313,7 @@
                             <?php endif; ?>
                             <li style="bottom: 0; position: fixed;">
                                 <a class="waves-effect waves-dark my-0" href="<?= base_url() ?>login/logout" aria-expanded="false">
-                                    <i class="fas fa-sign-out-alt" style="font-size: 20px;"></i><span class="hide-menu"> <?= lang('logout') ?></span>
+                                    <i class="fas fa-sign-out-alt" style="font-size: 14px;"></i><span class="hide-menu"> <?= lang('logout') ?></span>
                                 </a>
                             </li>
                         <?php endif; ?>
@@ -346,7 +346,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="<?= base_url() ?>"><?= lang('Home') ?></a></li>
                                 <?php if (isset($subBreadcrumb)) : ?>
-                                    <?= $subBreadcrumb ?>
+                                    <li class="breadcrumb-item"><a id="subBreadcrumb" href="<?= base_url() ?><?= $subBreadcrumbPath ?>"><?= $subBreadcrumb ?></a></li>
                                 <?php endif; ?>
                                 <?php if (isset($breadcrumb)) : ?>
                                     <li class="breadcrumb-item active"><?= $breadcrumb ?></li>

@@ -17,7 +17,7 @@
             <th><?= lang('gd_project_em-permission') ?></th>
             <?php if ($_SESSION['u_id'] == $user[0]->u_id || $_SESSION['u_role'] < 2 && $projectData->p_status < 3) { ?>
               <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
-            <?php } ?>
+            <?php } ?> 
           </tr>
         </thead>
         <?php if (is_array($user)) : $count = 1; ?>
@@ -51,6 +51,14 @@
 </div>
 
 <script>
+  pdfMake.fonts = {
+     THSarabun: {
+       normal: 'THSarabun.ttf',
+       bold: 'THSarabun-Bold.ttf',
+       italics: 'THSarabun-Italic.ttf',
+       bolditalics: 'THSarabun-BoldItalic.ttf'
+     }
+   }
   $('#tablePermission').DataTable({
     dom: 'Bftlp',
     buttons: [{
@@ -112,7 +120,7 @@
             bold: !0,
           };
           // กำหนดความกว้างของ header แต่ละคอลัมน์หัวข้อ
-          pdf.content[1].table.widths = [40, 150, 150, 150];
+          pdf.content[1].table.widths = [40, 130, 130, 80, 100];
           pdf.styles.tableHeader.fontSize = 16; // กำหนดขนาด font ของ header
           var rowCount = pdf.content[1].table.body.length; // หาจำนวนแถวทั้งหมดในตาราง
           // วนลูปเพื่อกำหนดค่าแต่ละคอลัมน์ เช่นการจัดตำแหน่ง

@@ -6,7 +6,7 @@
       <form class="" id="formtasklist" autocomplete="off">
         <div class="card-body">
           <div class="form-group">
-            <label for="tl_name" class="form-label"><?= lang('md_at_tl') ?></label>
+            <label for="tl_name" class="form-label"><?= lang('md_at_tl') ?><?= isset($detail) ? '' : $required ?></label>
             <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->tl_name : '' ?>" id="tl_name" placeholder="<?= lang('md_at_ph-tl') ?>">
             <font id="tlnameMsg" class="small text-danger"></font>
           </div>

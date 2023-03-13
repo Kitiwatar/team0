@@ -7,14 +7,13 @@
            <table class="display table dt-responsive nowrap" id="table">
              <thead>
                <tr>
-                 <th class="text-center"><?= lang('tl_no.') ?></th>
-                 <th><?= lang('tl_project_pj-name') ?></th>
-                 <th>วันที่เริ่มโครงการ</th>
+               <th><?= lang('gd_project_pj-startdate') ?></th>
+                 <th><?= lang('tl_project_pj-name') ?></th> 
                  <th><?= lang('tl_project_pj-status') ?></th>
                </tr>
              </thead>
              <tbody>
-               <?php if (is_array($projectData)) : $count = 1;
+               <?php if (is_array($projectData)) :
                $statusColor = array(1 => "badge rounded-pill bg-warning", 2 => "badge rounded-pill bg-info", 3 => "badge rounded-pill bg-success", 4 => "badge rounded-pill bg-danger");
                $statusName = array(1 => lang('sp_home_pendproject'), 2 => lang('sp_home_inprogress'), 3 => lang('sp_home_finish'), 4 => lang('sp_home_cancel'));
                ?>
@@ -22,9 +21,8 @@
                   if($value->p_status < 1 || $value->p_status > 2) : continue; endif;
                   ?>
                    <tr id="<?= "project" . $value->p_id ?>">
-                     <td class="text-center"><?= $count++ ?></td>
+                   <td><?= date("d-m-", strtotime($value->p_createdate)) ?><?= ($_SESSION['lang'] == "th") ? (date("Y", strtotime($value->p_createdate)) + 543) : date("Y", strtotime($value->p_createdate)); ?></td>
                      <td><?= $value->p_name ?></td>
-                     <td><?= $value->p_createdate ?></td>
                      <td>
                        <?php 
                         echo "<span  class = ' " . $statusColor[$value->p_status] . "'>" . $statusName[$value->p_status] . "</span>";
@@ -49,7 +47,7 @@
          filename: "โครงการปัจจุบันของ <?= $projectData[0]->u_firstname .' ' . $projectData[0]->u_lastname ?>",
          title: "โครงการปัจจุบันของ <?= $projectData[0]->u_firstname .' ' . $projectData[0]->u_lastname ?>",
          exportOptions: {
-           columns: [0, 1, 2, 3]
+           columns: [0, 1, 2]
          },
          customize: function(xlsx) {
            var sheet = xlsx.xl['styles.xml'];
@@ -68,7 +66,7 @@
          title: "โครงการปัจจุบันของ <?= $projectData[0]->u_firstname .' ' . $projectData[0]->u_lastname ?>",
          pageSize: 'A4', // ขนาดหน้ากระดาษเป็น A4
          exportOptions: {
-           columns: [0, 1, 2, 3]
+           columns: [0, 1, 2]
          },
          customize: function(pdf) { // ส่วนกำหนดเพิ่มเติม ส่วนนี้จะใช้จัดการกับ pdfmake
            // กำหนด style หลัก
@@ -103,14 +101,12 @@
              bold: !0,
            };
            // กำหนดความกว้างของ header แต่ละคอลัมน์หัวข้อ
-           pdf.content[1].table.widths = [40, 250, 100, 100];
+           pdf.content[1].table.widths = [100, 250, 100];
            pdf.styles.tableHeader.fontSize = 16; // กำหนดขนาด font ของ header
            var rowCount = pdf.content[1].table.body.length; // หาจำนวนแถวทั้งหมดในตาราง
            // วนลูปเพื่อกำหนดค่าแต่ละคอลัมน์ เช่นการจัดตำแหน่ง
            for (i = 1; i < rowCount; i++) { // i เริ่มที่ 1 เพราะ i แรกเป็นแถวของหัวข้อ
              pdf.content[1].table.body[i][0].alignment = 'center'; // คอลัมน์แรกเริ่มที่ 0
-             pdf.content[1].table.body[i][2].alignment = 'center';
-             pdf.content[1].table.body[i][3].alignment = 'center';
            };
          }
        }, // สิ้นสุดกำหนดพิเศษปุ่ม pdf

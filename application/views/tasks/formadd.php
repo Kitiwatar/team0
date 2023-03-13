@@ -71,7 +71,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
         </div>
       </form>
       <div class="mx-4">
-        <h4><?= lang('md_at-dc') ?></h4>
+        <h4><span class="m-2"><?= lang('md_at-dc') ?></span><i class="mdi mdi-information-outline" style="color:#C5C5C5;" title="สามารถเพิ่มไฟล์ได้ตามนี้ (รูปภาพ ,excel ,pdf ,text ,word ,powerpoint) และขนาดไฟล์ต้องไม่เกิน 5 MB"></i></h4>
         <div class="col-md-6 <?= isset($detail) ? "d-none" : '' ?>">
           <button type="button" class="btn btn-success" id="uploadBtn"><i class="mdi mdi-plus-circle-outline"></i> <?= lang('md_at_bt-dc') ?></button>
           <input type="file" name="files" id="files" class="d-none" accept=".doc,.docx,application/msword, .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/vnd.ms-powerpoint, 
@@ -127,6 +127,36 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     $('#files').click();
   });
 
+  $('#t_createdate').on('change', function() {
+    $('.datepicker').hide();
+  });
+
+  $('#t_createtime').on('change', function() {
+    if ($("#t_createtime").val() == "") {
+      $('#t_createtime').removeClass("is-valid");
+      $('#t_createtime').addClass("is-invalid");
+    } else {
+      $('#t_createtime').removeClass("is-invalid");
+      $('#t_createtime').addClass("is-valid");
+      $('#createtimeMsg').html('');
+    }
+  });
+
+  $('#t_tl_id').on('change', function() {
+    $('#nameMsg').hide();
+  });
+
+  $('#t_detail').on('input', function() {
+    if ($("#t_detail").val() == "") {
+      $('#t_detail').removeClass("is-valid");
+      $('#t_detail').addClass("is-invalid");
+    } else {
+      $('#t_detail').removeClass("is-invalid");
+      $('#t_detail').addClass("is-valid");
+      $('#detailMsg').html('');
+    }
+  });
+
   function remove(name) {
     let listRemove = document.getElementById("listRemove");
     listRemove.innerHTML += `<input type="checkbox" name="fileRemove" value="` + name + `" checked>`
@@ -178,6 +208,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     } else {
       $('#t_createdate').removeClass("is-invalid");
       $('#t_createdate').addClass("is-valid");
+      $('#createdateMsg').html('');
     }
   });
 </script>

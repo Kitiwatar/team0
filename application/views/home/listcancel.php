@@ -7,9 +7,9 @@
 					<table class="display table dt-responsive nowrap" id="tableCancel">
 						<thead>
 							<tr>
-								<th class="text-center">อันดับ</th>
-								<th>สาเหตุการยุติ</th>
-								<th class="text-center">จำนวนทั้งหมด</th>
+								<th class="text-center"><?= lang('tl_rk.') ?></th>
+								<th><?= lang('cause') ?></th>
+								<th class="text-center"><?= lang('Amount') ?></th>
 							</tr>
 						</thead>
 						<tbody>

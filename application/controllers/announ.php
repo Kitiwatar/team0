@@ -27,8 +27,8 @@ class Announ extends CI_Controller {
 
 	public function index()	{
 		// Create by: Create by: Natakorn Phongsarikit 01-02-2566 index
-		$values['pageTitle'] = "ประกาศจากระบบ";
-		$values['breadcrumb'] ="ประกาศจากระบบ";
+		$values['pageTitle'] = lang('announcement');
+		$values['breadcrumb'] =lang('announcement');
 		$values['pageContent'] = $this->load->view('announcement/index', $values, TRUE);
 		$this->load->view('main', $values);
 	}
@@ -36,7 +36,7 @@ class Announ extends CI_Controller {
 	public function get() {
 		// Create by: Create by: Natakorn Phongsarikit 01-02-2566 get announ
 		$arrayJoin = array('pms_user'=>'pms_announcement.an_u_id=pms_user.u_id');
-		$getData = $this->genmod->getAll('pms_announcement', '*','','an_createdate desc',$arrayJoin,'');
+		$getData = $this->genmod->getAll('pms_announcement', '*','','an_begindate desc',$arrayJoin,'');
 		$anon = array();
 		if(is_array($getData)) {
 			for($i=0; $i<count($getData); $i++) {
@@ -51,7 +51,7 @@ class Announ extends CI_Controller {
 
  	public function getAddForm() {
 		// Create by: Create by: Natakorn Phongsarikit 01-02-2566 get form for add announ
-		$json['title'] = "ข้อความประกาศจากระบบ";
+		$json['title'] = lang('ad-announcement').' <span class="text-danger" style="font-size:12px;">(* '.lang('md_tl_a-req').' )</span>';
 		$json['body'] = $this->load->view('announcement/formadd', '', true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit(\'new\');">'.lang('bt_save') .'</button>
 		<button type="button" class="btn btn-danger" onclick="closeModal(\'ข้อความจากระบบ\')">'.lang('bt_cancel') .'</button>';
@@ -62,7 +62,7 @@ class Announ extends CI_Controller {
 		// Create by: Create by: Natakorn Phongsarikit 01-02-2566 add announcement  to database
 		$this->genlib->ajaxOnly();
 		$formData = $this->input->post();
-		$dataRequires = array('an_id','an_text');
+		$dataRequires = array('an_id','an_text','an_begindate','an_enddate');
 		foreach ($dataRequires as $value) {
 			if(!isset($formData[$value])) {
 				$json = ['status'=> 0, 'msg'=>lang('md_vm_ad-fail')];
@@ -86,7 +86,7 @@ class Announ extends CI_Controller {
 
 	public function getEditForm() {
 		// Create by: Create by: Natakorn Phongsarikit 01-02-2566 get form edit announ
-		$json['title'] = "แก้ไขประกาศ";
+		$json['title'] =  lang('ed-announcement').' <span class="text-danger" style="font-size:12px;">(* '.lang('md_tl_a-req').' )</span>';
 		$data['getData'] = $this->genmod->getOne('pms_announcement', '*', array('an_id'=>$this->input->post('an_id')));
 		$json['body'] = $this->load->view('announcement/formadd',$data ,true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit('.$this->input->post('an_id').');">'. lang('bt_save') .'</button>
@@ -100,11 +100,11 @@ class Announ extends CI_Controller {
 		$updateData = $this->input->post();
 			if($this->genmod->update('pms_announcement', array('an_status'=> $updateData['an_status']), array('an_id'=>$updateData['an_id']))){
 				if($updateData['an_status'] == 1) {
-					$msg = "ประกาศข้อความ";
+					$msg = lang('active');
 				} else if ($updateData['an_status'] == 2){
-					$msg = "ช่อนการประกาศ";
+					$msg = lang('no-active');
 				}else{
-                    $msg = "ลบสำเร็จ";
+                    $msg = lang('de-active');
                 }
 				$json = ['status'=> 1, 'msg'=>$msg];
 			

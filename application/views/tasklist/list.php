@@ -9,21 +9,19 @@
           <table class="display table dt-responsive nowrap">
             <thead>
               <tr>
-                <th class="text-center"><?= lang('tl_no.') ?></th>
+              <th><?= lang('gd_dateadded') ?></th>
                 <th><?= lang('tb_topic_dt-name') ?></th>
-                <th><?= lang('gd_dateadded') ?></th>
                 <th><?= lang('tl_project_at-operator') ?></th>
                 <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
               </tr>
             </thead>
             <tbody>
-              <?php if (is_array($getData)) : $count = 1;?>
+              <?php if (is_array($getData)) : ?>
                 <?php foreach ($getData as $key => $value) :?>
                 <?php if($value->tl_status == 0) : continue; endif; ?>
                   <tr>
-                    <td class="text-center"><?= $count++ ?></td> 
+                  <td><?= ($_SESSION['lang'] == "th") ? (date("Y", strtotime($value->tl_createdate)) + 543) : date("Y", strtotime($value->tl_createdate)); ?><?= date("-m-d", strtotime($value->tl_createdate)) ?></td>
                     <td><?= $value->tl_name ?></td>
-                    <td><?= thaiDateTime($value->tl_createdate)." น."?></td>
                     <td><?= $value->u_firstname ?> <?= $value->u_lastname ?></td>
                     <td class="text-center">
                       <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->tl_id ?>)" title="<?= lang('tt_tl_etl') ?>"><i class="mdi mdi-pencil"></i></button>
@@ -73,7 +71,7 @@
          filename: 'รายชื่อกิจกรรม',
          title: 'รายชื่อกิจกรรม',
          exportOptions: {
-           columns: [0, 1, 2, 3]
+           columns: [0, 1, 2]
          },
          customize: function(xlsx) {
            var sheet = xlsx.xl['styles.xml'];
@@ -92,7 +90,7 @@
          title: 'รายชื่อกิจกรรม',
          pageSize: 'A4', // ขนาดหน้ากระดาษเป็น A4
          exportOptions: {
-           columns: [0, 1, 2, 3]
+           columns: [0, 1, 2]
          },
          customize: function(pdf) { // ส่วนกำหนดเพิ่มเติม ส่วนนี้จะใช้จัดการกับ pdfmake
            // กำหนด style หลัก
@@ -127,7 +125,7 @@
              bold: !0,
            };
            // กำหนดความกว้างของ header แต่ละคอลัมน์หัวข้อ
-           pdf.content[1].table.widths = [40, 150, 150, 150];
+           pdf.content[1].table.widths = [90, 150, 150];
            pdf.styles.tableHeader.fontSize = 16; // กำหนดขนาด font ของ header
            var rowCount = pdf.content[1].table.body.length; // หาจำนวนแถวทั้งหมดในตาราง
            // วนลูปเพื่อกำหนดค่าแต่ละคอลัมน์ เช่นการจัดตำแหน่ง
@@ -137,6 +135,13 @@
          }
        }, // สิ้นสุดกำหนดพิเศษปุ่ม pdf
     ],
+    columnDefs: [{
+      orderable: false,
+      targets: -1
+    }],
+    order: [
+			[0, "desc"]
+		], 
     "language": {
        "oPaginate": {
          "sPrevious": "<?= lang('b_project_previous') ?>",

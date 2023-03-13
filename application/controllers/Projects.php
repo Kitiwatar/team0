@@ -119,7 +119,7 @@ class Projects extends CI_Controller{
 
 	public function getAddForm() {
 		// Create by: Jiradat Pomyai 28-09-2565 get add form
-		$json['title'] = lang('md_tl_a-ap').' <span class="text-danger" style="font-size:12px;">(* '.lang('md_tl_a-req').')</span>';
+		$json['title'] = lang('md_tl_a-ap').' <span class="text-danger" style="font-size:12px;">(* '.lang('md_tl_a-req').' )</span>';
 		$json['body'] = $this->load->view('projects/formadd', '', TRUE);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormProjectSubmit(\'new\');">'.lang("bt_save").' </button>
 		<button type="button" class="btn btn-danger" onclick="closeModal(\'เพิ่มโครงการ\')">'.lang("bt_cancel").'</button>';
@@ -144,7 +144,7 @@ class Projects extends CI_Controller{
 		$data['detail'] = "yes";
 		$json['title'] = lang('md_tl_v-pj');
 		$json['body'] = $this->load->view('projects/formadd', $data ,true);
-		if($_SESSION['u_role'] < 2 || $_SESSION['u_id'] == $data['getData']->per_u_id && ($data['getData']->p_status == 1 || $data['getData']->p_status == 2)) {
+		if(($_SESSION['u_role'] < 2 || $_SESSION['u_id'] == $data['getData']->per_u_id) && ($data['getData']->p_status == 1 || $data['getData']->p_status == 2)) {
 			$json['footer'] = '<button type="button" class="btn btn-warning" onclick="editProject(' . $this->input->post('p_id') . ')" title="'. lang('tt_pj_eproject').'">'.lang("bt_edit").'</button>';
 		} else {
 			$json['footer'] = '';

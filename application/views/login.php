@@ -14,7 +14,6 @@
                 <button type="button" class="btn btn-danger" style="height: 80%; width: 100%;" data-dismiss="modal" aria-hidden="true"><i class="mdi mdi-close fs-2"></i></button>
             </div>
         </div>
-        <p id="alert" class="text-center text-danger"></p>
         <div class="form-group ">
             <p><?= lang('Email') ?></p>
             <div class="input-group input-group-lg">
@@ -34,6 +33,7 @@
         </div>
         <button type="submit" id="loginBtn" style="width: 100%;" class="btn btn-info btn-lg btn-block fs-3"><?= lang('b_login') ?></button>
     </form>
+    <div id="alert" class="text-center text-danger mt-2">&nbsp;</div>
 </div>
 <script>
     $(document).ready(function() {
@@ -52,6 +52,12 @@
     });
     $('#loginForm').submit(function(e) {
         e.preventDefault();
+        $("#loginBtn").html('<div class="spinner-border text-light" role="status"><span class="sr-only">Loading...</span></div>')
+        if($('#u_email').val() == "" || $('#u_password').val() == "") {
+            $('#alert').text("<?= lang('l_result-blank') ?>");
+            $("#loginBtn").html("<?= lang('b_login') ?>");
+            return;
+        }
         $.ajax({
             method: "post",
             url: 'login/checkLogin',
@@ -61,9 +67,11 @@
             },
         }).done(function(returnData) {
             if (returnData.status == 1) {
+                $('#alert').html("&nbsp;");
                 location.replace("home");
             } else {
-                $('#alert').html(returnData.msg);
+                $("#loginBtn").html("<?= lang('b_login') ?>");
+                $('#alert').text(returnData.msg);
             }
         });
     });
