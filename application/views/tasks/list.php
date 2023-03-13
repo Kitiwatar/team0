@@ -240,7 +240,7 @@
     }
 
     swal({
-      title: 'ยืนยันการยุติโครงการ',
+      title: '<?= lang('md_c_main-msg')?><?= lang('md_cp_main-msg')?>',
       text: 'ยุติโครงการใช่หรือไม่',
       type: "warning",
       showCancelButton: true,

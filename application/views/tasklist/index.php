@@ -62,7 +62,7 @@
              }).done(function(returnData) {
                if (returnData.status == 1) {
                  swal({
-                   title: "สำเร็จ",
+                   title: "<?= lang('md_vm-suc')?>",
                    text: returnData.msg,
                    type: "success",
                    showCancelButton: false,
@@ -76,7 +76,7 @@
                  loadList();
                } else {
                  swal({
-                   title: "ล้มเหลว",
+                   title: "<?= lang('md_vm-fail')?>",
                    text: returnData.msg,
                    type: "error",
                    showCancelButton: false,
