@@ -10,7 +10,9 @@
 <script src="<?= base_url() ?>assets/node_modules/moment/moment.js"></script>
 <script src='<?= base_url() ?>assets/node_modules/calendar/dist/fullcalendar.js'></script>
 <!-- <script src="<?= base_url() ?>assets/node_modules/calendar/dist/cal-init.js"></script> -->
+<?php if($_SESSION['lang'] == "th") { ?>
 <script src='<?= base_url() ?>assets/node_modules/calendar/dist/lang/th.js'></script>
+<?php } ?>
 
 <script>
     function viewTask(t_id) {
