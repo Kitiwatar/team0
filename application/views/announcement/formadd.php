@@ -1,4 +1,6 @@
 <!-- Create by: Natakorn Phongsarikit 16-09-2565 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css" rel="stylesheet">
+
 <?php $required = '<span class="text-danger">*</span>'; ?>
 <div class="row">
   <div class="col-12">
@@ -13,7 +15,7 @@
                 <font id="clnameMsg" class="small text-danger"></font>
               </div>
                 <div class="form-group col-lg-6 col-md-6 col-sm-12">
-                  <label for="an_begindate" class="form-label"><?= "วันที่แสดง" ?><?= isset($detail) ? '' : $required ?></label>
+                  <label for="an_begindate" class="form-label"><?= lang('start-date') ?><?= isset($detail) ? '' : $required ?></label>
                   <div class="input-group date" data-provide="datepicker" data-date-format="dd-mm-yyyy">
                     <?php if (isset($getData)) : $newDate = date("d-m-Y", strtotime($getData->an_begindate));
                     endif; ?>
@@ -26,7 +28,7 @@
                   <font id="begindateMsg" class="small text-danger"></font>
                 </div>
                 <div class="form-group col-lg-6 col-md-6 col-sm-12">
-                  <label for="an_enddate" class="form-label"><?= "วันที่สิ้นสุด" ?><?= isset($detail) ? '' : $required ?></label>
+                  <label for="an_enddate" class="form-label"><?= lang('end-date') ?><?= isset($detail) ? '' : $required ?></label>
                   <div class="input-group date" data-provide="datepicker" data-date-format="dd-mm-yyyy">
                     <?php if (isset($getData)) : $newDate = date("d-m-Y", strtotime($getData->an_enddate));
                     endif; ?>

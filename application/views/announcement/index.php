@@ -63,7 +63,7 @@
      } else {
        $('#enddateMsg').text(' ');
      }
-     if (!formData.begindate) {
+     if (!formData.an_begindate) {
        $('#begindateMsg').addClass('text-danger');
        $('#begindateMsg').text('กรุณาระบุวันที่เริ่มต้นแสดงข้อความ');
        count++;
