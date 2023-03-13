@@ -346,7 +346,7 @@
     }).done(function(returnData) {
       $('#detailModalTitle').html(returnData.title);
       $('#detailModalBody').html(returnData.body);
-      $('#detailModalFooter').html("");
+      $('#detailModalFooter').html(returnData.footer);
       $('#detailModal').modal();
     });
   }

@@ -271,6 +271,7 @@ class Home extends CI_Controller
 
 		$json['title'] = "<h3>" . $arrayStatus[$p_status] . "</h3>";
 		$json['body'] = $this->load->view('home/listproject', $data, true);
+		$json['footer'] = '<button type="button" class="btn btn-secondary" style="background-color: grey; color:white;" data-dismiss="modal" aria-hidden="true">'.lang('md_ap_close').'</button>';
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
 	
