@@ -26,7 +26,7 @@
 									<td class="text-center"><?= $count++ ?></td>
 									<td><?= $value->u_firstname . " " . $value->u_lastname ?></td>
 									<td><?= $value->u_email ?></td>
-									<td class="text-center" id="user<?= $value->u_id ?>"><button class="btn btn-success" onclick="addPermission(<?= $value->u_id ?>,<?= $p_id ?>)"><?= lang('md_ap_add') ?></button></td>
+									<td class="text-center" id="user<?= $value->u_id ?>"><button class="btn btn-success" onclick="addPermission(<?= $value->u_id ?>,<?= $p_id ?>)"><i class="mdi mdi-plus-circle-outline"></i> <?= lang('md_ap_add') ?></button></td>
 								</tr>
 							<?php endforeach; ?>
 						<?php endif; ?>
@@ -57,7 +57,7 @@
 
 	function addPermission(u_id, p_id) {
 		let user = document.getElementById("user" + u_id)
-		user.innerHTML = `<button class="btn btn-danger" onclick="deletePermission(` + u_id + `,` + p_id + `)"> <?= lang('md_ap_delete') ?> </button>`
+		user.innerHTML = `<button class="btn btn-danger" onclick="deletePermission(` + u_id + `,` + p_id + `)"><i class="mdi mdi-minus-circle-outline"></i> <?= lang('md_ap_delete') ?> </button>`
 		$.ajax({
 			method: "post",
 			url: hostname + 'permissions/add',
@@ -91,7 +91,7 @@
 
 	function deletePermission(u_id, p_id) {
 		let user = document.getElementById("user" + u_id)
-		user.innerHTML = `<button class="btn btn-success" onclick="addPermission(` + u_id + `,` + p_id + `)"><?= lang('md_ap_add') ?></button>`
+		user.innerHTML = `<button class="btn btn-success" onclick="addPermission(` + u_id + `,` + p_id + `)"><i class="mdi mdi-plus-circle-outline"></i> <?= lang('md_ap_add') ?></button>`
 		$.ajax({
 			method: "post",
 			url: hostname + 'permissions/remove',
