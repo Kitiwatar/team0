@@ -111,7 +111,7 @@
 
         $.ajax({
             method: "post",
-            url: 'Users/updatePassword',
+            url: hostname + 'Users/updatePassword',
             data: formData
         }).done(function(returnData) {
             if (returnData.status == 1) {

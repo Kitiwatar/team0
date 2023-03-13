@@ -42,8 +42,8 @@
        <table class="display table dt-responsive nowrap" id="table">
          <thead>
            <tr>
-             <th><?= lang('tl_project_at-implementationdate') ?></th>
-             <th><?= lang("tl_project_at-nametask") ?></th>
+             <th><span class="m-2"><?= lang('tl_project_at-implementationdate') ?></span><i class="mdi mdi-information-outline" style="color:#C5C5C5;" title="สามารถคลิก เพื่อไปหน้าปฏิทินได้"></i></th>
+             <th><span class="m-2"><?= lang("tl_project_at-nametask") ?></span><i class="mdi mdi-information-outline" style="color:#C5C5C5;" title="สามารถคลิก เพื่อดูรายละเอียดกิจกรรม"></i></th>
              <th><?= lang('tl_project_at-operator') ?></th>
              <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
            </tr>
@@ -337,7 +337,7 @@
          title: 'กิจกรรมโครงการ' + document.title,
          pageSize: 'A4', // ขนาดหน้ากระดาษเป็น A4
          exportOptions: {
-           columns: [0, 1, 2, 3]
+           columns: [0, 1, 2]
          },
          customize: function(pdf) { // ส่วนกำหนดเพิ่มเติม ส่วนนี้จะใช้จัดการกับ pdfmake
            // กำหนด style หลัก
@@ -372,7 +372,7 @@
              bold: !0,
            };
            // กำหนดความกว้างของ header แต่ละคอลัมน์หัวข้อ
-           pdf.content[1].table.widths = [40, 150, 150, 150];
+           pdf.content[1].table.widths = [150, 180, 150];
            pdf.styles.tableHeader.fontSize = 16; // กำหนดขนาด font ของ header
            var rowCount = pdf.content[1].table.body.length; // หาจำนวนแถวทั้งหมดในตาราง
            // วนลูปเพื่อกำหนดค่าแต่ละคอลัมน์ เช่นการจัดตำแหน่ง
@@ -386,6 +386,9 @@
       orderable: false,
       targets: -1
     }],
+    order: [
+       [0, "desc"]
+     ],
      "language": {
        "oPaginate": {
          "sPrevious": "<?= lang('b_project_previous') ?>",
@@ -399,7 +402,6 @@
        "sZeroRecords": "<?= lang('in_project_zerorecords') ?>"
      }
    });
-
 
    $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn waves-effect waves-light btn-info mx-1');
    $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').removeClass("dt-button");

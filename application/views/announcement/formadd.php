@@ -10,7 +10,7 @@
               <div class="form-group">
                 <label for="an_text" class="form-label"><?= lang('announcement') ?><?= isset($detail) ? '' : $required ?></label>
                 <input type="text" class="form-control" name="inputValue[]" value="<?= isset($getData) ? $getData->an_text : '' ?>" id="an_text" maxlength="30" placeholder="<?= lang('ph-ad_an') ?>">
-                <font id="an_eMsg" class="small text-danger"></font>
+                <font id="clnameMsg" class="small text-danger"></font>
               </div>
                 <div class="form-group col-lg-6 col-md-6 col-sm-12">
                   <label for="an_begindate" class="form-label"><?= "วันที่แสดง" ?><?= isset($detail) ? '' : $required ?></label>
@@ -23,7 +23,7 @@
                     </div>
                     <span class="input-group-text fs-5" onclick="pickDate1()" style="cursor: pointer;"><i class="mdi mdi-calendar-range"></i></span>
                   </div>
-                  <font id="CreatedateMsg" class="small text-danger"></font>
+                  <font id="begindateMsg" class="small text-danger"></font>
                 </div>
                 <div class="form-group col-lg-6 col-md-6 col-sm-12">
                   <label for="an_enddate" class="form-label"><?= "วันที่สิ้นสุด" ?><?= isset($detail) ? '' : $required ?></label>
@@ -36,7 +36,7 @@
                     </div>
                     <span class="input-group-text fs-5" onclick="pickDate2()" style="cursor: pointer;"><i class="mdi mdi-calendar-range"></i></span>
                   </div>
-                  <font id="createdateMsg" class="small text-danger"></font>
+                  <font id="enddateMsg" class="small text-danger"></font>
                 </div>
               </div>
             </div>

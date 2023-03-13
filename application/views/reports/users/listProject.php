@@ -47,7 +47,7 @@
          filename: "โครงการปัจจุบันของ <?= $projectData[0]->u_firstname .' ' . $projectData[0]->u_lastname ?>",
          title: "โครงการปัจจุบันของ <?= $projectData[0]->u_firstname .' ' . $projectData[0]->u_lastname ?>",
          exportOptions: {
-           columns: [0, 1, 2, 3]
+           columns: [0, 1, 2]
          },
          customize: function(xlsx) {
            var sheet = xlsx.xl['styles.xml'];
@@ -66,7 +66,7 @@
          title: "โครงการปัจจุบันของ <?= $projectData[0]->u_firstname .' ' . $projectData[0]->u_lastname ?>",
          pageSize: 'A4', // ขนาดหน้ากระดาษเป็น A4
          exportOptions: {
-           columns: [0, 1, 2, 3]
+           columns: [0, 1, 2]
          },
          customize: function(pdf) { // ส่วนกำหนดเพิ่มเติม ส่วนนี้จะใช้จัดการกับ pdfmake
            // กำหนด style หลัก
@@ -101,14 +101,12 @@
              bold: !0,
            };
            // กำหนดความกว้างของ header แต่ละคอลัมน์หัวข้อ
-           pdf.content[1].table.widths = [40, 250, 100, 100];
+           pdf.content[1].table.widths = [100, 250, 100];
            pdf.styles.tableHeader.fontSize = 16; // กำหนดขนาด font ของ header
            var rowCount = pdf.content[1].table.body.length; // หาจำนวนแถวทั้งหมดในตาราง
            // วนลูปเพื่อกำหนดค่าแต่ละคอลัมน์ เช่นการจัดตำแหน่ง
            for (i = 1; i < rowCount; i++) { // i เริ่มที่ 1 เพราะ i แรกเป็นแถวของหัวข้อ
              pdf.content[1].table.body[i][0].alignment = 'center'; // คอลัมน์แรกเริ่มที่ 0
-             pdf.content[1].table.body[i][2].alignment = 'center';
-             pdf.content[1].table.body[i][3].alignment = 'center';
            };
          }
        }, // สิ้นสุดกำหนดพิเศษปุ่ม pdf

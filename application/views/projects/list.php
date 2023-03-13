@@ -12,7 +12,7 @@
              <thead>
                <tr>
                  <th><?= lang('md_ap-ps') ?></th>
-                 <th><?= lang('tl_project_pj-name') ?></th>
+                 <th><span class="m-2"><?= lang('tl_project_pj-name') ?></span> <i class="mdi mdi-information-outline" style="color:#C5C5C5;" title="สามารถคลิกที่ชื่อโครงการ เพื่อไปหน้าจัดการโครงการ"></i></th>
                  <td><?= lang('tl_project_pj-mainperson') ?></td>
                  <th><?= lang('tl_project_pj-task') ?></th>
                  <th><?= lang('tl_project_pj-status') ?></th>
@@ -192,7 +192,7 @@
              bold: !0,
            };
            // กำหนดความกว้างของ header แต่ละคอลัมน์หัวข้อ
-           pdf.content[1].table.widths = [40, 150, 90, 100, 100];
+           pdf.content[1].table.widths = [75, 145, 90, 100, 90];
            pdf.styles.tableHeader.fontSize = 16; // กำหนดขนาด font ของ header
            var rowCount = pdf.content[1].table.body.length; // หาจำนวนแถวทั้งหมดในตาราง
            // วนลูปเพื่อกำหนดค่าแต่ละคอลัมน์ เช่นการจัดตำแหน่ง

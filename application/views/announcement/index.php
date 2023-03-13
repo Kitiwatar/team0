@@ -47,16 +47,31 @@
     } else {
       formData['an_enddate'] = "";
     }
-    console.log(formData)
+    count = 0;
+    // console.log(formData)
      if (!formData.an_text) {
        $('#clnameMsg').addClass('text-danger');
        $('#clnameMsg').text('กรุณาข้อความ');
-       !formData.an_text? $('#an_text').focus() : '';
-       !formData.an_begindate? $('#an_begindate').focus() : '';
-       !formData.an_enddate? $('#an_enddate').focus() : '';
-       return false;
+       count++;
      } else {
-       $('#amnameMsg').text(' ');
+       $('#clnameMsg').text(' ');
+     }
+     if (!formData.an_enddate) {
+       $('#enddateMsg').addClass('text-danger');
+       $('#enddateMsg').text('กรุณาระบุวันที่สิ้นสุด');
+       count++;
+     } else {
+       $('#enddateMsg').text(' ');
+     }
+     if (!formData.begindate) {
+       $('#begindateMsg').addClass('text-danger');
+       $('#begindateMsg').text('กรุณาระบุวันที่เริ่มต้นแสดงข้อความ');
+       count++;
+     } else {
+       $('#begindateMsg').text(' ');
+     }
+     if(count != 0) {
+      return;
      }
     // $.ajax({
     //    url: 'announ/checkRepeat',
