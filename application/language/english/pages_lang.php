@@ -166,7 +166,7 @@ $lang['tp_logs_us-history'] = "List Of Action History";
 $lang['tp_logs_bc'] = "Logs";
 // table topic data
 $lang['tb_topic_dt-action'] = "Action";
-$lang['tb_topic_dt-db'] = "Database Table";
+$lang['tb_topFailedic_dt-db'] = "Database Table";
 $lang['tb_topic_dt-change'] = "Change Data";
 $lang['tb_topic_dt-command'] = "Commanded";
 $lang['tb_topic_dt-called'] = "Function Called";
@@ -176,7 +176,7 @@ $lang['tb_topic_dt-operator'] = "Operator";
 //++ Modal Adding/View/Edit ++//
 
 //-- Verify Modal Success / Failed
-$lang['md_vm-suc'] = "Susccess";
+$lang['md_vm-suc'] = "Success";
 $lang['md_vm-fail'] = "Failed";
 $lang['md_vm_aem-fail'] = "Failed This email is already in use.";
 $lang['md_vm_ad-fail'] = "There was a problem with the data error. Failed to add data.";
