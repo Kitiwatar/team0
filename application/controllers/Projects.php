@@ -62,7 +62,7 @@ class Projects extends CI_Controller{
 		// Create by: Jiradat Pomyai 19-09-2565 get project
 		$data['tableName'] = lang('th_project_pj-responsible');
 		$arrayJoin = array('pms_project' => 'pms_project.p_id=pms_permission.per_p_id','pms_user' => 'pms_user.u_id=pms_permission.per_u_id');
-		$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('per_u_id'=>$_SESSION['u_id']), 'p_createdate desc', $arrayJoin, '');
+		$data['getData'] = $this->genmod->getAll('pms_permission', '*', array('per_u_id'=>$_SESSION['u_id'],'per_status'=>1), 'p_createdate desc', $arrayJoin, '');
 		$data['arrayStatus'] = $this->genlib->getProjectStatus();
 		$lastTask = array();
 		$leader = array();

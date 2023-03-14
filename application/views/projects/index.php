@@ -3,15 +3,15 @@
 
 <script>
   let countSec = 0;
-  <?php if(isset($addForm)) { ?>
+  <?php if (isset($addForm)) { ?>
     showAddForm();
   <?php } else { ?>
     loadList();
-  <?php }?>
+  <?php } ?>
 
   function loadList() {
     var path;
-    <?php if(isset($all)) { ?>
+    <?php if (isset($all)) { ?>
       path = 'projects/getAllProject'
     <?php } else { ?>
       path = 'projects/get'
@@ -32,7 +32,7 @@
       url: hostname + 'projects/getAddForm',
       method: 'post'
     }).done(function(returnData) {
-      let html = '<div class="card"><h2 class="card-title m-3">'+returnData.title+'</h2>'+ returnData.body +'<div class="text-end mb-4 mx-4">'+returnData.footer+'</div></div>'
+      let html = '<div class="card"><h2 class="card-title m-3">' + returnData.title + '</h2>' + returnData.body + '<div class="text-end mb-4 mx-4">' + returnData.footer + '</div></div>'
       $('#listDiv').html(html)
     })
   }
@@ -54,8 +54,10 @@
     formData['p_emailcontact'] = $('#p_emailcontact').val()
     formData['p_othercontact'] = $('#p_othercontact').val()
     var dateInput = $('#p_createdate').val()
-    if(dateInput.length == 10) {
-      var bangkokDate = dateInput.toLocaleString("en-US", {timeZone: "Asia/Bangkok"})
+    if (dateInput.length == 10) {
+      var bangkokDate = dateInput.toLocaleString("en-US", {
+        timeZone: "Asia/Bangkok"
+      })
       formData['p_createdate'] = bangkokDate.substring(6, 10) + "-" + bangkokDate.substring(3, 5) + "-" + bangkokDate.substring(0, 2);
     } else {
       formData['p_createdate'] = "";
@@ -81,7 +83,7 @@
       $('#createdateMsg').text(' <?= lang('md_rqf_sd') ?>');
       // $('#p_createdate').focus();
       count++
-    } else if(formData.p_createdate == "wrongFormat") {
+    } else if (formData.p_createdate == "wrongFormat") {
       $('#createdateMsg').text(' <?= lang('md_rqf_sd-f') ?>');
       count++
     } else {
@@ -111,51 +113,55 @@
 
     if (count > 0) {
       return false;
-    }     
-        $.ajax({
-          method: "post",
-          url: hostname + 'projects/add',
-          data: formData
-        }).done(function(returnData) {
-          if (returnData.status == 1) {
-            swal({
-              title: "<?= lang('md_vm-suc') ?>",
-              text: returnData.msg,
-              type: "success",
-              showCancelButton: false,
-              showConfirmButton: false,
-              timer: 1000,
-            });
-            // $('#projectsForm')[0].reset();
-            $('#mainModalTitle').html("");
-            $('#mainModalBody').html("");
-            $('#mainModalFooter').html("");
-            $('#mainModal').modal('hide');
-            <?php if(!isset($addForm)) { ?>
-              loadList();
-            <?php } else { ?>
-              setTimeout(function() {
-                location.replace(hostname + 'projects');
-              }, 1000);
-            <?php }?>
-          } else {
-            swal({
-              title: "<?= lang('md_vm-fail')?>",
-              text: returnData.msg,
-              type: "error",
-              showCancelButton: false,
-              showConfirmButton: false,
-              timer: 1000,
-            });
-            // $('#projectsForm')[0].reset();
-            $('#mainModalTitle').html("");
-            $('#mainModalBody').html("");
-            $('#mainModalFooter').html("");
-            $('#mainModal').modal('hide');
-          }
+    }
+    
+    $('.btn-success').attr("disabled", "disabled");
+    $('.btn-success').html('<?= lang('bt_save') ?> <div class="spinner-border spinner-border-sm text-light" role="status"><span class="sr-only">Loading...</span></div>')
+
+    $.ajax({
+      method: "post",
+      url: hostname + 'projects/add',
+      data: formData
+    }).done(function(returnData) {
+      if (returnData.status == 1) {
+        swal({
+          title: "<?= lang('md_vm-suc') ?>",
+          text: returnData.msg,
+          type: "success",
+          showCancelButton: false,
+          showConfirmButton: false,
+          timer: 1000,
         });
-      
-   
+        // $('#projectsForm')[0].reset();
+        $('#mainModalTitle').html("");
+        $('#mainModalBody').html("");
+        $('#mainModalFooter').html("");
+        $('#mainModal').modal('hide');
+        <?php if (!isset($addForm)) { ?>
+          loadList();
+        <?php } else { ?>
+          setTimeout(function() {
+            location.replace(hostname + 'projects');
+          }, 1000);
+        <?php } ?>
+      } else {
+        swal({
+          title: "<?= lang('md_vm-fail') ?>",
+          text: returnData.msg,
+          type: "error",
+          showCancelButton: false,
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        // $('#projectsForm')[0].reset();
+        $('#mainModalTitle').html("");
+        $('#mainModalBody').html("");
+        $('#mainModalFooter').html("");
+        $('#mainModal').modal('hide');
+      }
+    });
+
+
   }
 
   function view(p_id) {
@@ -205,9 +211,9 @@
       type: "warning",
       showCancelButton: true,
       showConfirmButton: true,
-      confirmButtonText: '<?= lang('bt_confirm')?>',
+      confirmButtonText: '<?= lang('bt_confirm') ?>',
       cancelButtonColor: "#E4E4E4",
-      cancelButtonText: "<font style='color:black'>" + '<?= lang('bt_cancel')?>' + "</font>",
+      cancelButtonText: "<font style='color:black'>" + '<?= lang('bt_cancel') ?>' + "</font>",
     }).then(function(isConfirm) {
       if (isConfirm.value) {
         $.ajax({
@@ -221,7 +227,7 @@
           loadList();
           if (returnData.status == 1) {
             swal({
-              title: '<?= lang('md_vm-suc')?>',
+              title: '<?= lang('md_vm-suc') ?>',
               text: returnData.msg,
               type: "success",
               showCancelButton: false,
@@ -230,7 +236,7 @@
             });
           } else {
             swal({
-              title: '<?= lang('md_vm-fail')?>',
+              title: '<?= lang('md_vm-fail') ?>',
               text: returnData.msg,
               type: "error",
               showCancelButton: false,
