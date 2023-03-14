@@ -60,6 +60,7 @@ $lang['no_todo'] = "No Work Now";
 $lang['system_message'] = "System Message";
 $lang['overview_relate'] = "Overview of related projects B.E. ";
 $lang['overview_Cstatus'] = "The graph shows the count of projects responding by status";
+$lang['aoverview_Cstatus'] = "The graph shows the count of projects by status";
 $lang['overview_all'] = "Overview of all projects B.E. ";
 $lang['cancel_rank'] = "Top 5 Cancel Project Reason B.E. ";
 // Button
@@ -80,6 +81,8 @@ $lang['tl_home_update'] = "Update Date";
 //++ End ++//
 
 //++ Project ++//
+// tooltip
+$lang['tt_nproject'] = "You can click on project name to manage projec page";
 // topic
 $lang['tp_project_pj-responsible'] = "Project in Responsible";
 // table header
@@ -398,6 +401,8 @@ $lang['tt_pj_cn-dproject'] = "Project cannot be deleted. because there are still
 $lang['tt_pj_rproject'] = "Restore Project ";
 
 //==>> ToolTips Project Task List <<==//
+$lang['tt_calendar'] = "ํYou can click on this to canlendar page";
+$lang['tt_stask'] = "You can click on task to see detail of this task";
 $lang['tt_pt_vtask'] = "View Task Information";
 $lang['tt_pt_etask'] = "Edit Task Information";
 $lang['tt_pt_dtask'] = "Delete Task";
@@ -427,6 +432,10 @@ $lang['p-cancel-cause'] = "Reason For Cancel This Project";
 $lang['p-cause-detail'] = "Detail of This Cancel";
 $lang['ch-cause-detail'] = "Select Cancel List";
 $lang['cancel-project'] = "Cancel Project";
+$lang['md-al-c'] = "Please select reason for cancel this project";
+$lang['md-al-cdt'] = "Please enter detail of cancel";
+$lang['main-pcancel'] = "Confirm Cancel This Project";
+$lang['detail-pcancel'] = "Do you want to cancel this project ?";
 //Cancel List
 $lang['m-cancel_list'] = "Cancel Reason";
 $lang['cancel_list'] = "Reason of Cancel List";
