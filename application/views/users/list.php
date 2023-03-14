@@ -40,7 +40,7 @@
                         <button type="button" class="btn btn-info btn-sm" name="view" id="view" onclick="view(<?= $value->u_id ?>)" title="<?= lang('tt_es_vuser') ?>"><i class=" fas fa-search"></i></button>
                         <?php if ($value->u_status == 1) : ?>
                           <button type="button" class="btn btn-primary btn-sm" name="view" id="view" onclick="changePassword(<?= $value->u_id ?>)" title="<?= lang('tt_es_cpuser') ?>"><i class="mdi mdi-key-variant"></i></button>
-                          <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->u_id ?>)" title="<?= lang('tt_es_vuser') ?>"><i class="mdi mdi-pencil"></i></button>
+                          <button type="button" class="btn btn-warning btn-sm" name="edit" id="edit" onclick="edit(<?= $value->u_id ?>)" title="<?= lang('tt_es_euser') ?>"><i class="mdi mdi-pencil"></i></button>
                         <?php else : ?>
                           <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="<?= lang('tt_es_cn-cpuser') ?>"><i class=" mdi mdi-key-variant"></i></button>
                           <button type="button" style="cursor:no-drop; background-color: #C5C5C5; color:#808080;" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="<?= lang('tt_es_cn-euser') ?>"><i class="mdi mdi-pencil"></i></button>
