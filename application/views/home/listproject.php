@@ -7,7 +7,7 @@
            <table class="display table dt-responsive nowrap" id="tableproject">
              <thead>
                <tr>
-                 <th><?= lang('tl_project_pj-no') ?></th>
+                 <th class="text-center"><?= lang('tl_project_pj-no') ?></th>
                  <th><?= lang('tl_project_pj-name') ?></th>
                  <th><?= lang('tl_project_pj-mainperson') ?></th>
                  <th><?= lang('tl_project_pj-task') ?></th>
