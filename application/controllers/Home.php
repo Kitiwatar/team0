@@ -141,7 +141,7 @@ class Home extends CI_Controller
 		// Create by: Jiradat Pomyai 03-01-2566 to do list
 		date_default_timezone_set("Asia/Bangkok");
 		$arrayJoin = array('pms_tasklist' => 'pms_task.t_tl_id=pms_tasklist.tl_id', 'pms_project' => 'pms_project.p_id=pms_task.t_p_id');
-		$data['listtodo'] = $this->genmod->getAll('pms_task', '*', array('t_u_id' => $_SESSION['u_id'], 'DATE(t_createdate)' => date("Y-m-d")), '', $arrayJoin, '');
+		$data['listtodo'] = $this->genmod->getAll('pms_task', '*', array('t_u_id' => $_SESSION['u_id'], 'DATE(t_createdate)' => date("Y-m-d")), 't_createdate asc', $arrayJoin, '');
 		$json['html'] = $this->load->view('home/todolist', $data, TRUE);
 		$this->output->set_content_type('application/json')->set_output(json_encode($json));
 	}
