@@ -17,7 +17,7 @@
 							<?php foreach ($users as $key => $value) : $check = 0; ?>
 								<?php if (is_array($users)) : ?>
 									<?php foreach ($permissions as $index => $data) : ?>
-										<?php if ($value->u_id == $data->per_u_id) : $check = 1;
+										<?php if ($value->u_id == $data->per_u_id || $value->u_role < 2) : $check = 1;
 											break; ?><?php endif; ?>
 									<?php endforeach; ?>
 									<?php if ($check == 1) : continue; ?><?php endif; ?>

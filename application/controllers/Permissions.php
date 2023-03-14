@@ -62,8 +62,7 @@ class Permissions extends CI_Controller{
 	public function getAddForm() {
 		// Create by: Patiphan Pansanga 14-09-2565 get add form
 		$data['p_id'] = $this->input->post('p_id');
-        $data['users'] = $this->genmod->getAll('pms_user', '*', array('u_role' => 2));
-		$data['users'] += $this->genmod->getAll('pms_user', '*', array('u_role' => 3));
+		$data['users'] = $this->genmod->getAll('pms_user', '*', array('u_status'=>1));
         $data['permissions'] = $this->genmod->getAll('pms_permission', '*', array('per_p_id' =>  $this->input->post('p_id'), 'per_status' => 1));
 		$json['title'] = lang('md_tl_a-em');
 		$json['body'] = $this->load->view('permissions/formadd', $data, TRUE);
