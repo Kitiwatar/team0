@@ -24,3 +24,13 @@
     </div>
   </div>
 </div>
+<script>
+  $('#c_cl_id').on('change', function() {
+    $('#nameMsg').text('');
+    $('#c_cl_id').removeClass("is-invalid").removeClass("is-valid");
+  });
+  $('#c_detail').on('input', function() {
+    $('#detailMsg').text('');
+    $('#c_detail').removeClass("is-invalid").removeClass("is-valid");
+  });
+</script>

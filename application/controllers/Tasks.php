@@ -147,9 +147,15 @@ class Tasks extends CI_Controller{
 	public function uploadFiles() {
 		// Create by: Patiphan Pansanga 14-10-2565 upload file to database
 		date_default_timezone_set("Asia/Bangkok");
+		if($_SESSION["lang"] == "th") {
+			$year = date("Y") + 543;
+		} else {
+			$year = date("Y");
+		}
 		if($_FILES["files"]["name"] != '') {
 			$output = '';
 			$config["upload_path"] = './upload/';
+			$config["max_size"] = 5000;
 			$config["allowed_types"] = 'gif|jpg|jpeg|png|zip|rar|doc|docx|xls|xlsx|ppt|pptx|csv|ods|odt|odp|pdf|rtf|sxc|sxi|txt';
 			$this->load->library('upload', $config);
 			$this->upload->initialize($config);
@@ -164,7 +170,7 @@ class Tasks extends CI_Controller{
 					$data = $this->upload->data();
 					$output .= '<tr id="'.$data["file_name"].'"><td class="d-none"><input type="checkbox" class="tmpFiles" name="fileAdd" value="'.$data["file_name"].'" checked></td>
 					<td onclick="openInNewTab(`'. base_url().'upload/'.$data["file_name"].'`)" class="name" style="cursor:pointer;"><u>'.substr($data["file_name"], 18).'</u></td>
-					<td>'.thaiDate(date("Y-m-d")).'</td>
+					<td>'.$year.date("-m-d").'</td>
 					<td class="text-center"><button type="button" class="btn btn-sm btn-danger" title="ลบไฟล์" onclick="deleteFile(`'.$data["file_name"].'`)"><i class="mdi mdi-delete"></i></button></td>
 					</tr>';
 				}

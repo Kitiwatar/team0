@@ -46,7 +46,7 @@ class Cancel extends CI_Controller{
 		// Create by: Natakorn Phongsarikit 01-02-2566 get add form
 		$p_id = $this->input->post('p_id');
         $data['getData'] = $this->genmod->getAll('pms_cancellist', '*', array('cl_status' => 1));
-		$json['title'] = lang('cancel-project') ;
+		$json['title'] = lang('cancel-project').' <span class="text-danger" style="font-size:12px;">(* '.lang('md_tl_a-req').' )</span>';
 		$json['body'] = $this->load->view('cancel/formadd', $data, TRUE);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormCancel('.$p_id.');">'.lang('bt_save') .'</button>
 		<button type="button" class="btn btn-danger" onclick="closeModal(\'ยุติโครงการ\')">'.lang('bt_cancel') .'</button>';
