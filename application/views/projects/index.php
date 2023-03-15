@@ -17,7 +17,6 @@
       path = 'projects/get'
     <?php } ?>
     var url = hostname + path
-    console.log(url)
     $.ajax({
       url: url,
       method: 'post'
@@ -114,6 +113,7 @@
     if (count > 0) {
       return false;
     }
+
     $('.btn-success').attr("disabled", "disabled");
     $('.btn-success').html('<?= lang('bt_save') ?> <div class="spinner-border spinner-border-sm text-light" role="status"><span class="sr-only">Loading...</span></div>')
 
@@ -131,18 +131,6 @@
           showConfirmButton: false,
           timer: 1000,
         });
-        // $('#projectsForm')[0].reset();
-        $('#mainModalTitle').html("");
-        $('#mainModalBody').html("");
-        $('#mainModalFooter').html("");
-        $('#mainModal').modal('hide');
-        <?php if (!isset($addForm)) { ?>
-          loadList();
-        <?php } else { ?>
-          setTimeout(function() {
-            location.replace(hostname + 'projects');
-          }, 1000);
-        <?php } ?>
       } else {
         swal({
           title: "<?= lang('md_vm-fail') ?>",
@@ -152,25 +140,20 @@
           showConfirmButton: false,
           timer: 1000,
         });
-        // $('#projectsForm')[0].reset();
-        $('#mainModalTitle').html("");
-        $('#mainModalBody').html("");
-        $('#mainModalFooter').html("");
-        $('#mainModal').modal('hide');
       }
+      $('#mainModalTitle').html("");
+      $('#mainModalBody').html("");
+      $('#mainModalFooter').html("");
+      $('#mainModal').modal('hide');
+      <?php if (!isset($addForm)) { ?>
+        loadList();
+      <?php } else { ?>
+        setTimeout(function() {
+          location.replace(hostname + 'projects');
+        }, 1000);
+      <?php } ?>
     });
-    // $('#projectsForm')[0].reset();
-    $('#mainModalTitle').html("");
-    $('#mainModalBody').html("");
-    $('#mainModalFooter').html("");
-    $('#mainModal').modal('hide');
-    <?php if (!isset($addForm)) { ?>
-      loadList();
-    <?php } else { ?>
-      setTimeout(function() {
-        location.replace(hostname + 'projects');
-      }, 1000);
-    <?php } ?>
+
   }
 
   function view(p_id) {
@@ -278,7 +261,6 @@
         } else {
           let newTime = new Date(seconds * 1000).toISOString().slice(11, 16);
           restore[i].innerHTML = "<?= lang('md_rp') ?> " + newTime + " ชม.";
-          console.log(newTime)
         }
       }
     }, 1000);
