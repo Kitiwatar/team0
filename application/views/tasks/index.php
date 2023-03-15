@@ -8,7 +8,7 @@
     let url = new URL(getUrl);
     let p_id = url.searchParams.get("p_id");
     var oldURL = document.referrer;
-    if(oldURL.search("all") == -1) {
+    if (oldURL.search("all") == -1) {
       $("#subBreadcrumb").html("<?= lang('th_project_pj-responsible') ?>")
       $("#subBreadcrumb").attr("href", hostname + "projects")
     } else {
@@ -34,8 +34,8 @@
       type: "warning",
       showCancelButton: true,
       showConfirmButton: true,
-      confirmButtonText: '<?= lang('bt_confirm')?>',
-      cancelButtonText: '<?= lang('bt_cancel')?>',
+      confirmButtonText: '<?= lang('bt_confirm') ?>',
+      cancelButtonText: '<?= lang('bt_cancel') ?>',
     }).then(function(isConfirm) {
       if (isConfirm.value) {
         $.ajax({
@@ -49,7 +49,7 @@
           loadList();
           if (returnData.status == 1) {
             swal({
-              title: '<?= lang('md_vm-suc')?>',
+              title: '<?= lang('md_vm-suc') ?>',
               text: returnData.msg,
               type: "success",
               showCancelButton: false,
@@ -58,7 +58,7 @@
             });
           } else {
             swal({
-              title: '<?= lang('md_vm-fail')?>',
+              title: '<?= lang('md_vm-fail') ?>',
               text: returnData.msg,
               type: "error",
               showCancelButton: false,
@@ -80,14 +80,16 @@
     formData['t_tl_id'] = $('#t_tl_id').val()
     formData['t_p_id'] = $('#t_p_id').val()
     var dateInput = $('#t_createdate').val()
-    if(dateInput.length == 10) {
-      var bangkokDate = dateInput.toLocaleString("en-US", {timeZone: "Asia/Bangkok"})
+    if (dateInput.length == 10) {
+      var bangkokDate = dateInput.toLocaleString("en-US", {
+        timeZone: "Asia/Bangkok"
+      })
       formData['t_createdate'] = bangkokDate.substring(6, 10) + "-" + bangkokDate.substring(3, 5) + "-" + bangkokDate.substring(0, 2) + " " + t_createtime;
     } else {
       formData['t_createdate'] = "";
     }
     let fileAdd = []
-    
+
     let checkBoxAdd = document.getElementsByName('fileAdd');
     for (var checkbox of checkBoxAdd) {
       if (checkbox.checked)
@@ -120,7 +122,7 @@
     if (!formData.t_detail) {
       $('#detailMsg').text(' <?= lang('md_at_rqf_td') ?>');
       $('#t_detail').focus();
-      $('#t_detail').addClass("is-invalid"); 
+      $('#t_detail').addClass("is-invalid");
       count++
     } else {
       $('#detailMsg').text(' ');
@@ -131,7 +133,7 @@
     if (!formData.t_tl_id) {
       $('#nameMsg').text(' <?= lang('md_at_rqf_tl') ?>');
       $('#t_tl_id').focus();
-      $('#t_detail').addClass("is-invalid"); 
+      $('#t_detail').addClass("is-invalid");
       count++
     } else {
       $('#nameMsg').text(' ');
@@ -143,46 +145,46 @@
     }
     $('.btn-success').attr("disabled", "disabled");
     $('.btn-success').html('<?= lang('bt_save') ?> <div class="spinner-border spinner-border-sm text-light" role="status"><span class="sr-only">Loading...</span></div>')
-        
+
     $.ajax({
-          method: "post",
-          url: hostname + 'tasks/add',
-          data: {
-            formData: formData,
-            fileAdd: fileAdd,
-            fileRemove: fileRemove
-          }
-        }).done(function(returnData) {
-          loadList();
-          if (returnData.status == 1) {
-            swal({
-              title: '<?= lang('md_vm-suc')?>',
-              text: returnData.msg,
-              type: "success",
-              showCancelButton: false,
-              showConfirmButton: false,
-              timer: 1000,
-            });
-            $('#mainModalTitle').html("");
-            $('#mainModalBody').html("");
-            $('#mainModalFooter').html("");
-            $('#mainModal').modal('hide');
-          } else {
-            swal({
-              title: '<?= lang('md_vm-fail')?>',
-              text: returnData.msg,
-              type: "error",
-              showCancelButton: false,
-              showConfirmButton: false,
-              timer: 1000,
-            });
-            $('#mainModalTitle').html("");
-            $('#mainModalBody').html("");
-            $('#mainModalFooter').html("");
-            $('#mainModal').modal('hide');
-          }
-        });
+      method: "post",
+      url: hostname + 'tasks/add',
+      data: {
+        formData: formData,
+        fileAdd: fileAdd,
+        fileRemove: fileRemove
       }
+    }).done(function(returnData) {
+      loadList();
+      if (returnData.status == 1) {
+        swal({
+          title: '<?= lang('md_vm-suc') ?>',
+          text: returnData.msg,
+          type: "success",
+          showCancelButton: false,
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        $('#mainModalTitle').html("");
+        $('#mainModalBody').html("");
+        $('#mainModalFooter').html("");
+        $('#mainModal').modal('hide');
+      } else {
+        swal({
+          title: '<?= lang('md_vm-fail') ?>',
+          text: returnData.msg,
+          type: "error",
+          showCancelButton: false,
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        $('#mainModalTitle').html("");
+        $('#mainModalBody').html("");
+        $('#mainModalFooter').html("");
+        $('#mainModal').modal('hide');
+      }
+    });
+  }
 
 
   function view(t_id) {
@@ -200,7 +202,7 @@
     });
   }
 
- 
+
   function edit(t_id) {
     $('#detailModal').modal('hide');
     $.ajax({
@@ -245,8 +247,8 @@
     var mainMsg;
     var detailMsg;
     if (t_status == 1) {
-      mainMsg = "<?= lang('md_dt_main-msg')?>";
-      detailMsg = "<?= lang('md_dt_detail-msg')?>";
+      mainMsg = "<?= lang('md_dt_main-msg') ?>";
+      detailMsg = "<?= lang('md_dt_detail-msg') ?>";
     } else {
       mainMsg = "ยืนยันการกู้คืนกิจกรรม";
       detailMsg = "คุณต้องการกู้คืนกิจกรรมใช่หรือไม่";
@@ -257,7 +259,7 @@
       type: "warning",
       showCancelButton: true,
       showConfirmButton: true,
-      confirmButtonText: '<?= lang('bt_confirm')?>',
+      confirmButtonText: '<?= lang('bt_confirm') ?>',
       cancelButtonColor: "#E4E4E4",
       cancelButtonText: "<font style='color:black'>" + "ยกเลิก" + "</font>",
     }).then(function(isConfirm) {
@@ -273,7 +275,7 @@
           loadList();
           if (returnData.status == 1) {
             swal({
-              title: '<?= lang('md_vm-suc')?>',
+              title: '<?= lang('md_vm-suc') ?>',
               text: returnData.msg,
               type: "success",
               showCancelButton: false,
@@ -282,7 +284,7 @@
             });
           } else {
             swal({
-              title: '<?= lang('md_vm-fail')?>',
+              title: '<?= lang('md_vm-fail') ?>',
               text: returnData.msg,
               type: "error",
               showCancelButton: false,
@@ -330,7 +332,7 @@
     var re = /\S+@\S+\.\S+/;
     return re.test(email);
   }
-  
+
   function saveFormProjectSubmit(p_id) {
     var formData = {};
     formData['p_id'] = p_id;
@@ -392,41 +394,41 @@
     }
 
 
-        $.ajax({
-          method: "post",
-          url: hostname + 'projects/add',
-          data: formData
-        }).done(function(returnData) {
-          if (returnData.status == 1) {
-            loadList();
-            swal({
-              title: "สำเร็จ",
-              text: returnData.msg,
-              type: "success",
-              showCancelButton: false,
-              showConfirmButton: false,
-              timer: 1000,
-            });
-            // $('#projectsForm')[0].reset();
-            $('#mainModalTitle').html("");
-            $('#mainModalBody').html("");
-            $('#mainModalFooter').html("");
-            $('#mainModal').modal('hide');
-          } else {
-            swal({
-              title: "ล้มเหลว",
-              text: returnData.msg,
-              type: "error",
-              showCancelButton: false,
-              showConfirmButton: false,
-              timer: 1000,
-            });
-            // $('#projectsForm')[0].reset();
-            $('#mainModalTitle').html("");
-            $('#mainModalBody').html("");
-            $('#mainModalFooter').html("");
-            $('#mainModal').modal('hide');
-          }
+    $.ajax({
+      method: "post",
+      url: hostname + 'projects/add',
+      data: formData
+    }).done(function(returnData) {
+      if (returnData.status == 1) {
+        loadList();
+        swal({
+          title: "สำเร็จ",
+          text: returnData.msg,
+          type: "success",
+          showCancelButton: false,
+          showConfirmButton: false,
+          timer: 1000,
         });
+        // $('#projectsForm')[0].reset();
+        $('#mainModalTitle').html("");
+        $('#mainModalBody').html("");
+        $('#mainModalFooter').html("");
+        $('#mainModal').modal('hide');
+      } else {
+        swal({
+          title: "ล้มเหลว",
+          text: returnData.msg,
+          type: "error",
+          showCancelButton: false,
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        // $('#projectsForm')[0].reset();
+        $('#mainModalTitle').html("");
+        $('#mainModalBody').html("");
+        $('#mainModalFooter').html("");
+        $('#mainModal').modal('hide');
+      }
+    });
   }
 </script>

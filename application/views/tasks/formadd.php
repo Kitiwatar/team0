@@ -95,7 +95,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
                     <tr id="<?= $getFiles[$i]->f_name ?>">
                       <td class="d-none"><input type="checkbox" name="fileAdd" value="<?= $getFiles[$i]->f_name ?>" checked></td>
                       <td onclick="openInNewTab('<?= base_url() . 'upload/' . $getFiles[$i]->f_name ?>')" class="name" style="cursor:pointer;"><u><?= substr($getFiles[$i]->f_name, 18) ?></u></td>
-                      <td><?= thaiDate($getFiles[$i]->f_createdate) ?></td>
+                      <td><?= $getFiles[$i]->f_createdate ?></td>
                       <td class="text-center">
                         <a class="btn btn-sm btn-info" title="ดาวน์โหลดไฟล์" href="<?= base_url() . 'upload/' . $getFiles[$i]->f_name ?>" target="_blank" download="<?= substr($getFiles[$i]->f_name, 18) ?>"><i class="mdi mdi-download"></i></a>
                         <button type="button" class="btn btn-sm btn-danger <?= isset($detail) ? "d-none" : '' ?>" title="ลบไฟล์" onclick="remove('<?= $getFiles[$i]->f_name ?>')"><i class="mdi mdi-delete"></i></button>
@@ -191,7 +191,9 @@ input[type="time"]::-webkit-calendar-picker-indicator {
           document.getElementById("loadingFile").innerHTML = "";
           var text = document.getElementById("uploaded").innerHTML;
           text += data.output;
-          document.getElementById("uploaded").innerHTML = text
+          if (typeof text !== 'undefined') {
+            document.getElementById("uploaded").innerHTML = text
+          }
           $('#files').val('');
         }
       })

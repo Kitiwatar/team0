@@ -40,7 +40,7 @@
        <button type="button" class="btn btn-success me-2" id="addBtn" onclick="showAddForm('<?= $projectData->p_id ?>')" data-bs-toggle="modal"><i class="mdi mdi-plus-circle-outline"></i> <?= lang('m_project_addtask') ?></button>
      <?php } ?>
      <?php if (($_SESSION['u_id'] == $user[0]->u_id || $_SESSION['u_role'] < 2) && $projectData->p_status < 3) { ?>
-       <button type="button" class="btn btn-info me-2" onMouseOver="this.style.backgroundColor='#56BFF9'" onMouseOut="this.style.backgroundColor='#56BDC6'" style="background-color: #56BDC6; border-color:#56BDC6;" onclick="endProject(<?= $projectData->p_id ?>,3)"><i class="mdi mdi-check-circle-outline"></i> <?= lang('m_project_finishproject') ?></button>
+       <button type="button" class="btn btn-info me-2" onMouseOver="this.style.backgroundColor='#66C3CB'" onMouseOut="this.style.backgroundColor='#56BDC6'" style="background-color: #56BDC6; border-color:#56BDC6;" onclick="endProject(<?= $projectData->p_id ?>,3)"><i class="mdi mdi-check-circle-outline"></i> <?= lang('m_project_finishproject') ?></button>
        <button type="button" class="btn btn-danger" onclick="showCancelForm('<?= $projectData->p_id ?>')"><i class="mdi mdi-close-circle-outline"></i> <?= lang('m_project_cancelproject') ?></button>
      <?php } else if (($_SESSION['u_id'] == $user[0]->u_id || $_SESSION['u_role'] < 2) && $projectData->p_status >= 3) { ?>
        <button type="button" class="btn btn-success" onclick="restoreProject('<?= $projectData->p_id ?>')"><i class="mdi mdi-rotate-left"></i> <?= lang('m_project_reinstateproject') ?></button>
