@@ -113,51 +113,23 @@
 
     if (count > 0) {
       return false;
-    } 
+    }
     $('.btn-success').attr("disabled", "disabled");
-    $('.btn-success').html('<?= lang('bt_save') ?> <div class="spinner-border spinner-border-sm text-light" role="status"><span class="sr-only">Loading...</span></div>')    
-       
+    $('.btn-success').html('<?= lang('bt_save') ?> <div class="spinner-border spinner-border-sm text-light" role="status"><span class="sr-only">Loading...</span></div>')
+
     $.ajax({
-          method: "post",
-          url: hostname + 'projects/add',
-          data: formData
-        }).done(function(returnData) {
-          if (returnData.status == 1) {
-            swal({
-              title: "<?= lang('md_vm-suc') ?>",
-              text: returnData.msg,
-              type: "success",
-              showCancelButton: false,
-              showConfirmButton: false,
-              timer: 1000,
-            });
-            // $('#projectsForm')[0].reset();
-            $('#mainModalTitle').html("");
-            $('#mainModalBody').html("");
-            $('#mainModalFooter').html("");
-            $('#mainModal').modal('hide');
-            <?php if(!isset($addForm)) { ?>
-              loadList();
-            <?php } else { ?>
-              setTimeout(function() {
-                location.replace(hostname + 'projects');
-              }, 1000);
-            <?php }?>
-          } else {
-            swal({
-              title: "<?= lang('md_vm-fail')?>",
-              text: returnData.msg,
-              type: "error",
-              showCancelButton: false,
-              showConfirmButton: false,
-              timer: 1000,
-            });
-            // $('#projectsForm')[0].reset();
-            $('#mainModalTitle').html("");
-            $('#mainModalBody').html("");
-            $('#mainModalFooter').html("");
-            $('#mainModal').modal('hide');
-          }
+      method: "post",
+      url: hostname + 'projects/add',
+      data: formData
+    }).done(function(returnData) {
+      if (returnData.status == 1) {
+        swal({
+          title: "<?= lang('md_vm-suc') ?>",
+          text: returnData.msg,
+          type: "success",
+          showCancelButton: false,
+          showConfirmButton: false,
+          timer: 1000,
         });
         // $('#projectsForm')[0].reset();
         $('#mainModalTitle').html("");
@@ -187,8 +159,18 @@
         $('#mainModal').modal('hide');
       }
     });
-
-
+    // $('#projectsForm')[0].reset();
+    $('#mainModalTitle').html("");
+    $('#mainModalBody').html("");
+    $('#mainModalFooter').html("");
+    $('#mainModal').modal('hide');
+    <?php if (!isset($addForm)) { ?>
+      loadList();
+    <?php } else { ?>
+      setTimeout(function() {
+        location.replace(hostname + 'projects');
+      }, 1000);
+    <?php } ?>
   }
 
   function view(p_id) {

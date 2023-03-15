@@ -48,7 +48,7 @@ date_default_timezone_set("Asia/Bangkok"); ?>
             <div class="form-group col-lg-6 col-md-6 col-sm-12">
               <div class="form-group">
                 <label for="p_manager" class="form-label"><?= lang('md_ap-pm') ?></label>
-                <input type="text" class="form-control" name="inputValue[]" id="p_manager" placeholder="<?=  isset($getData) ? $getData->u_firstname . " " . $getData->u_lastname : $_SESSION['u_fullname'];  ?>" disabled>
+                <input type="text" class="form-control" name="inputValue[]" id="p_manager" value="<?=  isset($getData) ? $getData->u_firstname . " " . $getData->u_lastname : $_SESSION['u_fullname'];  ?>" disabled>
                 <font id="projectmanagerMsg" class="small text-danger"></font>
               </div>
               <div class="form-group">
