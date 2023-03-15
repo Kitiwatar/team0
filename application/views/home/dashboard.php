@@ -449,7 +449,7 @@
             // }
 
             ?>
-            <div class="col mt-2" style="height: 95%;">
+            <div class="col mt-2" style="height: 95%;" onclick="slideannoun()" id="cardslide">
               <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                   <div class="row">
@@ -471,10 +471,10 @@
                     </div>
                   </div>
                 </div>
-                <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+                <button class="carousel-control-next" href="#carouselExampleInterval" id="announbtn" role="button" data-slide="next">
                   <span class="carousel-control-next" aria-hidden="true"></span>
                   <span class="sr-only">Next</span>
-                </a>
+                  </button>
               </div>
             </div>
           </div>
@@ -596,6 +596,11 @@
   $('.carousel').carousel({
     interval: 3000 // Change the number to set the delay between slides (in milliseconds)
   })
+  function slideannoun(){
+    $('#cardslide').removeAttr("onclick")
+    $('#announbtn').click();
+    $('#cardslide').attr("onclick", "slideannoun()")
+  }
 </script>
 <script>
   refreshTime();
