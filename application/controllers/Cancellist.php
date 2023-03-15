@@ -87,7 +87,7 @@ class Cancellist extends CI_Controller {
 
 	public function getEditForm() {
 		// Create by: Create by: Natakorn Phongsarikit 01-02-2566 get form edit cancel
-		$json['title'] = lang('md_tl_e-tl').' <span class="text-danger" style="font-size:12px;">(* '.lang('md_tl_a-req').' )</span>';
+		$json['title'] = lang('md-e_cancel').' <span class="text-danger" style="font-size:12px;">(* '.lang('md_tl_a-req').' )</span>';
 		$data['getData'] = $this->genmod->getOne('pms_cancellist', '*', array('cl_id'=>$this->input->post('cl_id')));
 		$json['body'] = $this->load->view('cancellist/formadd',$data ,true);
 		$json['footer'] = '<span id="fMsg"></span><button type="button" class="btn btn-success" onclick="saveFormSubmit('.$this->input->post('cl_id').');">'. lang('bt_save') .'</button>

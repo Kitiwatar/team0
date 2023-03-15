@@ -12,7 +12,7 @@
              <thead>
                <tr>
                  <th><?= lang('md_ap-ps') ?></th>
-                 <th><span class="m-2"><?= lang('tl_project_pj-name') ?></span> <i class="mdi mdi-information-outline" style="color:#C5C5C5;" title="สามารถคลิกที่ชื่อโครงการ เพื่อไปหน้าจัดการโครงการ"></i></th>
+                 <th><span class="m-2"><?= lang('tl_project_pj-name') ?></span> <i class="mdi mdi-information-outline" style="color:#C5C5C5;" title="<?= lang('tt_nproject') ?>"></i></th>
                  <td><?= lang('tl_project_pj-mainperson') ?></td>
                  <th><?= lang('tl_project_pj-task') ?></th>
                  <th><?= lang('tl_project_pj-status') ?></th>

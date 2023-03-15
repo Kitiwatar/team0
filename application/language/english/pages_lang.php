@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //++ Table ++//
 $lang['tl_no.'] = "No.";
 //++ Cause Close Project ++//
-$lang['cause'] = "Cause";
+$lang['cause'] = "Reason";
 $lang['Amount'] = "Amount";
 //++ End ++//
 
@@ -16,7 +16,7 @@ $lang['dashboard'] = 'Dashboard';
 $lang['project'] = 'Projects';
 $lang['setting'] = 'Settings';
 $lang['user'] = 'Users';
-$lang['taskList'] = 'TaskList';
+$lang['taskList'] = 'Task List';
 $lang['log'] = 'Logs';
 $lang['report'] = 'Reports';
 $lang['lang'] = 'Languages';
@@ -51,15 +51,16 @@ $lang['b_login'] = "Log in";
 //++ Home ++//
 $lang['h_project'] = "Project";
 $lang['h_status'] = "";
-$lang['admin_home'] = "Admin dashboard";
-$lang['pp_home'] = "Personal dashboard";
+$lang['admin_home'] = "Admin Dashboard";
+$lang['pp_home'] = "Personal Dashboard";
 $lang['admin'] = "Admin";
 $lang['pp'] = "Personal";
-$lang['todo'] = "Todo-List";
+$lang['todo'] = "To Do List";
 $lang['no_todo'] = "No Work Now";
 $lang['system_message'] = "System Message";
 $lang['overview_relate'] = "Overview of related projects B.E. ";
-$lang['overview_Cstatus'] = "The graph shows the number of projects responding by status";
+$lang['overview_Cstatus'] = "The graph shows the count of projects responding by status";
+$lang['aoverview_Cstatus'] = "The graph shows the count of projects by status";
 $lang['overview_all'] = "Overview of all projects B.E. ";
 $lang['cancel_rank'] = "Top 5 Cancel Project Reason B.E. ";
 // Button
@@ -73,13 +74,15 @@ $lang['sp_home_inprogress'] = "In Progress";
 $lang['sp_home_finish'] = "Finish";
 $lang['sp_home_cancel'] = "Cancel";
 // Ranke
-$lang['tl_home_listofrank'] = "Current List Of Employees With The Highest Job Responsibilities ";
+$lang['tl_home_listofrank'] = "Current List of Employees With The Highest Job Responsibilities ";
 $lang['tl_home_amountworkpiece'] = "Amount of Workpiece";
 $lang['tl_home_name'] = "Name of Employee";
 $lang['tl_home_update'] = "Update Date";
 //++ End ++//
 
 //++ Project ++//
+// tooltip
+$lang['tt_nproject'] = "You can click on project name to manage projec page";
 // topic
 $lang['tp_project_pj-responsible'] = "Project in Responsible";
 // table header
@@ -103,13 +106,13 @@ $lang['gd_project_pj-ct-name'] = "Customer Name";
 $lang['gd_project_pj-startdate'] = "Start Project";
 $lang['gd_project_pj-enddate'] = "End Project";
 $lang['gd_project_pj-ct-contact'] = "Customer Contact";
-$lang['gd_project_em-phone'] = "Phone Number";
+$lang['gd_project_em-phone'] = "Telephone Number";
 $lang['gd_project_em-fullname'] = "Full-name";
 $lang['gd_project_em-email'] = "Email";
 $lang['gd_project_em-permission'] = "Permission";
 
 // table list
-$lang['tl_table_title'] = "List Of ";
+$lang['tl_table_title'] = "List of ";
 $lang['tl_project_pj-no'] = "No.";
 $lang['tl_project_pj-name'] = "Name of Project";
 $lang['tl_project_pj-mainperson'] = "Main Person";
@@ -143,9 +146,9 @@ $lang['pbt_pj-inprogress'] = "Project In Progress";
 // ==>> ROLE <<==//
 $lang['u_role-em1'] = "Staff";
 $lang['u_role-em2'] = "Admin";
-$lang['u_role-am'] = "Super admin";
+$lang['u_role-am'] = "Super Admin";
 // Topic 
-$lang['tp_user_em-name'] = "List Of Employee";
+$lang['tp_user_em-name'] = "List of Employee";
 // Button
 $lang['b_user_addem'] = "Add Employee";
 // table topic data
@@ -153,16 +156,16 @@ $lang['tp_user-status'] = "Status";
 //++ End ++//
 
 //++ Tasklist ++//
-$lang['b_user_addtasklist'] = "Add Tasklist";
+$lang['b_user_addtasklist'] = "Add Task List";
 // table topic data
-$lang['tb_topic_dt-name'] = "Name of Tasklist";
+$lang['tb_topic_dt-name'] = "Name of Task List";
 // Topic 
-$lang['tp_user_tl-name'] = "List Of Tasklist";
+$lang['tp_user_tl-name'] = "List of Task List";
 //++ End ++//
 
 //++ Logs ++//
 // Topic 
-$lang['tp_logs_us-history'] = "List Of Action History";
+$lang['tp_logs_us-history'] = "List of Action History";
 $lang['tp_logs_bc'] = "Logs";
 // table topic data
 $lang['tb_topic_dt-action'] = "Action";
@@ -187,8 +190,8 @@ $lang['md_tl_a-ap'] = "Add The New Project"; // Title add new project
 $lang['md_tl_a-aes'] = "Add Employee In System"; // Title adding employee in system
 $lang['md_tl_an-aes'] = "Add New Employee Here"; // Title adding employee in system
 $lang['md_tl_a-pt'] = "Add The New Task"; // Title for add new Project task
-$lang['md_tl_a-em'] = "Add Employee To This Project"; // Title Employee to handle this project
-$lang['md_tl_a-req'] = "All fields are required"; // Title required
+$lang['md_tl_a-em'] = "Add Employee To This Project"; // Title Employee to  start	handle this project
+$lang['md_tl_a-req'] = "All Fields Are Required"; // Title required
 $lang['md_tl_v-pj'] = "Project Information"; // Title for View Project Info
 $lang['md_tl_e-pj'] = "Edit Project Information"; // Title for Edit Project Info
 $lang['md_tl_e-ps'] = "Change The Password"; // Title for Change password 
@@ -196,8 +199,8 @@ $lang['md_tl_e-em'] = "Edit Employee Information"; // Title for Edit Employee In
 $lang['md_tl_v-em'] = "Employee Information"; // Title for View Employee Info 
 $lang['md_tl_e-pt'] = "Edit Task Information"; // Title for Edit Task Info 
 $lang['md_tl_v-pt'] = "Task Information"; // Title for View Task Info 
-$lang['md_tl_a-tl'] = "Add The New Tasklist"; // Title for add new tasklist  
-$lang['md_tl_e-tl'] = "Edit Tasklist Information "; // Title for Edit tasklist Info 
+$lang['md_tl_a-tl'] = "Add The New Task List"; // Title for add new tasklist  
+$lang['md_tl_e-tl'] = "Edit Task List Information "; // Title for Edit tasklist Info 
 
 
 //-- BUTTON
@@ -207,8 +210,8 @@ $lang['bt_cancel'] = "Cancel";
 $lang['bt_edit'] = "Edit";
 //-- ADD PROJECT
 $lang['md_ap-pn'] = "Project Name"; // header
-$lang['md_ap-pm'] = "Main Of Responsible";  // header
-$lang['md_ap-dt'] = "Details Of Project" ;// header
+$lang['md_ap-pm'] = "Main of Responsible";  // header
+$lang['md_ap-dt'] = "Details of Project" ;// header
 $lang['md_ap-ctn'] = "Customer Name" ;// header
 $lang['md_ap-ps'] = "Project Start Date" ;// header
 $lang['md_ap-cct'] = "Customer Contact";// header
@@ -220,7 +223,7 @@ $lang['md_ap-address'] = "Iframe"; // header
 $lang['md_ap_ph-pn'] = 'Enter the name of the project (Project Monitoring System)'; // Placeholder
 $lang['md_ap_ph-dt'] = 'Enter the detail of the project (Project Monitoring System Is ...)'; // Placeholder
 $lang['md_ap_ph-ps'] = 'Day-Month-Year '; // Placeholder
-$lang['md_ap_ph-tln'] = 'Enter a 10-digit phone number for contacting customers (0987654321)'; // Placeholder
+$lang['md_ap_ph-tln'] = 'Enter a 10-digit telephone number for contacting customers (0987654321)'; // Placeholder
 $lang['md_ap_ph-line'] = 'Enter Line ID for contacting customers (example101)'; // Placeholder
 $lang['md_ap_ph-ctn'] = "Enter the name of customer (Pizza company)"; // Placeholder
 $lang['md_ap_ph-email'] = 'Enter Email for contacting customers (example@gmail.com)'; // Placeholder
@@ -230,7 +233,7 @@ $lang['md_ap_main-msg'] = "Confirm adding a project";
 $lang['md_ap_detail-msg'] = "Do you want to add a new project ?";
 $lang['md_ep_main-msg'] = "Confirm editing a project" ;
 $lang['md_ep_detail-msg'] = "Do you want to edit this project ?";
-$lang['md_dp_main-msg'] = "Confirm deleting a project";
+$lang['md_dp_main-msg'] = "Confirm Deleting A Project";
 $lang['md_dp_detail-msg'] = "Do you want to delete this project ?";
 $lang['md_rp_main-msg'] = "Confirm restoring a project" ;
 $lang['md_rp_detail-msg'] = "Do you want to restore this project ?";
@@ -248,9 +251,9 @@ $lang['md_dp_vm-msg'] = "Successfully deleted the project.";
 $lang['md_c_main-msg'] = "Confirm ";
 $lang['md_c_detail-msg'] = "Do you want to "; // Question
 $lang['md_q_detail-msg'] = " ?"; // Question 
-$lang['md_fp_main-msg'] = "finsihing this project";
-$lang['md_fp_suc'] = "Successfully finsihed this project";
-$lang['md_cp_main-msg'] = "canceling this project";
+$lang['md_fp_main-msg'] = "Finishing This Project";
+$lang['md_fp_suc'] = "Successfully Finsihed This Project";
+$lang['md_cp_main-msg'] = "Canceling This Project";
 $lang['md_cp_suc'] = "Successfully canceled this project";
 $lang['md_rp'] = "Restore in";
 $lang['md_rp-hour'] = "Hour";
@@ -269,17 +272,17 @@ $lang['md_rqf_em-f'] = "Can only specify symbols - . _ . @ ,character a-z , and 
 
 
 //-- ADD TASK
-$lang['md_at-tl'] = "Project TaskList"; // header
-$lang['md_at-dtl'] = "Detail Of Task"; // header
-$lang['md_at-imd'] = "Implementation date"; // header
-$lang['md_at-time'] = "Implementation time"; // header
+$lang['md_at-tl'] = "Project Task List"; // header
+$lang['md_at-dtl'] = "Detail of Task"; // header
+$lang['md_at-imd'] = "Implementation Date"; // header
+$lang['md_at-time'] = "Implementation Time"; // header
 $lang['md_at-ad'] = "Task Adder"; // header
 $lang['md_at-dc'] = "Related documentst"; // header
-$lang['md_at_bt-dc'] = "Add Related documentst"; // header
-$lang['md_at_dc-name'] = "Name Of The Document"; // header
+$lang['md_at_bt-dc'] = "Add Related Documentst"; // header
+$lang['md_at_dc-name'] = "Name of The Document"; // header
 $lang['md_at_dc-updt'] = "Upload Date"; // header
 $lang['md_at_ab'] = "Action Button"; // header
-$lang['md_at_ph-t'] = 'Select Tasklist '; // Placeholder
+$lang['md_at_ph-t'] = 'Select Task List '; // Placeholder
 $lang['md_at_ph-dtl'] = 'Enter the detail of the task (Today we have ..)'; // Placeholder
 $lang['md_at_ph-ps'] = 'Day-Month-Year '; // Placeholder
 //- Verify modal of Task Moudule
@@ -293,7 +296,7 @@ $lang['md_dt_vm-msg'] = "Successfully deleted the task.";
 $lang['md_at_rqf_imd'] = "Please specify an action date.";
 $lang['md_at_rqf_imt'] = "Please specify an action time.";
 $lang['md_at_rqf_td'] = "Please specify task detail.";
-$lang['md_at_rqf_tl'] = "Please select tasklist.";
+$lang['md_at_rqf_tl'] = "Please select task list.";
 
 
 
@@ -312,13 +315,13 @@ $lang['md_aes_ph-ufn'] = "Enter the firstname of employee (Somsak)"; // Placehol
 $lang['md_aes_ph-uln'] = "Enter the lastname of employee (Ruckngan)"; // Placeholder
 $lang['md_aes_ph-upo'] = "Enter position of employee (IT support)"; // Placeholder
 $lang['md_aes_ph-uem'] = 'Enter Email of employee (example@gmail.com)'; // Placeholder
-$lang['md_aes_ph-upn'] = 'Enter a 10-digit phone number for contacting employee (0987654321)'; // Placeholder
+$lang['md_aes_ph-upn'] = 'Enter a 10-digit telephone number for contacting employee (0987654321)'; // Placeholder
 $lang['md_aes_ph-upm'] = 'Select permission of system use for employee  '; // Placeholder
 $lang['md_aes_upm_rqf'] = "Please select employee privileges.";
 $lang['md_aes_ufn_rqf'] = "Please specify employee firstname. ";
 $lang['md_aes_upo_rqf'] = "Please specify employee position";
 $lang['md_aes_uln_rqf'] = "Please specify employee lastname. ";
-$lang['md_aes_note'] = "Note : The system will use the mobile number as the user's default password.";
+$lang['md_aes_note'] = "Note : The system will use the telephone number as the user's default password.";
 
 
 //- Verify modal of User moudule
@@ -353,17 +356,17 @@ $lang['md_cp_rqf-npnm'] = "The new password does not match.";
 
 
 //-- ADD TASKLIST
-$lang['md_at_tl'] = "Tasklist";// Header
-$lang['md_at_ph-tl'] = "Please enter the new tasklist"; // Placeholder
+$lang['md_at_tl'] = "Task List";// Header
+$lang['md_at_ph-tl'] = "Please enter the new task list"; // Placeholder
 //= Verify modal of Tasklist moudule
-$lang['md_atl_main-msg'] = "Confirm adding a new tasklist";
-$lang['md_atl_detail-msg'] = "Do you want to add a new tasklist ?";
-$lang['md_etl_main-msg'] = "Confirm editing a new tasklist";
-$lang['md_etl_detail-msg'] = "Do you want to edit this tasklist ?";
-$lang['md_dtl_main-msg'] = "Confirm deleting this tasklist";
-$lang['md_dtl_detail-msg'] = "Do you want to delete this tasklist ?";
-$lang['md_dtl_vm-msg']= "Successfully deleted the tasklist";
-$lang['md_atl_rqf'] = "Please specify tasklist name. ";
+$lang['md_atl_main-msg'] = "Confirm adding a new task list";
+$lang['md_atl_detail-msg'] = "Do you want to add a new task list ?";
+$lang['md_etl_main-msg'] = "Confirm editing a new task list";
+$lang['md_etl_detail-msg'] = "Do you want to edit this task list ?";
+$lang['md_dtl_main-msg'] = "Confirm deleting this task list";
+$lang['md_dtl_detail-msg'] = "Do you want to delete this task list ?";
+$lang['md_dtl_vm-msg']= "Successfully deleted the task list";
+$lang['md_atl_rqf'] = "Please specify task list name. ";
 
 //++ LOGS
 $lang['md_log_topic'] = "History";
@@ -375,32 +378,34 @@ $lang['md_log_calldate'] = "Called Date";
 $lang['md_log_operator'] = "Operator";
 
 // REPORT
-$lang['rp_project-g'] = "Projects report graph";
-$lang['rp_project'] = "Project report";
-$lang['rp_user'] = "User report";
+$lang['rp_project-g'] = "Projects Report Graph";
+$lang['rp_project'] = "Project Report";
+$lang['rp_user'] = "User Report";
 $lang['pc-s'] = "A pie chart shows the project status in the system";
 $lang['v-emp'] = "View project of this employee";
 $lang['v-emp-c'] = "The employee has no projects currently responsible for it.";
 $lang['start_project'] = "Project start year";
 $lang['end_project'] = "Project end year";
-$lang['num-project'] = "Number Of Project ";
+$lang['num-project'] = "Count of Project ";
 $lang['st-project'] = "Start Project Day";
 $lang['et-project'] = "End Project Day";
-$lang['listPro'] = "List Project Of ";
+$lang['listPro'] = "List Project of ";
 $lang['all'] = "All";
 
 //==>> ToolTips Project List <<==//
-$lang['tt_pj_mproject'] = "Manage project task";
-$lang['tt_pj_vproject'] = "View project information";
-$lang['tt_pj_eproject'] = "Edit project information";
+$lang['tt_pj_mproject'] = "Manage Project Task";
+$lang['tt_pj_vproject'] = "View Project Information";
+$lang['tt_pj_eproject'] = "Edit Project Information";
 $lang['tt_pj_dproject'] = "Delete project ";
 $lang['tt_pj_cn-dproject'] = "Project cannot be deleted. because there are still activities in the project.";
-$lang['tt_pj_rproject'] = "Restore project ";
+$lang['tt_pj_rproject'] = "Restore Project ";
 
 //==>> ToolTips Project Task List <<==//
-$lang['tt_pt_vtask'] = "View task information";
-$lang['tt_pt_etask'] = "Edit task information";
-$lang['tt_pt_dtask'] = "Delete task";
+$lang['tt_calendar'] = "ํYou can click on this to canlendar page";
+$lang['tt_stask'] = "You can click on task to see detail of this task";
+$lang['tt_pt_vtask'] = "View Task Information";
+$lang['tt_pt_etask'] = "Edit Task Information";
+$lang['tt_pt_dtask'] = "Delete Task";
 $lang['tt_pt_cn-etask'] = "Can't edit information because you are not the owner of this activity.";
 $lang['tt_pt_cn-dtask'] = "Cannot be deleted because you are not the owner of this activity.";
 //==>> ToolTips Employee in Project list <<==//
@@ -416,46 +421,50 @@ $lang['tt_es_cn-cpuser'] = "Unable to change password Because the user status is
 $lang['tt_es_cn-euser'] = "Can't edit information Because the user status is currently suspended.";
 
 //==>> ToolTips Tasklis List <<==//
-$lang['tt_tl_etl'] = "Edit Tasklist";
-$lang['tt_tl_dtl'] = "Delete Tasklist";
-$lang['tt_tl_cn-dtl'] = "This tasklist cannot be deleted. because this tasklist is already in use.";
+$lang['tt_tl_etl'] = "Edit Task List";
+$lang['tt_tl_dtl'] = "Delete Task List";
+$lang['tt_tl_cn-dtl'] = "This task list cannot be deleted. because this task list is already in use.";
 
 //==>> ToolTips Logs List <<==//
 $lang['tt_log_vinfo'] = "View Information";
 // Cancel Project
-$lang['p-cancel-cause'] = "Cause for cancel this project";
-$lang['p-cause-detail'] = "Detail of this cancel";
-$lang['ch-cause-detail'] = "Select cancel list";
+$lang['p-cancel-cause'] = "Reason For Cancel This Project";
+$lang['p-cause-detail'] = "Detail of This Cancel";
+$lang['ch-cause-detail'] = "Select Cancel List";
 $lang['cancel-project'] = "Cancel Project";
+$lang['md-al-c'] = "Please select reason for cancel this project";
+$lang['md-al-cdt'] = "Please enter detail of cancel";
+$lang['main-pcancel'] = "Confirm Cancel This Project";
+$lang['detail-pcancel'] = "Do you want to cancel this project ?";
 //Cancel List
-$lang['m-cancel_list'] = "Cancel Cause";
-$lang['cancel_list'] = "Cause Of Cancel List";
-$lang['name_cancel'] = "Cause Of Cancel";
+$lang['m-cancel_list'] = "Cancel Reason";
+$lang['cancel_list'] = "Reason of Cancel List";
+$lang['name_cancel'] = "Reason of Cancel";
 $lang['add_date'] = "Add Date";
-$lang['ad-cancel'] = "Add cause of cancel";
-$lang['ph-ad_cancel'] = "Please enter cause of cancel";
-$lang['ad_cancel-sm'] = "Already create this cause";
-$lang['ed_button'] = "Edit this cause";
-$lang['de_button'] = "Delete this cause";
+$lang['ad-cancel'] = "Add Reason of Cancel";
+$lang['ph-ad_cancel'] = "Please Enter Reason of Cancel";
+$lang['ad_cancel-sm'] = "Already Create This Reason";
+$lang['ed_button'] = "Edit This Reason";
+$lang['de_button'] = "Delete This Reason";
 // Modal
-$lang['main-cancel'] = "Confirm Delete Cause Of Cancel ";
-$lang['detail-cancel'] = "Do you want to delete this cause ?";
+$lang['main-cancel'] = "Confirm Delete Reason of Cancel ";
+$lang['detail-cancel'] = "Do you want to delete this reason ?";
 //Announcement List
-$lang['m-announcement'] = "System announcement";
-$lang['announcement'] = "System announcements";
-$lang['ms-announcement'] = "System announcements";
+$lang['m-announcement'] = "System Announcement";
+$lang['announcement'] = "System Announcements";
+$lang['ms-announcement'] = "System Announcements";
 $lang['an-status'] = "Status of Announcement";
-$lang['ad-announcement'] = "Add system announcement";
+$lang['ad-announcement'] = "Add System Announcement";
 $lang['ph-ad_an'] = "Please enter the new announcement";
-$lang['ed-announcement'] = "Edite system announcement";
-$lang['eda_button'] = "Edit this announcement";
-$lang['dea_button'] = "Delete this announcement";
-$lang['start-date'] = "Start announce date";
-$lang['end-date'] = "End announce date";
+$lang['ed-announcement'] = "Edit system announcement";
+$lang['eda_button'] = "Edit this Announcement";
+$lang['dea_button'] = "Delete this Announcement";
+$lang['start-date'] = "Start Announce Date";
+$lang['end-date'] = "End Announce Date";
 // Toggle
 $lang['active'] = "Announcement";
-$lang['no-active'] = "Hide announcement";
-$lang['de-active'] = "Delete successfull";
+$lang['no-active'] = "Hide Announcement";
+$lang['de-active'] = "Delete Successfull";
 // Modal
 $lang['main-announcement'] = "Confirm delete system announcement";
 $lang['detail-announcement'] = "Do you want to delete this announcement ?";

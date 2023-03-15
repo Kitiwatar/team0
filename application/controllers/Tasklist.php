@@ -126,7 +126,7 @@ class Tasklist extends CI_Controller
 		$this->genlib->ajaxOnly();
 		$checkData = $this->genmod->getOne('pms_tasklist', '*', array('tl_name' => $this->input->post('tl_name'), 'tl_status' => 1));
 		if (isset($checkData->tl_name)) {
-			$json = ['status' => 0, 'msg' => "มีรายชื่อกิจกรรมนี้อยู่แล้ว"];
+			$json = ['status' => 0, 'msg' => lang('ad_tl-sm')];
 		} else {
 			$json = ['status' => 1, 'msg' => ""];
 		}

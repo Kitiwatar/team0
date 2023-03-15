@@ -173,7 +173,9 @@
       $('#errMsg').text('<?= lang('md_cp_rqf-cpnm') ?>');
       return false;
     }
-
+    $('.btn-success').attr("disabled", "disabled");
+    $('.btn-success').html('<?= lang('bt_save') ?> <div class="spinner-border spinner-border-sm text-light" role="status"><span class="sr-only">Loading...</span></div>')
+ 
     $.ajax({
       method: "post",
       url: 'users/updatePassword',

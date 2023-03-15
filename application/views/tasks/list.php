@@ -24,7 +24,14 @@
          </td>
        </tr>
        <tr>
-         <td><?= lang('gd_project_pj-startdate') ?> : <?= thaiDate_Full($projectData->p_createdate) ?></td>
+         <td>
+          <?php if ($_SESSION['lang'] == "th") { ?>
+          <?= lang('gd_project_pj-startdate') ?> : <?= thaiDate_Full($projectData->p_createdate) ?>
+          <?php } else if ($_SESSION['lang'] == "en") { ?>
+          <?php  $dateTime = strtotime($projectData->p_createdate); ?>
+          <?= lang('gd_project_pj-startdate') ?> : <?= date('j',$dateTime).' '.date('F',$dateTime).' '.(date('Y',$dateTime)+543) ?>
+          <?php } ?>
+        </td>
          <td class="px-3"> <?= lang('gd_project_pj-enddate') ?> : <?= ($projectData->p_enddate == NULL) ? '-' : thaiDate_Full($projectData->p_enddate) ?></td>
        </tr>
      </table>
@@ -39,11 +46,11 @@
        <button type="button" class="btn btn-success" onclick="restoreProject('<?= $projectData->p_id ?>')"><i class="mdi mdi-rotate-left"></i> <?= lang('m_project_reinstateproject') ?></button>
      <?php } ?>
      <div class="table-responsive my-2">
-       <table class="display table dt-responsive nowrap" id="table">
+       <table class="display table dt-responsive nowrap" id="table">  
          <thead>
            <tr>
-             <th><span class="m-2"><?= lang('tl_project_at-implementationdate') ?></span><i class="mdi mdi-information-outline" style="color:#C5C5C5;" title="สามารถคลิก เพื่อไปหน้าปฏิทินได้"></i></th>
-             <th><span class="m-2"><?= lang("tl_project_at-nametask") ?></span><i class="mdi mdi-information-outline" style="color:#C5C5C5;" title="สามารถคลิก เพื่อดูรายละเอียดกิจกรรม"></i></th>
+             <th><span class="m-2"><?= lang('tl_project_at-implementationdate') ?></span><i class="mdi mdi-information-outline" style="color:#C5C5C5;" title="<?= lang('tt_calendar') ?>"></i></th>
+             <th><span class="m-2"><?= lang("tl_project_at-nametask") ?></span><i class="mdi mdi-information-outline" style="color:#C5C5C5;" title="<?= lang('tt_stask') ?>"></i></th>
              <th><?= lang('tl_project_at-operator') ?></th>
              <th class="text-center"><?= lang('tl_project_actionbutton') ?></th>
            </tr>
@@ -215,7 +222,7 @@
     formData['c_p_id'] = p_id
     var count = 0;
     if (!formData.c_detail) {
-      $('#detailMsg').text(' กรุณากรอกรายละเอียด');
+      $('#detailMsg').text('<?= lang('md-al-cdt')?>');
       $('#c_detail').focus();
       $('#c_detail').addClass("is-invalid"); 
       count++
@@ -226,7 +233,7 @@
 
     }
     if (!formData.c_cl_id) {
-      $('#nameMsg').text(' กรุณาเลือกสาเหตุยุติโครงการ');
+      $('#nameMsg').text('<?= lang('md-al-c')?>');
       $('#c_cl_id').focus();
       $('#c_cl_id').addClass("is-invalid"); 
       count++
@@ -240,8 +247,8 @@
     }
 
     swal({
-      title: 'ยืนยันการยุติโครงการ',
-      text: 'ยุติโครงการใช่หรือไม่',
+      title: '<?= lang('main-pcancel')?>',
+      text: '<?= lang('detail-pcancel')?>',
       type: "warning",
       showCancelButton: true,
       showConfirmButton: true,
