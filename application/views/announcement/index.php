@@ -77,47 +77,158 @@
      if (count != 0) {
        return;
      }
-    $('.btn-success').attr("disabled", "disabled");
-    $('.btn-success').html('<?= lang('bt_save') ?> <div class="spinner-border spinner-border-sm text-light" role="status"><span class="sr-only">Loading...</span></div>')    
-       
-             $.ajax({
-               method: "post",
-               url: 'announ/add',
-               data: formData
-             }).done(function(returnData) {
-               if (returnData.status == 1) {
-                 swal({
-                   title: "<?= lang('md_vm-suc')?>",
-                   text: returnData.msg,
-                   type: "success",
-                   showCancelButton: false,
-                   showConfirmButton: false,
-                   timer: 1000,
-                 });
-                 $('#fMsg').addClass('text-success');
-                 $('#fMsg').text(returnData.msg);
-                 $('#formaannouce')[0].reset();
-                 $('#mainModal').modal('hide');
-                 loadList();
-               } else {
-                 swal({
-                   title: "<?= lang('md_vm-fail')?>",
-                   text: returnData.msg,
-                   type: "error",
-                   showCancelButton: false,
-                   showConfirmButton: false,
-                   timer: 1000,
-                 });
-                 $('#fMsg').addClass('text-success');
-                 $('#fMsg').text(returnData.msg);
-                 $('#formaannouce')[0].reset();
-                 $('#mainModal').modal('hide');
-                 loadList();
-               }
-             });
-           }
-         })
+     $('.btn-success').attr("disabled", "disabled");
+     $('.btn-success').html('<?= lang('bt_save') ?> <div class="spinner-border spinner-border-sm text-light" role="status"><span class="sr-only">Loading...</span></div>')
+
+     $.ajax({
+       method: "post",
+       url: 'announ/add',
+       data: formData
+     }).done(function(returnData) {
+       if (returnData.status == 1) {
+         swal({
+           title: "<?= lang('md_vm-suc') ?>",
+           text: returnData.msg,
+           type: "success",
+           showCancelButton: false,
+           showConfirmButton: false,
+           timer: 1000,
+         });
+         $('#fMsg').addClass('text-success');
+         $('#fMsg').text(returnData.msg);
+         $('#formaannouce')[0].reset();
+         $('#mainModal').modal('hide');
+         loadList();
+       } else {
+         swal({
+           title: "<?= lang('md_vm-fail') ?>",
+           text: returnData.msg,
+           type: "error",
+           showCancelButton: false,
+           showConfirmButton: false,
+           timer: 1000,
+         });
+         $('#fMsg').addClass('text-success');
+         $('#fMsg').text(returnData.msg);
+         $('#formaannouce')[0].reset();
+         $('#mainModal').modal('hide');
+         loadList();
        }
-     })
+     });
    }
+   
+   function edit(an_id) {
+    $.ajax({
+      method: "post",
+      url: 'announ/getEditForm',
+      data: {
+        an_id: an_id      }
+    }).done(function(returnData) {
+      $('#mainModalTitle').html(returnData.title);
+      $('#mainModalBody').html(returnData.body);
+      $('#mainModalFooter').html(returnData.footer);
+      $('#mainModal').modal();
+    });
+  }
+
+  function changeStatus2(an_id, an_status) {
+    var status = document.getElementById("status" + an_id)
+    if (an_status == 1) {
+      status.checked = false;
+      an_status++
+    } else {
+      status.checked = true;
+      an_status--
+    }
+    $.ajax({
+      method: "POST",
+      url: 'announ/updateStatus',
+      data: {
+        an_id: an_id,
+        an_status: an_status
+      }
+    }).done(function(returnData) {
+      if (returnData.status == 1) {
+        loadList();
+        $.toast({
+          heading: '<?= lang('md_vm-suc')?>',
+          text: returnData.msg,
+          position: 'top-right',
+          icon: 'success',
+          hideAfter: 3500,
+          stack: 6
+        });
+      } else {
+        $.toast({
+          heading: '<?= lang('md_vm-fail')?>',
+          text: returnData.msg,
+          position: 'top-right',
+          icon: 'error',
+          hideAfter: 3500,
+          stack: 6
+        });
+      }
+    })
+  }
+  
+  function deleteAnnoun(an_id) {
+    var mainMsg;
+    var detailMsg;
+    mainMsg = '<?=  lang('main-announcement') ?>';
+    detailMsg = '<?= lang('detail-announcement') ?>';
+    an_status = 0;
+    
+    swal({
+      title: mainMsg,
+      text: detailMsg,
+      type: "warning",
+      showCancelButton: true,
+      showConfirmButton: true,
+      confirmButtonText: '<?= lang('bt_confirm') ?>',
+      cancelButtonColor: "#E4E4E4",
+      cancelButtonText: "<font style='color:black'>" + '<?= lang('bt_cancel') ?>' + "</font>",
+    }).then(function(isConfirm) {
+      if (isConfirm.value) {
+        $.ajax({
+          method: "POST",
+          url: 'announ/updateStatus',
+          data: {
+            an_id: an_id,
+            an_status: an_status
+          }
+        }).done(function(returnData) {
+          if (returnData.status == 1) {
+            loadList();
+            swal({
+              title: '<?= lang('md_vm-suc') ?>',
+              text: returnData.msg,
+              type: "success",
+              showCancelButton: false,
+              showConfirmButton: false,
+              timer: 1000,
+            });
+          } else if (returnData.status == 2) {
+            loadList();
+            swal({
+              title: '<?= "ประกาศสำเร็จ"?>',
+              text: returnData.msg,
+              type: "success",
+              showCancelButton: false,
+              showConfirmButton: false,
+              timer: 1000,
+            });
+          } else {
+            swal({
+              title: '<?= lang('md_vm-fail') ?>',
+              text: returnData.msg,
+              type: "error",
+              showCancelButton: false,
+              showConfirmButton: false,
+              timer: 1000,
+            });
+          }
+        })
+      }
+    })
+  }
  </script>

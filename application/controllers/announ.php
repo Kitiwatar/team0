@@ -28,7 +28,7 @@ class Announ extends CI_Controller {
 	public function index()	{
 		// Create by: Create by: Natakorn Phongsarikit 01-02-2566 index
 		$values['pageTitle'] = lang('announcement');
-		$values['breadcrumb'] =lang('announcement');
+		$values['breadcrumb'] = lang('announcement');
 		$values['pageContent'] = $this->load->view('announcement/index', $values, TRUE);
 		$this->load->view('main', $values);
 	}
